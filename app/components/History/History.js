@@ -16,7 +16,7 @@ class History extends Component {
     super(props, context);
     this.state = {
       page: 0,
-      rowsPerPage: 4,
+      rowsPerPage: 8,
       data: this.props.allHistory
     };
   }

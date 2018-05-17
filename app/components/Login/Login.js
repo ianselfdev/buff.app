@@ -13,8 +13,8 @@ import {Redirect} from 'react-router-dom';
 const styles = theme => {
   return ({
     formControl: {
-      marginRight: theme.spacing.unit * 15,
-      marginLeft: theme.spacing.unit * 15,
+      marginRight: theme.spacing.unit * 30,
+      marginLeft: theme.spacing.unit * 30,
       margin: theme.spacing.unit,
     },
     inputLabelFocused: {

@@ -3,7 +3,6 @@ import Paper from 'material-ui/Paper';
 import {Grid} from 'material-ui';
 import Table, {TableBody, TableCell, TableHead, TableRow, TablePagination} from 'material-ui/Table';
 import './Leaderboard.scss';
-import Button from 'material-ui/es/Button/Button';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as mainActions from '../../actions/mainActions';
@@ -16,7 +15,7 @@ class Leaderboard extends Component {
     super(props, context);
     this.state = {
       page: 0,
-      rowsPerPage: 4,
+      rowsPerPage: 8,
       data: this.props.allLeaaderBoard
     };
   }

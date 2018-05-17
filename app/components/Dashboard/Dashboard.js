@@ -11,7 +11,6 @@ const title = 'start playing and earn coins!';
 
 class Dashboard extends Component {
 
-
   render() {
     let news = this.props.allNews;
     console.log('allNewsallNew', news);
@@ -40,10 +39,10 @@ class Dashboard extends Component {
         <div className="dashboardMain">
           <Grid container spacing={24}>
             <Grid item xs={12} container>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
 
                 <div className="papersMain">
-                  <Paper className="myAcc" elevation={8} style={{width: 370, height: 100}}>
+                  <Paper className="myAcc" elevation={8} style={{width: 350}}>
                     <div className="titleMyAcc">
                       My Account
                     </div>
@@ -70,7 +69,7 @@ class Dashboard extends Component {
                 </div>
 
                 <div className="papersMain">
-                  <Paper className="myAcc" elevation={8} style={{width: 370}}>
+                  <Paper className="myAcc" elevation={8} style={{width: 350 , height: 200}}>
                     <div className="titleMyAcc">
                       Active Games
                     </div>
@@ -91,10 +90,10 @@ class Dashboard extends Component {
                 </div>
               </Grid>
 
-              <Grid item xs={4}>
+              <Grid item xs={5}>
                 <div className="papersMain">
 
-                  <Paper className="myAcc" elevation={8} style={{width: 370}}>
+                  <Paper className="myAcc" elevation={8} style={{width: 630 , height: 500}}>
                     <div className="titleMyAcc">
                       News
                     </div>
