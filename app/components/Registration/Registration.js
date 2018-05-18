@@ -18,6 +18,7 @@ const styles = theme => {
   return ({
     formControl: {
       margin: theme.spacing.unit * 3,
+        width: 260
     },
     inputLabelFocused: {
       color: green[100],
@@ -99,14 +100,14 @@ class Registration extends Component {
     return (
         <div className="RegistrationComponent">
             <Button
-                style={{position: 'absolute', bottom: 110, right: 96}}
+                style={{position: 'absolute', bottom: 90, right: 117}}
                 variant='raised'
                 className="buttonExit"
                 onClick={this.handleBackToLogin}>
                 <font face='verdana' color='#fffff'>Back to login</font>
             </Button>
             <Button
-               style={{position: 'absolute', bottom: 200, right: 80}}
+               style={{position: 'absolute', bottom: 180, right: 80}}
                 variant="raised"
                 className="buttonRegister">
                 <font face='verdana' color='#fffff'> Sign In</font>
@@ -120,13 +121,13 @@ class Registration extends Component {
           <Grid style={RegistrationContainerStyle}>
             <Grid container spacing={24}>
               <Grid item xs={12} container>
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                       <p className="Line">User Name:</p>
                       <p className="Line">Nick Name:</p>
                       <p className="Line">First Name:</p>
                       <p className="Line">Last Name:</p>
                   </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                   <FormControl className={this.props.classes.formControl}>
                     <InputLabel
                       formcontrolclasses={{
@@ -200,13 +201,13 @@ class Registration extends Component {
                   </FormControl>
                 </Grid>
 
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                       <p className="Line1">Email address:</p>
                       <p className="Line1">Confirm Email address:</p>
                       <p className="Line1">Password:</p>
                       <p className="Line1">Confirm Password:</p>
                   </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={3}>
                   <FormControl className={this.props.classes.formControl}>
                     <InputLabel
                       formcontrolclasses={{
@@ -283,84 +284,6 @@ class Registration extends Component {
                             id='ConfirmPassword'
                         />
                     </FormControl>
-                </Grid>
-
-                  <Grid item xs={2}>
-                      <p className="Line2">Street:</p>
-                      <p className="Line">City:</p>
-                      <p className="Line">Country:</p>
-                  </Grid>
-                <Grid item xs={2}>
-                  <font face='verdana' color='#fffff'><h2>Residence:</h2></font>
-                  <List component="nav">
-                      <FormControl className={this.props.classes.formControl}>
-                          <InputLabel
-                              formcontrolclasses={{
-                                  focused: this.props.classes.inputLabelFocused,
-                              }}
-                              htmlFor='Street'
-                          >
-                              <font color='#C8E6C9'>Street</font>
-                          </InputLabel>
-                          <Input
-                              classes={{
-                                  underline: this.props.classes.inputUnderline,
-                                  focused: this.props.classes.inputLabelFocused,
-                              }}
-                              id='Street'
-                          />
-                      </FormControl>
-                      <FormControl className={this.props.classes.formControl}>
-                          <InputLabel
-                              formcontrolclasses={{
-                                  focused: this.props.classes.inputLabelFocused,
-                              }}
-                              htmlFor='City'
-                          >
-                              <font color='#C8E6C9'>City</font>
-                          </InputLabel>
-                          <Input
-                              classes={{
-                                  underline: this.props.classes.inputUnderline,
-                                  focused: this.props.classes.inputLabelFocused,
-                              }}
-                              id='City'
-                          />
-                      </FormControl>
-                    <ListItem
-                      button
-                      className={this.props.classes.listCountries}
-                      aria-haspopup="true"
-                      aria-controls="lock-menu"
-                      aria-label="Country"
-                      onClick={this.handleClickListItem}
-                    >
-                      <ListItemText
-                        disableTypography
-                        primary={<Typography style={{color: '#FFFFFF'}} >Country:</Typography>}
-                        secondary={options[this.state.selectedIndex]}
-                      />
-                    </ListItem>
-                  </List>
-
-                  <Menu
-                    id="Country-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={this.handleClose}
-                  >
-                    {options.map((option, index) => (
-                      <MenuItem
-                        key={option}
-                        disabled={index === 0}
-                        selected={index === this.state.selectedIndex}
-                        onClick={event => this.handleMenuItemClick(event, index)}
-                      >
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-
                 </Grid>
               </Grid>
             </Grid>
