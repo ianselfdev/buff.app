@@ -22,8 +22,12 @@ const styles = theme => {
     inputLabelFocused: {
       color: green[100],
     },
+    listCountries: {
+        marginTop: theme.spacing.unit * 3,
+    },
     inputUnderline: {
-      '&:after': {
+        color: '#fff',
+        '&:after': {
         backgroundColor: green[100],
       },
       '&:before': {
@@ -95,14 +99,14 @@ class Registration extends Component {
     return (
         <div className="RegistrationComponent">
             <Button
-                style={{position: 'absolute', top: 0, right: 0}}
+                style={{position: 'absolute', bottom: 110, right: 96}}
                 variant='raised'
                 className="buttonExit"
                 onClick={this.handleBackToLogin}>
                 <font face='verdana' color='#fffff'>Back to login</font>
             </Button>
             <Button
-               style={{position: 'absolute', bottom: 100, right: 800}}
+               style={{position: 'absolute', bottom: 200, right: 80}}
                 variant="raised"
                 className="buttonRegister">
                 <font face='verdana' color='#fffff'> Sign In</font>
@@ -117,10 +121,10 @@ class Registration extends Component {
             <Grid container spacing={24}>
               <Grid item xs={12} container>
                   <Grid item xs={2}>
-                      <h4>User Name:</h4>
-                      <h4>Nick Name:</h4>
-                      <h4>First Name:</h4>
-                      <h4>Last Name:</h4>
+                      <p className="Line">User Name:</p>
+                      <p className="Line">Nick Name:</p>
+                      <p className="Line">First Name:</p>
+                      <p className="Line">Last Name:</p>
                   </Grid>
                 <Grid item xs={2}>
                   <FormControl className={this.props.classes.formControl}>
@@ -146,16 +150,16 @@ class Registration extends Component {
                       formcontrolclasses={{
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      htmlFor='password'
+                      htmlFor='NickName'
                     >
                       <font color='#C8E6C9'>*Not necessary</font>
                     </InputLabel>
                     <Input
-                      classes={{
+                        classes={{
                         underline: this.props.classes.inputUnderline,
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      id='password'
+                      id='NickName'
                     />
                   </FormControl>
 
@@ -164,7 +168,7 @@ class Registration extends Component {
                       formcontrolclasses={{
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      htmlFor='First Name'
+                      htmlFor='FirstName'
                     >
                       <font color='#C8E6C9'>First Name</font>
                     </InputLabel>
@@ -173,7 +177,7 @@ class Registration extends Component {
                         underline: this.props.classes.inputUnderline,
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      id='First Name'
+                      id='FirstName'
                     />
                   </FormControl>
 
@@ -182,7 +186,7 @@ class Registration extends Component {
                       formcontrolclasses={{
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      htmlFor='Last Name'
+                      htmlFor='LastName'
                     >
                       <font color='#C8E6C9'>Last Name</font>
                     </InputLabel>
@@ -191,16 +195,16 @@ class Registration extends Component {
                         underline: this.props.classes.inputUnderline,
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      id='Last Name'
+                      id='LastName'
                     />
                   </FormControl>
                 </Grid>
 
                   <Grid item xs={2}>
-                      <h4>Email address:</h4>
-                      <h4>Confirm Email address:</h4>
-                      <h4>Password:</h4>
-                      <h4>Confirm Password:</h4>
+                      <p className="Line1">Email address:</p>
+                      <p className="Line1">Confirm Email address:</p>
+                      <p className="Line1">Password:</p>
+                      <p className="Line1">Confirm Password:</p>
                   </Grid>
                     <Grid item xs={2}>
                   <FormControl className={this.props.classes.formControl}>
@@ -209,7 +213,7 @@ class Registration extends Component {
                         focused: this.props.classes.inputLabelFocused,
 
                       }}
-                      htmlFor='Email address'
+                      htmlFor='EmailAddress'
                     >
 
                       <font color='#C8E6C9'>Email address</font>
@@ -219,7 +223,7 @@ class Registration extends Component {
                         underline: this.props.classes.inputUnderline,
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      id='Email address'
+                      id='EmailAddress'
                     />
                   </FormControl>
 
@@ -228,7 +232,7 @@ class Registration extends Component {
                       formcontrolclasses={{
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      htmlFor='Confirm Email address'
+                      htmlFor='ConfirmEmailAddress'
                     >
                       <font color='#C8E6C9'>Confirm Email address</font>
                     </InputLabel>
@@ -237,7 +241,7 @@ class Registration extends Component {
                         underline: this.props.classes.inputUnderline,
                         focused: this.props.classes.inputLabelFocused,
                       }}
-                      id='Confirm Email address'
+                      id='ConfirmEmailAddress'
                     />
                   </FormControl>
                     <FormControl className={this.props.classes.formControl}>
@@ -252,6 +256,7 @@ class Registration extends Component {
                             <font color='#C8E6C9'>Password</font>
                         </InputLabel>
                         <Input
+                            type="Password"
                             classes={{
                                 underline: this.props.classes.inputUnderline,
                                 focused: this.props.classes.inputLabelFocused,
@@ -265,24 +270,25 @@ class Registration extends Component {
                             formcontrolclasses={{
                                 focused: this.props.classes.inputLabelFocused,
                             }}
-                            htmlFor='Confirm Password'
+                            htmlFor='ConfirmPassword'
                         >
                             <font color='#C8E6C9'>Confirm Password</font>
                         </InputLabel>
                         <Input
+                            type="password"
                             classes={{
                                 underline: this.props.classes.inputUnderline,
                                 focused: this.props.classes.inputLabelFocused,
                             }}
-                            id='Confirm Password'
+                            id='ConfirmPassword'
                         />
                     </FormControl>
                 </Grid>
 
                   <Grid item xs={2}>
-                      <h4>Street:</h4>
-                      <h4>City:</h4>
-                      <h4>Country:</h4>
+                      <p className="Line2">Street:</p>
+                      <p className="Line">City:</p>
+                      <p className="Line">Country:</p>
                   </Grid>
                 <Grid item xs={2}>
                   <font face='verdana' color='#fffff'><h2>Residence:</h2></font>
@@ -323,6 +329,7 @@ class Registration extends Component {
                       </FormControl>
                     <ListItem
                       button
+                      className={this.props.classes.listCountries}
                       aria-haspopup="true"
                       aria-controls="lock-menu"
                       aria-label="Country"
@@ -330,7 +337,7 @@ class Registration extends Component {
                     >
                       <ListItemText
                         disableTypography
-                        primary={<Typography style={{color: '#FFFFFF'}}>Country:</Typography>}
+                        primary={<Typography style={{color: '#FFFFFF'}} >Country:</Typography>}
                         secondary={options[this.state.selectedIndex]}
                       />
                     </ListItem>

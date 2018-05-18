@@ -21,17 +21,39 @@
   }
   .buttonExit {
     background: #1B5E20;
+    width: 160px;
   }
   .buttonRegister {
     background: #1B5E20;
     width: 200px;
-    height: 50px;
+    height: 60px;
   }
   .RegistrationMain {
     height: 800px;
     background: #131416;
     .btn_login, .btn_forgot {
       margin: 10px 0;
+    }
+    .Line {
+      margin-left: 100px;
+      margin-top: 45px;
+      margin-bottom: 70px;
+      font-size: 1.3em;
+      font-family: Helvetica Neue;
+    }
+    .Line1 {
+      margin-left: 80px;
+      margin-top: 40px;
+      margin-bottom: 63px;
+      font-size: 1.3em;
+      font-family: Helvetica Neue;
+    }
+    .Line2 {
+      margin-left: 100px;
+      margin-top: 120px;
+      margin-bottom: 65px;
+      font-size: 1.3em;
+      font-family: Helvetica Neue;
     }
 
   }
