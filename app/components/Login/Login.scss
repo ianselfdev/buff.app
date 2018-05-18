@@ -6,15 +6,12 @@
   justify-content: center;
   margin: 0 25%;
 
-  .buttomDown{
+  .buttomDown {
     margin-top: 270px;
   }
 
   .buttonMain {
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-bottom: 35px;
-    margin-top: 20px;
+    margin: 20px 200px 35px;
     background: #66BB6A;
   }
 
@@ -22,6 +19,29 @@
     margin-bottom: 10px;
     background: #2E7D32;
     alignment: right;
+  }
+
+  .buttonExitPassword {
+    width: 100px;
+    height: 30px;
+    background-color: #F5F5F5;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  .buttonSendMe {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    background: #66BB6A;
+    width: 150px;
+  }
+
+  .emailField {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 250px;
   }
 
 }

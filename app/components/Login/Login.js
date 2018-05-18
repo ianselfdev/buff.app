@@ -180,6 +180,7 @@ class Login extends Component {
               </Button>
             </div>
             <Popover
+              className="forgotPassPopover"
               open={this.state.open}
               anchorPosition={{top: 500, left: 400}}
               onClose={this.handleCloseForgotPassword}
@@ -202,6 +203,7 @@ class Login extends Component {
                 </font></p>
                 <TextField
                   required
+                  className="emailField"
                   id="email"
                   label="Your email:"
                   defaultValue={this.state.username}
@@ -209,14 +211,14 @@ class Login extends Component {
                   margin="normal"/>
                 <Button
                   variant="raised"
-                  className="buttonMain">
+                  className="buttonSendMe">
                   Send me
                 </Button>
                 <button
-                  className={this.props.classes.flatbutton}
+                  className="buttonExitPassword"
                   onClick={this.handleCloseForgotPassword}>
                   <font face="verdana">
-                    CLOSE
+                    EXIT
                   </font>
                 </button>
               </div>
