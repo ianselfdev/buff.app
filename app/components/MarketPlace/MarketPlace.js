@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './MarketPlace.scss';
 import Grid from 'material-ui/es/Grid/Grid';
 import Paper from 'material-ui/es/Paper/Paper';
-import Button from 'material-ui/es/Button/Button';
 import {bindActionCreators} from 'redux';
 import * as mainActions from '../../actions/mainActions';
 import {connect} from 'react-redux';

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AppBar, Button, IconButton, Popover, Toolbar, Typography} from 'material-ui';
+import {AppBar, Button, IconButton , Toolbar, Typography} from 'material-ui';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, {MenuItem} from 'material-ui/Menu';
 import './ApBarDashboard.scss';
