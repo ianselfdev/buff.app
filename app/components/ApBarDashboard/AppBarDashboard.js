@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {AppBar, Button, IconButton, Popover, Toolbar, Typography} from 'material-ui';
-import AccountCircle from 'material-ui-icons/AccountCircle';
-import Menu, {MenuItem} from 'material-ui/Menu';
+
 import './ApBarDashboard.scss';
 import {BrowserRouter as Router, Route, Link, Redirect, Switch} from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
@@ -10,6 +8,13 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import MarketPlace from '../MarketPlace/MarketPlace';
 import NewsTournaments from '../NewsTournaments/NewsTournaments';
 import {realAuth} from '../../routes';
+import AppBar from '@material-ui/core/es/AppBar/AppBar';
+import Toolbar from '@material-ui/core/es/Toolbar/Toolbar';
+import Typography from '@material-ui/core/es/Typography/Typography';
+import Button from '@material-ui/core/es/Button/Button';
+import IconButton from '@material-ui/core/es/IconButton/IconButton';
+import Menu from '@material-ui/core/es/Menu/Menu';
+import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
 
 
 class AppBarDashboard extends Component {
@@ -108,7 +113,7 @@ class AppBarDashboard extends Component {
                     onClick={this.handleMenu}
                     color="inherit"
                   >
-                    <AccountCircle style={{fontSize: 30, color: '#3B8C41'}}/>{this.props.username}
+                    <IconButton style={{fontSize: 30, color: '#3B8C41'}}/>{this.props.username}
                   </IconButton>
                   <Menu
                     className="logoMenu"

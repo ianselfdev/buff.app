@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
-import Paper from 'material-ui/Paper';
-import {AppBar, Grid, Tab, Tabs, Typography} from 'material-ui';
-import Table, {TableBody, TableCell, TableHead, TableRow, TablePagination} from 'material-ui/Table';
+
 import './Leaderboard.scss';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as mainActions from '../../actions/mainActions';
 import ReactTooltip from 'react-tooltip'
 import SwipeableViews from 'react-swipeable-views';
+import Typography from '@material-ui/core/es/Typography/Typography';
+import Grid from '@material-ui/core/es/Grid/Grid';
+import Paper from '@material-ui/core/es/Paper/Paper';
+import AppBar from '@material-ui/core/es/AppBar/AppBar';
+import Tabs from '@material-ui/core/es/Tabs/Tabs';
+import Tab from '@material-ui/core/es/Tab/Tab';
+import Table from '@material-ui/core/es/Table/Table';
+import TableHead from '@material-ui/core/es/TableHead/TableHead';
+import TableRow from '@material-ui/core/es/TableRow/TableRow';
+import TableCell from '@material-ui/core/es/TableCell/TableCell';
+import TableBody from '@material-ui/core/es/TableBody/TableBody';
+import TablePagination from '@material-ui/core/es/TablePagination/TablePagination';
 
 
 const title = 'start playing and earn coins!';

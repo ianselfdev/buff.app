@@ -1,8 +1,6 @@
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
-import {bindActionCreators} from 'redux';
 import Registration from '../components/Registration/Registration';
-import * as mainActions from '../actions/mainActions';
 import {realAuth} from '../routes';
 import * as actionTypes from '../Store/constant';
 

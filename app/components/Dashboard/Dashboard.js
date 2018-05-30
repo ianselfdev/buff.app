@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import Paper from 'material-ui/Paper';
 import './Dashboard.scss';
-import {Grid} from 'material-ui';
-import Button from 'material-ui/es/Button/Button';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as mainActions from '../../actions/mainActions';
+import Grid from '@material-ui/core/es/Grid/Grid';
+import Paper from '@material-ui/core/es/Paper/Paper';
+import Button from '@material-ui/core/es/Button/Button';
 
 const title = 'start playing and earn coins!';
 class Dashboard extends Component {

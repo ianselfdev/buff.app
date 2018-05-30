@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
-import {FormControl} from 'material-ui/Form';
-import Input, {InputLabel} from 'material-ui/Input';
-import green from 'material-ui/colors/green';
-import {withStyles} from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import './Registration.scss';
 import {realAuth} from '../../routes';
 import {Redirect} from 'react-router-dom';
-import {FormHelperText} from "material-ui";
-import red from "material-ui/es/colors/red";
+import Button from '@material-ui/core/es/Button/Button';
+import Grid from '@material-ui/core/es/Grid/Grid';
+import FormControl from '@material-ui/core/es/FormControl/FormControl';
+import InputLabel from '@material-ui/core/es/InputLabel/InputLabel';
+import Input from '@material-ui/core/es/Input/Input';
+import FormHelperText from '@material-ui/core/es/FormHelperText/FormHelperText';
+import withStyles from '@material-ui/core/es/styles/withStyles';
+import green from '@material-ui/core/es/colors/green';
+import red from '@material-ui/core/es/colors/red';
 
 
 const styles = theme => {

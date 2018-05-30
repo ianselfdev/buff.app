@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
-import Paper from 'material-ui/Paper';
-import {Grid} from 'material-ui';
-import Button from 'material-ui/Button';
-import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
+
 import './History.scss';
-import TablePagination from 'material-ui/es/Table/TablePagination';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as mainActions from '../../actions/mainActions';
+import Grid from '@material-ui/core/es/Grid/Grid';
+import Paper from '@material-ui/core/es/Paper/Paper';
+import Table from '@material-ui/core/es/Table/Table';
+import TableHead from '@material-ui/core/es/TableHead/TableHead';
+import TableRow from '@material-ui/core/es/TableRow/TableRow';
+import TableCell from '@material-ui/core/es/TableCell/TableCell';
+import TablePagination from '@material-ui/core/es/TablePagination/TablePagination';
+import TableBody from '@material-ui/core/es/TableBody/TableBody';
 
 const title = 'start playing and earn coins!';
 

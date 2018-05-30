@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 
 // Config directories
 const SRC_DIR = path.resolve(__dirname, 'app');
-const OUTPUT_DIR = path.resolve(__dirname, 'dist');
+const OUTPUT_DIR = path.resolve(__dirname, 'compiled');
 
 // Any directories you will be adding code/files into, need to be added to this array so webpack will pick them up
 const defaultInclude = [SRC_DIR];
@@ -14,7 +14,6 @@ module.exports = {
   entry: SRC_DIR + '/index.js',
   output: {
     path: OUTPUT_DIR,
-    publicPath: '/',
     filename: 'bundle.js'
   },
   module: {

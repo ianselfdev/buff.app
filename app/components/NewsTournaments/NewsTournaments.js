@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import './NewsTournaments.scss';
-import Grid from 'material-ui/es/Grid/Grid';
-import Paper from 'material-ui/es/Paper/Paper';
-import Button from 'material-ui/es/Button/Button';
 import * as mainActions from '../../actions/mainActions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import Grid from '@material-ui/core/es/Grid/Grid';
+import Paper from '@material-ui/core/es/Paper/Paper';
+import Button from '@material-ui/core/es/Button/Button';
 
 const title = 'start playing and earn coins!';
 class NewsTournaments extends Component {

@@ -2,7 +2,7 @@
   "name": "buff-client",
   "version": "0.0.0",
   "description": "buff client for desktop",
-  "main": "main.js",
+  "main": "compiled/bundle.js",
   "author": [
     {
       "name": "ilya shusterman",
@@ -16,18 +16,15 @@
   "repository": "https://github.com/buffgame/buff-client-electron.git",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
     "axios": "^0.18.0",
     "babel-loader": "^7.1.4",
     "babel-runtime": "^6.22.0",
     "history": "^4.6.3",
-    "material-design-icons": "^3.0.1",
-    "material-ui": "^1.0.0-beta.47",
-    "material-ui-icons": "^1.0.0-beta.36",
     "node-sass": "^4.8.3",
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-material-ui-form-validator": "^2.0.0-beta.10",
     "react-redux": "^5.0.2",
     "react-router": "^4.1.2",
     "react-router-dom": "^4.2.2",
