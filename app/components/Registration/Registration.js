@@ -75,8 +75,8 @@ class Registration extends Component {
     confEmail: '',
     email: '',
     password: '',
-    emailIsEquel: '',
-    passwordIsEquel: '',
+    emailIsEqual: '',
+    passwordIsEqual: '',
     open: false,
     anchorEl: null,
     selectedIndex: 1,
@@ -118,8 +118,8 @@ class Registration extends Component {
   };
   handleRegister = () => {
     this.setState({
-      emailIsEquel: this.state.email === this.state.confEmail,
-      passwordIsEquel: this.state.password === this.state.confPassword
+      emailIsEqual: this.state.email === this.state.confEmail,
+      passwordIsEqual: this.state.password === this.state.confPassword
     });
 
     if (this.state.email === this.state.confEmail && this.state.password === this.state.confPassword) {
@@ -146,6 +146,17 @@ class Registration extends Component {
             let  errData = JSON.parse(isAuthenticated.data);
             console.log('isAuthenticated.data',errData);
             this.setState({
+              isLoading: false,
+              username: '',
+              fullname: '',
+              confPassword: '',
+              confEmail: '',
+              email: '',
+              password: '',
+              emailIsEqual: '',
+              passwordIsEqual: '',
+              anchorEl: null,
+              selectedIndex: 1,
               errorStatus:isAuthenticated.status,
               errorMessage:errData
             })
@@ -302,7 +313,7 @@ class Registration extends Component {
                       onChange={this.handleChangeConfEmail}
                     />
                     <FormHelperText className={this.props.classes.FormHelperText}>
-                      {this.state.emailIsEquel === false ? 'Emails are not match.' : ''}
+                      {this.state.emailIsEqual === false ? 'Emails are not match.' : ''}
                     </FormHelperText>
                   </FormControl>
 
@@ -348,7 +359,7 @@ class Registration extends Component {
                       onChange={this.handleChangeConfPassword}
                     />
                     <FormHelperText className={this.props.classes.FormHelperText}>
-                      {this.state.passwordIsEquel === false ? 'Passwords are not match.' : ''}
+                      {this.state.passwordIsEqual === false ? 'Passwords are not match.' : ''}
                     </FormHelperText>
                   </FormControl>
                 </Grid>
