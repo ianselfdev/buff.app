@@ -1,0 +1,90 @@
+.NewsTournamentsComponent{
+  .NewsTournamentsTitle{
+    margin: 25px 50px;
+    font-size: 1.6em;
+    width: 250px;
+  }
+  .buttonShareEarn{
+    color: #43A047;
+    margin-top: 50px;
+  }
+  .contentTitle{
+    margin: 0 50px;
+    filter: brightness(70%);
+  }
+  .NewsTournamentsMain{
+    height: 800px;
+    background: #131416;
+    .papersMain{
+      font-size: 0.9em;
+      margin: 50px 20px;
+      .buttonReadMore{
+        color: #616161
+      }
+      .myAcc{
+        width: 370px;
+        background: #2E2F30;
+        height: 399px;
+        .titleMyAcc{
+          margin: 0;
+          padding: 5px 25px;
+          color: #00EE7A;
+        }
+        .balanceMyAcc{
+          background: #1E1F21;
+          display: flex;
+          flex-direction:row;
+          padding: 10px 0px 10px 25px;
+        }
+        .newsMain{
+          background: #1E1F21;
+          display: flex;
+          flex-direction:row;
+          height: 50px;
+          .newsContent{
+            padding-top: 10px;
+
+            display: flex;
+            justify-content: center;
+            color: #919191;
+            flex-direction: column;
+            width: 100%;
+            .sectionButton{
+              display: flex;
+              flex-direction: row;
+              justify-content:space-between;
+              padding-bottom: 3px;
+              color: #616161;
+              .newsTitle{
+                font-size: 0.8em;
+                align-self:flex-end;
+              }
+              .buttonReadMore{
+                color: #616161;
+                position: relative;
+                bottom: 8px;
+              }
+              .buttonReadMore:hover{
+                color: #43A047;
+              }
+            }
+
+          }
+          .newsDotesContents{
+            width: 30px;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 15px;
+            .newsDotes{
+              align-self:center;
+              background: #00EE7A;
+              border-radius:50%;
+              padding: 3px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
