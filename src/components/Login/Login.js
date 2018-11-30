@@ -9,16 +9,10 @@ import {
     FormHelperText,
     Popover,
 } from '@material-ui/core';
-// import Popover from "material-ui/Popover";
-// import {FormControl} from 'material-ui/Form';
-// import Input, { InputLabel } from "material-ui/Input";
-// import green from "material-ui/colors/green";
 import { withStyles } from '@material-ui/core';
 import './Login.scss';
 import { realAuth } from '../../routes';
 import { Redirect } from 'react-router-dom';
-// import { FormHelperText } from "material-ui";
-// import red from "material-ui/es/colors/red";
 import { red, green } from '@material-ui/core/colors';
 
 const styles = (theme) => {
@@ -186,12 +180,6 @@ class Login extends Component {
                                 <font color="#C8E6C9"> Username or Email </font>
                             </InputLabel>
                             <Input
-                                classes={{
-                                    underline: this.props.classes
-                                        .inputUnderline,
-                                    focused: this.props.classes
-                                        .inputLabelFocused,
-                                }}
                                 id="login"
                                 onChange={this.handleChangeLogin}
                                 required={true}
@@ -211,12 +199,6 @@ class Login extends Component {
                             </InputLabel>
                             <Input
                                 type="password"
-                                classes={{
-                                    underline: this.props.classes
-                                        .inputUnderline,
-                                    focused: this.props.classes
-                                        .inputLabelFocused,
-                                }}
                                 id="password"
                                 onChange={this.handleChangePass}
                             />
@@ -296,12 +278,6 @@ class Login extends Component {
                                             </font>
                                         </InputLabel>
                                         <Input
-                                            classes={{
-                                                underline: this.props.classes
-                                                    .inputUnderline,
-                                                focused: this.props.classes
-                                                    .inputLabelFocused,
-                                            }}
                                             id="emailField"
                                             onChange={this.handleChange}
                                             required={true}

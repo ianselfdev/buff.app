@@ -1,59 +1,57 @@
-.LeaderboardComponent{
-  .LeaderboardTitle{
-    margin: 25px 50px;
-    font-size: 1.6em;
-    width: 250px;
-  }
-  .contentTitle{
-    margin: 0 50px;
-    filter: brightness(70%);
-  }
-  .buttonShareEarn{
-    color: #43A047;
-    margin-top: 50px;
-  }
-  .LeaderboardMain{
-    height: 800px;
-    background: #131416;
-    .papersMain{
-      font-size: 0.9em;
-      margin: 50px 20px;
-      .myAcc{
-        background: #2E2F30;
-        .titleMyAcc{
-          margin: 0;
-          padding: 5px 25px;
-          color: #00EE7A;
+h1,
+h4 {
+    margin: 20px;
+}
+
+.leaderboard-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 40px 0;
+    background: rgba(0, 0, 0, 0.699);
+
+    & .leaderboard-table {
+        display: inline-block;
+        border: 1px solid red;
+        height: 100%;
+        width: 60%;
+        padding: 20px 0;
+
+        & div {
+            display: flex;
+            justify-content: space-around;
+            height: 70px;
+
+            & span {
+                width: 20%;
+                overflow-x: scroll;
+                text-align: center;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
         }
-        .balanceMyAcc{
-          background: #1E1F21;
-          display: flex;
-          flex-direction:row;
-          padding: 10px 0px 10px 25px;
-        }
-        .titleLeaderboard, .mainLeaderboard{
-          background: #2e2f30;
-          margin: 0;
-          font-size: 1.1em;
-          padding: 10px 5px 10px 25px;
-          color: #00EE7A;
-        }
-        .mainLeaderboard{
-          background: #1E1F21;
-        }
-        .tableLeaderboard{
-          background: #1E1F21;
-          .tableColumn,.tableColumnHead{
-            color: #919191;
-            border-bottom:1px solid #000;
-            padding: 5px 5px 5px 25px;
-          }
-          .tableColumnHead{
-            color: #B5B5B5;
-            font-weight: bold;
-          }
-        }
-      }
     }
-  }
+
+    .papersMain {
+        font-size: 0.9em;
+        .myAcc {
+            width: 370px;
+            background: #2e2f30;
+            height: 399px;
+
+            .titleMyAcc {
+                margin: 0;
+                padding: 5px 25px;
+                color: #00ee7a;
+            }
+            .balanceMyAcc {
+                background: #1e1f21;
+                display: flex;
+                flex-direction: row;
+                padding: 10px 0px 10px 25px;
+            }
+        }
+    }
 }

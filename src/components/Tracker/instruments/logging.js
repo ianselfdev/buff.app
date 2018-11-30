@@ -1,6 +1,6 @@
 export const _validateAddress = async (address, secret, callback) => {
     const response = await fetch(
-        `http://52.15.131.50:4000/api/accounts/getPublicKey?address=${address}`,
+        `http://18.188.224.32:4000/api/accounts/getPublicKey?address=${address}`,
         {
             method: 'GET',
             headers: {
@@ -17,7 +17,7 @@ export const _validateAddress = async (address, secret, callback) => {
 
 export const _validateUser = async (publicKey, passphrase) => {
     const response = await fetch(
-        'http://52.15.131.50:4000/api/game-start/verify',
+        'http://18.188.224.32:4000/api/game-start/verify',
         {
             method: 'PUT',
             headers: {

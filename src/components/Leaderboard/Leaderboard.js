@@ -102,360 +102,60 @@ class Leaderboard extends Component {
         const { theme } = this.props;
 
         return (
-            <div className="LeaderboardComponent">
-                <Grid container spacing={24}>
-                    <Grid item xs={12} container>
-                        <Grid item xs={10}>
-                            <div
-                                className="LeaderboardTitle"
-                                style={{ width: 300, height: 80 }}
-                            >
-                                {title.toLocaleUpperCase()}
-                            </div>
-                            <div
-                                className="contentTitle"
-                                style={{ width: 550, height: 60 }}
-                            >
-                                You will earn more coins by marking achievement
-                                in active game
-                            </div>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <h4>online users: {onlineUser ? onlineUser : 0}</h4>
-                            {/*<Button className="buttonShareEarn">*/}
-                            {/*<font face="verdana">*/}
-                            {/*Share and Earn*/}
-                            {/*</font>*/}
-                            {/*</Button>*/}
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <div className="LeaderboardMain">
-                    <Grid container spacing={24}>
-                        <Grid item xs={12} container>
-                            <Grid item xs={8}>
-                                <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
-                                        <div className="titleLeaderboard">
-                                            Leaderboard
-                                        </div>
-                                        <AppBar
-                                            position="static"
-                                            className="mainLeaderboard"
-                                        >
-                                            <Tabs
-                                                value={this.state.value}
-                                                onChange={this.handleChange}
-                                                indicatorColor="primary"
-                                                fullWidth
-                                            >
-                                                <Tab
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                        color: '#347139',
-                                                    }}
-                                                    label="Dota 2"
-                                                />
-                                                <Tab
-                                                    style={{
-                                                        fontWeight: 'bold',
-                                                        color: '#347139',
-                                                    }}
-                                                    label="League of legends"
-                                                />
-                                            </Tabs>
-                                        </AppBar>
-                                        <SwipeableViews
-                                            index={this.state.value}
-                                            onChangeIndex={
-                                                this.handleChangeIndex
-                                            }
-                                        >
-                                            <TabContainer>
-                                                <Table className="tableLeaderboard">
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <TableCell className="tableColumnHead">
-                                                                Name
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Period
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Public key
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Win / Lose
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Buff Earned
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {dataLiderboard ? (
-                                                            dataLiderboard
-                                                                .slice(
-                                                                    page *
-                                                                        rowsPerPage,
-                                                                    page *
-                                                                        rowsPerPage +
-                                                                        rowsPerPage,
-                                                                )
-                                                                .map((n, k) => {
-                                                                    return (
-                                                                        <TableRow
-                                                                            key={
-                                                                                k
-                                                                            }
-                                                                        >
-                                                                            <TableCell className="tableColumn">
-                                                                                Dota
-                                                                                2
-                                                                            </TableCell>
-                                                                            <TableCell className="tableColumn">
-                                                                                past
-                                                                                week
-                                                                            </TableCell>
-                                                                            <TableCell
-                                                                                className="tableColumn"
-                                                                                onClick={
-                                                                                    this
-                                                                                        .handleOpenKey
-                                                                                }
-                                                                            >
-                                                                                <div
-                                                                                    data-tip={
-                                                                                        n.publicKey
-                                                                                    }
-                                                                                >
-                                                                                    {n.publicKey.substring(
-                                                                                        0,
-                                                                                        10,
-                                                                                    )}
-                                                                                    ...
-                                                                                </div>
-                                                                                <ReactTooltip
-                                                                                    effect="solid"
-                                                                                    type="light"
-                                                                                />
-                                                                            </TableCell>
-                                                                            <TableCell className="tableColumn">
-                                                                                {
-                                                                                    n.win
-                                                                                }
-
-                                                                                /
-                                                                                {
-                                                                                    n.lose
-                                                                                }
-                                                                            </TableCell>
-                                                                            <TableCell className="tableColumn">
-                                                                                {
-                                                                                    n.reward
-                                                                                }
-                                                                            </TableCell>
-                                                                        </TableRow>
-                                                                    );
-                                                                })
-                                                        ) : (
-                                                            <TableRow />
-                                                        )}
-                                                        {emptyRows > 0 && (
-                                                            <TableRow
-                                                                style={{
-                                                                    height:
-                                                                        48 *
-                                                                        emptyRows,
-                                                                }}
-                                                            >
-                                                                <TableCell
-                                                                    colSpan={6}
-                                                                />
-                                                            </TableRow>
-                                                        )}
-                                                    </TableBody>
-                                                </Table>
-                                                <TablePagination
-                                                    component="div"
-                                                    count={
-                                                        dataLiderboard
-                                                            ? dataLiderboard.length
-                                                            : 0
-                                                    }
-                                                    rowsPerPage={rowsPerPage}
-                                                    page={page}
-                                                    backIconButtonProps={{
-                                                        'aria-label':
-                                                            'Previous Page',
-                                                    }}
-                                                    nextIconButtonProps={{
-                                                        'aria-label':
-                                                            'Next Page',
-                                                    }}
-                                                    onChangePage={
-                                                        this.handleChangePage
-                                                    }
-                                                />
-                                            </TabContainer>
-                                            <TabContainer>
-                                                <Table className="tableLeaderboard">
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <TableCell className="tableColumnHead">
-                                                                Name
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Period
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Public key
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Win / Lose
-                                                            </TableCell>
-                                                            <TableCell className="tableColumnHead">
-                                                                Buff Earned
-                                                            </TableCell>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {dataLiderboardLoL ? (
-                                                            dataLiderboardLoL
-                                                                .slice(
-                                                                    pageLoL *
-                                                                        rowsPerPage,
-                                                                    pageLoL *
-                                                                        rowsPerPage +
-                                                                        rowsPerPage,
-                                                                )
-                                                                .map((n, k) => {
-                                                                    return (
-                                                                        <TableRow
-                                                                            key={
-                                                                                k
-                                                                            }
-                                                                        >
-                                                                            <TableCell className="tableColumn">
-                                                                                League
-                                                                                of
-                                                                                Legands
-                                                                            </TableCell>
-                                                                            <TableCell className="tableColumn">
-                                                                                past
-                                                                                week
-                                                                            </TableCell>
-                                                                            <TableCell
-                                                                                className="tableColumn"
-                                                                                onClick={
-                                                                                    this
-                                                                                        .handleOpenKey
-                                                                                }
-                                                                            >
-                                                                                <div
-                                                                                    data-tip={
-                                                                                        n.publicKey
-                                                                                    }
-                                                                                >
-                                                                                    {n.publicKey.substring(
-                                                                                        0,
-                                                                                        10,
-                                                                                    )}
-                                                                                    ...
-                                                                                </div>
-                                                                                <ReactTooltip
-                                                                                    effect="solid"
-                                                                                    type="light"
-                                                                                />
-                                                                            </TableCell>
-                                                                            <TableCell className="tableColumn">
-                                                                                {
-                                                                                    n.win
-                                                                                }
-
-                                                                                /
-                                                                                {
-                                                                                    n.lose
-                                                                                }
-                                                                            </TableCell>
-                                                                            <TableCell className="tableColumn">
-                                                                                {
-                                                                                    n.reward
-                                                                                }
-                                                                            </TableCell>
-                                                                        </TableRow>
-                                                                    );
-                                                                })
-                                                        ) : (
-                                                            <TableRow />
-                                                        )}
-                                                        {emptyRowsLoL > 0 && (
-                                                            <TableRow
-                                                                style={{
-                                                                    height:
-                                                                        48 *
-                                                                        emptyRowsLoL,
-                                                                }}
-                                                            >
-                                                                <TableCell
-                                                                    colSpan={6}
-                                                                />
-                                                            </TableRow>
-                                                        )}
-                                                    </TableBody>
-                                                </Table>
-                                                <TablePagination
-                                                    component="div"
-                                                    count={
-                                                        dataLiderboardLoL
-                                                            ? dataLiderboardLoL.length
-                                                            : 0
-                                                    }
-                                                    rowsPerPage={rowsPerPage}
-                                                    page={pageLoL}
-                                                    backIconButtonProps={{
-                                                        'aria-label':
-                                                            'Previous Page',
-                                                    }}
-                                                    nextIconButtonProps={{
-                                                        'aria-label':
-                                                            'Next Page',
-                                                    }}
-                                                    onChangePage={
-                                                        this.handleChangePageLoL
-                                                    }
-                                                />
-                                            </TabContainer>
-                                        </SwipeableViews>
-                                    </Paper>
+            <div>
+                <h1>Start playing to earn more coins!</h1>
+                <h4>
+                    You will earn more coins by marking achievement in active
+                    game
+                </h4>
+                <div className="leaderboard-container">
+                    <div className="leaderboard-table">
+                        <div>Leaderboard</div>
+                        <div>
+                            <span>Name</span>
+                            <span>Period</span>
+                            <span>PubKey</span>
+                            <span>Win / Lose</span>
+                            <span>Buff Earned</span>
+                        </div>
+                        <div>
+                            <span>Dota 2</span>
+                            <span>past week</span>
+                            <span>43789gf8347gr84gr8g89g73gro8gog348r</span>
+                            <span>8/5</span>
+                            <span>89.7</span>
+                        </div>
+                        <div>
+                            <span>Dota 2</span>
+                            <span>past week</span>
+                            <span>h3f4ubfowiu54ou54g4875g854i5go487g5</span>
+                            <span>0/5</span>
+                            <span>20.7</span>
+                        </div>
+                        <div>
+                            <span>Dota 2</span>
+                            <span>past week</span>
+                            <span>0alkna731v31hv3jhv2l342l34jhvlhlj3h</span>
+                            <span>2/0</span>
+                            <span>18.8</span>
+                        </div>
+                    </div>
+                    <div className="papersMain">
+                        <Paper className="myAcc" elevation={8}>
+                            <div className="titleMyAcc">Chat Box</div>
+                            <div className="balanceMyAcc">
+                                <div style={{ color: '#919191' }}>
+                                    <iframe
+                                        src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
+                                        width="300"
+                                        height="350"
+                                        allowtransparency="true"
+                                        frameBorder="0"
+                                    />
                                 </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div className="papersMain">
-                                    <Paper
-                                        className="myAcc"
-                                        elevation={8}
-                                        style={{ width: 370, height: 310 }}
-                                    >
-                                        <div className="titleMyAcc">
-                                            Chat Box
-                                        </div>
-                                        <div className="balanceMyAcc">
-                                            <div style={{ color: '#919191' }}>
-                                                <iframe
-                                                    src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
-                                                    width="300"
-                                                    height="350"
-                                                    allowtransparency="true"
-                                                    frameBorder="0"
-                                                />
-                                            </div>
-                                        </div>
-                                    </Paper>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                            </div>
+                        </Paper>
+                    </div>
                 </div>
             </div>
         );

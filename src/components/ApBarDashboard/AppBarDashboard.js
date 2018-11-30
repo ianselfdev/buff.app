@@ -16,6 +16,7 @@ import {
     Redirect,
     Switch,
 } from 'react-router-dom';
+import Tracker from '../Tracker';
 import Dashboard from '../Dashboard/Dashboard';
 import History from '../History/History';
 import Leaderboard from '../Leaderboard/Leaderboard';
@@ -250,7 +251,7 @@ class AppBarDashboard extends Component {
                             />
                             <Route
                                 path={`${this.state.match.url}/marketPlace`}
-                                component={MarketPlace}
+                                component={Tracker}
                             />
                             <Route
                                 path={`${this.state.match.url}/newsTournaments`}
