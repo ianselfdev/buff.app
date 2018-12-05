@@ -29,7 +29,7 @@ class AppBarDashboard extends Component {
         super(props);
         this.state = {
             match: props.match,
-            anchorEl: null,
+            tracker: false,
             menuButton: 'dashboard',
             refreshData: null,
         };
@@ -56,18 +56,12 @@ class AppBarDashboard extends Component {
         }, 5000);
     }
 
-    handleMenu = (event) => {
-        console.log('handleMenu', this.state.anchorEl);
-        this.setState({
-            anchorEl: event.currentTarget,
-        });
-        console.log('handleMenu', this.state.anchorEl);
+    _handleTracker = () => {
+        this.setState((prevState) => ({
+            tracker: !prevState.tracker,
+        }));
     };
-    handleClose = () => {
-        this.setState({
-            anchorEl: null,
-        });
-    };
+
     handleLogOut = () => {
         clearInterval(this.state.refreshData);
         this.props.logout();
@@ -81,8 +75,7 @@ class AppBarDashboard extends Component {
     };
 
     render() {
-        const { anchorEl, menuButton } = this.state;
-        const open = anchorEl !== null;
+        const { tracker, menuButton } = this.state;
         return (
             <Router>
                 <div>
@@ -184,47 +177,24 @@ class AppBarDashboard extends Component {
                                 </Link>
 
                                 <div>
-                                    <IconButton
-                                        style={{
-                                            position: 'absolute',
-                                            top: 8,
-                                            right: 165,
-                                            fontSize: '1em',
-                                            fontFamily: 'Roboto, Helvetica',
-                                        }}
-                                        aria-owns={
-                                            anchorEl ? 'menu-appbar' : null
+                                    <div
+                                        class={
+                                            tracker
+                                                ? 'dash-user-button-active'
+                                                : 'dash-user-button'
                                         }
-                                        aria-haspopup="true"
-                                        onClick={this.handleMenu}
-                                        color="inherit"
+                                        onClick={this._handleTracker}
                                     >
-                                        <AccountCircle
-                                            style={{
-                                                fontSize: 30,
-                                                color: '#3B8C41',
-                                            }}
-                                        />
-                                        {this.props.username}
-                                    </IconButton>
-                                    <Menu
-                                        className="logoMenu"
-                                        id="menu-appbar"
-                                        anchorEl={anchorEl}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={false}
-                                        onClose={this.handleClose}
+                                        <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
+                                        <p>{this.props.username}</p>
+                                    </div>
+                                    <div
+                                        className={`buff-tracker ${
+                                            tracker ? null : 'hidden'
+                                        }`}
                                     >
-                                        <MenuItem>Profile</MenuItem>
-                                        <MenuItem>My account</MenuItem>
-                                    </Menu>
+                                        <Tracker />
+                                    </div>
                                     <Button
                                         size="small"
                                         variant="raised"
@@ -251,7 +221,7 @@ class AppBarDashboard extends Component {
                             />
                             <Route
                                 path={`${this.state.match.url}/marketPlace`}
-                                component={Tracker}
+                                component={MarketPlace}
                             />
                             <Route
                                 path={`${this.state.match.url}/newsTournaments`}

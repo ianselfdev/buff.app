@@ -2,7 +2,7 @@
     margin: auto;
     padding: 10px;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     font-family: 'Helvetica', 'Arial', serif;
     color: #e2e0e0;
     font-size: 11pt;
@@ -16,7 +16,7 @@
             border: none;
             border-bottom: 1px solid white;
             width: 51%;
-            margin-top: 20%;
+            margin-top: 20px;
             background: transparent;
             color: white;
             outline-width: 0;
@@ -39,7 +39,7 @@ button {
     position: relative;
 
     display: block;
-    margin: 30px auto;
+    margin: 10px auto;
     padding: 0;
 
     overflow: hidden;

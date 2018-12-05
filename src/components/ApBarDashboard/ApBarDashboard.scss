@@ -20,9 +20,12 @@
     .dashboardMenu,
     .dashboardMenuActive {
         text-decoration: none;
+        box-shadow: none;
+        margin-left: 2px;
         .buttonAppBar {
-            margin-left: 5px;
             color: #fff;
+            box-shadow: none;
+            border-radius: 3px 3px 0 0 !important;
         }
     }
     .dashboardMenuActive {
@@ -47,4 +50,80 @@
     .buttonAppBar:hover {
         background: rgba(0, 238, 122, 0.3);
     }
+}
+
+.dash-user-button {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 0.3rem;
+    width: 8.5rem;
+    height: 3rem;
+    border-radius: 10px;
+    box-shadow: 3px 4px 10px #000;
+    transition: all 0.3s;
+
+    & p {
+        height: 100%;
+        line-height: 2.2rem;
+        width: 5rem;
+    }
+
+    & img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 360px;
+    }
+
+    &:hover {
+        box-shadow: 1px 2px 10px #000;
+    }
+}
+
+.dash-user-button-active {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 0.3rem;
+    width: 8.5rem;
+    height: 3rem;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 3px 4px 10px #000;
+    transition: all 0.3s;
+    background: #212322;
+
+    & p {
+        height: 100%;
+        line-height: 2.2rem;
+        width: 5rem;
+    }
+
+    & img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 360px;
+    }
+
+    &:hover {
+        box-shadow: 1px 2px 10px #000;
+    }
+}
+
+.buff-tracker {
+    position: fixed;
+    right: 30px;
+    height: 35rem;
+    width: 27rem;
+    border-radius: 5px;
+    z-index: 99999;
+}
+
+.hidden {
+    visibility: hidden;
 }

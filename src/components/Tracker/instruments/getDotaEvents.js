@@ -52,6 +52,8 @@ const dotaParams = {
 };
 
 export const _getDotaEvents = (senderId, passphrase) => {
+    console.log('_getDotaEvents fired');
+
     overwolf.games.events.onError.addListener(function(info) {
         if (currentGame == 'Dota 2') {
             console.log('Error: ' + JSON.stringify(info));

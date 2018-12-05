@@ -1,5 +1,5 @@
 export const _sendStartGameTrs = async (tx) => {
-    const response = await fetch('http://52.15.131.50:4000/api/game-start', {
+    const response = await fetch('http://18.188.224.32:4000/api/game-start', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export const _sendStartGameTrs = async (tx) => {
 };
 
 export const _sendEndGameTrs = async (tx) => {
-    const response = await fetch('http://52.15.131.50:4000/api/game-end', {
+    const response = await fetch('http://18.188.224.32:4000/api/game-end', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export const _sendEndGameTrs = async (tx) => {
 };
 
 export const _changeState = async (state) => {
-    const response = await fetch('http://52.15.131.50:4000/api/state', {
+    const response = await fetch('http://18.188.224.32:4000/api/state', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

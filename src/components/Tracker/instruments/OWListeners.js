@@ -69,6 +69,8 @@ export const gameRunning = (gameInfo) => {
 
 export const _onGameInfoUpdated = () => {
     overwolf.games.onGameInfoUpdated.addListener(function(res) {
+        console.log('onGameInfoUpdated listener set');
+
         console.log(
             'onGameInfoUpdated: ' +
                 (res.gameInfo && res.gameInfo.title
@@ -95,6 +97,7 @@ export const _onGameInfoUpdated = () => {
 
 export const _getRunningGameInfo = () => {
     overwolf.games.getRunningGameInfo(function(res) {
+        console.log('getRunningGameInfo listener set');
         console.log(
             'getRunningGameInfo: ' +
                 (res && res.title ? res.title : 'no title'),
