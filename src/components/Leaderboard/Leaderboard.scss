@@ -1,31 +1,52 @@
-h1,
 h4 {
-    margin: 20px;
+    margin: 20px 50px 0;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 500;
+    color: #bbb;
+}
+
+.leaderboard-header-text {
+    width: 25%;
+    margin: 20px 50px 60px;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 500;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+.leaderboard-title {
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1.3rem;
+    color: #00ee7a;
+    background: #1e1f21;
+    border-radius: 3px;
+    padding-left: 5%;
+}
+
+.table-data {
+    overflow-y: scroll;
+    height: 16rem;
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #013d20;
+    }
 }
 
 .leaderboard-container {
+    position: fixed;
+    bottom: 0;
     display: flex;
     justify-content: space-around;
-    height: 35rem;
+    height: 30rem;
     width: 100%;
     padding: 40px 0;
     background: rgba(0, 0, 0, 0.699);
 
     & .leaderboard-table {
         display: inline-block;
-        border: 1px solid red;
         height: 100%;
         width: 60%;
-        padding: 20px 20px 5px;
-
-        & > .table-data {
-            width: 100%;
-            overflow-y: scroll;
-
-            &::-webkit-scrollbar-thumb {
-                background: #04522c;
-            }
-        }
     }
 
     .papersMain {

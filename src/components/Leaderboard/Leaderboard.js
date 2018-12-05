@@ -115,14 +115,16 @@ class Leaderboard extends Component {
 
         return (
             <div>
-                <h1>Start playing to earn more coins!</h1>
+                <p className="leaderboard-header-text">
+                    Start playing to earn more coins!
+                </p>
                 <h4>
                     You will earn more coins by marking achievement in active
                     game
                 </h4>
                 <div className="leaderboard-container">
                     <div className="leaderboard-table">
-                        <div>Leaderboard</div>
+                        <div className="leaderboard-title">Leaderboard</div>
                         <Tabs
                             value={index}
                             fullWidth
@@ -133,16 +135,16 @@ class Leaderboard extends Component {
                             <Tab
                                 style={{
                                     fontWeight: 'bold',
-                                    color: '#04522c',
-                                    fontSize: '0.8rem',
+                                    color: '#026d39',
+                                    fontSize: '0.9rem',
                                 }}
                                 label="Dota 2"
                             />
                             <Tab
                                 style={{
                                     fontWeight: 'bold',
-                                    color: '#04522c',
-                                    fontSize: '0.8rem',
+                                    color: '#026d39',
+                                    fontSize: '0.9rem',
                                 }}
                                 label="League of legends"
                             />
@@ -174,7 +176,7 @@ class Leaderboard extends Component {
                                     {dataLiderboard.map((item) => {
                                         return (
                                             <TableRow
-                                                name="Dota 2"
+                                                name="LoL"
                                                 period="past week"
                                                 publicKey={item.publicKey}
                                                 win={item.win}
