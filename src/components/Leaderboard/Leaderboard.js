@@ -1,105 +1,117 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import { AppBar, Grid, Tab, Tabs, Typography } from '@material-ui/core';
-import Table, {
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    TablePagination,
-} from '@material-ui/core/Table';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import './Leaderboard.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as mainActions from '../../actions/mainActions';
-import ReactTooltip from 'react-tooltip';
 import SwipeableViews from 'react-swipeable-views';
 
-const title = 'start playing and earn coins!';
-
-function TabContainer({ children, dir }) {
-    return (
-        <Typography component="div" dir={dir}>
-            {children}
-        </Typography>
-    );
-}
+import TableRow from '../TableRow';
 
 class Leaderboard extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            value: 0,
-            page: 0,
-            pageLoL: 0,
-            rowsPerPage: 3,
-            data: this.props.allLeaaderBoard,
-        };
-        setInterval(() => {
-            this.updateLeaders(this.props.allLeaaderBoard, 'DOTA');
-            this.updateLeaders(this.props.allLeaaderBoardLol, 'LOL');
-        }, 1000);
-    }
-
-    updateLeaders(leader, game) {
-        if (game === 'DOTA') {
-            if (this.state.data !== leader) {
-                this.setState({ data: leader });
-            }
-        } else {
-            if (this.state.data !== leader) {
-                this.setState({ dataLoL: leader });
-            }
-        }
-    }
-
-    handleChangePage = (event, page) => {
-        console.log('PAGE::', page);
-        this.setState({ page });
+    state = {
+        //!--WARNING!-------------------------------------------------------HARDCODED DATA!
+        //!--WARNING!-------------------------------------------------------HARDCODED DATA!
+        //!--WARNING!-------------------------------------------------------HARDCODED DATA!
+        data: [
+            {
+                publicKey: 'sdfsdf232323e3d2323rffef32223f',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: '89sdflh48o43834o4er9fe9rf894jf',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: 'ncns9z8z8s9aa3n32b66bwefjwefbz7',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: '7sdfn40fewiwfj9r99333737g25flew',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: 'nskdfnsdf78473byu3byr73br23o237',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: 'ab9b7as74b3y4f7364b2yu3v2387vfw',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: '327uybds767d6sdfvy30dfsa9fb4g3',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: 'ncns9z8z8s9aa3n32b66bwefjwefbz7',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: '7sdfn40fewiwfj9r99333737g25flew',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: 'nskdfnsdf78473byu3byr73br23o237',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: 'ab9b7as74b3y4f7364b2yu3v2387vfw',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+            {
+                publicKey: '327uybds767d6sdfvy30dfsa9fb4g3',
+                win: Math.round(Math.random() * 10),
+                lose: Math.round(Math.random() * 10),
+                reward: Math.round(Math.random() * 100),
+            },
+        ],
+        index: 0,
     };
 
-    handleChangePageLoL = (event, pageLoL) => {
-        console.log('PAGELOL::', pageLoL);
-        this.setState({ pageLoL });
-    };
-    handleOpenKey = (event) => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
-    handleClose = () => {
-        this.setState({ anchorEl: null });
+    _handleChange = (event, value) => {
+        this.setState({
+            index: value,
+        });
     };
 
-    handleChange = (event, value) => {
-        this.setState({ value });
+    _handleChangeIndex = (index) => {
+        this.setState({
+            index,
+        });
     };
 
-    handleChangeIndex = (index) => {
-        this.setState({ value: index });
-    };
     render() {
-        let onlineUser = this.props.online;
-        const { rowsPerPage, page, pageLoL } = this.state;
-        let dataLiderboard = this.state.data;
-        let dataLiderboardLoL = this.state.dataLoL;
-        let emptyRows = 0;
-        let emptyRowsLoL = 0;
-        if (dataLiderboardLoL) {
-            emptyRowsLoL =
-                rowsPerPage -
-                Math.min(
-                    rowsPerPage,
-                    dataLiderboardLoL.length - pageLoL * rowsPerPage,
-                );
-        }
-        if (dataLiderboard) {
-            emptyRows =
-                rowsPerPage -
-                Math.min(
-                    rowsPerPage,
-                    dataLiderboard.length - page * rowsPerPage,
-                );
-        }
-        const { theme } = this.props;
+        const { index } = this.state;
+
+        const dataLiderboard = this.state.data;
+        const dataLiderboardLoL = this.state.dataLoL;
+
+        console.log(dataLiderboard);
+        console.log(dataLiderboardLoL);
 
         return (
             <div>
@@ -111,35 +123,72 @@ class Leaderboard extends Component {
                 <div className="leaderboard-container">
                     <div className="leaderboard-table">
                         <div>Leaderboard</div>
-                        <div>
-                            <span>Name</span>
-                            <span>Period</span>
-                            <span>PubKey</span>
-                            <span>Win / Lose</span>
-                            <span>Buff Earned</span>
-                        </div>
-                        <div>
-                            <span>Dota 2</span>
-                            <span>past week</span>
-                            <span>43789gf8347gr84gr8g89g73gro8gog348r</span>
-                            <span>8/5</span>
-                            <span>89.7</span>
-                        </div>
-                        <div>
-                            <span>Dota 2</span>
-                            <span>past week</span>
-                            <span>h3f4ubfowiu54ou54g4875g854i5go487g5</span>
-                            <span>0/5</span>
-                            <span>20.7</span>
-                        </div>
-                        <div>
-                            <span>Dota 2</span>
-                            <span>past week</span>
-                            <span>0alkna731v31hv3jhv2l342l34jhvlhlj3h</span>
-                            <span>2/0</span>
-                            <span>18.8</span>
-                        </div>
+                        <Tabs
+                            value={index}
+                            fullWidth
+                            className="table-tabs"
+                            indicatorColor="secondary"
+                            onChange={this._handleChange}
+                        >
+                            <Tab
+                                style={{
+                                    fontWeight: 'bold',
+                                    color: '#04522c',
+                                    fontSize: '0.8rem',
+                                }}
+                                label="Dota 2"
+                            />
+                            <Tab
+                                style={{
+                                    fontWeight: 'bold',
+                                    color: '#04522c',
+                                    fontSize: '0.8rem',
+                                }}
+                                label="League of legends"
+                            />
+                        </Tabs>
+                        <SwipeableViews
+                            index={index}
+                            onChangeIndex={this.handleChangeIndex}
+                        >
+                            <div>
+                                <TableRow header />
+                                <div className="table-data">
+                                    {dataLiderboard.map((item) => {
+                                        return (
+                                            <TableRow
+                                                name="Dota 2"
+                                                period="past week"
+                                                publicKey={item.publicKey}
+                                                win={item.win}
+                                                lose={item.lose}
+                                                reward={item.reward}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div>
+                                <TableRow header />
+                                <div className="table-data">
+                                    {dataLiderboard.map((item) => {
+                                        return (
+                                            <TableRow
+                                                name="Dota 2"
+                                                period="past week"
+                                                publicKey={item.publicKey}
+                                                win={item.win}
+                                                lose={item.lose}
+                                                reward={item.reward}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </SwipeableViews>
                     </div>
+
+                    {/* discord widget */}
                     <div className="papersMain">
                         <Paper className="myAcc" elevation={8}>
                             <div className="titleMyAcc">Chat Box</div>
