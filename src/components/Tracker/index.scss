@@ -13,9 +13,9 @@
         display: inline-block;
 
         & input {
+            display: block;
             border: none;
             border-bottom: 1px solid white;
-            width: 51%;
             margin-top: 20px;
             background: transparent;
             color: white;

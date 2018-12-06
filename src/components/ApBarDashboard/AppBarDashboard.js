@@ -178,7 +178,7 @@ class AppBarDashboard extends Component {
 
                                 <div>
                                     <div
-                                        class={
+                                        className={
                                             tracker
                                                 ? 'dash-user-button-active'
                                                 : 'dash-user-button'
@@ -197,7 +197,7 @@ class AppBarDashboard extends Component {
                                     </div>
                                     <Button
                                         size="small"
-                                        variant="raised"
+                                        variant="contained"
                                         className="exitButton"
                                         onClick={this.handleLogOut}
                                     >
