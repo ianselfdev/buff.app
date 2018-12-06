@@ -44,9 +44,6 @@ export default class Tracker extends Component {
                 <button id="lorchu" class="btn">
                     Logout or Change User
                 </button>
-                <button id="exit" class="btn">
-                    Exit
-                </button>
             </div>
         );
     }

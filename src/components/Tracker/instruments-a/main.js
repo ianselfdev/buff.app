@@ -23,8 +23,6 @@ export const load = () => {
     var lorchuButton = document.getElementById('lorchu');
     console.log(lorchuButton);
 
-    var exitButton = document.getElementById('exit');
-
     var loggedIn, senderId, passphrase, publicKey, currentGame;
 
     var dotaParams = {
@@ -143,18 +141,12 @@ export const load = () => {
         applyForm.style.visibility = 'visible';
 
         lorchuButton.style.visibility = 'hidden';
-        exitButton.style.visibility = 'hidden';
 
         senderIdInput.value = '';
         passphraseInput.value = '';
 
         loggedIn = false;
     };
-
-    exitButton.onclick = function() {
-        window.close();
-    };
-
     // without signatures for now
     function sendStartGameTrs(tx) {
         var xhr = new XMLHttpRequest();
@@ -236,7 +228,6 @@ export const load = () => {
                     applyForm.style.visibility = 'hidden';
 
                     lorchuButton.style.visibility = 'visible';
-                    exitButton.style.visibility = 'visible';
 
                     loggedIn = true;
                 } else {

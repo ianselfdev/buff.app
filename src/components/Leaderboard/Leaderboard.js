@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import * as mainActions from '../../actions/mainActions';
 import SwipeableViews from 'react-swipeable-views';
 
+import Api from '../../Store/ApiRequests';
+
 import TableRow from '../TableRow';
 
 class Leaderboard extends Component {
@@ -15,81 +17,20 @@ class Leaderboard extends Component {
         //!--WARNING!-------------------------------------------------------HARDCODED DATA!
         //!--WARNING!-------------------------------------------------------HARDCODED DATA!
         //!--WARNING!-------------------------------------------------------HARDCODED DATA!
-        data: [
-            {
-                publicKey: 'sdfsdf232323e3d2323rffef32223f',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: '89sdflh48o43834o4er9fe9rf894jf',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: 'ncns9z8z8s9aa3n32b66bwefjwefbz7',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: '7sdfn40fewiwfj9r99333737g25flew',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: 'nskdfnsdf78473byu3byr73br23o237',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: 'ab9b7as74b3y4f7364b2yu3v2387vfw',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: '327uybds767d6sdfvy30dfsa9fb4g3',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: 'ncns9z8z8s9aa3n32b66bwefjwefbz7',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: '7sdfn40fewiwfj9r99333737g25flew',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: 'nskdfnsdf78473byu3byr73br23o237',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: 'ab9b7as74b3y4f7364b2yu3v2387vfw',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-            {
-                publicKey: '327uybds767d6sdfvy30dfsa9fb4g3',
-                win: Math.round(Math.random() * 10),
-                lose: Math.round(Math.random() * 10),
-                reward: Math.round(Math.random() * 100),
-            },
-        ],
+        dataDota: [],
+        dataLol: [],
         index: 0,
+    };
+
+    componentDidMount = async () => {
+        const dota = await Api.getLeaderboardDotaAPI();
+
+        const lol = await Api.getLeaderboardLoLAPI();
+
+        this.setState({
+            dataDota: dota.data.leaders,
+            dataLol: lol.data.leaders,
+        });
     };
 
     _handleChange = (event, value) => {
@@ -105,13 +46,7 @@ class Leaderboard extends Component {
     };
 
     render() {
-        const { index } = this.state;
-
-        const dataLiderboard = this.state.data;
-        const dataLiderboardLoL = this.state.dataLoL;
-
-        console.log(dataLiderboard);
-        console.log(dataLiderboardLoL);
+        const { index, dataDota, dataLol } = this.state;
 
         return (
             <div>
@@ -156,7 +91,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className="table-data">
-                                    {dataLiderboard.map((item) => {
+                                    {dataDota.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="Dota 2"
@@ -165,6 +100,7 @@ class Leaderboard extends Component {
                                                 win={item.win}
                                                 lose={item.lose}
                                                 reward={item.reward}
+                                                key={index}
                                             />
                                         );
                                     })}
@@ -173,7 +109,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className="table-data">
-                                    {dataLiderboard.map((item) => {
+                                    {dataLol.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="LoL"
@@ -182,6 +118,7 @@ class Leaderboard extends Component {
                                                 win={item.win}
                                                 lose={item.lose}
                                                 reward={item.reward}
+                                                key={index}
                                             />
                                         );
                                     })}
