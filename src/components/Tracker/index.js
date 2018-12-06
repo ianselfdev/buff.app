@@ -31,15 +31,11 @@ export default class Tracker extends Component {
                         placeholder="Put here your address"
                         id="senderId"
                     />
-                    <br />
-                    <hr />
                     <input
                         type="text"
                         placeholder="Put here your secret"
                         id="passphrase"
                     />
-                    <br />
-                    <hr />
                 </form>
                 <br />
                 <button id="validUser" class="btn">

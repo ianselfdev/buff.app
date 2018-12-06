@@ -15,8 +15,8 @@
         & input {
             border: none;
             border-bottom: 1px solid white;
-            width: 51%;
-            margin-top: 20px;
+            display: block;
+            margin-top: 20%;
             background: transparent;
             color: white;
             outline-width: 0;
@@ -39,7 +39,7 @@ button {
     position: relative;
 
     display: block;
-    margin: 10px auto;
+    margin: 30px auto;
     padding: 0;
 
     overflow: hidden;
@@ -90,4 +90,8 @@ button {
 
         transition: width 0.1s ease-out, padding-top 0.1s ease-out;
     }
+}
+
+#exit {
+    display: none;
 }
