@@ -149,6 +149,7 @@ export const load = () => {
     };
     // without signatures for now
     function sendStartGameTrs(tx) {
+        console.log('TX: ', tx);
         var xhr = new XMLHttpRequest();
         var url = 'http://18.188.224.32:4000/api/game-start';
         xhr.open('put', url, true);
