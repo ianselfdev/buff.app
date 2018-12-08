@@ -14,9 +14,6 @@ import TableRow from '../TableRow';
 
 class Leaderboard extends Component {
     state = {
-        //!--WARNING!-------------------------------------------------------HARDCODED DATA!
-        //!--WARNING!-------------------------------------------------------HARDCODED DATA!
-        //!--WARNING!-------------------------------------------------------HARDCODED DATA!
         dataDota: [],
         dataLol: [],
         index: 0,
@@ -33,7 +30,7 @@ class Leaderboard extends Component {
         });
     };
 
-    _handleChange = (event, value) => {
+    _handleChange = (value) => {
         this.setState({
             index: value,
         });

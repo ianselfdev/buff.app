@@ -14,10 +14,10 @@ const gameLaunched = (gameInfoResult) => {
 };
 
 const gameRunning = (gameInfo) => {
-    if (gameInfo.title) {
+    if (gameInfo && gameInfo.title) {
         let currentGame = gameInfo.title;
 
-        console.log(currentGame + ' Launched!');
+        // console.log(currentGame + ' Launched!');
 
         return currentGame;
     }
@@ -27,21 +27,21 @@ const gameRunning = (gameInfo) => {
 
 export const setOverwolfListeners = (senderId, passphrase) => {
     overwolf.games.onGameInfoUpdated.addListener(function(res) {
-        console.log(
-            'onGameInfoUpdated: ' +
-                (res.gameInfo && res.gameInfo.title
-                    ? res.gameInfo.title
-                    : 'no title'),
-        );
+        // console.log(
+        //     'onGameInfoUpdated: ' +
+        //         (res.gameInfo && res.gameInfo.title
+        //             ? res.gameInfo.title
+        //             : 'no title'),
+        // );
         let gameTitle = gameLaunched(res);
 
         if (gameTitle) {
             if (gameTitle === 'Dota 2') {
-                console.log('DOTA 2 GAME INFO UPDATED');
+                // console.log('DOTA 2 GAME INFO UPDATED');
                 _getDotaEvents(senderId, passphrase);
                 setTimeout(setDotaFeatures, 1000);
             } else if (gameTitle === 'League of Legends') {
-                console.log('LOL GAME INFO UPDATED');
+                // console.log('LOL GAME INFO UPDATED');
                 _getLolEvents();
                 setTimeout(setLoLFeatures, 1000);
             }
@@ -49,19 +49,19 @@ export const setOverwolfListeners = (senderId, passphrase) => {
     });
 
     overwolf.games.getRunningGameInfo(function(res) {
-        console.log(
-            'getRunningGameInfo: ' +
-                (res && res.title ? res.title : 'no title'),
-        );
+        // console.log(
+        //     'getRunningGameInfo: ' +
+        //         (res && res.title ? res.title : 'no title'),
+        // );
         let gameTitle = gameRunning(res);
 
         if (gameTitle) {
             if (gameTitle === 'Dota 2') {
-                console.log('DOTA 2 GAME RUNNING GAME INFO');
+                // console.log('DOTA 2 GAME RUNNING GAME INFO');
                 _getDotaEvents(senderId, passphrase);
                 setTimeout(setDotaFeatures, 1000);
             } else if (gameTitle === 'League of Legends') {
-                console.log('LOL GAME RUNNING GAME INFO');
+                // console.log('LOL GAME RUNNING GAME INFO');
                 _getLolEvents();
                 setTimeout(setLoLFeatures, 1000);
             }

@@ -14,9 +14,8 @@ export default class Tracker extends Component {
         logged: false,
 
         //values
-        address: 'aEAr78NxrsntNjA5beJuJJCkotmq4toYKH',
-        secret:
-            'wrong acid tennis coral warfare rain about brave chase wire citizen banner',
+        address: '',
+        secret: '',
     };
 
     _handleInputChange = (e) => {

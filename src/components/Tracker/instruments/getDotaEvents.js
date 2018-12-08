@@ -52,7 +52,7 @@ let dotaParams = {
 };
 
 export const setDotaFeatures = () => {
-    console.log('Setting features for Dota');
+    // console.log('Setting features for Dota');
     overwolf.games.events.setRequiredFeatures(dotaFeatures, function(info) {
         if (info.status == 'error') {
             window.setTimeout(setDotaFeatures, 2000);

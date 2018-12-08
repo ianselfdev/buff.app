@@ -249,22 +249,27 @@ class AppBarDashboard extends Component {
                             <Route
                                 path={`${this.state.match.url}/dashboard`}
                                 component={Dashboard}
+                                exact
                             />
                             <Route
                                 path={`${this.state.match.url}/history`}
                                 component={History}
+                                exact
                             />
                             <Route
                                 path={`${this.state.match.url}/leaderboard`}
                                 component={Leaderboard}
+                                exact
                             />
                             <Route
                                 path={`${this.state.match.url}/marketPlace`}
                                 component={MarketPlace}
+                                exact
                             />
                             <Route
                                 path={`${this.state.match.url}/newsTournaments`}
                                 component={NewsTournaments}
+                                exact
                             />
                             <Redirect
                                 to={`${this.state.match.url}/dashboard`}
