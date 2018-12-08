@@ -1,21 +1,4 @@
-export const _validateAddress = async (address, secret, callback) => {
-    const response = await fetch(
-        `http://18.188.224.32:4000/api/accounts/getPublicKey?address=${address}`,
-        {
-            method: 'GET',
-            headers: {
-                address,
-            },
-        },
-    );
-
-    const data = await response.json();
-    // console.log(data);
-
-    return _validateUser(data.publicKey, secret);
-};
-
-export const _validateUser = async (publicKey, passphrase) => {
+const validateUser = async (publicKey, passphrase) => {
     const response = await fetch(
         'http://18.188.224.32:4000/api/game-start/verify',
         {
@@ -32,4 +15,21 @@ export const _validateUser = async (publicKey, passphrase) => {
 
     const data = await response.json();
     return data;
+};
+
+export const validateAddress = async (address, secret) => {
+    const response = await fetch(
+        `http://18.188.224.32:4000/api/accounts/getPublicKey?address=${address}`,
+        {
+            method: 'GET',
+            headers: {
+                address,
+            },
+        },
+    );
+
+    const data = await response.json();
+    // console.log(data);
+
+    return validateUser(data.publicKey, secret);
 };

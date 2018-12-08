@@ -5,59 +5,17 @@ import { _getLolEvents, setLoLFeatures } from './getLolEvents';
 
 let currentGame = null;
 
-export const gameLaunched = (gameInfoResult) => {
-    if (!gameInfoResult) {
-        return undefined;
-    }
-
-    if (!gameInfoResult.gameInfo) {
-        return undefined;
-    }
-
-    if (!gameInfoResult.runningChanged && !gameInfoResult.gameChanged) {
-        return undefined;
-    }
-
-    if (!gameInfoResult.gameInfo.isRunning) {
-        return undefined;
-    }
-
-    if (
-        Math.floor(gameInfoResult.gameInfo.id / 10) != 7314 &&
-        Math.floor(gameInfoResult.gameInfo.id / 10) != 5426
-    ) {
-        return undefined;
-    }
-
+const gameLaunched = (gameInfoResult) => {
     if (gameInfoResult.gameInfo.title) {
-        currentGame = gameInfoResult.gameInfo.title;
-
-        console.log(currentGame + ' Launched!');
-
-        return currentGame;
+        return gameInfoResult.gameInfo.title;
     }
 
     return undefined;
 };
 
-export const gameRunning = (gameInfo) => {
-    if (!gameInfo) {
-        return undefined;
-    }
-
-    if (!gameInfo.isRunning) {
-        return undefined;
-    }
-
-    if (
-        Math.floor(gameInfo.id / 10) != 7314 &&
-        Math.floor(gameInfo.id / 10) != 5426
-    ) {
-        return undefined;
-    }
-
+const gameRunning = (gameInfo) => {
     if (gameInfo.title) {
-        var currentGame = gameInfo.title;
+        let currentGame = gameInfo.title;
 
         console.log(currentGame + ' Launched!');
 
@@ -67,24 +25,20 @@ export const gameRunning = (gameInfo) => {
     return undefined;
 };
 
-export const _onGameInfoUpdated = () => {
+export const setOverwolfListeners = (senderId, passphrase) => {
     overwolf.games.onGameInfoUpdated.addListener(function(res) {
-        console.log('onGameInfoUpdated listener set');
-
         console.log(
             'onGameInfoUpdated: ' +
                 (res.gameInfo && res.gameInfo.title
                     ? res.gameInfo.title
                     : 'no title'),
         );
-        var gameTitle = gameLaunched(res);
-
-        currentGame = gameTitle ? gameTitle : currentGame;
+        let gameTitle = gameLaunched(res);
 
         if (gameTitle) {
             if (gameTitle === 'Dota 2') {
                 console.log('DOTA 2 GAME INFO UPDATED');
-                _getDotaEvents();
+                _getDotaEvents(senderId, passphrase);
                 setTimeout(setDotaFeatures, 1000);
             } else if (gameTitle === 'League of Legends') {
                 console.log('LOL GAME INFO UPDATED');
@@ -93,23 +47,18 @@ export const _onGameInfoUpdated = () => {
             }
         }
     });
-};
 
-export const _getRunningGameInfo = () => {
     overwolf.games.getRunningGameInfo(function(res) {
-        console.log('getRunningGameInfo listener set');
         console.log(
             'getRunningGameInfo: ' +
                 (res && res.title ? res.title : 'no title'),
         );
-        var gameTitle = gameRunning(res);
-
-        currentGame = gameTitle ? gameTitle : currentGame;
+        let gameTitle = gameRunning(res);
 
         if (gameTitle) {
             if (gameTitle === 'Dota 2') {
                 console.log('DOTA 2 GAME RUNNING GAME INFO');
-                _getDotaEvents();
+                _getDotaEvents(senderId, passphrase);
                 setTimeout(setDotaFeatures, 1000);
             } else if (gameTitle === 'League of Legends') {
                 console.log('LOL GAME RUNNING GAME INFO');

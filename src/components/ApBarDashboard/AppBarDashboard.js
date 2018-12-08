@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-    AppBar,
-    Button,
-    IconButton,
-    Toolbar,
-    Typography,
-} from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Menu, { MenuItem } from '@material-ui/core/Menu';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import './ApBarDashboard.scss';
 import {
     BrowserRouter as Router,
@@ -23,6 +15,10 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import MarketPlace from '../MarketPlace/MarketPlace';
 import NewsTournaments from '../NewsTournaments/NewsTournaments';
 import { realAuth } from '../../routes';
+
+//instruments
+import { Transition } from 'react-transition-group';
+import gsap from 'gsap';
 
 class AppBarDashboard extends Component {
     constructor(props) {
@@ -54,6 +50,12 @@ class AppBarDashboard extends Component {
             this.props.addTournaments();
             this.props.addOnlineUsers();
         }, 5000);
+
+        setTimeout(() => {
+            this.setState({
+                tracker: true,
+            });
+        }, 300);
     }
 
     _handleTracker = () => {
@@ -72,6 +74,35 @@ class AppBarDashboard extends Component {
         this.setState({
             menuButton: name,
         });
+    };
+
+    //animation section
+    _animateTrackerEnter = (tracker) => {
+        //element, animation in SECONDS, { from point, to point }
+        gsap.fromTo(
+            tracker,
+            0.3,
+            {
+                opacity: 0,
+            },
+            {
+                opacity: 1,
+            },
+        );
+    };
+
+    _animateTrackerExit = (tracker) => {
+        //element, animation in SECONDS, { from point, to point }
+        gsap.fromTo(
+            tracker,
+            0.3,
+            {
+                opacity: 1,
+            },
+            {
+                opacity: 0,
+            },
+        );
     };
 
     render() {
@@ -188,13 +219,21 @@ class AppBarDashboard extends Component {
                                         <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
                                         <p>{this.props.username}</p>
                                     </div>
-                                    <div
-                                        className={`buff-tracker ${
-                                            tracker ? null : 'hidden'
-                                        }`}
-                                    >
-                                        <Tracker />
-                                    </div>
+
+                                    {tracker ? (
+                                        <Transition
+                                            in={tracker}
+                                            appear
+                                            timeout={300}
+                                            onEnter={this._animateTrackerEnter}
+                                            onExit={this._animateTrackerExit}
+                                        >
+                                            <div className="buff-tracker">
+                                                <Tracker />
+                                            </div>
+                                        </Transition>
+                                    ) : null}
+
                                     <Button
                                         size="small"
                                         variant="contained"

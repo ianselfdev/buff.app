@@ -3,7 +3,7 @@ import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
 /*eslint-disable no-undef*/
 
 let matchId = 1;
-let currentGame = null;
+let currentGame = 'Dota 2';
 
 const dotaFeatures = [
     'kill',
@@ -26,7 +26,7 @@ const dotaFeatures = [
     'gpm',
 ];
 
-const dotaParams = {
+let dotaParams = {
     gameStarted: undefined,
     gameEnded: undefined,
     gameInProcess: undefined,
@@ -51,9 +51,17 @@ const dotaParams = {
     steamId: undefined,
 };
 
-export const _getDotaEvents = (senderId, passphrase) => {
-    console.log('_getDotaEvents fired');
+export const setDotaFeatures = () => {
+    console.log('Setting features for Dota');
+    overwolf.games.events.setRequiredFeatures(dotaFeatures, function(info) {
+        if (info.status == 'error') {
+            window.setTimeout(setDotaFeatures, 2000);
+            return;
+        }
+    });
+};
 
+export const _getDotaEvents = (senderId, passphrase) => {
     overwolf.games.events.onError.addListener(function(info) {
         if (currentGame == 'Dota 2') {
             console.log('Error: ' + JSON.stringify(info));
@@ -62,8 +70,6 @@ export const _getDotaEvents = (senderId, passphrase) => {
 
     overwolf.games.events.onInfoUpdates2.addListener(function(info) {
         if (currentGame == 'Dota 2') {
-            var log = 'Info UPDATE: ' + JSON.stringify(info);
-
             if (info.info && info.info.roster && info.info.roster.players) {
                 console.log(info.info.roster.players);
                 dotaParams.allPlayers = JSON.parse(info.info.roster.players);
@@ -73,8 +79,6 @@ export const _getDotaEvents = (senderId, passphrase) => {
 
     overwolf.games.events.onNewEvents.addListener(function(info) {
         if (currentGame == 'Dota 2') {
-            var log = 'EVENT FIRED: ' + JSON.stringify(info);
-
             for (var i = info.events.length - 1; i >= 0; i--) {
                 var data_to_object = JSON.parse(info.events[i].data);
 
@@ -101,8 +105,6 @@ export const _getDotaEvents = (senderId, passphrase) => {
                         break;
 
                     case 'match_state_changed':
-                        console.log('MATCH STATE CHANGED!');
-
                         if (
                             !dotaParams.gameStarted &&
                             !dotaParams.gameInProcess &&
@@ -110,7 +112,7 @@ export const _getDotaEvents = (senderId, passphrase) => {
                                 'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS'
                         ) {
                             console.log(
-                                'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS!',
+                                'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS',
                             );
 
                             dotaParams.gameStarted = data_to_object;
@@ -395,16 +397,6 @@ export const _getDotaEvents = (senderId, passphrase) => {
                     dotaParams.gameInProcess = true;
                 }
             }
-        }
-    });
-};
-
-export const setDotaFeatures = () => {
-    console.log('Setting features for Dota');
-    overwolf.games.events.setRequiredFeatures(dotaFeatures, function(info) {
-        if (info.status == 'error') {
-            window.setTimeout(setDotaFeatures, 2000);
-            return;
         }
     });
 };

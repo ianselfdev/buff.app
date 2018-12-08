@@ -1,12 +1,12 @@
 export const _sendStartGameTrs = async (tx) => {
+    console.log(tx);
+
     const response = await fetch('http://18.188.224.32:4000/api/game-start', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: {
-            tx,
-        },
+        body: tx,
     });
 
     console.log('SEND START GAME TX');
@@ -21,9 +21,7 @@ export const _sendEndGameTrs = async (tx) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: {
-            tx,
-        },
+        body: tx,
     });
 
     console.log('SEND END GAME TX');
@@ -38,9 +36,9 @@ export const _changeState = async (state) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: {
+        body: JSON.stringify({
             state,
-        },
+        }),
     });
 
     const result = await response.json();
