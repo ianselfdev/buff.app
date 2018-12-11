@@ -427,7 +427,7 @@ class Registration extends Component {
                     className="buttonRegister"
                     onClick={this.handleRegister}
                 >
-                    Sign In
+                    Sign Up
                 </Button>
 
                 <div className="RegistrationTitle">Registration</div>

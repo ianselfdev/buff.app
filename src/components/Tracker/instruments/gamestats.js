@@ -12,7 +12,7 @@ export const _sendStartGameTrs = async (tx) => {
     console.log('SEND START GAME TX');
 
     const result = await response.json();
-    // console.log(result);
+    console.log(result);
 };
 
 export const _sendEndGameTrs = async (tx) => {
@@ -27,7 +27,7 @@ export const _sendEndGameTrs = async (tx) => {
     console.log('SEND END GAME TX');
 
     const result = await response.json();
-    // console.log(result);
+    console.log(result);
 };
 
 export const _changeState = async (state) => {

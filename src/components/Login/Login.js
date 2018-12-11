@@ -16,7 +16,7 @@ import { Redirect } from 'react-router-dom';
 import { red, green } from '@material-ui/core/colors';
 
 //Analytics
-import ReactAG from 'react-ag';
+import ReactGA from 'react-ga';
 
 const styles = (theme) => {
     return {
@@ -93,11 +93,12 @@ class Login extends Component {
                         password: '',
                     });
 
-                    ReactAG.event({
+                    ReactGA.event({
                         category: 'authentication',
                         action: 'Login',
                     });
 
+                    console.log('Logged in successfully');
                     this.props.onLogin(isAuthenticated);
                 })
                 .catch((error) => {
@@ -107,7 +108,7 @@ class Login extends Component {
     };
 
     handleRegistration = () => {
-        ReactAG.event({
+        ReactGA.event({
             category: 'authentication',
             action: 'Registration',
         });
@@ -239,7 +240,7 @@ class Login extends Component {
                             </Button>
                             <Button
                                 className={this.props.classes.flatbutton}
-                                onClick={this.handleForgotPassword}
+                                // onClick={this.handleForgotPassword}
                             >
                                 Forgot password? click here!
                             </Button>

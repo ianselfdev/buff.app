@@ -30,13 +30,17 @@ class Leaderboard extends Component {
         });
     };
 
-    _handleChange = (value) => {
+    _handleChange = (event, value) => {
+        console.log('handlechange ', value);
+
         this.setState({
             index: value,
         });
     };
 
     _handleChangeIndex = (index) => {
+        console.log('handlechangeindex ', index);
+
         this.setState({
             index,
         });
