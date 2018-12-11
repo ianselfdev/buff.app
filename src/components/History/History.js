@@ -9,16 +9,7 @@ import {
     TablePagination,
     Grid,
 } from '@material-ui/core';
-// import Paper from "material-ui/Paper";
-// import { Button } from "@material-ui/core";
-// import Table, {
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableRow
-// } from "material-ui/Table";
 import './History.scss';
-// import TablePagination from "material-ui/es/Table/TablePagination";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as mainActions from '../../actions/mainActions';

@@ -1,5 +1,5 @@
 export const _sendStartGameTrs = async (tx) => {
-    console.log(tx);
+    // console.log(tx);
 
     const response = await fetch('http://18.188.224.32:4000/api/game-start', {
         method: 'PUT',
@@ -12,7 +12,7 @@ export const _sendStartGameTrs = async (tx) => {
     console.log('SEND START GAME TX');
 
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
 };
 
 export const _sendEndGameTrs = async (tx) => {
@@ -27,7 +27,7 @@ export const _sendEndGameTrs = async (tx) => {
     console.log('SEND END GAME TX');
 
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
 };
 
 export const _changeState = async (state) => {
@@ -42,5 +42,5 @@ export const _changeState = async (state) => {
     });
 
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
 };

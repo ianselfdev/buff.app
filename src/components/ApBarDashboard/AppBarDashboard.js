@@ -20,6 +20,9 @@ import { realAuth } from '../../routes';
 import { Transition } from 'react-transition-group';
 import gsap from 'gsap';
 
+//Analytics
+import ReactGA from 'react-ga';
+
 class AppBarDashboard extends Component {
     constructor(props) {
         super(props);
@@ -58,6 +61,12 @@ class AppBarDashboard extends Component {
         }, 300);
     }
 
+    _toggleTracker = () => {
+        this.setState((prevState) => ({
+            tracker: !prevState.tracker,
+        }));
+    };
+
     _handleTracker = () => {
         this.setState((prevState) => ({
             tracker: !prevState.tracker,
@@ -71,6 +80,11 @@ class AppBarDashboard extends Component {
         realAuth.signout();
     };
     handleButtonPress = (name) => (event) => {
+        ReactGA.event({
+            category: 'Menu',
+            action: name,
+        });
+
         this.setState({
             menuButton: name,
         });
@@ -229,7 +243,11 @@ class AppBarDashboard extends Component {
                                             onExit={this._animateTrackerExit}
                                         >
                                             <div className="buff-tracker">
-                                                <Tracker />
+                                                <Tracker
+                                                    _toggleTracker={
+                                                        this._toggleTracker
+                                                    }
+                                                />
                                             </div>
                                         </Transition>
                                     ) : null}

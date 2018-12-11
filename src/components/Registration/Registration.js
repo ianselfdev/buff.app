@@ -344,7 +344,7 @@ class Registration extends Component {
             this.state.email === this.state.confEmail &&
             this.state.password === this.state.confPassword
         ) {
-            console.log(this.state);
+            // console.log(this.state);
             let self = this;
 
             self.setState({ isLoading: true });

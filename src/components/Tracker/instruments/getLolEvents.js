@@ -61,7 +61,7 @@ export const _getLolEvents = (senderId, passphrase) => {
                         data_to_object.game_info &&
                         data_to_object.info.game_info.gameMode
                     ) {
-                        console.log(data_to_object.info.game_info.gameMode);
+                        // console.log(data_to_object.info.game_info.gameMode);
                         lolParams.rankedGame = true;
                     }
 
@@ -205,7 +205,7 @@ export const _getLolEvents = (senderId, passphrase) => {
                                 secret: secret,
                             });
 
-                            console.log(endGameTrs);
+                            // console.log(endGameTrs);
 
                             _sendEndGameTrs(endGameTrs);
 
@@ -222,28 +222,28 @@ export const _getLolEvents = (senderId, passphrase) => {
                     break;
 
                 case 'minions':
-                    console.log('minions');
+                    // console.log('minions');
                     lolParams.minionKills =
                         data_to_object.info.game_info.minionKills;
-                    console.log(lolParams.minionKills);
+                    // console.log(lolParams.minionKills);
                     break;
 
                 case 'level':
-                    console.log('level');
+                    // console.log('level');
                     lolParams.level = data_to_object.info.level.level;
-                    console.log(lolParams.level);
+                    // console.log(lolParams.level);
                     break;
 
                 case 'kill':
-                    console.log('kill');
+                    // console.log('kill');
                     lolParams.kills = data_to_object.info.game_info.kills;
-                    console.log(lolParams.kills);
+                    // console.log(lolParams.kills);
                     break;
 
                 case 'death':
-                    console.log('death');
+                    // console.log('death');
                     lolParams.deaths = data_to_object.info.game_info.deaths;
-                    console.log(lolParams.deaths);
+                    // console.log(lolParams.deaths);
                     break;
             }
 

@@ -71,7 +71,7 @@ export const _getDotaEvents = (senderId, passphrase) => {
     overwolf.games.events.onInfoUpdates2.addListener(function(info) {
         if (currentGame == 'Dota 2') {
             if (info.info && info.info.roster && info.info.roster.players) {
-                console.log(info.info.roster.players);
+                // console.log(info.info.roster.players);
                 dotaParams.allPlayers = JSON.parse(info.info.roster.players);
             }
         }
@@ -85,7 +85,7 @@ export const _getDotaEvents = (senderId, passphrase) => {
                 // Switch event name
                 switch (info.events[i].name) {
                     case 'match_detected':
-                        console.log('INTERESTING IF EVER HAPPENS!');
+                        // console.log('INTERESTING IF EVER HAPPENS!');
 
                         dotaParams.allPlayers =
                             data_to_object.match_detected.playersInfo;
@@ -111,9 +111,9 @@ export const _getDotaEvents = (senderId, passphrase) => {
                             data_to_object.match_state ==
                                 'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS'
                         ) {
-                            console.log(
-                                'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS',
-                            );
+                            // console.log(
+                            //     'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS',
+                            // );
 
                             dotaParams.gameStarted = data_to_object;
                         }

@@ -5,13 +5,15 @@ import React, { Component } from 'react';
 import './index.scss';
 
 //Instruments
-//eslint-disable-next-line
+import { connect } from 'react-redux';
+import * as mainActions from '../../actions/mainActions';
+import { bindActionCreators } from 'redux';
 import { validateAddress } from './instruments/logging';
 import { setOverwolfListeners } from './instruments/OWListeners';
 
-export default class Tracker extends Component {
+class Tracker extends Component {
     state = {
-        logged: false,
+        logged: this.props.loggedIntoTracker,
 
         //values
         address: '',
@@ -29,10 +31,13 @@ export default class Tracker extends Component {
     _handleLogging = async (e) => {
         e.preventDefault();
         const { logged, address, secret } = this.state;
+        const { trackerLogin, trackerLogout, _toggleTracker } = this.props;
 
         //checking logged state
         if (logged) {
-            console.log('logging out');
+            // console.log('logging out');
+            trackerLogout();
+            alert('You logged out');
         } else {
             //if not logged - validating fields
             if (!address || !secret) {
@@ -47,17 +52,18 @@ export default class Tracker extends Component {
                 alert('Verification not passed');
                 return null;
             }
+
+            trackerLogin();
+            alert('You successfully logged in!');
         }
 
         setOverwolfListeners(address, secret);
-
-        this.setState((prevState) => ({
-            logged: !prevState.logged,
-        }));
+        _toggleTracker();
     };
 
     render() {
         const { logged } = this.state;
+        // console.log(this.props);
 
         return (
             <div id="container">
@@ -115,3 +121,18 @@ export default class Tracker extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    loggedIntoTracker: state.reducerMain.loggedIntoTracker,
+});
+
+function mapDispatchToProps(dispatch) {
+    return {
+        ...bindActionCreators(mainActions, dispatch),
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Tracker);

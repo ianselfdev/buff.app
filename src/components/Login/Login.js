@@ -15,6 +15,9 @@ import { realAuth } from '../../routes';
 import { Redirect } from 'react-router-dom';
 import { red, green } from '@material-ui/core/colors';
 
+//Analytics
+import ReactAG from 'react-ag';
+
 const styles = (theme) => {
     return {
         formControl: {
@@ -90,15 +93,24 @@ class Login extends Component {
                         password: '',
                     });
 
+                    ReactAG.event({
+                        category: 'authentication',
+                        action: 'Login',
+                    });
+
                     this.props.onLogin(isAuthenticated);
                 })
                 .catch((error) => {
-                    console.log('error::>', error);
+                    console.log('Error::Login => ', error);
                 });
         }
     };
 
     handleRegistration = () => {
+        ReactAG.event({
+            category: 'authentication',
+            action: 'Registration',
+        });
         this.props.onRegister();
     };
 

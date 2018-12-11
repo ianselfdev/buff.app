@@ -7,6 +7,12 @@ import routes from './routes';
 import configureStore from './Store/store';
 import './main-style.scss';
 
+//Analytics
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-114852827-2', { debug: false });
+ReactGA.set({ checkProtocolTask: null });
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 const syncHistoryWithStore = (store, history) => {
     const { routing } = store.getState();
     if (routing && routing.location) {
@@ -14,7 +20,9 @@ const syncHistoryWithStore = (store, history) => {
     }
 };
 
-const initialState = {};
+const initialState = {
+    loggedInTracker: false,
+};
 const routerHistory = createMemoryHistory();
 const store = configureStore(initialState, routerHistory);
 syncHistoryWithStore(store, routerHistory);
