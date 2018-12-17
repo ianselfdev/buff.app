@@ -41,6 +41,7 @@ class History extends Component {
     getGameName(name) {
         if (name === 7314) name = 'Dota 2';
         else if (name === 5426) name = 'League of Legends';
+        else if (name === 21216) name = 'Fortnite';
         else name = 'undefined';
         return name;
     }

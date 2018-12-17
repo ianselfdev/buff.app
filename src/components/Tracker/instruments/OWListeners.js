@@ -1,5 +1,6 @@
 import { _getDotaEvents, setDotaFeatures } from './getDotaEvents';
 import { _getLolEvents, setLoLFeatures } from './getLolEvents';
+import { getFortniteEvents, setFortniteFeatures } from './getFortniteEvents';
 
 /*eslint-disable no-undef*/
 
@@ -17,7 +18,7 @@ const gameRunning = (gameInfo) => {
     if (gameInfo && gameInfo.title) {
         let currentGame = gameInfo.title;
 
-        // console.log(currentGame + ' Launched!');
+        console.log(currentGame + ' running!');
 
         return currentGame;
     }
@@ -27,44 +28,42 @@ const gameRunning = (gameInfo) => {
 
 export const setOverwolfListeners = (senderId, passphrase) => {
     overwolf.games.onGameInfoUpdated.addListener(function(res) {
-        // console.log(
-        //     'onGameInfoUpdated: ' +
-        //         (res.gameInfo && res.gameInfo.title
-        //             ? res.gameInfo.title
-        //             : 'no title'),
-        // );
         let gameTitle = gameLaunched(res);
 
-        if (gameTitle) {
-            if (gameTitle === 'Dota 2') {
-                // console.log('DOTA 2 GAME INFO UPDATED');
+        switch (gameTitle) {
+            case 'Dota 2':
                 _getDotaEvents(senderId, passphrase);
                 setTimeout(setDotaFeatures, 1000);
-            } else if (gameTitle === 'League of Legends') {
-                // console.log('LOL GAME INFO UPDATED');
-                _getLolEvents();
+
+            case 'League of Legends':
+                _getLolEvents(senderId, passphrase);
                 setTimeout(setLoLFeatures, 1000);
-            }
+
+            case 'Fortnite Battle Royale':
+                getFortniteEvents(senderId, passphrase);
+            // setTimeout(setFortniteFeatures, 1000);
         }
     });
 
     overwolf.games.getRunningGameInfo(function(res) {
-        // console.log(
-        //     'getRunningGameInfo: ' +
-        //         (res && res.title ? res.title : 'no title'),
-        // );
         let gameTitle = gameRunning(res);
+        console.log('getrunning game info: ', res);
 
-        if (gameTitle) {
-            if (gameTitle === 'Dota 2') {
-                // console.log('DOTA 2 GAME RUNNING GAME INFO');
+        switch (gameTitle) {
+            case 'Dota 2':
                 _getDotaEvents(senderId, passphrase);
                 setTimeout(setDotaFeatures, 1000);
-            } else if (gameTitle === 'League of Legends') {
-                // console.log('LOL GAME RUNNING GAME INFO');
+                console.log('Dota 2 launched');
+
+            case 'League of Legends':
                 _getLolEvents();
                 setTimeout(setLoLFeatures, 1000);
-            }
+                console.log('LoL launched');
+
+            case 'Fortnite Battle Royale':
+                console.log('Fortnite launched');
+                getFortniteEvents(senderId, passphrase);
+            // setTimeout(setFortniteFeatures, 1000);
         }
     });
 };

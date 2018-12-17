@@ -1,4 +1,4 @@
-import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import { _seGameTrs, _sendEndGameTrs } from './gamestats';
 
 /*eslint-disable no-undef*/
 
