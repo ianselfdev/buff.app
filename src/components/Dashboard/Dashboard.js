@@ -95,12 +95,17 @@ class Dashboard extends Component {
                                         </div>
                                         <div className="balanceMyAcc">
                                             <div style={{ color: '#919191' }}>
-                                                League of Legands
+                                                Dota 2
                                             </div>
                                         </div>
                                         <div className="balanceMyAcc">
                                             <div style={{ color: '#919191' }}>
-                                                Dota 2
+                                                Fortnite
+                                            </div>
+                                        </div>
+                                        <div className="balanceMyAcc">
+                                            <div style={{ color: '#919191' }}>
+                                                League of Legands
                                             </div>
                                         </div>
                                     </Paper>

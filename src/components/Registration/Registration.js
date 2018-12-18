@@ -41,249 +41,6 @@ const styles = (theme) => {
     };
 };
 
-const options = [
-    'Country',
-    'Afghanistan',
-    'Albania',
-    'Algeria',
-    'American Samoa',
-    'Andorra',
-    'Angola',
-    'Anguilla',
-    'Antarctica',
-    'Antigua and/or Barbuda',
-    'Argentina',
-    'Armenia',
-    'Aruba',
-    'Australia',
-    'Austria',
-    'Azerbaijan',
-    'Bahamas',
-    'Bahrain',
-    'Bangladesh',
-    'Barbados',
-    'Belarus',
-    'Belgium',
-    'Belize',
-    'Benin',
-    'Bermuda',
-    'Bhutan',
-    'Bolivia',
-    'Bosnia and Herzegovina',
-    'Botswana',
-    'Bouvet Island',
-    'Brazil',
-    'British lndian Ocean Territory',
-    'Brunei Darussalam',
-    'Bulgaria',
-    'Burkina Faso',
-    'Burundi',
-    'Cambodia',
-    'Cameroon',
-    'Canada',
-    'Cape Verde',
-    'Cayman Islands',
-    'Central African Republic',
-    'Chad',
-    'Chile',
-    'China',
-    'Christmas Island',
-    'Cocos (Keeling) Islands',
-    'Colombia',
-    'Comoros',
-    'Congo',
-    'Cook Islands',
-    'Costa Rica',
-    'Croatia (Hrvatska)',
-    'Cuba',
-    'Cyprus',
-    'Czech Republic',
-    'Denmark',
-    'Djibouti',
-    'Dominica',
-    'Dominican Republic',
-    'East Timor',
-    'Ecudaor',
-    'Egypt',
-    'El Salvador',
-    'Equatorial Guinea',
-    'Eritrea',
-    'Estonia',
-    'Ethiopia',
-    'Falkland Islands (Malvinas)',
-    'Faroe Islands',
-    'Fiji',
-    'Finland',
-    'France',
-    'France, Metropolitan',
-    'French Guiana',
-    'French Polynesia',
-    'French Southern Territories',
-    'Gabon',
-    'Gambia',
-    'Georgia',
-    'Germany',
-    'Ghana',
-    'Gibraltar',
-    'Greece',
-    'Greenland',
-    'Grenada',
-    'Guadeloupe',
-    'Guam',
-    'Guatemala',
-    'Guinea',
-    'Guinea-Bissau',
-    'Guyana',
-    'Haiti',
-    'Heard and Mc Donald Islands',
-    'Honduras',
-    'Hong Kong',
-    'Hungary',
-    'Iceland',
-    'India',
-    'Indonesia',
-    'Iran (Islamic Republic of)',
-    'Iraq',
-    'Ireland',
-    'Israel',
-    'Italy',
-    'Ivory Coast',
-    'Jamaica',
-    'Japan',
-    'Jordan',
-    'Kazakhstan',
-    'Kenya',
-    'Kiribati',
-    'Korea, Democratic People`s Republic of',
-    'Korea, Republic of',
-    'Kuwait',
-    'Kyrgyzstan',
-    'Lao People`s Democratic Republic',
-    'Latvia',
-    'Lebanon',
-    'Lesotho',
-    'Liberia',
-    'Libyan Arab Jamahiriya',
-    'Liechtenstein',
-    'Lithuania',
-    'Luxembourg',
-    'Macau',
-    'Macedonia',
-    'Madagascar',
-    'Malawi',
-    'Malaysia',
-    'Maldives',
-    'Mali',
-    'Malta',
-    'Marshall Islands',
-    'Martinique',
-    'Mauritania',
-    'Mauritius',
-    'Mayotte',
-    'Mexico',
-    'Micronesia, Federated States of',
-    'Moldova, Republic of',
-    'Monaco',
-    'Mongolia',
-    'Montserrat',
-    'Morocco',
-    'Mozambique',
-    'Myanmar',
-    'Namibia',
-    'Nauru',
-    'Nepal',
-    'Netherlands',
-    'Netherlands Antilles',
-    'New Caledonia',
-    'New Zealand',
-    'Nicaragua',
-    'Niger',
-    'Nigeria',
-    'Niue',
-    'Norfork Island',
-    'Northern Mariana Islands',
-    'Norway',
-    'Oman',
-    'Pakistan',
-    'Palau',
-    'Panama',
-    'Papua New Guinea',
-    'Paraguay',
-    'Peru',
-    'Philippines',
-    'Pitcairn',
-    'Poland',
-    'Portugal',
-    'Puerto Rico',
-    'Qatar',
-    'Reunion',
-    'Romania',
-    'Russian Federation',
-    'Rwanda',
-    'Saint Kitts and Nevis',
-    'Saint Lucia',
-    'Saint Vincent and the Grenadines',
-    'Samoa',
-    'San Marino',
-    'Sao Tome and Principe',
-    'Saudi Arabia',
-    'Senegal',
-    'Seychelles',
-    'Sierra Leone',
-    'Singapore',
-    'Slovakia',
-    'Slovenia',
-    'Solomon Islands',
-    'Somalia',
-    'South Africa',
-    'South Georgia South Sandwich Islands',
-    'Spain',
-    'Sri Lanka',
-    'St. Helena',
-    'St. Pierre and Miquelon',
-    'Sudan',
-    'Suriname',
-    'Svalbarn and Jan Mayen Islands',
-    'Swaziland',
-    'Sweden',
-    'Switzerland',
-    'Syrian Arab Republic',
-    'Taiwan',
-    'Tajikistan',
-    'Tanzania, United Republic of',
-    'Thailand',
-    'Togo',
-    'Tokelau',
-    'Tonga',
-    'Trinidad and Tobago',
-    'Tunisia',
-    'Turkey',
-    'Turkmenistan',
-    'Turks and Caicos Islands',
-    'Tuvalu',
-    'Uganda',
-    'Ukraine',
-    'United Arab Emirates',
-    'United Kingdom',
-    'United States',
-    'United States minor outlying islands',
-    'Uruguay',
-    'Uzbekistan',
-    'Vanuatu',
-    'Vatican City State',
-    'Venezuela',
-    'Vietnam',
-    'Virigan Islands (British)',
-    'Virgin Islands (U.S.)',
-    'Wallis and Futuna Islands',
-    'Western Sahara',
-    'Yemen',
-    'Yugoslavia',
-    'Zaire',
-    'Zambia',
-    'Zimbabwe',
-];
-
 class Registration extends Component {
     state = {
         isLoading: false,
@@ -293,8 +50,8 @@ class Registration extends Component {
         confEmail: '',
         email: '',
         password: '',
-        emailIsEquel: '',
-        passwordIsEquel: '',
+        emailIsEqual: '',
+        passwordIsEqual: '',
         open: false,
         anchorEl: null,
         selectedIndex: 1,
@@ -302,11 +59,17 @@ class Registration extends Component {
         errorMessage: { field: '' },
     };
     handleChangeUsername = (e) => {
+        if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
+            return null;
+        }
         this.setState({
             username: e.target.value,
         });
     };
     handleChangeFullName = (e) => {
+        if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
+            return null;
+        }
         this.setState({
             fullname: e.target.value,
         });
@@ -336,8 +99,8 @@ class Registration extends Component {
     };
     handleRegister = () => {
         this.setState({
-            emailIsEquel: this.state.email === this.state.confEmail,
-            passwordIsEquel: this.state.password === this.state.confPassword,
+            emailIsEqual: this.state.email === this.state.confEmail,
+            passwordIsEqual: this.state.password === this.state.confPassword,
         });
 
         if (
@@ -384,7 +147,27 @@ class Registration extends Component {
         const { from } = this.props.location.state || {
             from: { pathname: '/' },
         };
-        const { redirectToReferrer } = this.state;
+        const {
+            redirectToReferrer,
+            username,
+            fullname,
+            email,
+            password,
+            confEmail,
+            confPassword,
+        } = this.state;
+
+        const validation =
+            username.length >= 6 &&
+            username.length <= 18 &&
+            fullname.length >= 6 &&
+            fullname.length <= 50 &&
+            email === confEmail &&
+            password === confPassword &&
+            email.length > 0 &&
+            password.length > 0 &&
+            confEmail.length > 0 &&
+            confPassword.length > 0;
 
         if (this.state.isLoading) {
             return (
@@ -426,6 +209,7 @@ class Registration extends Component {
                     variant="raised"
                     className="buttonRegister"
                     onClick={this.handleRegister}
+                    disabled={!validation}
                 >
                     Sign Up
                 </Button>
@@ -464,6 +248,7 @@ class Registration extends Component {
                                         <Input
                                             id="FullName"
                                             onChange={this.handleChangeFullName}
+                                            value={fullname}
                                         />
                                         <FormHelperText
                                             id="fullname"
@@ -472,10 +257,9 @@ class Registration extends Component {
                                                     .FormHelperText
                                             }
                                         >
-                                            {this.state.errorMessage.field ===
-                                            'fullname'
-                                                ? this.state.errorMessage
-                                                      .message
+                                            {fullname.length < 6 ||
+                                            fullname.length > 50
+                                                ? 'This field must be from 6 to 50 chars long'
                                                 : ''}
                                         </FormHelperText>
                                     </FormControl>
@@ -503,6 +287,7 @@ class Registration extends Component {
                                         <Input
                                             id="username"
                                             onChange={this.handleChangeUsername}
+                                            value={username}
                                         />
                                         <FormHelperText
                                             id="username"
@@ -511,10 +296,9 @@ class Registration extends Component {
                                                     .FormHelperText
                                             }
                                         >
-                                            {this.state.errorMessage.field ===
-                                            'username'
-                                                ? this.state.errorMessage
-                                                      .message
+                                            {username.length < 6 ||
+                                            username.length > 18
+                                                ? 'This field must be from 6 to 18 chars long'
                                                 : ''}
                                         </FormHelperText>
                                     </FormControl>
@@ -597,8 +381,8 @@ class Registration extends Component {
                                                     .FormHelperText
                                             }
                                         >
-                                            {this.state.emailIsEquel === false
-                                                ? 'Emails are not match.'
+                                            {email !== confEmail
+                                                ? 'Emails do not match.'
                                                 : ''}
                                         </FormHelperText>
                                     </FormControl>
@@ -674,9 +458,8 @@ class Registration extends Component {
                                                     .FormHelperText
                                             }
                                         >
-                                            {this.state.passwordIsEquel ===
-                                            false
-                                                ? 'Passwords are not match.'
+                                            {password !== confPassword
+                                                ? 'Passwords do not match.'
                                                 : ''}
                                         </FormHelperText>
                                     </FormControl>

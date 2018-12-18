@@ -234,7 +234,7 @@ class AppBarDashboard extends Component {
                                         <p>{this.props.username}</p>
                                     </div>
 
-                                    {tracker ? (
+                                    {/* {tracker ? (
                                         <Transition
                                             in={tracker}
                                             appear
@@ -250,7 +250,7 @@ class AppBarDashboard extends Component {
                                                 />
                                             </div>
                                         </Transition>
-                                    ) : null}
+                                    ) : null} */}
 
                                     <Button
                                         size="small"

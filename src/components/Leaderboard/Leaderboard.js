@@ -16,6 +16,7 @@ class Leaderboard extends Component {
     state = {
         dataDota: [],
         dataLol: [],
+        dataFortnite: [],
         index: 0,
     };
 
@@ -27,6 +28,7 @@ class Leaderboard extends Component {
         this.setState({
             dataDota: dota.data.leaders,
             dataLol: lol.data.leaders,
+            dataFortnite: dota.data.leaders,
         });
     };
 
@@ -47,7 +49,7 @@ class Leaderboard extends Component {
     };
 
     render() {
-        const { index, dataDota, dataLol } = this.state;
+        const { index, dataDota, dataLol, dataFortnite } = this.state;
 
         return (
             <div>
@@ -84,6 +86,14 @@ class Leaderboard extends Component {
                                 }}
                                 label="League of legends"
                             />
+                            <Tab
+                                style={{
+                                    fontWeight: 'bold',
+                                    color: '#026d39',
+                                    fontSize: '0.9rem',
+                                }}
+                                label="Fortnite"
+                            />
                         </Tabs>
                         <SwipeableViews
                             index={index}
@@ -114,6 +124,24 @@ class Leaderboard extends Component {
                                         return (
                                             <TableRow
                                                 name="LoL"
+                                                period="past week"
+                                                publicKey={item.publicKey}
+                                                win={item.win}
+                                                lose={item.lose}
+                                                reward={item.reward}
+                                                key={index}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div>
+                                <TableRow header />
+                                <div className="table-data">
+                                    {dataFortnite.map((item, index) => {
+                                        return (
+                                            <TableRow
+                                                name="Fortnite"
                                                 period="past week"
                                                 publicKey={item.publicKey}
                                                 win={item.win}
