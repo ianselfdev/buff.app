@@ -74,6 +74,11 @@ const onNewEvents = (data, recipientId, secret) => {
 
     switch (event) {
         case 'matchStart':
+            //* return default states
+            matchData.kills = 0;
+            matchData.deaths = 0;
+            matchData.rank = null;
+
             const startGameData = {
                 gamedata: {
                     gameId: 21216,
@@ -86,11 +91,17 @@ const onNewEvents = (data, recipientId, secret) => {
 
             _sendStartGameTrs(JSON.stringify(startGameData));
 
+            break;
+
         case 'kill':
+            console.log('kill');
             matchData.kills++;
+            break;
 
         case 'death':
+            console.log('dead');
             matchData.deaths++;
+            break;
 
         case 'matchEnd':
             const { kills, deaths, rank } = matchData;
@@ -107,14 +118,13 @@ const onNewEvents = (data, recipientId, secret) => {
                 secret,
             };
 
+            console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
+            console.log(`Reward points: ${endGameData.gamedata.reward}`);
+
             //* send end game data if it wasnt already sent
 
             _sendEndGameTrs(JSON.stringify(endGameData));
-
-            //* return default states
-            matchData.kills = 0;
-            matchData.deaths = 0;
-            matchData.rank = null;
+            break;
 
         default:
             return null;
