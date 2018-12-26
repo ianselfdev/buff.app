@@ -5,12 +5,12 @@ import { Redirect } from 'react-router-dom';
 
 //Styles
 import Styles from './styles.module.scss';
-import logo from '../../assets/logo.png';
 
 //Analytics
 import ReactGA from 'react-ga';
 
 //Instruments
+import logo from '../../assets/logo.png';
 import Registration from '../Registration';
 import Spinner from '../Spinner';
 

@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { createMemoryHistory } from 'history';
 import routes from './routes';
 import configureStore from './Store/store';
-import './main-style.scss';
+import './theme/index.scss';
 
 //Analytics
 import ReactGA from 'react-ga';
