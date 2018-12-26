@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { realAuth } from '../../routes';
 import { Redirect } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -10,6 +11,7 @@ import Styles from './styles.module.scss';
 import ReactGA from 'react-ga';
 
 //Instruments
+import gsap from 'gsap';
 import logo from '../../assets/logo.png';
 import Registration from '../Registration';
 import Spinner from '../Spinner';
@@ -23,7 +25,6 @@ export default class Login extends Component {
         login: '',
         password: '',
         registration: false,
-        anchorEl: null,
         redirectToReferrer: false,
         isLoading: false,
     };
@@ -93,6 +94,37 @@ export default class Login extends Component {
         }
     };
 
+    //Animation group
+    _animateEnter = (component) => {
+        gsap.fromTo(
+            component,
+            0.5,
+            {
+                y: 800,
+                opacity: 0,
+            },
+            {
+                y: 0,
+                opacity: 1,
+            },
+        );
+    };
+
+    _animateExit = (component) => {
+        gsap.fromTo(
+            component,
+            0.5,
+            {
+                y: 0,
+                opacity: 1,
+            },
+            {
+                y: 800,
+                opacity: 0,
+            },
+        );
+    };
+
     render() {
         const { from } = this.props.location.state || {
             from: { pathname: '/' },
@@ -144,11 +176,17 @@ export default class Login extends Component {
                 >
                     Not registered yet? Click here!
                 </button>
-                {registration ? (
+                <Transition
+                    mountOnEnter
+                    in={registration}
+                    timeout={500}
+                    onEnter={this._animateEnter}
+                    onExit={this._animateExit}
+                >
                     <Registration
                         _closeRegistration={this._toggleRegistration}
                     />
-                ) : null}
+                </Transition>
             </div>
         );
     }
