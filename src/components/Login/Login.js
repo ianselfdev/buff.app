@@ -58,6 +58,7 @@ const loginContainerStyle = {
     width: '100%',
     height: '100%',
     align: 'center',
+    marginTop: '25px',
 };
 
 class Login extends Component {
@@ -150,6 +151,8 @@ class Login extends Component {
             from: { pathname: '/' },
         };
         const { redirectToReferrer, login, open } = this.state;
+
+        //! FUCK IT. Move Spinner to a separate component.
         if (this.state.isLoading) {
             return (
                 <div className="LoginMain">
@@ -180,8 +183,6 @@ class Login extends Component {
             <div className="LoginMain" onKeyPress={this.onKeyPress}>
                 <div style={loginContainerStyle} className="container">
                     <Grid style={loginContainerStyle}>
-                        <h1 className={'Title'}>Login to BUFF</h1>
-
                         <FormControl className={this.props.classes.formControl}>
                             <InputLabel
                                 formcontrolclasses={{
