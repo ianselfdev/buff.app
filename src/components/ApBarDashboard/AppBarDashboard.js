@@ -35,7 +35,7 @@ class AppBarDashboard extends Component {
         // this.props.addLeaderBoardDota();
         // this.props.addLeaderBoardLOL();
         this.props.addNews();
-        // this.props.addTournaments();
+        this.props.addTournaments();
         // this.props.addOnlineUsers();
         // setTimeout(() => {
         //     this.props.addHistory(this.props.address);

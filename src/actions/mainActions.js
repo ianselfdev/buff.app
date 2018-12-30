@@ -48,7 +48,7 @@ export function addTournaments() {
         Api.getTournamentsAPI().then((res) =>
             dispatch({
                 type: actionTypes.ADD_TOURNAMENTS,
-                payload: res.data,
+                payload: res.data.tournaments,
             }),
         );
 }

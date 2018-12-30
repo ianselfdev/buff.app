@@ -5,7 +5,7 @@ export default class Api {
         return axios.get('http://18.188.224.32:6001/api/buff/news?page=1');
     }
     static getTournamentsAPI() {
-        return axios.get('http://18.188.224.32:8000/api/tournaments?page=1');
+        return axios.get('http://18.188.224.32:6001/api/buff/tournaments?page=1');
     }
     static getHistoryAPI(token) {
         return axios.get(
