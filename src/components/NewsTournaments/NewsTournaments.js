@@ -56,7 +56,7 @@ class NewsTournaments extends Component {
                                                                 {n.title}
                                                                 <div className="sectionButton">
                                                                     <div className="newsTitle">
-                                                                        {n.date.substring(
+                                                                        {n.createdAt.substring(
                                                                             0,
                                                                             10,
                                                                         )}

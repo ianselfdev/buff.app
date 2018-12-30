@@ -23,6 +23,14 @@ export default function configureStore(initialState, routerHistory) {
                 };
             case actionTypes.LOGOUT:
                 return {};
+            case actionTypes.ADD_NEWS:
+                return { ...state, allNews: action.payload };
+            case actionTypes.ADD_TOURNAMENTS:
+                return { ...state, allTournaments: action.payload };
+            case actionTypes.ADD_ONLINE:
+                return { ...state, onlineUsers: action.payload.games_online };
+            case actionTypes.ADD_BALANCE:
+                return { ...state, userBalance: action.payload.buff_balance };
             // case actionTypes.TRACKER_LOGIN:
             //     return {
             //         ...state,

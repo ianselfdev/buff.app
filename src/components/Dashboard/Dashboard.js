@@ -9,6 +9,7 @@ const title = 'start playing and earn coins!';
 class Dashboard extends Component {
     render() {
         let news = this.props.allNews;
+        console.log(news);
         let onlineUser = this.props.online;
         let userBalance = this.props.userBalance;
         return (
@@ -127,12 +128,12 @@ class Dashboard extends Component {
                                                             <div className="newsContent">
                                                                 {n.title}
                                                                 <div className="sectionButton">
-                                                                    <div className="newsTitle">
+                                                                    {/* <div className="newsTitle">
                                                                         {n.date.substring(
                                                                             0,
                                                                             10,
                                                                         )}
-                                                                    </div>
+                                                                    </div> */}
                                                                     <Button
                                                                         size="small"
                                                                         className="buttonReadMore"

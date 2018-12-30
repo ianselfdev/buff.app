@@ -34,12 +34,13 @@ export function addLeaderBoardLOL() {
 
 export function addNews() {
     return (dispatch) =>
-        Api.getNewsAPI().then((res) =>
+        Api.getNewsAPI().then((res) => {
             dispatch({
                 type: actionTypes.ADD_NEWS,
-                payload: res.news,
-            }),
+                payload: res.data.news,
+            })},
         );
+        
 }
 
 export function addTournaments() {
