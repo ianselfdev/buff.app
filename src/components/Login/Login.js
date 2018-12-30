@@ -14,6 +14,7 @@ import gsap from 'gsap';
 import logo from '../../assets/logo.png';
 import Registration from '../Registration';
 import Spinner from '../Spinner';
+import { realAuth } from '../../routes';
 
 //REST
 import Api from '../../Store/ApiRequests';
@@ -41,10 +42,14 @@ export default class Login extends Component {
                 email: login,
                 password,
             });
+            if (!response.success) return;
 
-            console.log('parsed: ', JSON.parse(response.tokens.token));
+            // console.log('parsed: ', JSON.parse(response.tokens.token));
+            const user = await Api.getCurrentUser(response.tokens.token);
+            await realAuth.authenticate(user.data);
+            console.log("What", realAuth.isAuthenticated);
 
-            onLogin(response);
+            onLogin({...user.data.account, ...response.tokens});
 
             this.setState({
                 redirectToReferrer: response.success,
@@ -90,7 +95,7 @@ export default class Login extends Component {
 
     onKeyPress = (e) => {
         if (e.key === 'Enter') {
-            this.handleLogin();
+            // this.handleLogin();
         }
     };
 

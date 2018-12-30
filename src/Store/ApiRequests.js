@@ -7,17 +7,25 @@ export default class Api {
     static getTournamentsAPI() {
         return axios.get('http://18.188.224.32:8000/api/tournaments?page=1');
     }
-    static getHistoryAPI(address) {
+    static getHistoryAPI(token) {
         return axios.get(
-            `http://18.188.224.32:4000/api/history?page=1&senderId=${address}`,
-        );
+            `http://18.188.224.32:6001/api/games/history?page=1`, { 
+                headers: {"Authorization" : token} 
+        });
     }
     static getLeaderboardDotaAPI() {
-        return axios.get('http://18.188.224.32:4000/api/leaders?gameId=7314');
+        return axios.get('http://18.188.224.32:6001/api/buff/leaders?gameId=7314');
     }
     static getLeaderboardLoLAPI() {
         return axios.get('http://18.188.224.32:4000/api/leaders?gameId=5426');
     }
+
+    static getCurrentUser(token) {
+        return axios.get('http://18.188.224.32:6001/api/accounts/current', { 
+            headers: {"Authorization" : token} 
+        })
+    }
+
     static postLogin = async (user) => {
         const response = await fetch(
             'http://18.188.224.32:6001/api/accounts/login',

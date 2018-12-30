@@ -19,10 +19,7 @@ export default function configureStore(initialState, routerHistory) {
             case actionTypes.USER_LOGIN:
                 return {
                     ...state,
-                    token: action.payload.tokens.token,
-                    refreshToken: action.payload.tokens.refreshToken,
-                    tokenLife: action.payload.tokens.tokenLife,
-                    refreshTokenLife: action.payload.tokens.refreshTokenLife,
+                    ...action.payload,
                 };
             case actionTypes.LOGOUT:
                 return {};

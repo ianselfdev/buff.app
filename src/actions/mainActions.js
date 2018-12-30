@@ -37,7 +37,7 @@ export function addNews() {
         Api.getNewsAPI().then((res) =>
             dispatch({
                 type: actionTypes.ADD_NEWS,
-                payload: res.data,
+                payload: res.news,
             }),
         );
 }

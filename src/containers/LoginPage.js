@@ -3,7 +3,6 @@ import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import Login from '../components/Login/Login';
 import * as TodoActionCreators from '../actions/mainActions';
-import { realAuth } from '../routes';
 import * as actionTypes from '../Store/constant';
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (data) => {
             console.log('realAuth;;;>', data);
-            // dispatch(push('/loggedin'));
+            dispatch(push('/loggedin'));
             dispatch({
                 type: actionTypes.USER_LOGIN,
                 payload: data,
