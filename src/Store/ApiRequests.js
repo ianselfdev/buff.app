@@ -18,20 +18,45 @@ export default class Api {
     static getLeaderboardLoLAPI() {
         return axios.get('http://18.188.224.32:4000/api/leaders?gameId=5426');
     }
-    static postLogin(user) {
-        return axios.post('http://18.188.224.32:8000/api/login', user);
-    }
-    static postRegister(user) {
-        return axios.post('http://18.188.224.32:8000/api/users', user);
-    }
+    static postLogin = async (user) => {
+        const response = await fetch(
+            'http://18.188.224.32:6001/api/accounts/login',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            },
+        );
+
+        const result = await response.json();
+        console.log('login: ', result);
+
+        return result;
+    };
+    static postRegister = async (user) => {
+        const response = await fetch('http://18.188.224.32:6001/api/accounts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+
+        const result = await response.json();
+        console.log('registration: ', result);
+
+        return result;
+    };
     static getOnlineAPI() {
         return axios.get(
             'http://18.188.224.32:4000/api/game-start/games-online',
         );
     }
-    static getBalanceAPI(addres) {
+    static getBalanceAPI(address) {
         return axios.get(
-            `http://18.188.224.32:4000/api/accounts/getBalance?address=${addres}`,
+            `http://18.188.224.32:4000/api/accounts/getBalance?address=${address}`,
         );
     }
 }

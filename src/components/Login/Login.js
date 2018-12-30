@@ -1,6 +1,5 @@
 //Core
 import React, { Component } from 'react';
-import { realAuth } from '../../routes';
 import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
@@ -16,12 +15,12 @@ import logo from '../../assets/logo.png';
 import Registration from '../Registration';
 import Spinner from '../Spinner';
 
+//REST
+import Api from '../../Store/ApiRequests';
+
 export default class Login extends Component {
     state = {
-        status: {
-            status: null,
-            data: null,
-        },
+        status: {},
         login: '',
         password: '',
         registration: false,
@@ -31,34 +30,35 @@ export default class Login extends Component {
 
     _handleLogin = async () => {
         const { login, password } = this.state;
+        const { onLogin } = this.props;
 
-        this.setState({ isLoading: true });
-        if (!realAuth.isAuthenticated) {
-            realAuth
-                .authenticate({
-                    login,
-                    password,
-                })
-                .then((isAuthenticated) => {
-                    this.setState({
-                        redirectToReferrer: isAuthenticated.status,
-                        status: isAuthenticated,
-                        isLoading: false,
-                        login: '',
-                        password: '',
-                    });
+        try {
+            this.setState({
+                isLoading: true,
+            });
 
-                    ReactGA.event({
-                        category: 'authentication',
-                        action: 'Login',
-                    });
+            const response = await Api.postLogin({
+                email: login,
+                password,
+            });
 
-                    console.log('Logged in successfully');
-                    this.props.onLogin(isAuthenticated);
-                })
-                .catch((error) => {
-                    console.log('Error::Login => ', error);
-                });
+            console.log('parsed: ', JSON.parse(response.tokens.token));
+
+            onLogin(response);
+
+            this.setState({
+                redirectToReferrer: response.success,
+                status: response,
+                isLoading: false,
+                login: '',
+                password: '',
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            this.setState({
+                isLoading: false,
+            });
         }
     };
 
@@ -126,6 +126,8 @@ export default class Login extends Component {
     };
 
     render() {
+        // console.log(this.props);
+
         const { from } = this.props.location.state || {
             from: { pathname: '/' },
         };
@@ -134,6 +136,7 @@ export default class Login extends Component {
             login,
             password,
             registration,
+            isLoading,
         } = this.state;
 
         if (this.state.isLoading) {
@@ -142,52 +145,60 @@ export default class Login extends Component {
         if (redirectToReferrer && from.pathname !== '/') {
             return <Redirect to={from} />;
         }
-        return (
-            <div className={Styles.container} onKeyPress={this.onKeyPress}>
-                <img src={logo} alt="buff-logo" />
-                <form className={Styles.loginForm} onSubmit={this._handleLogin}>
-                    <input
-                        type="text"
-                        name="login"
-                        placeholder="Login or Email"
-                        value={login}
-                        onChange={this._handleInput}
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={this._handleInput}
-                    />
-                    <input type="submit" value="Log In" />
-                </form>
-                <button
-                    onClick={() => {
-                        console.log('lol');
-                    }}
-                    className={Styles.forgotPassButton}
-                >
-                    Forgot password?
-                </button>
-                <button
-                    onClick={this._toggleRegistration}
-                    className={Styles.registrationButton}
-                >
-                    Not registered yet? Click here!
-                </button>
-                <Transition
-                    mountOnEnter
-                    in={registration}
-                    timeout={500}
-                    onEnter={this._animateEnter}
-                    onExit={this._animateExit}
-                >
-                    <Registration
-                        _closeRegistration={this._toggleRegistration}
-                    />
-                </Transition>
-            </div>
-        );
+
+        if (isLoading) {
+            return <Spinner />;
+        } else {
+            return (
+                <div className={Styles.container} onKeyPress={this.onKeyPress}>
+                    <img src={logo} alt="buff-logo" />
+                    <form
+                        className={Styles.loginForm}
+                        onSubmit={this._handleLogin}
+                    >
+                        <input
+                            type="text"
+                            name="login"
+                            placeholder="Login or Email"
+                            value={login}
+                            onChange={this._handleInput}
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={this._handleInput}
+                        />
+                        <input type="submit" value="Log In" />
+                    </form>
+                    <button
+                        onClick={() => {
+                            console.log('lol');
+                        }}
+                        className={Styles.forgotPassButton}
+                    >
+                        Forgot password?
+                    </button>
+                    <button
+                        onClick={this._toggleRegistration}
+                        className={Styles.registrationButton}
+                    >
+                        Not registered yet? Click here!
+                    </button>
+                    <Transition
+                        mountOnEnter
+                        in={registration}
+                        timeout={500}
+                        onEnter={this._animateEnter}
+                        onExit={this._animateExit}
+                    >
+                        <Registration
+                            _closeRegistration={this._toggleRegistration}
+                        />
+                    </Transition>
+                </div>
+            );
+        }
     }
 }

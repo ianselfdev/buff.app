@@ -1,9 +1,7 @@
-import { createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { routerMiddleware, routerReducer } from 'react-router-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { routerReducer } from 'react-router-redux';
-import { combineReducers } from 'redux';
 import * as actionTypes from './constant';
 
 export default function configureStore(initialState, routerHistory) {
@@ -21,29 +19,23 @@ export default function configureStore(initialState, routerHistory) {
             case actionTypes.USER_LOGIN:
                 return {
                     ...state,
-                    username: action.payload.username,
-                    address: action.payload.address,
+                    token: action.payload.tokens.token,
+                    refreshToken: action.payload.tokens.refreshToken,
+                    tokenLife: action.payload.tokens.tokenLife,
+                    refreshTokenLife: action.payload.tokens.refreshTokenLife,
                 };
-            case actionTypes.ADD_NEWS:
-                return { ...state, allNews: action.payload };
-            case actionTypes.ADD_TOURNAMENTS:
-                return { ...state, allTournaments: action.payload };
-            case actionTypes.ADD_ONLINE:
-                return { ...state, onlineUsers: action.payload.games_online };
-            case actionTypes.ADD_BALANCE:
-                return { ...state, userBalance: action.payload.buff_balance };
             case actionTypes.LOGOUT:
                 return {};
-            case actionTypes.TRACKER_LOGIN:
-                return {
-                    ...state,
-                    loggedIntoTracker: true,
-                };
-            case actionTypes.TRACKER_LOGOUT:
-                return {
-                    ...state,
-                    loggedIntoTracker: false,
-                };
+            // case actionTypes.TRACKER_LOGIN:
+            //     return {
+            //         ...state,
+            //         loggedIntoTracker: true,
+            //     };
+            // case actionTypes.TRACKER_LOGOUT:
+            //     return {
+            //         ...state,
+            //         loggedIntoTracker: false,
+            //     };
             default:
                 return state;
         }
