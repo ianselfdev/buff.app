@@ -34,7 +34,7 @@ class Tracker extends Component {
     _handleLogging = async (e) => {
         e.preventDefault();
         const { logged, address, secret } = this.state;
-        const { trackerLogin, trackerLogout, _toggleTracker, token } = this.props;
+        const { trackerLogin, trackerLogout, _toggleTracker } = this.props;
 
         //checking logged state
         if (logged) {
@@ -43,18 +43,18 @@ class Tracker extends Component {
             alert('You logged out');
         } else {
             //if not logged - validating fields
-            if (!address || !secret) {
-                alert('Fill in all the fields, please!');
-                return null;
-            }
+            // if (!address || !secret) {
+            //     alert('Fill in all the fields, please!');
+            //     return null;
+            // }
 
             //actual logging function
             // const result = await validateAddress(address, secret);
 
-            if (!result.success || !result.verified) {
-                alert('Verification not passed');
-                return null;
-            }
+            // if (!result.success || !result.verified) {
+            //     alert('Verification not passed');
+            //     return null;
+            // }
 
             trackerLogin();
             alert('You successfully logged in!');
