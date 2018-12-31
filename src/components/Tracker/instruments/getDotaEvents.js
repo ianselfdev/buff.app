@@ -308,7 +308,7 @@ export const _getDotaEvents = (senderId, passphrase) => {
                             console.log('SENDING END GAME TRS');
 
                             var endGameTrs = JSON.stringify({
-                                matchId: uuid(),
+                                matchId: 1,
                                 gameId: 7314,
                                 reward,
                                 victory: isWinner,

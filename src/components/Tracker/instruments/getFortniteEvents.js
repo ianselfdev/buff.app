@@ -80,13 +80,9 @@ const onNewEvents = (data, recipientId, secret) => {
             matchData.rank = null;
 
             const startGameData = {
-                gamedata: {
-                    gameId: 21216,
-                    matchId: 1,
-                    rankedGame: true,
-                },
-                recipientId,
-                secret,
+                gameId: 21216,
+                matchId: 1,
+                // rankedGame: true,
             };
 
             _sendStartGameTrs(JSON.stringify(startGameData));
@@ -107,15 +103,14 @@ const onNewEvents = (data, recipientId, secret) => {
             const { kills, deaths, rank } = matchData;
 
             const endGameData = {
-                gamedata: {
+                matchData: {
                     ...matchData,
-                    gameId: 21216,
-                    matchId: 1,
                     rankedGame: true,
-                    reward: (kills * (100 - Number(rank))) / (deaths * 10) + 1,
                 },
-                recipientId,
-                secret,
+                gameId: 21216,
+                matchId: 1,
+                victory: isWinner,
+                reward: (kills * (100 - Number(rank))) / (deaths * 10) + 1,
             };
 
             console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
