@@ -1,4 +1,5 @@
 import { _seGameTrs, _sendEndGameTrs } from './gamestats';
+import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
 
@@ -293,16 +294,12 @@ export const _getDotaEvents = (senderId, passphrase) => {
                             if (isWinner) reward += 45;
 
                             var gamedata = {
-                                matchId: 1,
-                                gameId: 7314,
                                 rankedGame: true,
                                 xpm: dotaParams.xpm,
                                 gpm: dotaParams.gpm,
                                 kda: kda,
                                 last_hits: dotaParams.lastHits,
                                 denies: dotaParams.denies,
-                                victory: isWinner,
-                                reward: reward,
                             };
 
                             var recipientId = senderId;
@@ -311,9 +308,11 @@ export const _getDotaEvents = (senderId, passphrase) => {
                             console.log('SENDING END GAME TRS');
 
                             var endGameTrs = JSON.stringify({
-                                gamedata: gamedata,
-                                recipientId: recipientId,
-                                secret: secret,
+                                matchId: uuid(),
+                                gameId: 7314,
+                                reward,
+                                victory: isWinner,
+                                matchData: gamedata,
                             });
 
                             _sendEndGameTrs(endGameTrs);
@@ -383,13 +382,12 @@ export const _getDotaEvents = (senderId, passphrase) => {
                         rankedGame: true,
                     };
 
-                    var recipientId = senderId;
-                    var secret = passphrase;
+                    // var recipientId = senderId;
+                    // var secret = passphrase;
 
                     var startGameTrs = JSON.stringify({
-                        gamedata: gamedata,
-                        recipientId: recipientId,
-                        secret: secret,
+                        gameId: 7314,
+                        matchId: matchId,
                     });
 
                     _sendStartGameTrs(startGameTrs);

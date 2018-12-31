@@ -109,8 +109,8 @@ class Leaderboard extends Component {
                                             <TableRow
                                                 name="Dota 2"
                                                 period="past week"
-                                                publicKey={item.publicKey}
-                                                win={item.win}
+                                                nickname={item.nickname}
+                                                wins={item.wins}
                                                 lose={item.lose}
                                                 reward={item.reward}
                                                 key={index}

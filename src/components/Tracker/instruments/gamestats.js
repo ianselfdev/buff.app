@@ -1,8 +1,8 @@
 export const _sendStartGameTrs = async (tx) => {
     // console.log(tx);
 
-    const response = await fetch('http://18.188.224.32:4000/api/game-start', {
-        method: 'PUT',
+    const response = await fetch('http://18.188.224.32:6001/api/games/start', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -16,8 +16,8 @@ export const _sendStartGameTrs = async (tx) => {
 };
 
 export const _sendEndGameTrs = async (tx) => {
-    const response = await fetch('http://18.188.224.32:4000/api/game-end', {
-        method: 'PUT',
+    const response = await fetch('http://18.188.224.32:6001/api/games/game-end', {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
