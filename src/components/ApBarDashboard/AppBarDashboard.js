@@ -32,27 +32,28 @@ class AppBarDashboard extends Component {
             menuButton: 'dashboard',
             refreshData: null,
         };
-        // this.props.addLeaderBoardDota();
-        // this.props.addLeaderBoardLOL();
+        this.props.addLeaderBoardDota();
+        this.props.addLeaderBoardLOL();
         this.props.addNews();
         this.props.addTournaments();
+        // this.props.addUserBalance(this.props.token);
         // this.props.addOnlineUsers();
-        // setTimeout(() => {
-        //     this.props.addHistory(this.props.address);
-        //     this.props.addUserBalance(this.props.address);
-        // }, 1000);
+        setTimeout(() => {
+            this.props.addHistory(this.props.token);
+            this.props.addUserBalance(this.props.token);
+        }, 1000);
     }
 
     componentDidMount() {
-        // this.state.refreshData = setInterval(() => {
-        //     this.props.addHistory(this.props.address);
-        //     this.props.addUserBalance(this.props.address);
-        //     this.props.addLeaderBoardDota();
-        //     this.props.addLeaderBoardLOL();
-        //     this.props.addNews();
-        //     this.props.addTournaments();
-        //     this.props.addOnlineUsers();
-        // }, 5000);
+        this.state.refreshData = setInterval(() => {
+            // this.props.addHistory(this.props.address);
+            // this.props.addUserBalance(this.props.address);
+            // this.props.addLeaderBoardDota();
+            // this.props.addLeaderBoardLOL();
+            // this.props.addNews();
+            // this.props.addTournaments();
+            // this.props.addOnlineUsers();
+        }, 5000);
 
         setTimeout(() => {
             this.setState({

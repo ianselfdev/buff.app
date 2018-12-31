@@ -7,7 +7,7 @@ export function addHistory(address) {
         Api.getHistoryAPI(address).then((res) =>
             dispatch({
                 type: actionTypes.ADD_HISTORY,
-                payload: res.data,
+                payload: res.data.history,
             }),
         );
 }
@@ -17,7 +17,7 @@ export function addLeaderBoardDota() {
         Api.getLeaderboardDotaAPI().then((res) =>
             dispatch({
                 type: actionTypes.ADD_LEADERBOARD_DOTA,
-                payload: res.data,
+                payload: res.data.leaderbord,
             }),
         );
 }
@@ -27,7 +27,7 @@ export function addLeaderBoardLOL() {
         Api.getLeaderboardLoLAPI().then((res) =>
             dispatch({
                 type: actionTypes.ADD_LEADERBOARD_LOL,
-                payload: res.data,
+                payload: res.data.leaderbord,
             }),
         );
 }
@@ -68,7 +68,7 @@ export function addUserBalance(address) {
         Api.getBalanceAPI(address).then((res) =>
             dispatch({
                 type: actionTypes.ADD_BALANCE,
-                payload: res.data,
+                payload: res.data.balance,
             }),
         );
 }

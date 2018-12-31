@@ -10,12 +10,13 @@ export default function configureStore(initialState, routerHistory) {
     const reducers = (state = initialState, action) => {
         switch (action.type) {
             case actionTypes.ADD_HISTORY: {
-                return { ...state, allHistory: action.payload.games };
+                return { ...state, allHistory: action.payload };
             }
             case actionTypes.ADD_LEADERBOARD_DOTA:
-                return { ...state, leaderBoardDota: action.payload.leaders };
+                console.log(action.payload);
+                return { ...state, leaderBoardDota: action.payload };
             case actionTypes.ADD_LEADERBOARD_LOL:
-                return { ...state, leaderBoardLol: action.payload.leaders };
+                return { ...state, leaderBoardLol: action.payload };
             case actionTypes.USER_LOGIN:
                 return {
                     ...state,
@@ -30,7 +31,7 @@ export default function configureStore(initialState, routerHistory) {
             case actionTypes.ADD_ONLINE:
                 return { ...state, onlineUsers: action.payload.games_online };
             case actionTypes.ADD_BALANCE:
-                return { ...state, userBalance: action.payload.buff_balance };
+                return { ...state, userBalance: action.payload };
             // case actionTypes.TRACKER_LOGIN:
             //     return {
             //         ...state,

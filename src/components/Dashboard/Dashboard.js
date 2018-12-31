@@ -9,7 +9,6 @@ const title = 'start playing and earn coins!';
 class Dashboard extends Component {
     render() {
         let news = this.props.allNews;
-        console.log(news);
         let onlineUser = this.props.online;
         let userBalance = this.props.userBalance;
         return (

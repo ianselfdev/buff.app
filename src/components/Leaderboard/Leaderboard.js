@@ -25,10 +25,12 @@ class Leaderboard extends Component {
 
         const lol = await Api.getLeaderboardLoLAPI();
 
+        console.log(dota, lol);
+
         this.setState({
-            dataDota: dota.data.leaders,
-            dataLol: lol.data.leaders,
-            dataFortnite: dota.data.leaders,
+            dataDota: dota.data.leaderbord,
+            dataLol: lol.data.leaderbord,
+            dataFortnite: dota.data.leaderbord,
         });
     };
 

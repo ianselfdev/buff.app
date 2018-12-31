@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
     ownProps: ownProps,
     tournaments: state.reducerMain.allTournaments,
     address: state.reducerMain.address,
+    token: state.reducerMain.token
 });
 
 function mapDispatchToProps(dispatch) {
