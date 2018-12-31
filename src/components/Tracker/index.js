@@ -127,7 +127,7 @@ class Tracker extends Component {
 
 const mapStateToProps = (state) => ({
     loggedIntoTracker: state.reducerMain.loggedIntoTracker,
-    token: state.reducerMain.token`
+    token: state.reducerMain.token
 });
 
 function mapDispatchToProps(dispatch) {
