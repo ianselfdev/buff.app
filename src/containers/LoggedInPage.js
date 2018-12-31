@@ -5,7 +5,7 @@ import * as mainActions from '../actions/mainActions';
 // console.log('TodoActionCreators',mainActions);
 const mapStateToProps = (state, ownProps) => ({
     allHistory: state.reducerMain.allHistory,
-    username: state.reducerMain.username,
+    login: state.reducerMain.login,
     ownProps: ownProps,
     tournaments: state.reducerMain.allTournaments,
     address: state.reducerMain.address,
