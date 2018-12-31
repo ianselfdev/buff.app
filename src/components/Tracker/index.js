@@ -34,7 +34,7 @@ class Tracker extends Component {
     _handleLogging = async (e) => {
         e.preventDefault();
         const { logged, address, secret } = this.state;
-        const { trackerLogin, trackerLogout, _toggleTracker } = this.props;
+        const { trackerLogin, trackerLogout, _toggleTracker, token } = this.props;
 
         //checking logged state
         if (logged) {
@@ -49,7 +49,7 @@ class Tracker extends Component {
             }
 
             //actual logging function
-            const result = await validateAddress(address, secret);
+            // const result = await validateAddress(address, secret);
 
             if (!result.success || !result.verified) {
                 alert('Verification not passed');
@@ -87,14 +87,14 @@ class Tracker extends Component {
                                 In order to get started you have to sign events
                                 transactions with your credentials.
                             </p>
-                            <p>
+                            {/* <p>
                                 You received it via email after registration in
                                 buff.app
-                            </p>
+                            </p> */}
                         </div>
                     )}
                     <div>
-                        {logged ? null : (
+                        {/* {logged ? null : (
                             <form onSubmit={this._handleLogging}>
                                 <input
                                     type="text"
@@ -110,7 +110,7 @@ class Tracker extends Component {
                                 />
                                 <input type="submit" hidden />
                             </form>
-                        )}
+                        )} */}
                         {logged ? (
                             <button onClick={this._handleLogging}>
                                 Logout or Change User
@@ -127,6 +127,7 @@ class Tracker extends Component {
 
 const mapStateToProps = (state) => ({
     loggedIntoTracker: state.reducerMain.loggedIntoTracker,
+    token: state.reducerMain.token`
 });
 
 function mapDispatchToProps(dispatch) {

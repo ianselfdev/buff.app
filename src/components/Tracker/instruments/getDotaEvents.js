@@ -62,7 +62,7 @@ export const setDotaFeatures = () => {
     });
 };
 
-export const _getDotaEvents = (senderId, passphrase) => {
+export const _getDotaEvents = (token) => {
     overwolf.games.events.onError.addListener(function(info) {
         if (currentGame == 'Dota 2') {
             console.log('Error: ' + JSON.stringify(info));
@@ -315,7 +315,7 @@ export const _getDotaEvents = (senderId, passphrase) => {
                                 matchData: gamedata,
                             });
 
-                            _sendEndGameTrs(endGameTrs);
+                            _sendEndGameTrs(endGameTrs, token);
 
                             dotaParams.gameInProcess = false;
                             dotaParams.gameStarted = undefined;
@@ -390,7 +390,7 @@ export const _getDotaEvents = (senderId, passphrase) => {
                         matchId: matchId,
                     });
 
-                    _sendStartGameTrs(startGameTrs);
+                    _sendStartGameTrs(startGameTrs, token);
 
                     dotaParams.gameInProcess = true;
                 }

@@ -26,13 +26,13 @@ const gameRunning = (gameInfo) => {
     return undefined;
 };
 
-export const setOverwolfListeners = (senderId, passphrase) => {
+export const setOverwolfListeners = (token) => {
     overwolf.games.onGameInfoUpdated.addListener(function(res) {
         let gameTitle = gameLaunched(res);
 
         switch (gameTitle) {
             case 'Dota 2':
-                _getDotaEvents(senderId, passphrase);
+                _getDotaEvents(token);
                 setTimeout(setDotaFeatures, 1000);
 
             case 'League of Legends':

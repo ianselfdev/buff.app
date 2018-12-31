@@ -1,10 +1,11 @@
-export const _sendStartGameTrs = async (tx) => {
+export const _sendStartGameTrs = async (tx, token) => {
     // console.log(tx);
 
     const response = await fetch('http://18.188.224.32:6001/api/games/start', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token, 
         },
         body: tx,
     });
@@ -15,11 +16,12 @@ export const _sendStartGameTrs = async (tx) => {
     console.log(result);
 };
 
-export const _sendEndGameTrs = async (tx) => {
+export const _sendEndGameTrs = async (tx, token) => {
     const response = await fetch('http://18.188.224.32:6001/api/games/game-end', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token, 
         },
         body: tx,
     });
