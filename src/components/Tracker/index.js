@@ -60,7 +60,7 @@ class Tracker extends Component {
             alert('You successfully logged in!');
         }
 
-        setOverwolfListeners(address, secret);
+        setOverwolfListeners(this.props.token);
         _toggleTracker();
     };
 

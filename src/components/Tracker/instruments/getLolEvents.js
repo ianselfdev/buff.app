@@ -40,7 +40,7 @@ const lolParams = {
     allPlayers: undefined,
 };
 
-export const _getLolEvents = (senderId, passphrase) => {
+export const _getLolEvents = (token) => {
     overwolf.games.events.onError.addListener(function(info) {
         if (currentGame == 'League of Legends') {
             console.log('Error: ' + JSON.stringify(info));
@@ -205,7 +205,7 @@ export const _getLolEvents = (senderId, passphrase) => {
 
                             // console.log(endGameTrs);
 
-                            _sendEndGameTrs(endGameTrs);
+                            _sendEndGameTrs(endGameTrs, token);
 
                             lolParams.gameInProcess = false;
                             lolParams.gameStarted = undefined;
@@ -261,7 +261,7 @@ export const _getLolEvents = (senderId, passphrase) => {
                     // rankedGame: true,
                 });
 
-                _sendStartGameTrs(startGameTrs);
+                _sendStartGameTrs(startGameTrs, token);
 
                 lolParams.gameInProcess = true;
             }
