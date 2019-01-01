@@ -36,11 +36,11 @@ export const setOverwolfListeners = (token) => {
                 setTimeout(setDotaFeatures, 1000);
 
             case 'League of Legends':
-                _getLolEvents(senderId, passphrase);
+                _getLolEvents(token);
                 setTimeout(setLoLFeatures, 1000);
 
             case 'Fortnite Battle Royale':
-                getFortniteEvents(senderId, passphrase);
+                getFortniteEvents(token);
             // setTimeout(setFortniteFeatures, 1000);
         }
     });
