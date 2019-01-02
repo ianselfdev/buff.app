@@ -40,7 +40,7 @@ const lolParams = {
     allPlayers: undefined,
 };
 
-export const _getLolEvents = (senderId, passphrase) => {
+export const _getLolEvents = (token) => {
     overwolf.games.events.onError.addListener(function(info) {
         if (currentGame == 'League of Legends') {
             console.log('Error: ' + JSON.stringify(info));
@@ -184,14 +184,10 @@ export const _getLolEvents = (senderId, passphrase) => {
                             if (isWinner) reward += 45;
 
                             var gamedata = {
-                                matchId: 1,
-                                gameId: 5426,
                                 rankedGame: true,
                                 kda: kda,
                                 minion_kills: lolParams.minionKills,
                                 level: lolParams.level,
-                                victory: isWinner,
-                                reward: reward,
                             };
 
                             var recipientId = senderId;
@@ -200,14 +196,16 @@ export const _getLolEvents = (senderId, passphrase) => {
                             console.log('SENDING END GAME TRS');
 
                             var endGameTrs = JSON.stringify({
-                                gamedata: gamedata,
-                                recipientId: recipientId,
-                                secret: secret,
+                                matchData: gamedata,
+                                gameId: 5426,
+                                matchId: 1,
+                                victory: isWinner,
+                                reward: reward,
                             });
 
                             // console.log(endGameTrs);
 
-                            _sendEndGameTrs(endGameTrs);
+                            _sendEndGameTrs(endGameTrs, token);
 
                             lolParams.gameInProcess = false;
                             lolParams.gameStarted = undefined;
@@ -258,12 +256,12 @@ export const _getLolEvents = (senderId, passphrase) => {
                 var secret = passphrase;
 
                 var startGameTrs = JSON.stringify({
-                    gamedata: gamedata,
-                    recipientId: recipientId,
-                    secret: secret,
+                    gameId: 5426,
+                    matchId: 1,
+                    // rankedGame: true,
                 });
 
-                _sendStartGameTrs(startGameTrs);
+                _sendStartGameTrs(startGameTrs, token);
 
                 lolParams.gameInProcess = true;
             }

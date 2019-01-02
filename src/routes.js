@@ -14,7 +14,7 @@ export const realAuth = {
             this.isAuthenticated = user.success;
             isAuthenticated({
                 status: this.isAuthenticated,
-                // data: user,
+                data: user,
             });
         });
     },

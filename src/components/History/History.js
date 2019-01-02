@@ -209,8 +209,8 @@ class History extends Component {
                             page * rowsPerPage + rowsPerPage,
                         )
                         .map((n, k) => {
-                            let realTime = this.getDate(n.gamedata.timestamp);
-                            let gameName = this.getGameName(n.gamedata.gameId);
+                            let realTime = this.getDate(n.createdAt);
+                            let gameName = this.getGameName(+n.data.gameId);
 
                             return (
                                 <TableRow key={k}>
@@ -221,25 +221,24 @@ class History extends Component {
                                         {gameName}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {n.gamedata.kda
-                                            ? n.gamedata.kda.toFixed(2)
+                                        {n.data.kda
+                                            ? n.data.kda.toFixed(2)
                                             : '-'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {n.status}
+                                        {"finished"}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {n.status == 'finished' &&
-                                        n.gamedata.reward
-                                            ? (n.gamedata.reward / 10).toFixed(
+                                        {
+                                        n.data.reward
+                                            ? (n.data.reward / 10).toFixed(
                                                   2,
                                               )
                                             : '-'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {n.status == 'finished' &&
-                                        n.gamedata.reward
-                                            ? (n.gamedata.reward / 20).toFixed(
+                                        { n.data.reward
+                                            ? (n.data.reward / 20).toFixed(
                                                   2,
                                               ) + '$'
                                             : '-'}

@@ -68,7 +68,7 @@ export const setFortniteFeatures = () => {
     });
 };
 
-const onNewEvents = (data, recipientId, secret) => {
+const onNewEvents = (data, token) => {
     const event = data.events[0].name;
     console.log(event);
 
@@ -80,16 +80,12 @@ const onNewEvents = (data, recipientId, secret) => {
             matchData.rank = null;
 
             const startGameData = {
-                gamedata: {
-                    gameId: 21216,
-                    matchId: 1,
-                    rankedGame: true,
-                },
-                recipientId,
-                secret,
+                gameId: 21216,
+                matchId: 1,
+                // rankedGame: true,
             };
 
-            _sendStartGameTrs(JSON.stringify(startGameData));
+            _sendStartGameTrs(JSON.stringify(startGameData), token);
 
             break;
 
@@ -107,15 +103,14 @@ const onNewEvents = (data, recipientId, secret) => {
             const { kills, deaths, rank } = matchData;
 
             const endGameData = {
-                gamedata: {
+                matchData: {
                     ...matchData,
-                    gameId: 21216,
-                    matchId: 1,
                     rankedGame: true,
-                    reward: (kills * (100 - Number(rank))) / (deaths * 10) + 1,
                 },
-                recipientId,
-                secret,
+                gameId: 21216,
+                matchId: 1,
+                victory: isWinner,
+                reward: (kills * (100 - Number(rank))) / (deaths * 10) + 1,
             };
 
             console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
@@ -123,7 +118,7 @@ const onNewEvents = (data, recipientId, secret) => {
 
             //* send end game data if it wasnt already sent
 
-            _sendEndGameTrs(JSON.stringify(endGameData));
+            _sendEndGameTrs(JSON.stringify(endGameData), token);
             break;
 
         default:
@@ -148,7 +143,7 @@ const onInfoUpdates2 = (data) => {
 };
 
 //setting listeners for OW events
-export const getFortniteEvents = (id, secret) => {
+export const getFortniteEvents = (token) => {
     //SETTING LISTENERS
 
     setFortniteFeatures();
@@ -185,7 +180,7 @@ export const getFortniteEvents = (id, secret) => {
     //listening to in-game events
     if (!listeners.onNewEvents) {
         overwolf.games.events.onNewEvents.addListener((data) => {
-            onNewEvents(data, id, secret);
+            onNewEvents(data, token);
         });
 
         listeners.onNewEvents = true;

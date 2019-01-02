@@ -36,22 +36,22 @@ class AppBarDashboard extends Component {
         this.props.addLeaderBoardLOL();
         this.props.addNews();
         this.props.addTournaments();
-        this.props.addOnlineUsers();
+        // this.props.addOnlineUsers();
         setTimeout(() => {
-            this.props.addHistory(this.props.address);
-            this.props.addUserBalance(this.props.address);
+            this.props.addHistory(this.props.token);
+            this.props.addUserBalance(this.props.token);
         }, 1000);
     }
 
     componentDidMount() {
         this.state.refreshData = setInterval(() => {
-            this.props.addHistory(this.props.address);
-            this.props.addUserBalance(this.props.address);
+            this.props.addHistory(this.props.token);
+            this.props.addUserBalance(this.props.token);
             this.props.addLeaderBoardDota();
             this.props.addLeaderBoardLOL();
             this.props.addNews();
             this.props.addTournaments();
-            this.props.addOnlineUsers();
+            // this.props.addOnlineUsers();
         }, 5000);
 
         setTimeout(() => {
@@ -231,10 +231,10 @@ class AppBarDashboard extends Component {
                                         onClick={this._handleTracker}
                                     >
                                         <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
-                                        <p>{this.props.username}</p>
+                                        <p>{this.props.login}</p>
                                     </div>
 
-                                    {/* {tracker ? (
+                                    {tracker ? (
                                         <Transition
                                             in={tracker}
                                             appear
@@ -250,7 +250,7 @@ class AppBarDashboard extends Component {
                                                 />
                                             </div>
                                         </Transition>
-                                    ) : null} */}
+                                    ) : null}
 
                                     <Button
                                         size="small"

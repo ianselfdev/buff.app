@@ -127,12 +127,12 @@ class Dashboard extends Component {
                                                             <div className="newsContent">
                                                                 {n.title}
                                                                 <div className="sectionButton">
-                                                                    <div className="newsTitle">
+                                                                    {/* <div className="newsTitle">
                                                                         {n.date.substring(
                                                                             0,
                                                                             10,
                                                                         )}
-                                                                    </div>
+                                                                    </div> */}
                                                                     <Button
                                                                         size="small"
                                                                         className="buttonReadMore"
