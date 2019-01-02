@@ -1,4 +1,4 @@
-import { _seGameTrs, _sendEndGameTrs } from './gamestats';
+import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
 import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
@@ -302,8 +302,8 @@ export const _getDotaEvents = (token) => {
                                 denies: dotaParams.denies,
                             };
 
-                            var recipientId = senderId;
-                            var secret = passphrase;
+                            // var recipientId = senderId;
+                            // var secret = passphrase;
 
                             console.log('SENDING END GAME TRS');
 
