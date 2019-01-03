@@ -1,4 +1,5 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
 
@@ -198,9 +199,9 @@ export const _getLolEvents = (token) => {
                             var endGameTrs = JSON.stringify({
                                 matchData: gamedata,
                                 gameId: 5426,
-                                matchId: 1,
+                                matchId,
                                 victory: isWinner,
-                                reward: reward,
+                                reward: reward * 0.1,
                             });
 
                             // console.log(endGameTrs);
@@ -246,18 +247,12 @@ export const _getLolEvents = (token) => {
             }
 
             if (lolParams.gameStarted && !lolParams.gameInProcess) {
-                var gamedata = {
-                    gameId: 5426,
-                    matchId: 1,
-                    rankedGame: true,
-                };
-
-                var recipientId = senderId;
-                var secret = passphrase;
+                
+                matchId = uuid();
 
                 var startGameTrs = JSON.stringify({
                     gameId: 5426,
-                    matchId: 1,
+                    matchId,
                     // rankedGame: true,
                 });
 

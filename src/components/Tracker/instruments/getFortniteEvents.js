@@ -1,6 +1,10 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import uuid from 'uuid/v4';
+
 
 /*eslint-disable no-undef*/
+
+let matchId = null;
 
 const listeners = {
     onNewEvents: false,
@@ -63,8 +67,6 @@ export const setFortniteFeatures = () => {
         if (data.status === 'error') {
             window.setTimeout(setFortniteFeatures, 2000);
         }
-
-        // console.log(JSON.stringify(info));
     });
 };
 
@@ -79,9 +81,11 @@ const onNewEvents = (data, token) => {
             matchData.deaths = 0;
             matchData.rank = null;
 
+            matchId = uuid();
+
             const startGameData = {
                 gameId: 21216,
-                matchId: 1,
+                matchId,
                 // rankedGame: true,
             };
 
@@ -108,15 +112,13 @@ const onNewEvents = (data, token) => {
                     rankedGame: true,
                 },
                 gameId: 21216,
-                matchId: 1,
+                matchId,
                 victory: isWinner,
-                reward: (kills * (100 - Number(rank))) / (deaths * 10) + 1,
+                reward: ((kills * (100 - Number(rank))) / (deaths * 10) + 1) * 0.1,
             };
 
             console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
             console.log(`Reward points: ${endGameData.gamedata.reward}`);
-
-            //* send end game data if it wasnt already sent
 
             _sendEndGameTrs(JSON.stringify(endGameData), token);
             break;

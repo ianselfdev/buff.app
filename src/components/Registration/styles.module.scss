@@ -1,40 +1,25 @@
 @import '../../theme/palette.scss';
 
-.container {
-    position: absolute;
-    bottom: 5%;
-    left: 30%;
-    width: 40%;
-    height: 90%;
-    background: $primaryGrey;
-    // background-image: url('../../assets/Materials/Registration_background.jpg');
-    // background-position: center;
-    // background-repeat: no-repeat;
-    // background-size: cover;
-
-    border: 2px solid $secondaryGreen;
-    border-radius: 5px;
-
-    & img {
+.img {
         position: absolute;
         left: 50%;
         top: -25%;
         transform: translate(-50%) scale(0.15);
     }
 
-    & form {
+    form {
         width: 80%;
         margin: 8rem auto 3rem;
     }
 
-    & .warning {
+    .warning {
         color: red;
         text-align: center;
         font-size: 0.8rem;
         margin: -2rem auto 1rem;
     }
 
-    & .signUpButton {
+    .signUpButton {
         background: $secondaryGreen;
         border: 1px solid $secondaryGreen;
         border-radius: 5px;
@@ -49,14 +34,14 @@
         }
 
         &:disabled {
-            background: $primaryGrey;
+            background: transparent;
             border: 1px solid $secondaryGreen;
             color: $secondaryGreen;
             cursor: no-drop;
         }
     }
 
-    & .backToLoginButton {
+    .backToLoginButton {
         background: transparent;
         color: #fff;
         box-shadow: none;
@@ -72,9 +57,9 @@
         }
 
         &:hover {
+            background: transparent;
             &::before {
                 margin: 0 1rem 0 -1rem;
             }
         }
     }
-}

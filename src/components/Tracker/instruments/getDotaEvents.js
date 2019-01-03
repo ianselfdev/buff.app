@@ -302,15 +302,12 @@ export const _getDotaEvents = (token) => {
                                 denies: dotaParams.denies,
                             };
 
-                            // var recipientId = senderId;
-                            // var secret = passphrase;
-
                             console.log('SENDING END GAME TRS');
 
                             var endGameTrs = JSON.stringify({
-                                matchId: 1,
-                                gameId: 7314,
-                                reward,
+                                matchId,
+                                gameId: "7314",
+                                reward: reward * 0.1,
                                 victory: isWinner,
                                 matchData: gamedata,
                             });
@@ -376,17 +373,11 @@ export const _getDotaEvents = (token) => {
                     dotaParams.gameStarted &&
                     !dotaParams.gameInProcess
                 ) {
-                    var gamedata = {
-                        gameId: 7314,
-                        matchId: matchId,
-                        rankedGame: true,
-                    };
 
-                    // var recipientId = senderId;
-                    // var secret = passphrase;
+                    matchId = uuid();
 
                     var startGameTrs = JSON.stringify({
-                        gameId: 7314,
+                        gameId: "7314",
                         matchId: matchId,
                     });
 

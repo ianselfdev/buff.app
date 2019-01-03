@@ -1,0 +1,39 @@
+@import '../../theme/palette.scss';
+
+* {
+    transition: all .2s
+}
+
+.visible {
+    opacity: 1;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 70%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+
+    background: black;
+    border: 1px solid $secondaryGreen;
+    border-radius: 3px;
+}
+
+.containerRegistration {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 90%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+
+    background: black;
+    border: 1px solid $secondaryGreen;
+    border-radius: 3px;
+}

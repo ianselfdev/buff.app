@@ -11,6 +11,7 @@ class Dashboard extends Component {
         let news = this.props.allNews;
         let onlineUser = this.props.online;
         let userBalance = this.props.userBalance;
+
         return (
             <div className="dashboardComponent">
                 <Grid container spacing={24}>

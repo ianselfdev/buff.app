@@ -1,10 +1,8 @@
 import { _getDotaEvents, setDotaFeatures } from './getDotaEvents';
 import { _getLolEvents, setLoLFeatures } from './getLolEvents';
-import { getFortniteEvents, setFortniteFeatures } from './getFortniteEvents';
+import { getFortniteEvents } from './getFortniteEvents';
 
 /*eslint-disable no-undef*/
-
-let currentGame = null;
 
 const gameLaunched = (gameInfoResult) => {
     if (gameInfoResult.gameInfo.title) {
@@ -34,14 +32,16 @@ export const setOverwolfListeners = (token) => {
             case 'Dota 2':
                 _getDotaEvents(token);
                 setTimeout(setDotaFeatures, 1000);
+                break;
 
             case 'League of Legends':
                 _getLolEvents(token);
                 setTimeout(setLoLFeatures, 1000);
+                break;
 
             case 'Fortnite Battle Royale':
                 getFortniteEvents(token);
-            // setTimeout(setFortniteFeatures, 1000);
+                break;
         }
     });
 
@@ -51,19 +51,21 @@ export const setOverwolfListeners = (token) => {
 
         switch (gameTitle) {
             case 'Dota 2':
-                _getDotaEvents(senderId, passphrase);
+                _getDotaEvents(token);
                 setTimeout(setDotaFeatures, 1000);
                 console.log('Dota 2 launched');
+                break;
 
             case 'League of Legends':
-                _getLolEvents();
+                _getLolEvents(token);
                 setTimeout(setLoLFeatures, 1000);
                 console.log('LoL launched');
+                break;
 
             case 'Fortnite Battle Royale':
                 console.log('Fortnite launched');
-                getFortniteEvents(senderId, passphrase);
-            // setTimeout(setFortniteFeatures, 1000);
+                getFortniteEvents(token);
+                break;
         }
     });
 };

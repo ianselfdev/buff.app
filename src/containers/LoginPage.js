@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
-import Login from '../components/Login/Login';
+import Startup from '../components/Startup/Startup';
 import * as TodoActionCreators from '../actions/mainActions';
 import * as actionTypes from '../Store/constant';
 
@@ -29,4 +29,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Login);
+)(Startup);

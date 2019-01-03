@@ -12,10 +12,8 @@ body {
     color: white;
     max-width: 100%;
     height: 100vh;
-    background: $primaryGrey;
-    // background-image: url('./assets/Materials/loginBG.jpg');
-    // background-position: center;
-    // background-repeat: no-repeat;
-    // background-size: cover;
+    background: url('../assets/Materials/loginBG.jpg');
+    background-size: cover;
     font-family: Arial, Helvetica, Helvetica Neue, serif;
+
 }

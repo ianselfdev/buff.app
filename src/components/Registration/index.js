@@ -1,7 +1,7 @@
 //Core
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Transition } from 'react-transition-group';
+import { Transition, TransitionGroup } from 'react-transition-group';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -187,8 +187,16 @@ export default class Registration extends Component {
         }
 
         return (
-            <div className={Styles.container}>
-                <img src={logo} alt="buff-logo" />
+            <Fragment>
+                <img className={Styles.img} src={logo} alt="buff-logo" />
+                <Transition
+                    appear
+                    in
+                    timeout={500}
+                    onEnter={this._animateEnter}
+                    onExit={this._animateExit}
+                >
+                <Fragment>
                 <form onSubmit={this._handleRegistration}>
                     {inputFields.map((item, index) => (
                         <LabeledInput
@@ -223,7 +231,9 @@ export default class Registration extends Component {
                 >
                     Back To Login
                 </button>
-            </div>
+                </Fragment>
+                </Transition>
+            </Fragment>
         );
     }
 }

@@ -13,7 +13,7 @@ export default function configureStore(initialState, routerHistory) {
                 return { ...state, allHistory: action.payload };
             }
             case actionTypes.ADD_LEADERBOARD_DOTA:
-                console.log(action.payload);
+                // console.log(action.payload);
                 return { ...state, leaderBoardDota: action.payload };
             case actionTypes.ADD_LEADERBOARD_LOL:
                 return { ...state, leaderBoardLol: action.payload };

@@ -79,6 +79,7 @@ class History extends Component {
             rowsPerPage,
             emptyRows,
         );
+
         return (
             <div className="HistoryComponent">
                 <Grid container spacing={24}>
@@ -200,6 +201,7 @@ class History extends Component {
                 rowsPerPage -
                 Math.min(rowsPerPage, dataHistory.length - page * rowsPerPage);
         }
+
         return (
             <TableBody>
                 {dataHistory ? (
@@ -221,8 +223,8 @@ class History extends Component {
                                         {gameName}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {n.data.kda
-                                            ? n.data.kda.toFixed(2)
+                                        {n.data.matchData.kda >= 0
+                                            ? n.data.matchData.kda.toFixed(2)
                                             : '-'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
@@ -230,15 +232,15 @@ class History extends Component {
                                     </TableCell>
                                     <TableCell className="tableColumn">
                                         {
-                                        n.data.reward
-                                            ? (n.data.reward / 10).toFixed(
+                                        Number(n.amount)
+                                            ? (Number(n.amount)).toFixed(
                                                   2,
                                               )
                                             : '-'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        { n.data.reward
-                                            ? (n.data.reward / 20).toFixed(
+                                        { Number(n.amount)
+                                            ? (Number(n.amount) / 2).toFixed(
                                                   2,
                                               ) + '$'
                                             : '-'}

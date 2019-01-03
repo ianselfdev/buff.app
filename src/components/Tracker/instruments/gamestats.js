@@ -17,7 +17,7 @@ export const _sendStartGameTrs = async (tx, token) => {
 };
 
 export const _sendEndGameTrs = async (tx, token) => {
-    const response = await fetch('http://18.188.224.32:6001/api/games/game-end', {
+    const response = await fetch('http://18.188.224.32:6001/api/games/end', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
