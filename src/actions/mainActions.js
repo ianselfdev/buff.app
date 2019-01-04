@@ -38,9 +38,8 @@ export function addNews() {
             dispatch({
                 type: actionTypes.ADD_NEWS,
                 payload: res.data.news,
-            })},
-        );
-        
+            });
+        });
 }
 
 export function addTournaments() {

@@ -74,6 +74,12 @@ class AppBarDashboard extends Component {
     };
 
     handleLogOut = () => {
+        const localStorage = window.localStorage;
+        localStorage.removeItem('buff-login');
+        localStorage.removeItem('buff-password');
+
+        window.location.pathname = '/';
+
         clearInterval(this.state.refreshData);
         this.props.logout();
         this.props.onBackToLogin();
