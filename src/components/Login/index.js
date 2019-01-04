@@ -3,12 +3,15 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
+//Components
+import Spinner from '../Spinner';
+import ErrorLabel from '../ErrorLabel';
+
 //Styles
 import Styles from './styles.module.scss';
 
 //Instruments
 import logo from '../../assets/logo.png';
-import Spinner from '../Spinner';
 import { realAuth } from '../../routes';
 import gsap from 'gsap';
 
@@ -23,6 +26,7 @@ export default class Registration extends Component {
         registration: false,
         redirectToReferrer: false,
         isLoading: false,
+        errorMessage: '',
     };
 
     _handleInput = (e) => {
@@ -38,21 +42,25 @@ export default class Registration extends Component {
         const { onLogin } = this.props;
 
         try {
+            //rendering Spinner
             this.setState({
                 isLoading: true,
             });
 
+            //sending API request to get tokens
             const response = await Api.postLogin({
                 email: login,
                 password,
             });
-            if (!response.success) return;
+            if (!response.success) {
+                throw new Error(response.error);
+            }
 
-            // console.log('parsed: ', JSON.parse(response.tokens.token));
+            //sending tokens to get user info
             const user = await Api.getCurrentUser(response.tokens.token);
-            await realAuth.authenticate(user.data);
-            console.log('What', realAuth.isAuthenticated);
 
+            //logging user into application
+            await realAuth.authenticate(user.data);
             onLogin({ ...user.data.account, ...response.tokens });
 
             this.setState({
@@ -63,7 +71,14 @@ export default class Registration extends Component {
                 password: '',
             });
         } catch (error) {
-            console.error(error);
+            console.error('Login errorr: ', error);
+
+            const { message: errorMessage } = error;
+
+            //setting state to render ErrorLabel
+            this.setState({
+                errorMessage,
+            });
         } finally {
             this.setState({
                 isLoading: false,
@@ -72,7 +87,6 @@ export default class Registration extends Component {
     };
 
     //*animation group
-
     _animateEnteringComponent = (node) => {
         gsap.fromTo(
             node,
@@ -100,18 +114,21 @@ export default class Registration extends Component {
     };
 
     render() {
+        const {
+            redirectToReferrer,
+            login,
+            password,
+            errorMessage,
+        } = this.state;
+        const { _toggleRegistration } = this.props;
+
         const from = {
             from: { pathname: '/' },
         };
 
-        const { redirectToReferrer, login, password } = this.state;
-
-        const { _toggleRegistration } = this.props;
-
         if (this.state.isLoading) {
             return <Spinner />;
-        }
-        if (redirectToReferrer && from.pathname !== '/') {
+        } else if (redirectToReferrer && from.pathname !== '/') {
             return <Redirect to={from} />;
         }
 
@@ -125,6 +142,9 @@ export default class Registration extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div>
+                    {errorMessage.length > 0 && (
+                        <ErrorLabel message={errorMessage} />
+                    )}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
                     <form
                         className={Styles.loginForm}

@@ -5,31 +5,36 @@ export default class Api {
         return axios.get('http://18.188.224.32:6001/api/buff/news?page=1');
     }
     static getTournamentsAPI() {
-        return axios.get('http://18.188.224.32:6001/api/buff/tournaments?page=1');
+        return axios.get(
+            'http://18.188.224.32:6001/api/buff/tournaments?page=1',
+        );
     }
     static getHistoryAPI(token) {
-        return axios.get(
-            `http://18.188.224.32:6001/api/games/history?page=1`, { 
-                headers: {"Authorization" : token} 
+        return axios.get(`http://18.188.224.32:6001/api/games/history?page=1`, {
+            headers: { Authorization: token },
         });
     }
     static getLeaderboardDotaAPI() {
-        return axios.get('http://18.188.224.32:6001/api/buff/leaders?gameId=7314');
+        return axios.get(
+            'http://18.188.224.32:6001/api/buff/leaders?gameId=7314',
+        );
     }
     static getLeaderboardLoLAPI() {
-        return axios.get('http://18.188.224.32:6001/api/buff/leaders?gameId=5426');
+        return axios.get(
+            'http://18.188.224.32:6001/api/buff/leaders?gameId=5426',
+        );
     }
 
     static getCurrentUser(token) {
-        return axios.get('http://18.188.224.32:6001/api/accounts/current', { 
-            headers: {"Authorization" : token} 
-        })
+        return axios.get('http://18.188.224.32:6001/api/accounts/current', {
+            headers: { Authorization: token },
+        });
     }
 
     static getBalanceAPI(token) {
-        return axios.get('http://18.188.224.32:6001/api/wallet/balance', { 
-            headers: {"Authorization" : token} 
-        })
+        return axios.get('http://18.188.224.32:6001/api/wallet/balance', {
+            headers: { Authorization: token },
+        });
     }
 
     static postLogin = async (user) => {
@@ -45,7 +50,7 @@ export default class Api {
         );
 
         const result = await response.json();
-        console.log('login: ', result);
+        // console.log('login: ', result);
 
         return result;
     };

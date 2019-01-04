@@ -3,13 +3,16 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
+//Components
+import Spinner from '../Spinner';
+import LabeledInput from '../LabeledInput';
+import ErrorLabel from '../ErrorLabel';
+
 //Styles
 import Styles from './styles.module.scss';
 
 //Instruments
 import logo from '../../assets/logo.png';
-import Spinner from '../Spinner';
-import LabeledInput from '../LabeledInput';
 import gsap from 'gsap';
 
 //REST
@@ -23,6 +26,7 @@ export default class Registration extends Component {
         confEmail: '',
         email: '',
         password: '',
+        errorMessage: '',
     };
 
     _handleInput = (e) => {
@@ -48,11 +52,13 @@ export default class Registration extends Component {
         const { login, email, password } = this.state;
 
         try {
+            //rendering Spinner
             this.setState({
                 isLoading: true,
             });
 
-            Api.postRegister({
+            //sending API request to register
+            const response = await Api.postRegister({
                 login,
                 email,
                 password,
@@ -60,8 +66,18 @@ export default class Registration extends Component {
                 firstName: 'testFirstName',
                 lastName: 'testLastName',
             });
+            if (!response.success) {
+                throw new Error(response.error);
+            }
         } catch (error) {
-            console.error(error);
+            console.error('Registration errorr: ', error);
+
+            const { message: errorMessage } = error;
+
+            //setting state to render ErrorLabel
+            this.setState({
+                errorMessage,
+            });
         } finally {
             this.setState({
                 isLoading: false,
@@ -69,7 +85,7 @@ export default class Registration extends Component {
         }
     };
 
-    //Animation group
+    //* Animation group
     _animateEnterWarning = (node) => {
         gsap.fromTo(
             node,
@@ -140,6 +156,7 @@ export default class Registration extends Component {
             password,
             confEmail,
             confPassword,
+            errorMessage,
         } = this.state;
 
         const validation =
@@ -148,14 +165,13 @@ export default class Registration extends Component {
             email === confEmail &&
             password === confPassword &&
             email.length > 0 &&
-            password.length > 0 &&
+            password.length > 6 &&
             confEmail.length > 0 &&
             confPassword.length > 0;
 
         const warningSign =
             login.length > 0 &&
             email.length > 0 &&
-            password.length > 0 &&
             confEmail.length > 0 &&
             confPassword.length > 0
                 ? login.length < 6 || login.length > 18
@@ -164,6 +180,8 @@ export default class Registration extends Component {
                     ? 'Emails do not match'
                     : password !== confPassword
                     ? 'Passwords do not match'
+                    : password.length < 6
+                    ? 'Password must be more than 6 characters long'
                     : null
                 : null;
 
@@ -222,6 +240,9 @@ export default class Registration extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div className={Styles.container}>
+                    {errorMessage.length > 0 && (
+                        <ErrorLabel message={errorMessage} />
+                    )}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
                     <form
                         onSubmit={this._handleRegistration}
