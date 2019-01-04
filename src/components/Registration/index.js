@@ -7,6 +7,7 @@ import { Transition } from 'react-transition-group';
 import Spinner from '../Spinner';
 import LabeledInput from '../LabeledInput';
 import ErrorLabel from '../ErrorLabel';
+import SuccessMessage from '../SuccessMessage';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -27,6 +28,7 @@ export default class Registration extends Component {
         email: '',
         password: '',
         errorMessage: '',
+        registrationSuccess: false,
     };
 
     _handleInput = (e) => {
@@ -68,6 +70,18 @@ export default class Registration extends Component {
             });
             if (!response.success) {
                 throw new Error(response.error);
+            } else {
+                // clearing inputs and registrationSuccess state to render success message
+                this.setState({
+                    isLoading: false,
+                    login: '',
+                    confPassword: '',
+                    confEmail: '',
+                    email: '',
+                    password: '',
+                    errorMessage: '',
+                    registrationSuccess: true,
+                });
             }
         } catch (error) {
             console.error('Registration errorr: ', error);
@@ -83,6 +97,23 @@ export default class Registration extends Component {
                 isLoading: false,
             });
         }
+    };
+
+    _gotIt = () => {
+        const { _closeRegistration } = this.props;
+
+        this.setState({
+            isLoading: false,
+            login: '',
+            confPassword: '',
+            confEmail: '',
+            email: '',
+            password: '',
+            errorMessage: '',
+            registrationSuccess: false,
+        });
+
+        _closeRegistration();
     };
 
     //* Animation group
@@ -157,6 +188,7 @@ export default class Registration extends Component {
             confEmail,
             confPassword,
             errorMessage,
+            registrationSuccess,
         } = this.state;
 
         const validation =
@@ -242,6 +274,9 @@ export default class Registration extends Component {
                 <div className={Styles.container}>
                     {errorMessage.length > 0 && (
                         <ErrorLabel message={errorMessage} />
+                    )}
+                    {registrationSuccess && (
+                        <SuccessMessage onClick={this._gotIt} />
                     )}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
                     <form
