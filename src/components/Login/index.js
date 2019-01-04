@@ -23,23 +23,22 @@ export default class Registration extends Component {
         status: {},
         login: '',
         password: '',
+        errorMessage: '',
         registration: false,
         redirectToReferrer: false,
         isLoading: false,
-        errorMessage: '',
+        rememberMe: false,
     };
 
-    _handleInput = (e) => {
-        const { name, value } = e.target;
-
-        this.setState({
-            [name]: value,
-        });
-    };
-
-    _handleLogin = async () => {
-        const { login, password } = this.state;
+    componentDidMount = async () => {
         const { onLogin } = this.props;
+        const localStorage = window.localStorage;
+        const login = localStorage.getItem('buff-login');
+        const password = localStorage.getItem('buff-password');
+
+        if (!login || !password) {
+            return false;
+        }
 
         try {
             //rendering Spinner
@@ -54,6 +53,76 @@ export default class Registration extends Component {
             });
             if (!response.success) {
                 throw new Error(response.error);
+            }
+
+            //sending tokens to get user info
+            const user = await Api.getCurrentUser(response.tokens.token);
+
+            //logging user into application
+            await realAuth.authenticate(user.data);
+            onLogin({ ...user.data.account, ...response.tokens });
+
+            this.setState({
+                redirectToReferrer: response.success,
+                status: response,
+                isLoading: false,
+                login: '',
+                password: '',
+            });
+        } catch (error) {
+            console.error('Login errorr: ', error);
+
+            const { message: errorMessage } = error;
+
+            //setting state to render ErrorLabel
+            this.setState({
+                errorMessage,
+            });
+        } finally {
+            this.setState({
+                isLoading: false,
+            });
+        }
+    };
+
+    _handleInput = (e) => {
+        const { name, value } = e.target;
+
+        this.setState({
+            [name]: value,
+        });
+    };
+
+    _toggleRememberMe = () => {
+        this.setState((prevState) => ({
+            rememberMe: !prevState.rememberMe,
+        }));
+    };
+
+    _handleLogin = async () => {
+        const { login, password, rememberMe } = this.state;
+        const { onLogin } = this.props;
+        const localStorage = window.localStorage;
+
+        try {
+            //rendering Spinner
+            this.setState({
+                isLoading: true,
+            });
+
+            //sending API request to get tokens
+            const response = await Api.postLogin({
+                email: login,
+                password,
+            });
+            if (!response.success) {
+                throw new Error(response.error);
+            }
+
+            //remembering user if needed
+            if (rememberMe) {
+                localStorage.setItem('buff-login', login);
+                localStorage.setItem('buff-password', password);
             }
 
             //sending tokens to get user info
@@ -119,6 +188,7 @@ export default class Registration extends Component {
             login,
             password,
             errorMessage,
+            rememberMe,
         } = this.state;
         const { _toggleRegistration } = this.props;
 
@@ -163,6 +233,11 @@ export default class Registration extends Component {
                             placeholder="Password"
                             value={password}
                             onChange={this._handleInput}
+                        />
+                        <input
+                            type="checkbox"
+                            checked={rememberMe}
+                            onClick={this._toggleRememberMe}
                         />
                         <input type="submit" value="Log In" />
                     </form>

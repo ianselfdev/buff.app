@@ -146,6 +146,9 @@ class AppBarDashboard extends Component {
                                         onClick={this.handleButtonPress(
                                             'dashboard',
                                         )}
+                                        disableTouchRipple
+                                        disableFocusRipple
+                                        disableRipple
                                     >
                                         Dashboard
                                     </Button>
@@ -163,6 +166,9 @@ class AppBarDashboard extends Component {
                                         onClick={this.handleButtonPress(
                                             'history',
                                         )}
+                                        disableTouchRipple
+                                        disableFocusRipple
+                                        disableRipple
                                     >
                                         History
                                     </Button>
@@ -180,6 +186,9 @@ class AppBarDashboard extends Component {
                                         onClick={this.handleButtonPress(
                                             'leaderboard',
                                         )}
+                                        disableTouchRipple
+                                        disableFocusRipple
+                                        disableRipple
                                     >
                                         Leaderboard
                                     </Button>
@@ -197,6 +206,9 @@ class AppBarDashboard extends Component {
                                         onClick={this.handleButtonPress(
                                             'marketPlace',
                                         )}
+                                        disableTouchRipple
+                                        disableFocusRipple
+                                        disableRipple
                                     >
                                         Market place
                                     </Button>
@@ -216,6 +228,9 @@ class AppBarDashboard extends Component {
                                         onClick={this.handleButtonPress(
                                             'newsTournaments',
                                         )}
+                                        disableTouchRipple
+                                        disableFocusRipple
+                                        disableRipple
                                     >
                                         News and Tournaments
                                     </Button>

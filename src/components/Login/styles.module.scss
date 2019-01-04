@@ -9,7 +9,7 @@
 .loginForm {
     position: absolute;
     left: 50%;
-    top: 47%;
+    top: 50%;
     transform: translate(-50%, -50%);
 
     width: 70%;
@@ -44,13 +44,29 @@
                 background: $primaryGreen;
             }
         }
+
+        &[type='checkbox'] {
+            width: 5%;
+            height: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: -10px 10px 20px;
+
+            &:after {
+                content: 'Remember me';
+                margin: -10px 1.7rem 0;
+                color: $secondaryGreen;
+                white-space: nowrap;
+            }
+        }
     }
 }
 
 .forgotPassButton {
     position: absolute;
     left: 50%;
-    top: 56%;
+    top: 61%;
     transform: translate(-50%, -50%);
     height: 1rem;
     padding: 0;
@@ -71,15 +87,17 @@
 .registrationButton {
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 72%;
     transform: translate(-50%, -50%);
     border-radius: 3px;
     width: 70%;
-    background: $secondaryGreen;
+    background: transparent;
+    border: 1px solid $secondaryGreen;
     cursor: pointer;
-    color: #000;
+    color: $secondaryGreen;
 
     &:hover {
-        background: $primaryGreen;
+        background: $secondaryGreen;
+        color: #000;
     }
 }
