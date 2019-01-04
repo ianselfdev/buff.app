@@ -1,25 +1,28 @@
 @import '../../theme/palette.scss';
 
-.img {
+.container {
+    opacity: 0;
+
+    & .img {
         position: absolute;
         left: 50%;
         top: -25%;
         transform: translate(-50%) scale(0.15);
     }
 
-    form {
+    & .form {
         width: 80%;
         margin: 8rem auto 3rem;
     }
 
-    .warning {
+    & .warning {
         color: red;
         text-align: center;
         font-size: 0.8rem;
         margin: -2rem auto 1rem;
     }
 
-    .signUpButton {
+    & .signUpButton {
         background: $secondaryGreen;
         border: 1px solid $secondaryGreen;
         border-radius: 5px;
@@ -41,7 +44,7 @@
         }
     }
 
-    .backToLoginButton {
+    & .backToLoginButton {
         background: transparent;
         color: #fff;
         box-shadow: none;
@@ -63,3 +66,4 @@
             }
         }
     }
+}

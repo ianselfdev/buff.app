@@ -13,6 +13,7 @@ import Registration from '../Registration';
 import Login from '../Login';
 import Spinner from '../Spinner';
 import gsap from 'gsap';
+import { Transition } from 'react-transition-group';
 
 export default class Startup extends Component {
     state = {

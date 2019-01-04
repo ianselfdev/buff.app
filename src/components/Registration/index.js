@@ -1,7 +1,7 @@
 //Core
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Transition, TransitionGroup } from 'react-transition-group';
+import { Transition } from 'react-transition-group';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -70,7 +70,7 @@ export default class Registration extends Component {
     };
 
     //Animation group
-    _animateEnter = (node) => {
+    _animateEnterWarning = (node) => {
         gsap.fromTo(
             node,
             0.5,
@@ -85,7 +85,7 @@ export default class Registration extends Component {
         );
     };
 
-    _animateExit = (node) => {
+    _animateExitWarning = (node) => {
         gsap.fromTo(
             node,
             0.5,
@@ -95,6 +95,32 @@ export default class Registration extends Component {
             },
             {
                 y: -10,
+                opacity: 0,
+            },
+        );
+    };
+
+    _animateEnteringComponent = (node) => {
+        gsap.fromTo(
+            node,
+            0.1,
+            {
+                opacity: 0,
+            },
+            {
+                opacity: 1,
+            },
+        );
+    };
+
+    _animateExitingComponent = (node) => {
+        gsap.fromTo(
+            node,
+            0.1,
+            {
+                opacity: 1,
+            },
+            {
                 opacity: 0,
             },
         );
@@ -187,53 +213,55 @@ export default class Registration extends Component {
         }
 
         return (
-            <Fragment>
-                <img className={Styles.img} src={logo} alt="buff-logo" />
-                <Transition
-                    appear
-                    in
-                    timeout={500}
-                    onEnter={this._animateEnter}
-                    onExit={this._animateExit}
-                >
-                <Fragment>
-                <form onSubmit={this._handleRegistration}>
-                    {inputFields.map((item, index) => (
-                        <LabeledInput
-                            value={item.value}
-                            onChange={item.onChange}
-                            placeholder={item.placeholder}
-                            name={item.name}
-                            type={item.type}
-                            label={item.label}
-                            key={index}
-                        />
-                    ))}
-                </form>
-                <Transition
-                    in={warningSign}
-                    timeout={500}
-                    onEnter={this._animateEnter}
-                    onExit={this._animateExit}
-                >
-                    <p className={Styles.warning}>{warningSign}</p>
-                </Transition>
-                <button
-                    disabled={!validation}
-                    className={Styles.signUpButton}
-                    onClick={this._handleRegistration}
-                >
-                    Sign Up
-                </button>
-                <button
-                    className={Styles.backToLoginButton}
-                    onClick={_closeRegistration}
-                >
-                    Back To Login
-                </button>
-                </Fragment>
-                </Transition>
-            </Fragment>
+            <Transition
+                in
+                appear
+                mountOnEnter
+                timeout={100}
+                onEnter={this._animateEnteringComponent}
+                onExit={this._animateExitingComponent}
+            >
+                <div className={Styles.container}>
+                    <img className={Styles.img} src={logo} alt="buff-logo" />
+                    <form
+                        onSubmit={this._handleRegistration}
+                        className={Styles.form}
+                    >
+                        {inputFields.map((item, index) => (
+                            <LabeledInput
+                                value={item.value}
+                                onChange={item.onChange}
+                                placeholder={item.placeholder}
+                                name={item.name}
+                                type={item.type}
+                                label={item.label}
+                                key={index}
+                            />
+                        ))}
+                    </form>
+                    <Transition
+                        in={warningSign}
+                        timeout={500}
+                        onEnter={this._animateEnterWarning}
+                        onExit={this._animateExitWarning}
+                    >
+                        <p className={Styles.warning}>{warningSign}</p>
+                    </Transition>
+                    <button
+                        disabled={!validation}
+                        className={Styles.signUpButton}
+                        onClick={this._handleRegistration}
+                    >
+                        Sign Up
+                    </button>
+                    <button
+                        className={Styles.backToLoginButton}
+                        onClick={_closeRegistration}
+                    >
+                        Back To Login
+                    </button>
+                </div>
+            </Transition>
         );
     }
 }

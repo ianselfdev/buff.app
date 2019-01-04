@@ -1,6 +1,7 @@
 //Core
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Transition } from 'react-transition-group';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -9,6 +10,7 @@ import Styles from './styles.module.scss';
 import logo from '../../assets/logo.png';
 import Spinner from '../Spinner';
 import { realAuth } from '../../routes';
+import gsap from 'gsap';
 
 //REST
 import Api from '../../Store/ApiRequests';
@@ -49,9 +51,9 @@ export default class Registration extends Component {
             // console.log('parsed: ', JSON.parse(response.tokens.token));
             const user = await Api.getCurrentUser(response.tokens.token);
             await realAuth.authenticate(user.data);
-            console.log("What", realAuth.isAuthenticated);
+            console.log('What', realAuth.isAuthenticated);
 
-            onLogin({...user.data.account, ...response.tokens});
+            onLogin({ ...user.data.account, ...response.tokens });
 
             this.setState({
                 redirectToReferrer: response.success,
@@ -69,18 +71,42 @@ export default class Registration extends Component {
         }
     };
 
+    //*animation group
+
+    _animateEnteringComponent = (node) => {
+        gsap.fromTo(
+            node,
+            0.1,
+            {
+                opacity: 0,
+            },
+            {
+                opacity: 1,
+            },
+        );
+    };
+
+    _animateExitingComponent = (node) => {
+        gsap.fromTo(
+            node,
+            0.1,
+            {
+                opacity: 1,
+            },
+            {
+                opacity: 0,
+            },
+        );
+    };
+
     render() {
         const from = {
             from: { pathname: '/' },
         };
 
-        const {
-            redirectToReferrer,
-            login,
-            password,
-        } = this.state;
+        const { redirectToReferrer, login, password } = this.state;
 
-        const {_toggleRegistration} = this.props;
+        const { _toggleRegistration } = this.props;
 
         if (this.state.isLoading) {
             return <Spinner />;
@@ -90,43 +116,52 @@ export default class Registration extends Component {
         }
 
         return (
-            <Fragment>
-                <img className={Styles.img} src={logo} alt="buff-logo" />
-                <form
-                    className={Styles.loginForm}
-                    onSubmit={this._handleLogin}
-                >
-                    <input
-                        type="text"
-                        name="login"
-                        placeholder="Login or Email"
-                        value={login}
-                        onChange={this._handleInput}
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={this._handleInput}
-                    />
-                    <input type="submit" value="Log In" />
-                </form>
-                <button
-                    onClick={() => {
-                        console.log('lol');
-                    }}
-                    className={Styles.forgotPassButton}
-                >
-                    Forgot password?
-                </button>
-                <button
-                    onClick={_toggleRegistration}
-                    className={Styles.registrationButton}
-                >
-                    Not registered yet? Click here!
-                </button> 
-            </Fragment>
+            <Transition
+                in
+                appear
+                mountOnEnter
+                timeout={100}
+                onEnter={this._animateEnteringComponent}
+                onExit={this._animateExitingComponent}
+            >
+                <div>
+                    <img className={Styles.img} src={logo} alt="buff-logo" />
+                    <form
+                        className={Styles.loginForm}
+                        onSubmit={this._handleLogin}
+                    >
+                        <input
+                            type="text"
+                            name="login"
+                            placeholder="Login or Email"
+                            value={login}
+                            onChange={this._handleInput}
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={this._handleInput}
+                        />
+                        <input type="submit" value="Log In" />
+                    </form>
+                    <button
+                        onClick={() => {
+                            console.log('lol');
+                        }}
+                        className={Styles.forgotPassButton}
+                    >
+                        Forgot password?
+                    </button>
+                    <button
+                        onClick={_toggleRegistration}
+                        className={Styles.registrationButton}
+                    >
+                        Not registered yet? Click here!
+                    </button>
+                </div>
+            </Transition>
         );
     }
 }
