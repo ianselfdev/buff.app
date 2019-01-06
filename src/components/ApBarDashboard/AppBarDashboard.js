@@ -29,7 +29,6 @@ class AppBarDashboard extends Component {
         super(props);
         this.state = {
             match: props.match,
-            tracker: false,
             menuButton: 'dashboard',
             refreshData: null,
         };
@@ -127,7 +126,7 @@ class AppBarDashboard extends Component {
     };
 
     render() {
-        const { tracker, menuButton } = this.state;
+        const { menuButton } = this.state;
         return (
             <Router>
                 <div>
@@ -135,7 +134,7 @@ class AppBarDashboard extends Component {
                     <div key="main" className="appBarDashboardMain">
                         <AppBar
                             position="static"
-                            style={{ background: 'none' }}
+                            style={{ background: 'none', boxShadow: 'none' }}
                         >
                             <Toolbar>
                                 <Typography variant="title" />
@@ -251,25 +250,6 @@ class AppBarDashboard extends Component {
                                         <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
                                         <p>{this.props.login}</p>
                                     </div>
-
-                                    {tracker ? (
-                                        <Transition
-                                            in={tracker}
-                                            appear
-                                            timeout={300}
-                                            onEnter={this._animateTrackerEnter}
-                                            onExit={this._animateTrackerExit}
-                                        >
-                                            <div className="buff-tracker">
-                                                <Tracker
-                                                    _toggleTracker={
-                                                        this._toggleTracker
-                                                    }
-                                                />
-                                            </div>
-                                        </Transition>
-                                    ) : null}
-
                                     <Button
                                         size="small"
                                         variant="contained"
@@ -280,6 +260,7 @@ class AppBarDashboard extends Component {
                                     </Button>
                                 </div>
                             </Toolbar>
+                            {/* <Tracker /> */}
                         </AppBar>
                         <Switch>
                             <Route

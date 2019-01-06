@@ -9,13 +9,11 @@ import { setOverwolfListeners } from './instruments/OWListeners';
 
 class Tracker extends Component {
     componentDidMount = () => {
-        const { _toggleTracker } = this.props;
         setOverwolfListeners(this.props.token);
-        _toggleTracker();
     };
 
     render() {
-        return <div id="container" />;
+        return <div />;
     }
 }
 

@@ -24,6 +24,7 @@ a {
     left: 0;
     right: 0;
     z-index: 9999;
+
     .dashboardMenu,
     .dashboardMenuActive {
         text-decoration: none;
@@ -82,8 +83,8 @@ a {
     padding: 0.3rem;
     width: 8.5rem;
     height: 3rem;
-    border-radius: 10px;
-    box-shadow: 3px 4px 10px #000;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #000;
     transition: all 0.3s;
 
     & p {
