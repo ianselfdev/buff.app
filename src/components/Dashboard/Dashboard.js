@@ -130,12 +130,6 @@ class Dashboard extends Component {
                                                             <div className="newsContent">
                                                                 {n.title}
                                                                 <div className="sectionButton">
-                                                                    {/* <div className="newsTitle">
-                                                                        {n.date.substring(
-                                                                            0,
-                                                                            10,
-                                                                        )}
-                                                                    </div> */}
                                                                     <Button
                                                                         size="small"
                                                                         className="buttonReadMore"
@@ -168,22 +162,13 @@ class Dashboard extends Component {
                             </Grid>
                             <Grid item xs={4}>
                                 <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
-                                        <div className="titleMyAcc">
-                                            Chat Box
-                                        </div>
-                                        <div className="balanceMyAcc">
-                                            <div style={{ color: '#919191' }}>
-                                                <iframe
-                                                    src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
-                                                    width="300"
-                                                    height="350"
-                                                    allowtransparency="true"
-                                                    frameBorder="0"
-                                                />
-                                            </div>
-                                        </div>
-                                    </Paper>
+                                    <iframe
+                                        src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
+                                        width="350"
+                                        height="400"
+                                        allowtransparency="true"
+                                        frameBorder="0"
+                                    />
                                 </div>
                             </Grid>
                         </Grid>
