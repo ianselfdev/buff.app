@@ -245,18 +245,14 @@ class AppBarDashboard extends Component {
 
                                 <div>
                                     <div
-                                        className={
-                                            tracker
-                                                ? 'dash-user-button-active'
-                                                : 'dash-user-button'
-                                        }
+                                        className={'dash-user-button'}
                                         onClick={this._handleTracker}
                                     >
                                         <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
                                         <p>{this.props.login}</p>
                                     </div>
 
-                                    {/* {tracker ? (
+                                    {tracker ? (
                                         <Transition
                                             in={tracker}
                                             appear
@@ -272,7 +268,7 @@ class AppBarDashboard extends Component {
                                                 />
                                             </div>
                                         </Transition>
-                                    ) : null} */}
+                                    ) : null}
 
                                     <Button
                                         size="small"

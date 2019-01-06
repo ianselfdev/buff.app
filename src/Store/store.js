@@ -32,16 +32,12 @@ export default function configureStore(initialState, routerHistory) {
                 return { ...state, onlineUsers: action.payload.games_online };
             case actionTypes.ADD_BALANCE:
                 return { ...state, userBalance: action.payload };
-            // case actionTypes.TRACKER_LOGIN:
-            //     return {
-            //         ...state,
-            //         loggedIntoTracker: true,
-            //     };
-            // case actionTypes.TRACKER_LOGOUT:
-            //     return {
-            //         ...state,
-            //         loggedIntoTracker: false,
-            //     };
+            case actionTypes.TRACKER_LOGIN:
+                console.log('logging into tracker');
+                return {
+                    ...state,
+                    loggedIntoTracker: true,
+                };
             default:
                 return state;
         }
