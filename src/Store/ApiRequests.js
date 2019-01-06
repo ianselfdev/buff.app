@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export default class Api {
     static getNewsAPI() {
-        return axios.get('http://18.188.224.32:6001/api/buff/news?page=1');
+        return axios.get(
+            'http://18.188.224.32:6001/api/buff/news?page=1&limit=100',
+        );
     }
     static getTournamentsAPI() {
         return axios.get(

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import './ApBarDashboard.scss';
 import {
     BrowserRouter as Router,
@@ -279,7 +280,7 @@ class AppBarDashboard extends Component {
                                         className="exitButton"
                                         onClick={this.handleLogOut}
                                     >
-                                        SIGN OUT
+                                        <ExitToApp className="exitButtonIcon" />
                                     </Button>
                                 </div>
                             </Toolbar>

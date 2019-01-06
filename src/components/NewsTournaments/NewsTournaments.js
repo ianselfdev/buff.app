@@ -30,9 +30,6 @@ class NewsTournaments extends Component {
                                 in active game
                             </div>
                         </Grid>
-                        <Grid item xs={2}>
-                            <h4>online users: {onlineUser ? onlineUser : 0}</h4>
-                        </Grid>
                     </Grid>
                 </Grid>
                 <div className="NewsTournamentsMain">
@@ -40,7 +37,10 @@ class NewsTournaments extends Component {
                         <Grid item xs={12} container>
                             <Grid item xs={4}>
                                 <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
+                                    <Paper
+                                        className="myAcc newsBox"
+                                        elevation={8}
+                                    >
                                         <div className="titleMyAcc">
                                             Latest News
                                         </div>

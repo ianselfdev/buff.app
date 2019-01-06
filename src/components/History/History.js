@@ -99,14 +99,6 @@ class History extends Component {
                                 in active game
                             </div>
                         </Grid>
-                        <Grid item xs={2}>
-                            <h4>online users: {onlineUser ? onlineUser : 0}</h4>
-                            {/*<Button className="buttonShareEarn">*/}
-                            {/*<font face="verdana">*/}
-                            {/*Share and Earn*/}
-                            {/*</font>*/}
-                            {/*</Button>*/}
-                        </Grid>
                     </Grid>
                 </Grid>
                 <div className="HistoryMain">
@@ -160,32 +152,20 @@ class History extends Component {
                                                 'aria-label': 'Next Page',
                                             }}
                                             onChangePage={this.handleChangePage}
+                                            className="historyTableFooter"
                                         />
                                     </Paper>
                                 </div>
                             </Grid>
                             <Grid item xs={4}>
                                 <div className="papersMain">
-                                    <Paper
-                                        className="myAcc"
-                                        elevation={8}
-                                        style={{ width: 370, height: 310 }}
-                                    >
-                                        <div className="titleMyAcc">
-                                            Chat Box
-                                        </div>
-                                        <div className="balanceMyAcc">
-                                            <div style={{ color: '#919191' }}>
-                                                <iframe
-                                                    src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
-                                                    width="300"
-                                                    height="350"
-                                                    allowtransparency="true"
-                                                    frameBorder="0"
-                                                />
-                                            </div>
-                                        </div>
-                                    </Paper>
+                                    <iframe
+                                        src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
+                                        width="350"
+                                        height="400"
+                                        allowtransparency="true"
+                                        frameBorder="0"
+                                    />
                                 </div>
                             </Grid>
                         </Grid>
@@ -228,18 +208,15 @@ class History extends Component {
                                             : '-'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {"finished"}
+                                        {'finished'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        {
-                                        Number(n.amount)
-                                            ? (Number(n.amount)).toFixed(
-                                                  2,
-                                              )
+                                        {Number(n.amount)
+                                            ? Number(n.amount).toFixed(2)
                                             : '-'}
                                     </TableCell>
                                     <TableCell className="tableColumn">
-                                        { Number(n.amount)
+                                        {Number(n.amount)
                                             ? (Number(n.amount) / 2).toFixed(
                                                   2,
                                               ) + '$'

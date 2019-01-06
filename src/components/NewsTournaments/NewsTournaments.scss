@@ -1,3 +1,5 @@
+@import '../../theme/palette.scss';
+
 .NewsTournamentsComponent {
     .NewsTournamentsTitle {
         margin: 25px 50px;
@@ -18,7 +20,8 @@
         overflow: scroll;
         .papersMain {
             font-size: 0.9em;
-            margin: 50px 20px;
+            margin: 20px 20px;
+
             .buttonReadMore {
                 color: #616161;
             }
@@ -26,6 +29,7 @@
                 width: 370px;
                 background: #2e2f30;
                 height: 399px;
+
                 .titleMyAcc {
                     margin: 0;
                     padding: 5px 25px;
@@ -37,6 +41,16 @@
                     flex-direction: row;
                     padding: 10px 0px 10px 25px;
                 }
+
+                &.newsBox {
+                    overflow-y: scroll;
+                    height: 400px;
+
+                    &::-webkit-scrollbar-thumb {
+                        background: $secondaryGreen;
+                    }
+                }
+
                 .newsMain {
                     background: #1e1f21;
                     display: flex;

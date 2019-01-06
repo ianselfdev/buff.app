@@ -1,3 +1,5 @@
+@import '../../theme/palette.scss';
+
 button,
 a {
     cursor: pointer;
@@ -46,10 +48,23 @@ a {
         background-size: cover;
     }
     .exitButton {
-        background-color: rgba(0, 238, 122, 0.3);
+        background-color: transparent;
         position: absolute;
+        box-shadow: none;
         top: 17px;
         right: 20px;
+
+        &:hover {
+            background: transparent;
+        }
+
+        .exitButtonIcon {
+            color: rgb(192, 192, 192);
+
+            &:hover {
+                color: $secondaryGreen;
+            }
+        }
     }
 
     .buttonAppBar:hover {

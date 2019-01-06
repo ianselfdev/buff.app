@@ -68,9 +68,12 @@ class Leaderboard extends Component {
                         <Tabs
                             value={index}
                             fullWidth
-                            className="table-tabs"
-                            indicatorColor="secondary"
                             onChange={this._handleChange}
+                            TabIndicatorProps={{
+                                style: {
+                                    backgroundColor: '#00753d',
+                                },
+                            }}
                         >
                             <Tab
                                 style={{
@@ -159,22 +162,13 @@ class Leaderboard extends Component {
                     </div>
 
                     {/* discord widget */}
-                    <div className="papersMain">
-                        <Paper className="myAcc" elevation={8}>
-                            <div className="titleMyAcc">Chat Box</div>
-                            <div className="balanceMyAcc">
-                                <div style={{ color: '#919191' }}>
-                                    <iframe
-                                        src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
-                                        width="300"
-                                        height="350"
-                                        allowtransparency="true"
-                                        frameBorder="0"
-                                    />
-                                </div>
-                            </div>
-                        </Paper>
-                    </div>
+                    <iframe
+                        src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
+                        width="350"
+                        height="400"
+                        allowtransparency="true"
+                        frameBorder="0"
+                    />
                 </div>
             </div>
         );

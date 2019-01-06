@@ -12,6 +12,8 @@ class Dashboard extends Component {
         let onlineUser = this.props.online;
         let userBalance = this.props.userBalance;
 
+        console.log(news);
+
         return (
             <div className="dashboardComponent">
                 <Grid container spacing={24}>
@@ -30,9 +32,6 @@ class Dashboard extends Component {
                                 You will earn more coins by marking achievement
                                 in active game
                             </div>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <h4>online users: {onlineUser ? onlineUser : 0}</h4>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -115,7 +114,10 @@ class Dashboard extends Component {
 
                             <Grid item xs={4}>
                                 <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
+                                    <Paper
+                                        className="myAcc newsBox"
+                                        elevation={8}
+                                    >
                                         <div className="titleMyAcc">News</div>
                                         {news ? (
                                             news.map((n, k) => {
