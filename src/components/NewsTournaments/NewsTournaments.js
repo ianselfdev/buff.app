@@ -1,29 +1,33 @@
+//Core
 import React, { Component } from 'react';
-import './NewsTournaments.scss';
-import { Grid, Paper, Button } from '@material-ui/core';
 import * as mainActions from '../../actions/mainActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+//Styles
+import Styles from './styles.module.scss';
+
+//Instruments
+import { Grid, Paper, Button } from '@material-ui/core';
 const title = 'start playing and earn coins!';
+
 class NewsTournaments extends Component {
     render() {
-        let onlineUser = this.props.online;
         let news = this.props.allNews;
         let tournaments = this.props.allTournaments;
         return (
-            <div className="NewsTournamentsComponent">
+            <div className={Styles.newsTournamentsComponent}>
                 <Grid container spacing={24}>
                     <Grid item xs={12} container>
                         <Grid item xs={10}>
                             <div
-                                className="NewsTournamentsTitle"
+                                className={Styles.newsTournamentsTitle}
                                 style={{ width: 300, height: 80 }}
                             >
                                 {title.toLocaleUpperCase()}
                             </div>
                             <div
-                                className="contentTitle"
+                                className={Styles.contentTitle}
                                 style={{ width: 550, height: 60 }}
                             >
                                 You will earn more coins by marking achievement
@@ -32,30 +36,56 @@ class NewsTournaments extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                <div className="NewsTournamentsMain">
+                <div className={Styles.newsTournamentsMain}>
                     <Grid container spacing={24}>
                         <Grid item xs={12} container>
                             <Grid item xs={4}>
-                                <div className="papersMain">
+                                <div className={Styles.papersMain}>
                                     <Paper
-                                        className="myAcc newsBox"
+                                        className={`${Styles.myAcc} ${
+                                            Styles.newsBox
+                                        }`}
                                         elevation={8}
                                     >
-                                        <div className="titleMyAcc">
+                                        <div className={Styles.titleMyAcc}>
                                             Latest News
                                         </div>
                                         {news ? (
                                             news.map((n, k) => {
                                                 return (
                                                     <div key={k}>
-                                                        <div className="newsMain">
-                                                            <div className="newsDotesContents">
-                                                                <div className="newsDotes" />
+                                                        <div
+                                                            className={
+                                                                Styles.newsMain
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={
+                                                                    Styles.newsDotesContents
+                                                                }
+                                                            >
+                                                                <div
+                                                                    className={
+                                                                        Styles.newsDotes
+                                                                    }
+                                                                />
                                                             </div>
-                                                            <div className="newsContent">
+                                                            <div
+                                                                className={
+                                                                    Styles.newsContent
+                                                                }
+                                                            >
                                                                 {n.title}
-                                                                <div className="sectionButton">
-                                                                    <div className="newsTitle">
+                                                                <div
+                                                                    className={
+                                                                        Styles.sectionButton
+                                                                    }
+                                                                >
+                                                                    <div
+                                                                        className={
+                                                                            Styles.newsTitle
+                                                                        }
+                                                                    >
                                                                         {n.createdAt.substring(
                                                                             0,
                                                                             10,
@@ -63,7 +93,9 @@ class NewsTournaments extends Component {
                                                                     </div>
                                                                     <Button
                                                                         size="small"
-                                                                        className="buttonReadMore"
+                                                                        className={
+                                                                            Styles.buttonReadMore
+                                                                        }
                                                                         href={
                                                                             n.link
                                                                         }
@@ -92,22 +124,49 @@ class NewsTournaments extends Component {
                                 </div>
                             </Grid>
                             <Grid item xs={4}>
-                                <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
-                                        <div className="titleMyAcc">
+                                <div className={Styles.papersMain}>
+                                    <Paper
+                                        className={Styles.myAcc}
+                                        elevation={8}
+                                    >
+                                        <div className={Styles.titleMyAcc}>
                                             Tournaments
                                         </div>
                                         {tournaments ? (
                                             tournaments.map((n, k) => (
                                                 <div key={k}>
-                                                    <div className="newsMain">
-                                                        <div className="newsDotesContents">
-                                                            <div className="newsDotes" />
+                                                    <div
+                                                        className={
+                                                            Styles.newsMain
+                                                        }
+                                                    >
+                                                        <div
+                                                            className={
+                                                                Styles.newsDotesContents
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={
+                                                                    Styles.newsDotes
+                                                                }
+                                                            />
                                                         </div>
-                                                        <div className="newsContent">
+                                                        <div
+                                                            className={
+                                                                Styles.newsContent
+                                                            }
+                                                        >
                                                             {n.title}
-                                                            <div className="sectionButton">
-                                                                <div className="newsTitle">
+                                                            <div
+                                                                className={
+                                                                    Styles.sectionButton
+                                                                }
+                                                            >
+                                                                <div
+                                                                    className={
+                                                                        Styles.newsTitle
+                                                                    }
+                                                                >
                                                                     {n.createdAt.substring(
                                                                         0,
                                                                         10,
@@ -115,7 +174,9 @@ class NewsTournaments extends Component {
                                                                 </div>
                                                                 <Button
                                                                     size="small"
-                                                                    className="buttonReadMore"
+                                                                    className={
+                                                                        Styles.buttonReadMore
+                                                                    }
                                                                     href={
                                                                         n.link
                                                                     }
@@ -145,23 +206,14 @@ class NewsTournaments extends Component {
                                 </div>
                             </Grid>
                             <Grid item xs={4}>
-                                <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
-                                        <div className="titleMyAcc">
-                                            Chat Box
-                                        </div>
-                                        <div className="balanceMyAcc">
-                                            <div style={{ color: '#919191' }}>
-                                                <iframe
-                                                    src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
-                                                    width="300"
-                                                    height="350"
-                                                    allowtransparency="true"
-                                                    frameBorder="0"
-                                                />
-                                            </div>
-                                        </div>
-                                    </Paper>
+                                <div className={Styles.papersMain}>
+                                    <iframe
+                                        src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
+                                        width="350"
+                                        height="400"
+                                        allowtransparency="true"
+                                        frameBorder="0"
+                                    />
                                 </div>
                             </Grid>
                         </Grid>

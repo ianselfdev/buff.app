@@ -1,16 +1,22 @@
+//Core
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import './Leaderboard.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as mainActions from '../../actions/mainActions';
+
+//Components
+import TableRow from '../TableRow';
+
+//Styles
+import Styles from './styles.module.scss';
+
+//Instruments
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
+//REST
 import Api from '../../Store/ApiRequests';
-
-import TableRow from '../TableRow';
 
 class Leaderboard extends Component {
     state = {
@@ -35,16 +41,12 @@ class Leaderboard extends Component {
     };
 
     _handleChange = (event, value) => {
-        console.log('handlechange ', value);
-
         this.setState({
             index: value,
         });
     };
 
     _handleChangeIndex = (index) => {
-        console.log('handlechangeindex ', index);
-
         this.setState({
             index,
         });
@@ -53,18 +55,22 @@ class Leaderboard extends Component {
     render() {
         const { index, dataDota, dataLol, dataFortnite } = this.state;
 
+        console.log(this.state);
+
         return (
             <div>
-                <p className="leaderboard-header-text">
+                <p className={Styles.leaderboardHeaderText}>
                     Start playing to earn more coins!
                 </p>
                 <h4>
                     You will earn more coins by marking achievement in active
                     game
                 </h4>
-                <div className="leaderboard-container">
-                    <div className="leaderboard-table">
-                        <div className="leaderboard-title">Leaderboard</div>
+                <div className={Styles.leaderboardContainer}>
+                    <div className={Styles.leaderboardTable}>
+                        <div className={Styles.leaderboardTitle}>
+                            Leaderboard
+                        </div>
                         <Tabs
                             value={index}
                             fullWidth
@@ -106,7 +112,7 @@ class Leaderboard extends Component {
                         >
                             <div>
                                 <TableRow header />
-                                <div className="table-data">
+                                <div className={Styles.tableData}>
                                     {dataDota.map((item, index) => {
                                         return (
                                             <TableRow
@@ -114,7 +120,6 @@ class Leaderboard extends Component {
                                                 period="past week"
                                                 nickname={item.nickname}
                                                 wins={item.wins}
-                                                lose={item.lose}
                                                 reward={item.reward}
                                                 key={index}
                                             />
@@ -124,15 +129,13 @@ class Leaderboard extends Component {
                             </div>
                             <div>
                                 <TableRow header />
-                                <div className="table-data">
+                                <div className={Styles.tableData}>
                                     {dataLol.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="LoL"
                                                 period="past week"
-                                                publicKey={item.publicKey}
                                                 win={item.win}
-                                                lose={item.lose}
                                                 reward={item.reward}
                                                 key={index}
                                             />
@@ -142,15 +145,13 @@ class Leaderboard extends Component {
                             </div>
                             <div>
                                 <TableRow header />
-                                <div className="table-data">
+                                <div className={Styles.tableData}>
                                     {dataFortnite.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="Fortnite"
                                                 period="past week"
-                                                publicKey={item.publicKey}
                                                 win={item.win}
-                                                lose={item.lose}
                                                 reward={item.reward}
                                                 key={index}
                                             />

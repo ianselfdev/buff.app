@@ -1,29 +1,34 @@
+//Core
 import React, { Component } from 'react';
-import { Paper, Grid, Button } from '@material-ui/core';
-import './Dashboard.scss';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as mainActions from '../../actions/mainActions';
 
+//Styles
+import Styles from './styles.module.scss';
+
+//Instruments
+import { Paper, Grid, Button } from '@material-ui/core';
 const title = 'start playing and earn coins!';
+
 class Dashboard extends Component {
     render() {
         let news = this.props.allNews;
         let userBalance = this.props.userBalance;
 
         return (
-            <div className="dashboardComponent">
+            <div className={Styles.dashboardComponent}>
                 <Grid container spacing={24}>
                     <Grid item xs={12} container>
                         <Grid item xs={10}>
                             <div
-                                className="dashboardTitle"
+                                className={Styles.dashboardTitle}
                                 style={{ width: 300, height: 80 }}
                             >
                                 {title.toLocaleUpperCase()}
                             </div>
                             <div
-                                className="contentTitle"
+                                className={Styles.contentTitle}
                                 style={{ width: 550, height: 60 }}
                             >
                                 You will earn more coins by marking achievement
@@ -32,20 +37,20 @@ class Dashboard extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                <div className="dashboardMain">
+                <div className={Styles.dashboardMain}>
                     <Grid container spacing={24}>
                         <Grid item xs={12} container>
                             <Grid item xs={4}>
-                                <div className="papersMain">
+                                <div className={Styles.papersMain}>
                                     <Paper
-                                        className="myAcc"
+                                        className={Styles.myAcc}
                                         elevation={8}
                                         style={{ width: 370, height: 100 }}
                                     >
-                                        <div className="titleMyAcc">
+                                        <div className={Styles.titleMyAcc}>
                                             My Account
                                         </div>
-                                        <div className="balanceMyAcc">
+                                        <div className={Styles.balanceMyAcc}>
                                             <div style={{ color: '#919191' }}>
                                                 Buff Balance
                                             </div>
@@ -65,7 +70,7 @@ class Dashboard extends Component {
                                             }}
                                         />
 
-                                        <div className="balanceMyAcc">
+                                        <div className={Styles.balanceMyAcc}>
                                             <div style={{ color: '#919191' }}>
                                                 Status:
                                             </div>
@@ -81,26 +86,26 @@ class Dashboard extends Component {
                                     </Paper>
                                 </div>
 
-                                <div className="papersMain">
+                                <div className={Styles.papersMain}>
                                     <Paper
-                                        className="myAcc"
+                                        className={Styles.myAcc}
                                         elevation={8}
                                         style={{ width: 370, height: 250 }}
                                     >
-                                        <div className="titleMyAcc">
+                                        <div className={Styles.titleMyAcc}>
                                             Active Games
                                         </div>
-                                        <div className="balanceMyAcc">
+                                        <div className={Styles.balanceMyAcc}>
                                             <div style={{ color: '#919191' }}>
                                                 Dota 2
                                             </div>
                                         </div>
-                                        <div className="balanceMyAcc">
+                                        <div className={Styles.balanceMyAcc}>
                                             <div style={{ color: '#919191' }}>
                                                 Fortnite
                                             </div>
                                         </div>
-                                        <div className="balanceMyAcc">
+                                        <div className={Styles.balanceMyAcc}>
                                             <div style={{ color: '#919191' }}>
                                                 League of Legands
                                             </div>
@@ -110,26 +115,52 @@ class Dashboard extends Component {
                             </Grid>
 
                             <Grid item xs={4}>
-                                <div className="papersMain">
+                                <div className={Styles.papersMain}>
                                     <Paper
-                                        className="myAcc newsBox"
+                                        className={`${Styles.myAcc} ${
+                                            Styles.newsBox
+                                        }`}
                                         elevation={8}
                                     >
-                                        <div className="titleMyAcc">News</div>
+                                        <div className={Styles.titleMyAcc}>
+                                            News
+                                        </div>
                                         {news ? (
                                             news.map((n, k) => {
                                                 return (
                                                     <div key={k}>
-                                                        <div className="newsMain">
-                                                            <div className="newsDotesContents">
-                                                                <div className="newsDotes" />
+                                                        <div
+                                                            className={
+                                                                Styles.newsMain
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={
+                                                                    Styles.newsDotesContents
+                                                                }
+                                                            >
+                                                                <div
+                                                                    className={
+                                                                        Styles.newsDotes
+                                                                    }
+                                                                />
                                                             </div>
-                                                            <div className="newsContent">
+                                                            <div
+                                                                className={
+                                                                    Styles.newsContent
+                                                                }
+                                                            >
                                                                 {n.title}
-                                                                <div className="sectionButton">
+                                                                <div
+                                                                    className={
+                                                                        Styles.sectionButton
+                                                                    }
+                                                                >
                                                                     <Button
                                                                         size="small"
-                                                                        className="buttonReadMore"
+                                                                        className={
+                                                                            Styles.buttonReadMore
+                                                                        }
                                                                         href={
                                                                             n.link
                                                                         }
@@ -158,7 +189,7 @@ class Dashboard extends Component {
                                 </div>
                             </Grid>
                             <Grid item xs={4}>
-                                <div className="papersMain">
+                                <div className={Styles.papersMain}>
                                     <iframe
                                         src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
                                         width="350"

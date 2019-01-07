@@ -1,4 +1,13 @@
+//Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as mainActions from '../../actions/mainActions';
+
+//Styles
+import Styles from './styles.module.scss';
+
+//Instruments
 import {
     Paper,
     Table,
@@ -9,11 +18,6 @@ import {
     TablePagination,
     Grid,
 } from '@material-ui/core';
-import './History.scss';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as mainActions from '../../actions/mainActions';
-
 const title = 'start playing and earn coins!';
 
 class History extends Component {
@@ -69,7 +73,6 @@ class History extends Component {
     };
 
     render() {
-        let onlineUser = this.props.online;
         const { rowsPerPage, page } = this.state;
         let dataHistory = this.state.data;
         let emptyRows = 0;
@@ -81,18 +84,18 @@ class History extends Component {
         );
 
         return (
-            <div className="HistoryComponent">
+            <div className={Styles.historyComponent}>
                 <Grid container spacing={24}>
                     <Grid item xs={12} container>
                         <Grid item xs={10}>
                             <div
-                                className="HistoryTitle"
+                                className={Styles.historyTitle}
                                 style={{ width: 300, height: 80 }}
                             >
                                 {title.toLocaleUpperCase()}
                             </div>
                             <div
-                                className="contentTitle"
+                                className={Styles.contentTitle}
                                 style={{ width: 550, height: 60 }}
                             >
                                 You will earn more coins by marking achievement
@@ -101,34 +104,61 @@ class History extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                <div className="HistoryMain">
+                <div className={Styles.historyMain}>
                     <Grid container spacing={24}>
                         <Grid item xs={12} container>
                             <Grid item xs={8}>
-                                <div className="papersMain">
-                                    <Paper className="myAcc" elevation={8}>
-                                        <div className="titleHistory">
+                                <div className={Styles.papersMain}>
+                                    <Paper
+                                        className={Styles.myAcc}
+                                        elevation={8}
+                                    >
+                                        <div className={Styles.titleHistory}>
                                             History
                                         </div>
-                                        <Table className="tableHistory">
+                                        <Table className={Styles.tableHistory}>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell className="tableColumnHead">
-                                                        Date&Time
+                                                    <TableCell
+                                                        className={
+                                                            Styles.tableColumnHead
+                                                        }
+                                                    >
+                                                        Date & Time
                                                     </TableCell>
-                                                    <TableCell className="tableColumnHead">
+                                                    <TableCell
+                                                        className={
+                                                            Styles.tableColumnHead
+                                                        }
+                                                    >
                                                         Game\Conversion
                                                     </TableCell>
-                                                    <TableCell className="tableColumnHead">
+                                                    <TableCell
+                                                        className={
+                                                            Styles.tableColumnHead
+                                                        }
+                                                    >
                                                         KDA
                                                     </TableCell>
-                                                    <TableCell className="tableColumnHead">
+                                                    <TableCell
+                                                        className={
+                                                            Styles.tableColumnHead
+                                                        }
+                                                    >
                                                         Status
                                                     </TableCell>
-                                                    <TableCell className="tableColumnHead">
+                                                    <TableCell
+                                                        className={
+                                                            Styles.tableColumnHead
+                                                        }
+                                                    >
                                                         Buff Coins
                                                     </TableCell>
-                                                    <TableCell className="tableColumnHead">
+                                                    <TableCell
+                                                        className={
+                                                            Styles.tableColumnHead
+                                                        }
+                                                    >
                                                         Conversion
                                                     </TableCell>
                                                 </TableRow>
@@ -152,13 +182,15 @@ class History extends Component {
                                                 'aria-label': 'Next Page',
                                             }}
                                             onChangePage={this.handleChangePage}
-                                            className="historyTableFooter"
+                                            className={
+                                                Styles.historyTableFooter
+                                            }
                                         />
                                     </Paper>
                                 </div>
                             </Grid>
                             <Grid item xs={4}>
-                                <div className="papersMain">
+                                <div className={Styles.papersMain}>
                                     <iframe
                                         src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
                                         width="350"
@@ -196,26 +228,26 @@ class History extends Component {
 
                             return (
                                 <TableRow key={k}>
-                                    <TableCell className="tableColumn">
+                                    <TableCell className={Styles.tableColumn}>
                                         {realTime}
                                     </TableCell>
-                                    <TableCell className="tableColumn">
+                                    <TableCell className={Styles.tableColumn}>
                                         {gameName}
                                     </TableCell>
-                                    <TableCell className="tableColumn">
+                                    <TableCell className={Styles.tableColumn}>
                                         {n.data.matchData.kda >= 0
                                             ? n.data.matchData.kda.toFixed(2)
                                             : '-'}
                                     </TableCell>
-                                    <TableCell className="tableColumn">
+                                    <TableCell className={Styles.tableColumn}>
                                         {'finished'}
                                     </TableCell>
-                                    <TableCell className="tableColumn">
+                                    <TableCell className={Styles.tableColumn}>
                                         {Number(n.amount)
                                             ? Number(n.amount).toFixed(2)
                                             : '-'}
                                     </TableCell>
-                                    <TableCell className="tableColumn">
+                                    <TableCell className={Styles.tableColumn}>
                                         {Number(n.amount)
                                             ? (Number(n.amount) / 2).toFixed(
                                                   2,

@@ -1,7 +1,22 @@
+//Core
 import React, { Component } from 'react';
+
+//Components
+import Tracker from '../Tracker';
+import Dashboard from '../Dashboard/Dashboard';
+import History from '../History/History';
+import Leaderboard from '../Leaderboard/Leaderboard';
+import MarketPlace from '../MarketPlace/MarketPlace';
+import NewsTournaments from '../NewsTournaments/NewsTournaments';
+
+//Styles
+import Styles from './styles.module.scss';
+
+//Instruments
+import { realAuth } from '../../routes';
+import gsap from 'gsap';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import ExitToApp from '@material-ui/icons/ExitToApp';
-import './ApBarDashboard.scss';
 import {
     BrowserRouter as Router,
     Route,
@@ -9,17 +24,6 @@ import {
     Redirect,
     Switch,
 } from 'react-router-dom';
-import Tracker from '../Tracker';
-import Dashboard from '../Dashboard/Dashboard';
-import History from '../History/History';
-import Leaderboard from '../Leaderboard/Leaderboard';
-import MarketPlace from '../MarketPlace/MarketPlace';
-import NewsTournaments from '../NewsTournaments/NewsTournaments';
-import { realAuth } from '../../routes';
-
-//instruments
-import { Transition } from 'react-transition-group';
-import gsap from 'gsap';
 
 //Analytics
 import ReactGA from 'react-ga';
@@ -130,25 +134,28 @@ class AppBarDashboard extends Component {
         return (
             <Router>
                 <div>
-                    <div key="background" className="appBarDashboardBG" />
-                    <div key="main" className="appBarDashboardMain">
+                    <div
+                        key="background"
+                        className={Styles.appBarDashboardBG}
+                    />
+                    <div key="main" className={Styles.appBarDashboardMain}>
                         <AppBar
                             position="static"
                             style={{ background: 'none', boxShadow: 'none' }}
                         >
                             <Toolbar>
                                 <Typography variant="title" />
-                                <div className="logo" />
+                                <div className={Styles.logo} />
                                 <Link
                                     className={
                                         menuButton === 'dashboard'
-                                            ? 'dashboardMenuActive'
-                                            : 'dashboardMenu'
+                                            ? Styles.dashboardMenuActive
+                                            : Styles.dashboardMenu
                                     }
                                     to={`${this.state.match.url}/dashboard`}
                                 >
                                     <Button
-                                        className="buttonAppBar"
+                                        className={Styles.buttonAppBar}
                                         onClick={this.handleButtonPress(
                                             'dashboard',
                                         )}
@@ -162,13 +169,13 @@ class AppBarDashboard extends Component {
                                 <Link
                                     className={
                                         menuButton === 'history'
-                                            ? 'dashboardMenuActive'
-                                            : 'dashboardMenu'
+                                            ? Styles.dashboardMenuActive
+                                            : Styles.dashboardMenu
                                     }
                                     to={`${this.state.match.url}/history`}
                                 >
                                     <Button
-                                        className="buttonAppBar"
+                                        className={Styles.buttonAppBar}
                                         onClick={this.handleButtonPress(
                                             'history',
                                         )}
@@ -182,13 +189,13 @@ class AppBarDashboard extends Component {
                                 <Link
                                     className={
                                         menuButton === 'leaderboard'
-                                            ? 'dashboardMenuActive'
-                                            : 'dashboardMenu'
+                                            ? Styles.dashboardMenuActive
+                                            : Styles.dashboardMenu
                                     }
                                     to={`${this.state.match.url}/leaderboard`}
                                 >
                                     <Button
-                                        className="buttonAppBar"
+                                        className={Styles.buttonAppBar}
                                         onClick={this.handleButtonPress(
                                             'leaderboard',
                                         )}
@@ -202,13 +209,13 @@ class AppBarDashboard extends Component {
                                 <Link
                                     className={
                                         menuButton === 'marketPlace'
-                                            ? 'dashboardMenuActive'
-                                            : 'dashboardMenu'
+                                            ? Styles.dashboardMenuActive
+                                            : Styles.dashboardMenu
                                     }
                                     to={`${this.state.match.url}/marketPlace`}
                                 >
                                     <Button
-                                        className="buttonAppBar"
+                                        className={Styles.buttonAppBar}
                                         onClick={this.handleButtonPress(
                                             'marketPlace',
                                         )}
@@ -222,15 +229,15 @@ class AppBarDashboard extends Component {
                                 <Link
                                     className={
                                         menuButton === 'newsTournaments'
-                                            ? 'dashboardMenuActive'
-                                            : 'dashboardMenu'
+                                            ? Styles.dashboardMenuActive
+                                            : Styles.dashboardMenu
                                     }
                                     to={`${
                                         this.state.match.url
                                     }/newsTournaments`}
                                 >
                                     <Button
-                                        className="buttonAppBar"
+                                        className={Styles.buttonAppBar}
                                         onClick={this.handleButtonPress(
                                             'newsTournaments',
                                         )}
@@ -244,7 +251,7 @@ class AppBarDashboard extends Component {
 
                                 <div>
                                     <div
-                                        className={'dash-user-button'}
+                                        className={Styles.dashUserButton}
                                         onClick={this._handleTracker}
                                     >
                                         <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
@@ -253,10 +260,12 @@ class AppBarDashboard extends Component {
                                     <Button
                                         size="small"
                                         variant="contained"
-                                        className="exitButton"
+                                        className={Styles.exitButton}
                                         onClick={this.handleLogOut}
                                     >
-                                        <ExitToApp className="exitButtonIcon" />
+                                        <ExitToApp
+                                            className={Styles.exitButtonIcon}
+                                        />
                                     </Button>
                                 </div>
                             </Toolbar>
