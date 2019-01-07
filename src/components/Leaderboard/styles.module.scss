@@ -1,0 +1,72 @@
+h4 {
+    margin: 10px 50px 40px;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 500;
+    color: #bbb;
+}
+
+.leaderboardHeaderText {
+    width: 25%;
+    margin: 20px 50px 10px;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+
+.leaderboardTitle {
+    height: 3rem;
+    line-height: 3rem;
+    font-size: 1.3rem;
+    color: #00ee7a;
+    background: #1e1f21;
+    border-radius: 3px;
+    padding-left: 5%;
+}
+
+.tableData {
+    overflow-y: scroll;
+    height: 16rem;
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #013d20;
+    }
+}
+
+.leaderboardContainer {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    height: 30rem;
+    width: 100%;
+    padding: 40px 0;
+    background: rgba(0, 0, 0, 0.699);
+
+    & .leaderboardTable {
+        display: inline-block;
+        height: 100%;
+        width: 60%;
+    }
+
+    .papersMain {
+        font-size: 0.9em;
+        .myAcc {
+            width: 370px;
+            background: #2e2f30;
+            height: 399px;
+
+            .titleMyAcc {
+                margin: 0;
+                padding: 5px 25px;
+                color: #00ee7a;
+            }
+            .balanceMyAcc {
+                background: #1e1f21;
+                display: flex;
+                flex-direction: row;
+                padding: 10px 0px 10px 25px;
+            }
+        }
+    }
+}

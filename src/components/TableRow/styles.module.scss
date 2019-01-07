@@ -1,0 +1,34 @@
+.tableHeader {
+    width: 18%;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 20px;
+    font-size: 0.8rem;
+    color: #aaa;
+    line-height: 3rem;
+    overflow-y: hidden;
+}
+
+.tableRow {
+    display: flex;
+    width: 100%;
+    height: 3.2rem;
+    justify-content: space-around;
+    background: #202020;
+    border-bottom: 1px solid black;
+}
+
+.tableCell {
+    width: 18%;
+    overflow-x: scroll;
+    text-align: center;
+    margin: 0 20px;
+    font-size: 0.8rem;
+    color: #808080;
+    line-height: 3rem;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
