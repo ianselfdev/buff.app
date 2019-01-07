@@ -33,7 +33,7 @@ class AppBarDashboard extends Component {
         super(props);
         this.state = {
             match: props.match,
-            menuButton: 'dashboard',
+            menuButton: '',
             refreshData: null,
         };
         this.props.addLeaderBoardDota();
@@ -55,14 +55,11 @@ class AppBarDashboard extends Component {
             this.props.addLeaderBoardLOL();
             this.props.addNews();
             this.props.addTournaments();
-            // this.props.addOnlineUsers();
         }, 5000);
 
-        setTimeout(() => {
-            this.setState({
-                tracker: true,
-            });
-        }, 300);
+        this.setState({
+            menuButton: 'dashboard',
+        });
     }
 
     _toggleTracker = () => {
@@ -82,7 +79,7 @@ class AppBarDashboard extends Component {
         localStorage.removeItem('buff-login');
         localStorage.removeItem('buff-password');
 
-        window.location.pathname = '/';
+        window.location.pathname = '/index.html';
 
         clearInterval(this.state.refreshData);
         this.props.logout();
@@ -269,7 +266,7 @@ class AppBarDashboard extends Component {
                                     </Button>
                                 </div>
                             </Toolbar>
-                            {/* <Tracker /> */}
+                            <Tracker />
                         </AppBar>
                         <Switch>
                             <Route
