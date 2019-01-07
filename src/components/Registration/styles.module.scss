@@ -23,6 +23,8 @@
     }
 
     & .signUpButton {
+        display: block;
+        padding: 0.5rem 1rem;
         background: $secondaryGreen;
         border: 1px solid $secondaryGreen;
         border-radius: 5px;
@@ -45,16 +47,19 @@
     }
 
     & .backToLoginButton {
+        display: block;
         background: transparent;
         color: #fff;
         box-shadow: none;
         cursor: pointer;
         font-size: 0.8rem;
-        margin: 0.2rem auto 0;
+        border: none;
+        padding: 0.5rem;
+        margin: 0.2rem auto;
 
         &::before {
             content: '←';
-            margin: 0 0.5rem;
+            margin: 0 0.5rem 0 -0.5rem;
             font-size: 1rem;
             transition: all 0.3s;
         }
@@ -62,7 +67,7 @@
         &:hover {
             background: transparent;
             &::before {
-                margin: 0 1rem 0 -1rem;
+                margin: 0 1rem 0 -1.5rem;
             }
         }
     }
