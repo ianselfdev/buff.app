@@ -55,8 +55,6 @@ class Leaderboard extends Component {
     render() {
         const { index, dataDota, dataLol, dataFortnite } = this.state;
 
-        console.log(this.state);
-
         return (
             <div>
                 <p className={Styles.leaderboardHeaderText}>
