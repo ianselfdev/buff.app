@@ -256,7 +256,7 @@ export const _getLolEvents = (token) => {
     });
 
     overwolf.games.events.onNewEvents.addListener(function(info) {
-        console.log(info);
+        // console.log(info);
     });
 };
 
