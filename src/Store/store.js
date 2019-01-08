@@ -13,7 +13,6 @@ export default function configureStore(initialState, routerHistory) {
                 return { ...state, allHistory: action.payload };
             }
             case actionTypes.ADD_LEADERBOARD_DOTA:
-                // console.log(action.payload);
                 return { ...state, leaderBoardDota: action.payload };
             case actionTypes.ADD_LEADERBOARD_LOL:
                 return { ...state, leaderBoardLol: action.payload };
@@ -32,12 +31,8 @@ export default function configureStore(initialState, routerHistory) {
                 return { ...state, onlineUsers: action.payload.games_online };
             case actionTypes.ADD_BALANCE:
                 return { ...state, userBalance: action.payload };
-            case actionTypes.TRACKER_LOGIN:
-                console.log('logging into tracker');
-                return {
-                    ...state,
-                    loggedIntoTracker: true,
-                };
+            case actionTypes.NEW_TOKENS:
+                return { ...state, tokens: action.payload };
             default:
                 return state;
         }

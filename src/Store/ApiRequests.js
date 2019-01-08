@@ -52,7 +52,6 @@ export default class Api {
         );
 
         const result = await response.json();
-        // console.log('login: ', result);
 
         return result;
     };
@@ -75,4 +74,24 @@ export default class Api {
             'http://18.188.224.32:4000/api/game-start/games-online',
         );
     }
+
+    static refreshToken = async (refreshToken) => {
+        const response = await fetch(
+            'http://18.188.224.32:6001/api/accounts/token',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    refreshToken,
+                }),
+            },
+        );
+
+        const result = await response.json();
+
+        console.log('new Tokens: ', result);
+        return result;
+    };
 }

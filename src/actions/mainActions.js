@@ -83,16 +83,20 @@ export function onBackToLogin() {
     return (dispatch) => dispatch(push('/'));
 }
 
-export const trackerLogin = () => {
+export const receiveTokens = (tokens) => {
     return (dispatch) =>
         dispatch({
-            type: actionTypes.TRACKER_LOGIN,
+            type: actionTypes.NEW_TOKENS,
+            payload: tokens,
         });
 };
 
-export const trackerLogout = () => {
+export const refreshToken = async (refreshToken) => {
+    const tokens = await Api.refreshToken(refreshToken);
+
     return (dispatch) =>
         dispatch({
-            type: actionTypes.TRACKER_LOGOUT,
+            type: actionTypes.NEW_TOKENS,
+            payload: tokens,
         });
 };

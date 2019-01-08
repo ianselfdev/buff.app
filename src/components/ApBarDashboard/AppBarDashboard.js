@@ -1,8 +1,10 @@
 //Core
 import React, { Component } from 'react';
+import * as mainActions from '../../actions/mainActions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 //Components
-import Tracker from '../Tracker';
 import Dashboard from '../Dashboard/Dashboard';
 import History from '../History/History';
 import Leaderboard from '../Leaderboard/Leaderboard';
@@ -14,7 +16,6 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import { realAuth } from '../../routes';
-import gsap from 'gsap';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import {
@@ -27,6 +28,9 @@ import {
 
 //Analytics
 import ReactGA from 'react-ga';
+
+//REST
+import Api from '../../Store/ApiRequests';
 
 class AppBarDashboard extends Component {
     constructor(props) {
@@ -60,18 +64,16 @@ class AppBarDashboard extends Component {
         this.setState({
             menuButton: 'dashboard',
         });
+
+        setInterval(this._refreshTokenAsync, 1500 * 1000);
     }
 
-    _toggleTracker = () => {
-        this.setState((prevState) => ({
-            tracker: !prevState.tracker,
-        }));
-    };
+    _refreshTokenAsync = async () => {
+        const { refreshToken } = this.props.tokens;
 
-    _handleTracker = () => {
-        this.setState((prevState) => ({
-            tracker: !prevState.tracker,
-        }));
+        const result = await Api.refreshToken(refreshToken);
+
+        return result;
     };
 
     handleLogOut = () => {
@@ -95,35 +97,6 @@ class AppBarDashboard extends Component {
         this.setState({
             menuButton: name,
         });
-    };
-
-    //animation section
-    _animateTrackerEnter = (tracker) => {
-        //element, animation in SECONDS, { from point, to point }
-        gsap.fromTo(
-            tracker,
-            0.3,
-            {
-                opacity: 0,
-            },
-            {
-                opacity: 1,
-            },
-        );
-    };
-
-    _animateTrackerExit = (tracker) => {
-        //element, animation in SECONDS, { from point, to point }
-        gsap.fromTo(
-            tracker,
-            0.3,
-            {
-                opacity: 1,
-            },
-            {
-                opacity: 0,
-            },
-        );
     };
 
     render() {
@@ -305,4 +278,19 @@ class AppBarDashboard extends Component {
     }
 }
 
-export default AppBarDashboard;
+const mapStateToProps = (state) => ({
+    allTournaments: state.reducerMain.allTournaments,
+    allNews: state.reducerMain.allNews,
+    online: state.reducerMain.onlineUsers,
+    tokens: state.reducerMain.tokens,
+});
+
+function mapDispatchToProps(dispatch) {
+    return {
+        ...bindActionCreators(mainActions, dispatch),
+    };
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(AppBarDashboard);

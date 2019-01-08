@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
+import * as mainActions from '../../actions/mainActions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 //Components
 import Spinner from '../Spinner';
@@ -18,7 +21,7 @@ import gsap from 'gsap';
 //REST
 import Api from '../../Store/ApiRequests';
 
-export default class Registration extends Component {
+class Login extends Component {
     state = {
         status: {},
         login: '',
@@ -31,7 +34,7 @@ export default class Registration extends Component {
     };
 
     componentDidMount = async () => {
-        const { onLogin } = this.props;
+        const { onLogin, receiveTokens } = this.props;
         const localStorage = window.localStorage;
         const login = localStorage.getItem('buff-login');
         const password = localStorage.getItem('buff-password');
@@ -67,6 +70,8 @@ export default class Registration extends Component {
                     throw new Error(response.error);
                 }
             }
+
+            receiveTokens(response.tokens);
 
             //sending tokens to get user info
             const user = await Api.getCurrentUser(response.tokens.token);
@@ -114,7 +119,7 @@ export default class Registration extends Component {
 
     _handleLogin = async () => {
         const { login, password, rememberMe } = this.state;
-        const { onLogin } = this.props;
+        const { onLogin, receiveTokens } = this.props;
         const localStorage = window.localStorage;
         let response = null;
 
@@ -150,6 +155,8 @@ export default class Registration extends Component {
                 localStorage.setItem('buff-login', login);
                 localStorage.setItem('buff-password', password);
             }
+
+            receiveTokens(response.tokens);
 
             //sending tokens to get user info
             const user = await Api.getCurrentUser(response.tokens.token);
@@ -263,7 +270,7 @@ export default class Registration extends Component {
                         <input
                             type="checkbox"
                             checked={rememberMe}
-                            onClick={this._toggleRememberMe}
+                            onChange={this._toggleRememberMe}
                         />
                         <input type="submit" value="Log In" />
                     </form>
@@ -286,3 +293,17 @@ export default class Registration extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    tokens: state.reducerMain.tokens,
+});
+
+function mapDispatchToProps(dispatch) {
+    return {
+        ...bindActionCreators(mainActions, dispatch),
+    };
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Login);

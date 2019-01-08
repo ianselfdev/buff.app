@@ -9,3 +9,4 @@ export const ADD_BALANCE = 'ADD_BALANCE';
 export const LOGOUT = 'LOGOUT';
 export const TRACKER_LOGIN = 'TRACKER_LOGIN';
 export const TRACKER_LOGOUT = 'TRACKER_LOGOUT';
+export const NEW_TOKENS = 'NEW_TOKENS';
