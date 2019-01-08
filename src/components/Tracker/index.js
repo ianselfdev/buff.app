@@ -8,8 +8,10 @@ import { bindActionCreators } from 'redux';
 import { setOverwolfListeners } from './instruments/OWListeners';
 
 class Tracker extends Component {
-    componentDidMount = () => {
-        setOverwolfListeners(this.props.token);
+    componentDidUpdate = () => {
+        const { token } = this.props;
+
+        setOverwolfListeners(token);
     };
 
     render() {

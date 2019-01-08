@@ -1,7 +1,6 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
 import uuid from 'uuid/v4';
 
-
 /*eslint-disable no-undef*/
 
 let matchId = null;
@@ -39,7 +38,7 @@ const gameLaunched = (gameInfo) => {
     console.log(gameInfo);
 
     // NOTE: we divide by 10 to get the game class id without it's sequence number
-    if (Math.floor(gameInfoResult.gameInfo.id / 10) != 21216) {
+    if (Math.floor(gameInfoResult.gameInfo.id / 10) != '21216') {
         return false;
     }
 
@@ -51,7 +50,7 @@ const gameRunning = (gameInfo) => {
     console.log(gameInfo);
 
     // NOTE: we divide by 10 to get the game class id without it's sequence number
-    if (Math.floor(gameInfoResult.gameInfo.id / 10) != 21216) {
+    if (Math.floor(gameInfoResult.gameInfo.id / 10) != '21216') {
         return false;
     }
 
@@ -84,7 +83,7 @@ const onNewEvents = (data, token) => {
             matchId = uuid();
 
             const startGameData = {
-                gameId: 21216,
+                gameId: '21216',
                 matchId,
                 // rankedGame: true,
             };
@@ -111,14 +110,16 @@ const onNewEvents = (data, token) => {
                     ...matchData,
                     rankedGame: true,
                 },
-                gameId: 21216,
+                gameId: '21216',
                 matchId,
-                victory: isWinner,
-                reward: ((kills * (100 - Number(rank))) / (deaths * 10) + 1) * 0.1,
+                //!______WTF?????
+                victory: true,
+                reward:
+                    ((kills * (100 - Number(rank))) / (deaths * 10) + 1) * 0.1,
             };
 
             console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
-            console.log(`Reward points: ${endGameData.gamedata.reward}`);
+            console.log(`Reward points: ${endGameData.reward}`);
 
             _sendEndGameTrs(JSON.stringify(endGameData), token);
             break;

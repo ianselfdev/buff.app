@@ -68,4 +68,8 @@ export const setOverwolfListeners = (token) => {
                 break;
         }
     });
+
+    overwolf.games.onGameLaunched.addListener((res) => {
+        console.log('onGameLaunched: ', res);
+    });
 };
