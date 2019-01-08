@@ -12,18 +12,6 @@ const gameLaunched = (gameInfoResult) => {
     return undefined;
 };
 
-const gameRunning = (gameInfo) => {
-    if (gameInfo && gameInfo.title) {
-        let currentGame = gameInfo.title;
-
-        console.log(currentGame + ' running!');
-
-        return currentGame;
-    }
-
-    return undefined;
-};
-
 export const setOverwolfListeners = (token) => {
     overwolf.games.onGameInfoUpdated.addListener(function(res) {
         let gameTitle = gameLaunched(res);
@@ -45,20 +33,18 @@ export const setOverwolfListeners = (token) => {
         }
     });
 
-    overwolf.games.getRunningGameInfo(function(res) {
-        let gameTitle = gameRunning(res);
-        console.log('getrunning game info: ', res);
+    overwolf.games.onGameLaunched.addListener(function(res) {
+        let gameTitle = res.title;
+        console.log('onGameLaunched: ', res);
 
         switch (gameTitle) {
             case 'Dota 2':
                 _getDotaEvents(token);
-                setTimeout(setDotaFeatures, 1000);
                 console.log('Dota 2 launched');
                 break;
 
             case 'League of Legends':
                 _getLolEvents(token);
-                setTimeout(setLoLFeatures, 1000);
                 console.log('LoL launched');
                 break;
 
@@ -67,9 +53,5 @@ export const setOverwolfListeners = (token) => {
                 getFortniteEvents(token);
                 break;
         }
-    });
-
-    overwolf.games.onGameLaunched.addListener((res) => {
-        console.log('onGameLaunched: ', res);
     });
 };
