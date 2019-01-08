@@ -10,6 +10,7 @@ import History from '../History/History';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import MarketPlace from '../MarketPlace/MarketPlace';
 import NewsTournaments from '../NewsTournaments/NewsTournaments';
+import Tracker from '../Tracker';
 
 //Styles
 import Styles from './styles.module.scss';
