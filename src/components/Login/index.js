@@ -35,6 +35,7 @@ export default class Registration extends Component {
         const localStorage = window.localStorage;
         const login = localStorage.getItem('buff-login');
         const password = localStorage.getItem('buff-password');
+        let response = null;
 
         if (!login || !password) {
             return false;
@@ -46,13 +47,25 @@ export default class Registration extends Component {
                 isLoading: true,
             });
 
-            //sending API request to get tokens
-            const response = await Api.postLogin({
-                email: login,
-                password,
-            });
-            if (!response.success) {
-                throw new Error(response.error);
+            //checkinh if login is email
+            if (login.includes('@')) {
+                //sending API request to get tokens
+                response = await Api.postLogin({
+                    email: login,
+                    password,
+                });
+                if (!response.success) {
+                    throw new Error(response.error);
+                }
+            } else {
+                //sending API request to get tokens
+                response = await Api.postLogin({
+                    login,
+                    password,
+                });
+                if (!response.success) {
+                    throw new Error(response.error);
+                }
             }
 
             //sending tokens to get user info
@@ -103,6 +116,7 @@ export default class Registration extends Component {
         const { login, password, rememberMe } = this.state;
         const { onLogin } = this.props;
         const localStorage = window.localStorage;
+        let response = null;
 
         try {
             //rendering Spinner
@@ -110,13 +124,25 @@ export default class Registration extends Component {
                 isLoading: true,
             });
 
-            //sending API request to get tokens
-            const response = await Api.postLogin({
-                email: login,
-                password,
-            });
-            if (!response.success) {
-                throw new Error(response.error);
+            //checkinh if login is email
+            if (login.includes('@')) {
+                //sending API request to get tokens
+                response = await Api.postLogin({
+                    email: login,
+                    password,
+                });
+                if (!response.success) {
+                    throw new Error(response.error);
+                }
+            } else {
+                //sending API request to get tokens
+                response = await Api.postLogin({
+                    login,
+                    password,
+                });
+                if (!response.success) {
+                    throw new Error(response.error);
+                }
             }
 
             //remembering user if needed
