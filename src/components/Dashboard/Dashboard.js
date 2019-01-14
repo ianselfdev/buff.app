@@ -7,20 +7,25 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import { Paper, Grid, Button } from '@material-ui/core';
+
+//Actions
+import { newsActions } from '../../bus/app/news/actions';
+
 const title = 'start playing and earn coins!';
 
 const mapStateToProps = (state) => ({
     balance: state.profile.get('balance'),
+    news: state.news,
 });
 
 const mapDispatchToProps = {
-    //.....
+    fetchNewsAsync: newsActions.fetchNewsAsync,
 };
 
 class Dashboard extends Component {
     render() {
-        let news = this.props.allNews;
-        let balance = this.props.balance;
+        const { news, balance } = this.props;
+        console.log(this.props);
 
         return (
             <div className={Styles.dashboardComponent}>
@@ -112,9 +117,9 @@ class Dashboard extends Component {
                                     >
                                         <div className={Styles.titleMyAcc}>News</div>
                                         {news ? (
-                                            news.map((n, k) => {
+                                            news.map((news, index) => {
                                                 return (
-                                                    <div key={k}>
+                                                    <div key={index}>
                                                         <div className={Styles.newsMain}>
                                                             <div
                                                                 className={Styles.newsDotesContents}
@@ -122,7 +127,7 @@ class Dashboard extends Component {
                                                                 <div className={Styles.newsDotes} />
                                                             </div>
                                                             <div className={Styles.newsContent}>
-                                                                {n.title}
+                                                                {news.get('title')}
                                                                 <div
                                                                     className={Styles.sectionButton}
                                                                 >
@@ -131,7 +136,7 @@ class Dashboard extends Component {
                                                                         className={
                                                                             Styles.buttonReadMore
                                                                         }
-                                                                        href={n.link}
+                                                                        href={news.get('link')}
                                                                         target="_blank"
                                                                     >
                                                                         Read More

@@ -31,8 +31,8 @@ const mapDispatchToProps = {
 class Login extends Component {
     state = {
         status: {},
-        login: '',
-        password: '',
+        login: 'roquefore',
+        password: 'peacemaker7686400',
         errorMessage: '',
         registration: false,
         redirectToReferrer: false,
