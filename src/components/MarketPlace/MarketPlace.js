@@ -1,7 +1,5 @@
 //Core
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import * as mainActions from '../../actions/mainActions';
 import { connect } from 'react-redux';
 
 //Styles
@@ -24,12 +22,8 @@ class MarketPlace extends Component {
                             >
                                 {title.toLocaleUpperCase()}
                             </div>
-                            <div
-                                className={Styles.contentTitle}
-                                style={{ width: 550, height: 60 }}
-                            >
-                                You will earn more coins by marking achievement
-                                in active game
+                            <div className={Styles.contentTitle} style={{ width: 550, height: 60 }}>
+                                You will earn more coins by marking achievement in active game
                             </div>
                         </Grid>
                     </Grid>
@@ -42,14 +36,11 @@ class MarketPlace extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    online: state.reducerMain.onlineUsers,
-    userBalance: state.reducerMain.userBalance,
+    //...
 });
 
 function mapDispatchToProps(dispatch) {
-    return {
-        ...bindActionCreators(mainActions, dispatch),
-    };
+    //...
 }
 export default connect(
     mapStateToProps,

@@ -1,8 +1,6 @@
 //Core
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as mainActions from '../../actions/mainActions';
 
 //Components
 import TableRow from '../TableRow';
@@ -15,9 +13,6 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
-//REST
-import Api from '../../Store/ApiRequests';
-
 class Leaderboard extends Component {
     state = {
         dataDota: [],
@@ -27,17 +22,7 @@ class Leaderboard extends Component {
     };
 
     componentDidMount = async () => {
-        const dota = await Api.getLeaderboardDotaAPI();
-
-        const lol = await Api.getLeaderboardLoLAPI();
-
-        console.log(dota, lol);
-
-        this.setState({
-            dataDota: dota.data.leaderbord,
-            dataLol: lol.data.leaderbord,
-            dataFortnite: dota.data.leaderbord,
-        });
+        //...
     };
 
     _handleChange = (event, value) => {
@@ -57,18 +42,11 @@ class Leaderboard extends Component {
 
         return (
             <div>
-                <p className={Styles.leaderboardHeaderText}>
-                    Start playing to earn more coins!
-                </p>
-                <h4>
-                    You will earn more coins by marking achievement in active
-                    game
-                </h4>
+                <p className={Styles.leaderboardHeaderText}>Start playing to earn more coins!</p>
+                <h4>You will earn more coins by marking achievement in active game</h4>
                 <div className={Styles.leaderboardContainer}>
                     <div className={Styles.leaderboardTable}>
-                        <div className={Styles.leaderboardTitle}>
-                            Leaderboard
-                        </div>
+                        <div className={Styles.leaderboardTitle}>Leaderboard</div>
                         <Tabs
                             value={index}
                             fullWidth
@@ -104,10 +82,7 @@ class Leaderboard extends Component {
                                 label="Fortnite"
                             />
                         </Tabs>
-                        <SwipeableViews
-                            index={index}
-                            onChangeIndex={this.handleChangeIndex}
-                        >
+                        <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
@@ -175,16 +150,11 @@ class Leaderboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    allLeaaderBoard: state.reducerMain.leaderBoardDota,
-    allLeaaderBoardLol: state.reducerMain.leaderBoardLol,
-    username: state.reducerMain.username,
-    online: state.reducerMain.onlineUsers,
+    //....
 });
 
 function mapDispatchToProps(dispatch) {
-    return {
-        ...bindActionCreators(mainActions, dispatch),
-    };
+    //....
 }
 
 export default connect(

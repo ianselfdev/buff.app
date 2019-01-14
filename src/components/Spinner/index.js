@@ -1,12 +1,19 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
 
-export default class Spinner extends Component {
+const mapStateToProps = (state) => ({
+    isFetching: state.ui.get('isFetching'),
+});
+
+class Spinner extends Component {
     render() {
-        return (
+        const { isFetching } = this.props;
+
+        return isFetching ? (
             <div className={Styles.loaderInner}>
                 <div className={Styles.loaderLineWrap}>
                     <div className={Styles.loaderLine} />
@@ -24,6 +31,8 @@ export default class Spinner extends Component {
                     <div className={Styles.loaderLine} />
                 </div>
             </div>
-        );
+        ) : null;
     }
 }
+
+export default connect(mapStateToProps)(Spinner);

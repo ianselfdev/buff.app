@@ -1,8 +1,6 @@
 //Core
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as mainActions from '../../actions/mainActions';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -21,23 +19,11 @@ import {
 const title = 'start playing and earn coins!';
 
 class History extends Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            page: 0,
-            rowsPerPage: 5,
-            data: this.props.allHistory,
-        };
-        setInterval(() => {
-            this.updateHistory(this.props.allHistory);
-        }, 1000);
-    }
-
-    updateHistory(history) {
-        if (this.state.data !== history) {
-            this.setState({ data: history });
-        }
-    }
+    state = {
+        page: 0,
+        rowsPerPage: 5,
+        data: this.props.allHistory,
+    };
 
     handleChangePage = (event, page) => {
         this.setState({ page });
@@ -76,30 +62,18 @@ class History extends Component {
         const { rowsPerPage, page } = this.state;
         let dataHistory = this.state.data;
         let emptyRows = 0;
-        let tableRowsHistory = this.getDataRowsHistory(
-            dataHistory,
-            page,
-            rowsPerPage,
-            emptyRows,
-        );
+        let tableRowsHistory = this.getDataRowsHistory(dataHistory, page, rowsPerPage, emptyRows);
 
         return (
             <div className={Styles.historyComponent}>
                 <Grid container spacing={24}>
                     <Grid item xs={12} container>
                         <Grid item xs={10}>
-                            <div
-                                className={Styles.historyTitle}
-                                style={{ width: 300, height: 80 }}
-                            >
+                            <div className={Styles.historyTitle} style={{ width: 300, height: 80 }}>
                                 {title.toLocaleUpperCase()}
                             </div>
-                            <div
-                                className={Styles.contentTitle}
-                                style={{ width: 550, height: 60 }}
-                            >
-                                You will earn more coins by marking achievement
-                                in active game
+                            <div className={Styles.contentTitle} style={{ width: 550, height: 60 }}>
+                                You will earn more coins by marking achievement in active game
                             </div>
                         </Grid>
                     </Grid>
@@ -109,56 +83,27 @@ class History extends Component {
                         <Grid item xs={12} container>
                             <Grid item xs={8}>
                                 <div className={Styles.papersMain}>
-                                    <Paper
-                                        className={Styles.myAcc}
-                                        elevation={8}
-                                    >
-                                        <div className={Styles.titleHistory}>
-                                            History
-                                        </div>
+                                    <Paper className={Styles.myAcc} elevation={8}>
+                                        <div className={Styles.titleHistory}>History</div>
                                         <Table className={Styles.tableHistory}>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell
-                                                        className={
-                                                            Styles.tableColumnHead
-                                                        }
-                                                    >
+                                                    <TableCell className={Styles.tableColumnHead}>
                                                         Date & Time
                                                     </TableCell>
-                                                    <TableCell
-                                                        className={
-                                                            Styles.tableColumnHead
-                                                        }
-                                                    >
+                                                    <TableCell className={Styles.tableColumnHead}>
                                                         Game\Conversion
                                                     </TableCell>
-                                                    <TableCell
-                                                        className={
-                                                            Styles.tableColumnHead
-                                                        }
-                                                    >
+                                                    <TableCell className={Styles.tableColumnHead}>
                                                         KDA
                                                     </TableCell>
-                                                    <TableCell
-                                                        className={
-                                                            Styles.tableColumnHead
-                                                        }
-                                                    >
+                                                    <TableCell className={Styles.tableColumnHead}>
                                                         Status
                                                     </TableCell>
-                                                    <TableCell
-                                                        className={
-                                                            Styles.tableColumnHead
-                                                        }
-                                                    >
+                                                    <TableCell className={Styles.tableColumnHead}>
                                                         Buff Coins
                                                     </TableCell>
-                                                    <TableCell
-                                                        className={
-                                                            Styles.tableColumnHead
-                                                        }
-                                                    >
+                                                    <TableCell className={Styles.tableColumnHead}>
                                                         Conversion
                                                     </TableCell>
                                                 </TableRow>
@@ -168,11 +113,7 @@ class History extends Component {
                                         </Table>
                                         <TablePagination
                                             component="div"
-                                            count={
-                                                dataHistory
-                                                    ? dataHistory.length
-                                                    : 0
-                                            }
+                                            count={dataHistory ? dataHistory.length : 0}
                                             rowsPerPage={rowsPerPage}
                                             page={page}
                                             backIconButtonProps={{
@@ -182,9 +123,7 @@ class History extends Component {
                                                 'aria-label': 'Next Page',
                                             }}
                                             onChangePage={this.handleChangePage}
-                                            className={
-                                                Styles.historyTableFooter
-                                            }
+                                            className={Styles.historyTableFooter}
                                         />
                                     </Paper>
                                 </div>
@@ -210,30 +149,22 @@ class History extends Component {
     getDataRowsHistory(dataHistory, page, rowsPerPage, emptyRows) {
         if (dataHistory) {
             emptyRows =
-                rowsPerPage -
-                Math.min(rowsPerPage, dataHistory.length - page * rowsPerPage);
+                rowsPerPage - Math.min(rowsPerPage, dataHistory.length - page * rowsPerPage);
         }
 
         return (
             <TableBody>
                 {dataHistory ? (
                     dataHistory
-                        .slice(
-                            page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage,
-                        )
+                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((n, k) => {
                             let realTime = this.getDate(n.createdAt);
                             let gameName = this.getGameName(+n.data.gameId);
 
                             return (
                                 <TableRow key={k}>
-                                    <TableCell className={Styles.tableColumn}>
-                                        {realTime}
-                                    </TableCell>
-                                    <TableCell className={Styles.tableColumn}>
-                                        {gameName}
-                                    </TableCell>
+                                    <TableCell className={Styles.tableColumn}>{realTime}</TableCell>
+                                    <TableCell className={Styles.tableColumn}>{gameName}</TableCell>
                                     <TableCell className={Styles.tableColumn}>
                                         {n.data.matchData.kda >= 0
                                             ? n.data.matchData.kda.toFixed(2)
@@ -243,15 +174,11 @@ class History extends Component {
                                         {'finished'}
                                     </TableCell>
                                     <TableCell className={Styles.tableColumn}>
-                                        {Number(n.amount)
-                                            ? Number(n.amount).toFixed(2)
-                                            : '-'}
+                                        {Number(n.amount) ? Number(n.amount).toFixed(2) : '-'}
                                     </TableCell>
                                     <TableCell className={Styles.tableColumn}>
                                         {Number(n.amount)
-                                            ? (Number(n.amount) / 2).toFixed(
-                                                  2,
-                                              ) + '$'
+                                            ? (Number(n.amount) / 2).toFixed(2) + '$'
                                             : '-'}
                                     </TableCell>
                                 </TableRow>
@@ -270,15 +197,11 @@ class History extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    allHistory: state.reducerMain.allHistory,
-    username: state.reducerMain.username,
-    online: state.reducerMain.onlineUsers,
+    //...
 });
 
 function mapDispatchToProps(dispatch) {
-    return {
-        ...bindActionCreators(mainActions, dispatch),
-    };
+    //...
 }
 export default connect(
     mapStateToProps,
