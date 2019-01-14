@@ -1,6 +1,9 @@
 @import '../../theme/palette.scss';
 
 .newsTournamentsComponent {
+    position: absolute;
+    top: 4rem;
+    z-index: 11;
     .newsTournamentsTitle {
         margin: 25px 50px;
         font-size: 1.6em;

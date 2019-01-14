@@ -7,12 +7,30 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import { Grid, Paper, Button } from '@material-ui/core';
+
+//Actions
+import { tournamentsActions } from '../../bus/app/tournaments/actions';
+
 const title = 'start playing and earn coins!';
 
+const mapStateToProps = (state) => ({
+    news: state.news,
+    tournaments: state.tournaments,
+});
+
+const mapDispatchToProps = {
+    fetchTournamentsAsync: tournamentsActions.fetchTournamentsAsync,
+};
+
 class NewsTournaments extends Component {
+    componentDidMount() {
+        const { fetchTournamentsAsync } = this.props;
+        fetchTournamentsAsync();
+    }
+
     render() {
-        let news = this.props.allNews;
-        let tournaments = this.props.allTournaments;
+        const { news, tournaments } = this.props;
+
         return (
             <div className={Styles.newsTournamentsComponent}>
                 <Grid container spacing={24}>
@@ -41,9 +59,9 @@ class NewsTournaments extends Component {
                                     >
                                         <div className={Styles.titleMyAcc}>Latest News</div>
                                         {news ? (
-                                            news.map((n, k) => {
+                                            news.map((news, index) => {
                                                 return (
-                                                    <div key={k}>
+                                                    <div key={index}>
                                                         <div className={Styles.newsMain}>
                                                             <div
                                                                 className={Styles.newsDotesContents}
@@ -51,24 +69,16 @@ class NewsTournaments extends Component {
                                                                 <div className={Styles.newsDotes} />
                                                             </div>
                                                             <div className={Styles.newsContent}>
-                                                                {n.title}
+                                                                {news.get('title')}
                                                                 <div
                                                                     className={Styles.sectionButton}
                                                                 >
-                                                                    <div
-                                                                        className={Styles.newsTitle}
-                                                                    >
-                                                                        {n.createdAt.substring(
-                                                                            0,
-                                                                            10,
-                                                                        )}
-                                                                    </div>
                                                                     <Button
                                                                         size="small"
                                                                         className={
                                                                             Styles.buttonReadMore
                                                                         }
-                                                                        href={n.link}
+                                                                        href={news.get('link')}
                                                                         target="_blank"
                                                                     >
                                                                         Read More
@@ -96,24 +106,26 @@ class NewsTournaments extends Component {
                                     <Paper className={Styles.myAcc} elevation={8}>
                                         <div className={Styles.titleMyAcc}>Tournaments</div>
                                         {tournaments ? (
-                                            tournaments.map((n, k) => (
-                                                <div key={k}>
+                                            tournaments.map((item, index) => (
+                                                <div key={index}>
                                                     <div className={Styles.newsMain}>
                                                         <div className={Styles.newsDotesContents}>
                                                             <div className={Styles.newsDotes} />
                                                         </div>
                                                         <div className={Styles.newsContent}>
-                                                            {n.title}
+                                                            {item.get('title')}
                                                             <div className={Styles.sectionButton}>
                                                                 <div className={Styles.newsTitle}>
-                                                                    {n.createdAt.substring(0, 10)}
+                                                                    {item
+                                                                        .get('createdAt')
+                                                                        .substring(0, 10)}
                                                                 </div>
                                                                 <Button
                                                                     size="small"
                                                                     className={
                                                                         Styles.buttonReadMore
                                                                     }
-                                                                    href={n.link}
+                                                                    href={item.get('link')}
                                                                     target="_blank"
                                                                 >
                                                                     Read More
@@ -153,13 +165,7 @@ class NewsTournaments extends Component {
         );
     }
 }
-const mapStateToProps = (state) => ({
-    //...
-});
 
-function mapDispatchToProps(dispatch) {
-    //...
-}
 export default connect(
     mapStateToProps,
     mapDispatchToProps,

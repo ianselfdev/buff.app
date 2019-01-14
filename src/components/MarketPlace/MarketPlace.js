@@ -39,9 +39,9 @@ const mapStateToProps = (state) => ({
     //...
 });
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = {
     //...
-}
+};
 export default connect(
     mapStateToProps,
     mapDispatchToProps,

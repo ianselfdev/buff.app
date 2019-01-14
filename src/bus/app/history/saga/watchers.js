@@ -12,6 +12,6 @@ function* watchFetchHistory() {
     yield takeEvery(types.FETCH_HISTORY_ASYNC, fillHistory);
 }
 
-export function* watchProfile() {
+export function* watchHistory() {
     yield all([call(watchFetchHistory)]);
 }

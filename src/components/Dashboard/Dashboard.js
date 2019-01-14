@@ -25,7 +25,6 @@ const mapDispatchToProps = {
 class Dashboard extends Component {
     render() {
         const { news, balance } = this.props;
-        console.log(this.props);
 
         return (
             <div className={Styles.dashboardComponent}>

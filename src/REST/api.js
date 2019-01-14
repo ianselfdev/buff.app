@@ -55,16 +55,20 @@ export const Api = {
         },
 
         fetchTournaments() {
-            return fetch(`${MAIN_URL}/buff/tournaments?page=1`);
+            return fetch(`${MAIN_URL}/buff/tournaments?page=1&limit=100`);
         },
 
         fetchHistory() {
-            return fetch(`${MAIN_URL}/games/history?page=1`, {
+            return fetch(`${MAIN_URL}/games/history?page=1&limit=100`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token(),
+                    Authorization: this.token,
                 },
             });
+        },
+
+        fetchLeadersDota() {
+            return fetch(`${MAIN_URL}/buff/leaders?gameId=7314`);
         },
     },
 };

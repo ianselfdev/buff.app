@@ -13,6 +13,17 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
+//Actions
+import { leaderboardActions } from '../../bus/app/leaderboard/actions';
+
+const mapStateToProps = (state) => ({
+    leaderboard: state.leaderboard,
+});
+
+const mapDispatchToProps = {
+    fetchLeadersDotaAsync: leaderboardActions.fetchLeadersDotaAsync,
+};
+
 class Leaderboard extends Component {
     state = {
         dataDota: [],
@@ -21,8 +32,9 @@ class Leaderboard extends Component {
         index: 0,
     };
 
-    componentDidMount = async () => {
-        //...
+    componentDidMount = () => {
+        const { fetchLeadersDotaAsync } = this.props;
+        fetchLeadersDotaAsync();
     };
 
     _handleChange = (event, value) => {
@@ -38,10 +50,11 @@ class Leaderboard extends Component {
     };
 
     render() {
-        const { index, dataDota, dataLol, dataFortnite } = this.state;
+        const { index } = this.state;
+        const { leaderboard } = this.props;
 
         return (
-            <div>
+            <div className={Styles.container}>
                 <p className={Styles.leaderboardHeaderText}>Start playing to earn more coins!</p>
                 <h4>You will earn more coins by marking achievement in active game</h4>
                 <div className={Styles.leaderboardContainer}>
@@ -86,7 +99,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
-                                    {dataDota.map((item, index) => {
+                                    {leaderboard.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="Dota 2"
@@ -103,7 +116,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
-                                    {dataLol.map((item, index) => {
+                                    {leaderboard.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="LoL"
@@ -119,7 +132,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
-                                    {dataFortnite.map((item, index) => {
+                                    {leaderboard.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="Fortnite"
@@ -147,14 +160,6 @@ class Leaderboard extends Component {
             </div>
         );
     }
-}
-
-const mapStateToProps = (state) => ({
-    //....
-});
-
-function mapDispatchToProps(dispatch) {
-    //....
 }
 
 export default connect(

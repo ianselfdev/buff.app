@@ -1,5 +1,7 @@
 .dashboardComponent {
-    padding: 0;
+    position: absolute;
+    top: 4rem;
+    z-index: 11;
     .dashboardMain {
         padding: 0;
         .comingSoon {
@@ -9,7 +11,7 @@
             width: 100%;
 
             max-width: 100%;
-            // background-image: url('../../assets/comingSoon.png');
+            background-image: url('../../theme/assets/comingSoon.png');
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;

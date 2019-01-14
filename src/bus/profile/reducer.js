@@ -1,5 +1,5 @@
 //Core
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 
 //Types
 import { types } from './types';
@@ -12,6 +12,7 @@ const initialState = Map({
     login: '',
     nickname: '',
     balance: '',
+    history: [],
 });
 
 export const profileReducer = (state = initialState, action) => {
@@ -21,6 +22,9 @@ export const profileReducer = (state = initialState, action) => {
 
         case types.CLEAR_PROFILE:
             return state.clear();
+
+        case types.FILL_HISTORY:
+            return state.merge(fromJS(action.payload));
 
         default:
             return state;
