@@ -14,9 +14,9 @@ export function* logout() {
     //? if so -> add try..catch
 
     yield put(authActions.logout());
-    // yield put(historyActions.clearHistory());
-    yield put(profileActions.clearProfile());
     yield apply(localStorage, localStorage.removeItem, ['buff-token']);
-    yield apply(localStorage, localStorage.removeItem, ['remember']);
+    yield apply(localStorage, localStorage.removeItem, ['buff-refresh-token']);
+    yield apply(localStorage, localStorage.removeItem, ['buff-remember-me']);
+    yield put(profileActions.clearProfile());
     // yield put(replace(book.login));
 }

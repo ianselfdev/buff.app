@@ -27,7 +27,12 @@ export function* login({ payload: userData }) {
                 },
             ]);
         } else {
-            response = yield apply(Api, Api.auth.login, [userData]);
+            response = yield apply(Api, Api.auth.login, [
+                {
+                    login: userData.login,
+                    password: userData.password,
+                },
+            ]);
         }
 
         const data = yield apply(response, response.json);
@@ -36,7 +41,9 @@ export function* login({ payload: userData }) {
             throw new Error(data.error);
         }
 
-        console.log('login user -> ', data);
+        if (userData.rememberMe) {
+            yield apply(localStorage, localStorage.setItem, ['buff-remember-me', true]);
+        }
         yield put(authActions.getUserDataAsync(data.tokens.token));
         yield put(newsActions.fetchNewsAsync());
         yield put(authActions.authenticate());

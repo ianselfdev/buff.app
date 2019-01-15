@@ -5,7 +5,6 @@ import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
 //Components
-import Spinner from '../Spinner';
 import ErrorLabel from '../ErrorLabel';
 
 //Styles
@@ -24,6 +23,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     loginAsync: authActions.loginAsync,
+    loginWithTokenAsync: authActions.loginWithTokenAsync,
 };
 
 class Login extends Component {
@@ -31,12 +31,19 @@ class Login extends Component {
         status: {},
         login: 'roquefore',
         password: 'peacemaker7686400',
-        errorMessage: '',
         registration: false,
-        redirectToReferrer: false,
-        isLoading: false,
         rememberMe: false,
     };
+
+    componentDidMount() {
+        const { loginWithTokenAsync } = this.props;
+        const remember = localStorage.getItem('buff-remember-me');
+        const refreshToken = localStorage.getItem('buff-refresh-token');
+
+        if (remember) {
+            loginWithTokenAsync(refreshToken);
+        }
+    }
 
     _handleInput = (e) => {
         const { name, value } = e.target;
@@ -57,7 +64,7 @@ class Login extends Component {
         const { login, password, rememberMe } = this.state;
         const { loginAsync } = this.props;
 
-        loginAsync({ login, password });
+        loginAsync({ login, password, rememberMe });
     };
 
     //*animation group
@@ -88,18 +95,8 @@ class Login extends Component {
     };
 
     render() {
-        const { redirectToReferrer, login, password, errorMessage, rememberMe } = this.state;
+        const { login, password, rememberMe } = this.state;
         const { _toggleRegistration } = this.props;
-
-        const from = {
-            from: { pathname: '/' },
-        };
-
-        if (this.state.isLoading) {
-            return <Spinner />;
-        } else if (redirectToReferrer && from.pathname !== '/') {
-            return <Redirect to={from} />;
-        }
 
         return (
             <Transition
@@ -111,7 +108,7 @@ class Login extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div>
-                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
+                    {/* {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />} */}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
                     <form className={Styles.loginForm} onSubmit={this._handleLogin}>
                         <input

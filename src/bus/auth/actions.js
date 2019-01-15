@@ -25,6 +25,12 @@ export const authActions = {
             payload: userData,
         };
     },
+    loginWithTokenAsync: (token) => {
+        return {
+            type: types.LOGIN_WITH_TOKEN_ASYNC,
+            payload: token,
+        };
+    },
     signupAsync: (userData) => {
         return {
             type: types.SIGNUP_ASYNC,
