@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 //Components
 import Registration from '../Registration';
 import Login from '../Login';
-import Spinner from '../Spinner';
 
 //Styles
 import Styles from './styles.module.scss';

@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Transition } from 'react-transition-group';
 
 //Components
@@ -14,7 +15,18 @@ import Styles from './styles.module.scss';
 import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
 
-export default class Registration extends Component {
+//Actions
+import { authActions } from '../../bus/auth/actions';
+
+const mapStateToProps = (state) => ({
+    registrationSuccess: state.auth.get('registrationSuccessful'),
+});
+
+const mapDispatchToProps = {
+    signupAsync: authActions.signupAsync,
+};
+
+class Registration extends Component {
     state = {
         login: '',
         confPassword: '',
@@ -22,7 +34,6 @@ export default class Registration extends Component {
         email: '',
         password: '',
         errorMessage: '',
-        registrationSuccess: false,
     };
 
     _handleInput = (e) => {
@@ -43,20 +54,21 @@ export default class Registration extends Component {
         e.preventDefault();
 
         const { login, email, password } = this.state;
+        const { signupAsync } = this.props;
+
+        signupAsync({ login, email, password });
     };
 
     _gotIt = () => {
         const { _closeRegistration } = this.props;
 
         this.setState({
-            isLoading: false,
             login: '',
             confPassword: '',
             confEmail: '',
             email: '',
             password: '',
             errorMessage: '',
-            registrationSuccess: false,
         });
 
         _closeRegistration();
@@ -120,18 +132,9 @@ export default class Registration extends Component {
     };
 
     render() {
-        const { _closeRegistration } = this.props;
+        const { _closeRegistration, registrationSuccess } = this.props;
 
-        const {
-            redirectToReferrer,
-            login,
-            email,
-            password,
-            confEmail,
-            confPassword,
-            errorMessage,
-            registrationSuccess,
-        } = this.state;
+        const { login, email, password, confEmail, confPassword, errorMessage } = this.state;
 
         const validation =
             login.length >= 6 &&
@@ -243,3 +246,8 @@ export default class Registration extends Component {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Registration);

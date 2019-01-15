@@ -12,11 +12,22 @@ export const authActions = {
             type: types.LOGOUT,
         };
     },
+    registrationSyccesfull: () => {
+        return {
+            type: types.REGISTRATION_SUCCESS,
+        };
+    },
 
     //Async
     loginAsync: (userData) => {
         return {
             type: types.LOGIN_ASYNC,
+            payload: userData,
+        };
+    },
+    signupAsync: (userData) => {
+        return {
+            type: types.SIGNUP_ASYNC,
             payload: userData,
         };
     },

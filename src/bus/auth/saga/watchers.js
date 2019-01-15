@@ -6,7 +6,7 @@ import { types } from '../types';
 
 //*REMEMBER TO REEXPORT
 //Workers
-import { login, getUserData, logout } from './workers';
+import { login, getUserData, logout, signup } from './workers';
 
 function* watchLogin() {
     yield takeEvery(types.LOGIN_ASYNC, login);
@@ -17,7 +17,10 @@ function* watchGetUserData() {
 function* watchLogout() {
     yield takeEvery(types.LOGOUT_ASYNC, logout);
 }
+function* watchSignup() {
+    yield takeEvery(types.SIGNUP_ASYNC, signup);
+}
 
 export function* watchAuth() {
-    yield all([call(watchLogin), call(watchGetUserData), call(watchLogout)]);
+    yield all([call(watchLogin), call(watchGetUserData), call(watchLogout), call(watchSignup)]);
 }

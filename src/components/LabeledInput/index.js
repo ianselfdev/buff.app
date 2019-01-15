@@ -46,7 +46,7 @@ export default class LabeledInput extends Component {
         return (
             <div className={Styles.div}>
                 <Transition
-                    in={value.length > 0}
+                    in={value && value.length > 0}
                     timeout={500}
                     onEnter={this._animateEnter}
                     onExit={this._animateExit}
