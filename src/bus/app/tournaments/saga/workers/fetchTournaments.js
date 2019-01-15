@@ -19,8 +19,6 @@ export function* fetchTournaments() {
             throw new Error(data.error);
         }
 
-        // console.log(data.tournaments);
-
         yield put(tournamentsActions.fillTournaments(data.tournaments));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fetchNews worker'));

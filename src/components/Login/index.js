@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 //Components
@@ -16,8 +15,7 @@ import Styles from './styles.module.scss';
 import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
 
-//REST
-import { Api } from '../../REST/';
+//Actions
 import { authActions } from '../../bus/auth/actions';
 
 const mapStateToProps = (state) => ({

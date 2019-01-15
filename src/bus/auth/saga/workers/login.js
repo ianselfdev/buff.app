@@ -6,7 +6,6 @@ import { Api } from '../../../../REST/';
 import { authActions } from '../../actions';
 import { uiActions } from '../../../ui/actions';
 import { newsActions } from '../../../app/news/actions';
-import { profileActions } from '../../../profile/actions';
 
 //* apply(context, method, arrayOfArguments)
 //* calls method in context and with arguments

@@ -25,10 +25,10 @@ export default class ErrorCatcher extends Component {
         if (error) {
             return (
                 <section className={Styles.catcher}>
-                    <span>A mysterious 👽 &nbsp;error 📛 &nbsp;occured.</span>
+                    <span>A mysterious &nbsp;error &nbsp;occured.</span>
                     <p>
-                        Our space 🛰 &nbsp;engineers strike team 👩🏼‍🚀 👨🏼‍🚀 &nbsp;is already working 🚀
-                        &nbsp;in order to fix that for you!
+                        Our space 🛰 &nbsp;engineers strike team &nbsp;is already working &nbsp;in
+                        order to fix that for you!
                     </p>
                 </section>
             );

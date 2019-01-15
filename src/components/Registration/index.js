@@ -1,10 +1,8 @@
 //Core
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 
 //Components
-import Spinner from '../Spinner';
 import LabeledInput from '../LabeledInput';
 import ErrorLabel from '../ErrorLabel';
 import SuccessMessage from '../SuccessMessage';
@@ -13,15 +11,11 @@ import SuccessMessage from '../SuccessMessage';
 import Styles from './styles.module.scss';
 
 //Instruments
-import logo from '../../assets/logo.png';
+import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
-
-//REST
-import Api from '../../Store/ApiRequests';
 
 export default class Registration extends Component {
     state = {
-        isLoading: false,
         login: '',
         confPassword: '',
         confEmail: '',
@@ -35,10 +29,7 @@ export default class Registration extends Component {
         const { name, value } = e.target;
 
         //* Checking if nicknames and logins are correct
-        if (
-            (name === 'firstName' || name === 'lastName') &&
-            !/^[a-zA-Z\s]*$/.test(value)
-        ) {
+        if ((name === 'firstName' || name === 'lastName') && !/^[a-zA-Z\s]*$/.test(value)) {
             console.log(`wrong characters at '${name}' field`);
             return null;
         }
@@ -52,51 +43,6 @@ export default class Registration extends Component {
         e.preventDefault();
 
         const { login, email, password } = this.state;
-
-        try {
-            //rendering Spinner
-            this.setState({
-                isLoading: true,
-            });
-
-            //sending API request to register
-            const response = await Api.postRegister({
-                login,
-                email,
-                password,
-                nickname: login,
-                firstName: 'testFirstName',
-                lastName: 'testLastName',
-            });
-            if (!response.success) {
-                throw new Error(response.error);
-            } else {
-                // clearing inputs and registrationSuccess state to render success message
-                this.setState({
-                    isLoading: false,
-                    login: '',
-                    confPassword: '',
-                    confEmail: '',
-                    email: '',
-                    password: '',
-                    errorMessage: '',
-                    registrationSuccess: true,
-                });
-            }
-        } catch (error) {
-            console.error('Registration errorr: ', error);
-
-            const { message: errorMessage } = error;
-
-            //setting state to render ErrorLabel
-            this.setState({
-                errorMessage,
-            });
-        } finally {
-            this.setState({
-                isLoading: false,
-            });
-        }
     };
 
     _gotIt = () => {
@@ -174,10 +120,6 @@ export default class Registration extends Component {
     };
 
     render() {
-        const from = {
-            from: { pathname: '/' },
-        };
-
         const { _closeRegistration } = this.props;
 
         const {
@@ -202,10 +144,7 @@ export default class Registration extends Component {
             confPassword.length > 0;
 
         const warningSign =
-            login.length > 0 &&
-            email.length > 0 &&
-            confEmail.length > 0 &&
-            confPassword.length > 0
+            login.length > 0 && email.length > 0 && confEmail.length > 0 && confPassword.length > 0
                 ? login.length < 6 || login.length > 18
                     ? 'Login must be 6-18 characters long'
                     : email !== confEmail
@@ -255,13 +194,6 @@ export default class Registration extends Component {
             },
         ];
 
-        if (this.state.isLoading) {
-            return <Spinner />;
-        }
-        if (redirectToReferrer && from.pathname !== '/') {
-            return <Redirect to={from} />;
-        }
-
         return (
             <Transition
                 in
@@ -272,17 +204,10 @@ export default class Registration extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div className={Styles.container}>
-                    {errorMessage.length > 0 && (
-                        <ErrorLabel message={errorMessage} />
-                    )}
-                    {registrationSuccess && (
-                        <SuccessMessage onClick={this._gotIt} />
-                    )}
+                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
+                    {registrationSuccess && <SuccessMessage onClick={this._gotIt} />}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
-                    <form
-                        onSubmit={this._handleRegistration}
-                        className={Styles.form}
-                    >
+                    <form onSubmit={this._handleRegistration} className={Styles.form}>
                         {inputFields.map((item, index) => (
                             <LabeledInput
                                 value={item.value}
@@ -310,10 +235,7 @@ export default class Registration extends Component {
                     >
                         Sign Up
                     </button>
-                    <button
-                        className={Styles.backToLoginButton}
-                        onClick={_closeRegistration}
-                    >
+                    <button className={Styles.backToLoginButton} onClick={_closeRegistration}>
                         Back To Login
                     </button>
                 </div>

@@ -169,6 +169,7 @@ class Dashboard extends Component {
                                         }}
                                         allowtransparency="true"
                                         frameBorder="0"
+                                        title="unique title"
                                     />
                                 </div>
                             </Grid>

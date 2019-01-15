@@ -174,6 +174,7 @@ class History extends Component {
                                             height="400"
                                             allowtransparency="true"
                                             frameBorder="0"
+                                            title="unique title"
                                         />
                                     </div>
                                 </Grid>

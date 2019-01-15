@@ -2,7 +2,6 @@
 import { put, apply } from 'redux-saga/effects';
 
 //Instruments
-import { uiActions } from '../../../ui/actions';
 import { profileActions } from '../../../profile/actions';
 import { authActions } from '../../../auth/actions';
 

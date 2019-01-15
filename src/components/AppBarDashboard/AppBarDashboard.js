@@ -72,7 +72,10 @@ class AppBarDashboard extends Component {
 
                             <div>
                                 <div className={Styles.dashUserButton}>
-                                    <img src="https://react-etc.net/files/2017-12/react-hexagon.png" />
+                                    <img
+                                        src="https://react-etc.net/files/2017-12/react-hexagon.png"
+                                        alt="userIcon"
+                                    />
                                     <p>{login}</p>
                                 </div>
                                 <Button

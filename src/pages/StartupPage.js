@@ -2,13 +2,13 @@
 import React, { Component } from 'react';
 
 // Components
-import { ErrorCatcher, Login, Spinner } from '../components';
+import { ErrorCatcher, Startup, Spinner } from '../components';
 
-export default class Startup extends Component {
+export default class StartupPage extends Component {
     render() {
         return (
             <ErrorCatcher>
-                <Login />
+                <Startup />
                 <Spinner />
             </ErrorCatcher>
         );
