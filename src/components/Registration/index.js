@@ -20,6 +20,7 @@ import { authActions } from '../../bus/auth/actions';
 
 const mapStateToProps = (state) => ({
     registrationSuccess: state.auth.get('registrationSuccessful'),
+    errorMessage: state.ui.get('errorMessage'),
 });
 
 const mapDispatchToProps = {
@@ -33,7 +34,6 @@ class Registration extends Component {
         confEmail: '',
         email: '',
         password: '',
-        errorMessage: '',
     };
 
     _handleInput = (e) => {
@@ -132,9 +132,9 @@ class Registration extends Component {
     };
 
     render() {
-        const { _closeRegistration, registrationSuccess } = this.props;
+        const { _closeRegistration, registrationSuccess, errorMessage } = this.props;
 
-        const { login, email, password, confEmail, confPassword, errorMessage } = this.state;
+        const { login, email, password, confEmail, confPassword } = this.state;
 
         const validation =
             login.length >= 6 &&

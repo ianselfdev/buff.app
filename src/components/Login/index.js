@@ -1,6 +1,5 @@
 //Core
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux';
 
@@ -18,7 +17,7 @@ import gsap from 'gsap';
 import { authActions } from '../../bus/auth/actions';
 
 const mapStateToProps = (state) => ({
-    ...state,
+    errorMessage: state.ui.get('errorMessage'),
 });
 
 const mapDispatchToProps = {
@@ -29,8 +28,8 @@ const mapDispatchToProps = {
 class Login extends Component {
     state = {
         status: {},
-        login: 'roquefore',
-        password: 'peacemaker7686400',
+        login: '',
+        password: '',
         registration: false,
         rememberMe: false,
     };
@@ -96,7 +95,7 @@ class Login extends Component {
 
     render() {
         const { login, password, rememberMe } = this.state;
-        const { _toggleRegistration } = this.props;
+        const { _toggleRegistration, errorMessage } = this.props;
 
         return (
             <Transition
@@ -108,7 +107,7 @@ class Login extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div>
-                    {/* {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />} */}
+                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
                     <form className={Styles.loginForm} onSubmit={this._handleLogin}>
                         <input

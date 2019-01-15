@@ -6,6 +6,7 @@ import { types } from './types';
 
 const initialState = Map({
     isFetching: false,
+    errorMessage: '',
 });
 
 export const uiReducer = (state = initialState, action) => {
@@ -15,6 +16,9 @@ export const uiReducer = (state = initialState, action) => {
 
         case types.STOP_FETCHING:
             return state.set('isFetching', false);
+
+        case types.EMIT_ERROR:
+            return state.set('errorMessage', action.payload.message);
 
         default:
             return state;
