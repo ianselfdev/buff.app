@@ -1,9 +1,6 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
 import uuid from 'uuid/v4';
 
-//Actions
-import { authActions } from '../../../bus/auth/actions';
-
 /*eslint-disable no-undef*/
 
 let matchId = 1;
