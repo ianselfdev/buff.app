@@ -88,7 +88,6 @@ class AppBarDashboard extends Component {
                                 </Button>
                             </div>
                         </Toolbar>
-                        {/* <Tracker /> */}
                     </AppBar>
                 </div>
             </div>

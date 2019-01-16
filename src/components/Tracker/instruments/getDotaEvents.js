@@ -1,6 +1,9 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
 import uuid from 'uuid/v4';
 
+//Actions
+import { authActions } from '../../../bus/auth/actions';
+
 /*eslint-disable no-undef*/
 
 let matchId = 1;
@@ -55,7 +58,7 @@ let dotaParams = {
 export const setDotaFeatures = () => {
     // console.log('Setting features for Dota');
     overwolf.games.events.setRequiredFeatures(dotaFeatures, function(info) {
-        if (info.status == 'error') {
+        if (info.status === 'error') {
             window.setTimeout(setDotaFeatures, 2000);
             return;
         }
@@ -64,13 +67,13 @@ export const setDotaFeatures = () => {
 
 export const _getDotaEvents = (token) => {
     overwolf.games.events.onError.addListener(function(info) {
-        if (currentGame == 'Dota 2') {
+        if (currentGame === 'Dota 2') {
             console.log('Error: ' + JSON.stringify(info));
         }
     });
 
     overwolf.games.events.onInfoUpdates2.addListener(function(info) {
-        if (currentGame == 'Dota 2') {
+        if (currentGame === 'Dota 2') {
             if (info.info && info.info.roster && info.info.roster.players) {
                 // console.log(info.info.roster.players);
                 dotaParams.allPlayers = JSON.parse(info.info.roster.players);
@@ -79,7 +82,7 @@ export const _getDotaEvents = (token) => {
     });
 
     overwolf.games.events.onNewEvents.addListener(function(info) {
-        if (currentGame == 'Dota 2') {
+        if (currentGame === 'Dota 2') {
             for (var i = info.events.length - 1; i >= 0; i--) {
                 var data_to_object = JSON.parse(info.events[i].data);
 
@@ -88,11 +91,10 @@ export const _getDotaEvents = (token) => {
                     case 'match_detected':
                         // console.log('INTERESTING IF EVER HAPPENS!');
 
-                        dotaParams.allPlayers =
-                            data_to_object.match_detected.playersInfo;
+                        dotaParams.allPlayers = data_to_object.match_detected.playersInfo;
 
                         dotaParams.allPlayers.forEach((player, index) => {
-                            if (player.isLocalPlayer == true) {
+                            if (player.isLocalPlayer === true) {
                                 dotaParams.playerTeam = player.faction;
                             }
                         });
@@ -109,8 +111,7 @@ export const _getDotaEvents = (token) => {
                         if (
                             !dotaParams.gameStarted &&
                             !dotaParams.gameInProcess &&
-                            data_to_object.match_state ==
-                                'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS'
+                            data_to_object.match_state === 'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS'
                         ) {
                             // console.log(
                             //     'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS',
@@ -119,10 +120,7 @@ export const _getDotaEvents = (token) => {
                             dotaParams.gameStarted = data_to_object;
                         }
 
-                        if (
-                            data_to_object.match_state ==
-                            'DOTA_GAMERULES_STATE_STRATEGY_TIME'
-                        ) {
+                        if (data_to_object.match_state === 'DOTA_GAMERULES_STATE_STRATEGY_TIME') {
                             dotaParams.gameInProcess = false;
                             dotaParams.gameStarted = undefined;
                             dotaParams.gameEnded = undefined;
@@ -135,11 +133,7 @@ export const _getDotaEvents = (token) => {
 
                         dotaParams.gameEnded = data_to_object;
                         // Send transaction for Game Ended
-                        if (
-                            matchId &&
-                            dotaParams.gameEnded &&
-                            dotaParams.gameInProcess
-                        ) {
+                        if (matchId && dotaParams.gameEnded && dotaParams.gameInProcess) {
                             console.log('GAME END');
 
                             var winnerTeam = dotaParams.gameEnded.winner;
@@ -148,9 +142,9 @@ export const _getDotaEvents = (token) => {
                             if (dotaParams.allPlayers) {
                                 dotaParams.allPlayers.forEach(function(player) {
                                     if (player.steamId === dotaParams.steamId) {
-                                        if (player.team == 2) {
+                                        if (player.team === 2) {
                                             dotaParams.playerTeam = 'radiant';
-                                        } else if (player.team == 3) {
+                                        } else if (player.team === 3) {
                                             dotaParams.playerTeam = 'dire';
                                         } else {
                                             dotaParams.playerTeam = undefined;
@@ -180,12 +174,11 @@ export const _getDotaEvents = (token) => {
                             dotaParams.xpm = parseInt(dotaParams.xpm);
 
                             var kda =
-                                (dotaParams.kills + dotaParams.assists) /
-                                (dotaParams.deaths + 1);
+                                (dotaParams.kills + dotaParams.assists) / (dotaParams.deaths + 1);
 
                             var reward = 0;
 
-                            if (dotaParams.playerTeam == winnerTeam) {
+                            if (dotaParams.playerTeam === winnerTeam) {
                                 isWinner = true;
                             } else {
                                 isWinner = false;
@@ -200,96 +193,42 @@ export const _getDotaEvents = (token) => {
                             if (kda >= 1.5 && kda <= 2.5) reward += 2;
 
                             if (dotaParams.xpm >= 551) reward += 15;
-                            if (dotaParams.xpm >= 501 && dotaParams.xpm <= 550)
-                                reward += 13;
-                            if (dotaParams.xpm >= 451 && dotaParams.xpm <= 500)
-                                reward += 10;
-                            if (dotaParams.xpm >= 401 && dotaParams.xpm <= 450)
-                                reward += 8;
-                            if (dotaParams.xpm >= 351 && dotaParams.xpm <= 400)
-                                reward += 7;
-                            if (dotaParams.xpm >= 301 && dotaParams.xpm <= 350)
-                                reward += 6;
-                            if (dotaParams.xpm >= 250 && dotaParams.xpm <= 300)
-                                reward += 4;
+                            if (dotaParams.xpm >= 501 && dotaParams.xpm <= 550) reward += 13;
+                            if (dotaParams.xpm >= 451 && dotaParams.xpm <= 500) reward += 10;
+                            if (dotaParams.xpm >= 401 && dotaParams.xpm <= 450) reward += 8;
+                            if (dotaParams.xpm >= 351 && dotaParams.xpm <= 400) reward += 7;
+                            if (dotaParams.xpm >= 301 && dotaParams.xpm <= 350) reward += 6;
+                            if (dotaParams.xpm >= 250 && dotaParams.xpm <= 300) reward += 4;
 
                             if (dotaParams.gpm >= 551) reward += 15;
-                            if (dotaParams.gpm >= 501 && dotaParams.gpm <= 550)
-                                reward += 13;
-                            if (dotaParams.gpm >= 451 && dotaParams.gpm <= 500)
-                                reward += 10;
-                            if (dotaParams.gpm >= 401 && dotaParams.gpm <= 450)
-                                reward += 8;
-                            if (dotaParams.gpm >= 351 && dotaParams.gpm <= 400)
-                                reward += 7;
-                            if (dotaParams.gpm >= 301 && dotaParams.gpm <= 350)
-                                reward += 6;
-                            if (dotaParams.gpm >= 250 && dotaParams.gpm <= 300)
-                                reward += 4;
+                            if (dotaParams.gpm >= 501 && dotaParams.gpm <= 550) reward += 13;
+                            if (dotaParams.gpm >= 451 && dotaParams.gpm <= 500) reward += 10;
+                            if (dotaParams.gpm >= 401 && dotaParams.gpm <= 450) reward += 8;
+                            if (dotaParams.gpm >= 351 && dotaParams.gpm <= 400) reward += 7;
+                            if (dotaParams.gpm >= 301 && dotaParams.gpm <= 350) reward += 6;
+                            if (dotaParams.gpm >= 250 && dotaParams.gpm <= 300) reward += 4;
 
                             if (dotaParams.lastHits >= 250) reward += 5;
-                            if (
-                                dotaParams.lastHits >= 225 &&
-                                dotaParams.lastHits <= 249
-                            )
+                            if (dotaParams.lastHits >= 225 && dotaParams.lastHits <= 249)
                                 reward += 5;
-                            if (
-                                dotaParams.lastHits >= 200 &&
-                                dotaParams.lastHits <= 224
-                            )
+                            if (dotaParams.lastHits >= 200 && dotaParams.lastHits <= 224)
                                 reward += 4;
-                            if (
-                                dotaParams.lastHits >= 175 &&
-                                dotaParams.lastHits <= 199
-                            )
+                            if (dotaParams.lastHits >= 175 && dotaParams.lastHits <= 199)
                                 reward += 4;
-                            if (
-                                dotaParams.lastHits >= 150 &&
-                                dotaParams.lastHits <= 174
-                            )
+                            if (dotaParams.lastHits >= 150 && dotaParams.lastHits <= 174)
                                 reward += 3;
-                            if (
-                                dotaParams.lastHits >= 125 &&
-                                dotaParams.lastHits <= 149
-                            )
+                            if (dotaParams.lastHits >= 125 && dotaParams.lastHits <= 149)
                                 reward += 3;
-                            if (
-                                dotaParams.lastHits >= 100 &&
-                                dotaParams.lastHits <= 124
-                            )
+                            if (dotaParams.lastHits >= 100 && dotaParams.lastHits <= 124)
                                 reward += 2;
 
                             if (dotaParams.denies >= 70) reward += 5;
-                            if (
-                                dotaParams.denies >= 60 &&
-                                dotaParams.denies <= 69
-                            )
-                                reward += 5;
-                            if (
-                                dotaParams.denies >= 50 &&
-                                dotaParams.denies <= 59
-                            )
-                                reward += 4;
-                            if (
-                                dotaParams.denies >= 40 &&
-                                dotaParams.denies <= 49
-                            )
-                                reward += 4;
-                            if (
-                                dotaParams.denies >= 30 &&
-                                dotaParams.denies <= 39
-                            )
-                                reward += 3;
-                            if (
-                                dotaParams.denies >= 20 &&
-                                dotaParams.denies <= 29
-                            )
-                                reward += 3;
-                            if (
-                                dotaParams.denies >= 10 &&
-                                dotaParams.denies <= 19
-                            )
-                                reward += 2;
+                            if (dotaParams.denies >= 60 && dotaParams.denies <= 69) reward += 5;
+                            if (dotaParams.denies >= 50 && dotaParams.denies <= 59) reward += 4;
+                            if (dotaParams.denies >= 40 && dotaParams.denies <= 49) reward += 4;
+                            if (dotaParams.denies >= 30 && dotaParams.denies <= 39) reward += 3;
+                            if (dotaParams.denies >= 20 && dotaParams.denies <= 29) reward += 3;
+                            if (dotaParams.denies >= 10 && dotaParams.denies <= 19) reward += 2;
 
                             if (isWinner) reward += 45;
 
@@ -306,13 +245,18 @@ export const _getDotaEvents = (token) => {
 
                             var endGameTrs = JSON.stringify({
                                 matchId,
-                                gameId: "7314",
+                                gameId: '7314',
                                 reward: reward * 0.1,
                                 victory: isWinner,
                                 matchData: gamedata,
                             });
 
                             _sendEndGameTrs(endGameTrs, token);
+
+                            setTimeout(() => {
+                                console.log('authActoins -> ', token);
+                                authActions.getUserDataAsync(token);
+                            }, 5000);
 
                             dotaParams.gameInProcess = false;
                             dotaParams.gameStarted = undefined;
@@ -333,10 +277,7 @@ export const _getDotaEvents = (token) => {
                             matchId = data_to_object.match_id;
                         }
 
-                        if (
-                            !dotaParams.steamId &&
-                            data_to_object.player_steam_id
-                        ) {
+                        if (!dotaParams.steamId && data_to_object.player_steam_id) {
                             dotaParams.steamId = data_to_object.player_steam_id;
                         }
                         break;
@@ -365,19 +306,17 @@ export const _getDotaEvents = (token) => {
                         dotaParams.lastHits = data_to_object.last_hits;
                         dotaParams.denies = data_to_object.denies;
                         break;
+
+                    default:
+                        return;
                 }
 
                 // Send transaction for Game Started
-                if (
-                    matchId &&
-                    dotaParams.gameStarted &&
-                    !dotaParams.gameInProcess
-                ) {
-
+                if (matchId && dotaParams.gameStarted && !dotaParams.gameInProcess) {
                     matchId = uuid();
 
                     var startGameTrs = JSON.stringify({
-                        gameId: "7314",
+                        gameId: '7314',
                         matchId: matchId,
                     });
 

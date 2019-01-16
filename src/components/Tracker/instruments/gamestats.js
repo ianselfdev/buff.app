@@ -5,7 +5,7 @@ export const _sendStartGameTrs = async (tx, token) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token, 
+            Authorization: token,
         },
         body: tx,
     });
@@ -21,7 +21,7 @@ export const _sendEndGameTrs = async (tx, token) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token, 
+            Authorization: token,
         },
         body: tx,
     });
@@ -44,5 +44,5 @@ export const _changeState = async (state) => {
     });
 
     const result = await response.json();
-    // console.log(result);
+    return result;
 };

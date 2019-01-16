@@ -7,8 +7,16 @@ import { Dash, Hist, Lead, Market, Tournaments } from '../pages';
 
 //Instruments
 import { book } from './book';
+import { setOverwolfListeners } from '../components/Tracker/instruments/OWListeners';
 
 export default class Private extends Component {
+    componentDidMount = () => {
+        const token = localStorage.getItem('buff-token');
+
+        console.log('setting listeners...');
+        console.log('token ->', token);
+        setOverwolfListeners(token);
+    };
     render() {
         return (
             <Switch>

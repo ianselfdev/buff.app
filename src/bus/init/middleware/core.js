@@ -21,11 +21,11 @@ const sagaMiddleware = createSagaMiddleware();
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers = __DEV__ && devtools ? devtools : compose;
 
-const middleware = [sagaMiddleware, thunk, routerMiddleware];
+const middleware = [sagaMiddleware, thunk, routerMiddleware, logger];
 
-if (__DEV__) {
-    middleware.push(logger);
-}
+// if (__DEV__) {
+//     middleware.push(logger);
+// }
 
 const enhancedStore = composeEnhancers(applyMiddleware(...middleware));
 

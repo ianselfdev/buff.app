@@ -10,6 +10,7 @@ import { Paper, Grid, Button } from '@material-ui/core';
 
 //Actions
 import { newsActions } from '../../bus/app/news/actions';
+import { authActions } from '../../bus/auth/actions';
 
 const title = 'start playing and earn coins!';
 
@@ -20,9 +21,17 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchNewsAsync: newsActions.fetchNewsAsync,
+    getUserDataAsync: authActions.getUserDataAsync,
 };
 
 class Dashboard extends Component {
+    componentDidMount() {
+        const token = localStorage.getItem('buff-token');
+        const { getUserDataAsync } = this.props;
+
+        getUserDataAsync(token);
+    }
+
     render() {
         const { news, balance } = this.props;
 

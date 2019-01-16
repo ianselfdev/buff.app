@@ -43,7 +43,7 @@ const lolParams = {
 
 export const _getLolEvents = (token) => {
     overwolf.games.events.onError.addListener(function(info) {
-        if (currentGame == 'League of Legends') {
+        if (currentGame === 'League of Legends') {
             console.log('Error: ' + JSON.stringify(info));
         }
     });
@@ -64,6 +64,7 @@ export const _getLolEvents = (token) => {
                     // console.log(data_to_object.info.game_info.gameMode);
                     lolParams.rankedGame = true;
                 }
+                break;
 
             case 'matchState':
                 if (
@@ -85,8 +86,7 @@ export const _getLolEvents = (token) => {
                     data_to_object.info.game_info.matchOutcome
                 ) {
                     console.log('MATCH ENDED');
-                    lolParams.victory =
-                        data_to_object.info.game_info.matchOutcome;
+                    lolParams.victory = data_to_object.info.game_info.matchOutcome;
                     lolParams.gameEnded = true;
 
                     if (lolParams.gameEnded && lolParams.gameInProcess) {
@@ -94,15 +94,13 @@ export const _getLolEvents = (token) => {
 
                         var isWinner;
 
-                        if (lolParams.victory == 'win') {
+                        if (lolParams.victory === 'win') {
                             isWinner = true;
                         } else {
                             isWinner = false;
                         }
 
-                        lolParams.kills = parseInt(lolParams.kills)
-                            ? parseInt(lolParams.kills)
-                            : 0;
+                        lolParams.kills = parseInt(lolParams.kills) ? parseInt(lolParams.kills) : 0;
                         lolParams.assists = parseInt(lolParams.assists)
                             ? parseInt(lolParams.assists)
                             : 0;
@@ -110,17 +108,13 @@ export const _getLolEvents = (token) => {
                             ? parseInt(lolParams.deaths)
                             : 0;
 
-                        lolParams.level = parseInt(lolParams.level)
-                            ? parseInt(lolParams.level)
-                            : 0;
+                        lolParams.level = parseInt(lolParams.level) ? parseInt(lolParams.level) : 0;
 
                         lolParams.minionKills = parseInt(lolParams.minionKills)
                             ? parseInt(lolParams.minionKills)
                             : 0;
 
-                        var kda =
-                            (lolParams.kills + lolParams.assists) /
-                            (lolParams.deaths + 1);
+                        var kda = (lolParams.kills + lolParams.assists) / (lolParams.deaths + 1);
 
                         var reward = 0;
 
@@ -133,51 +127,26 @@ export const _getLolEvents = (token) => {
                         if (kda >= 1.5 && kda <= 2.5) reward += 2;
 
                         if (lolParams.minionKills >= 300) reward += 20;
-                        if (
-                            lolParams.minionKills >= 276 &&
-                            lolParams.minionKills <= 299
-                        )
+                        if (lolParams.minionKills >= 276 && lolParams.minionKills <= 299)
                             reward += 17;
-                        if (
-                            lolParams.minionKills >= 251 &&
-                            lolParams.minionKills <= 275
-                        )
+                        if (lolParams.minionKills >= 251 && lolParams.minionKills <= 275)
                             reward += 14;
-                        if (
-                            lolParams.minionKills >= 226 &&
-                            lolParams.minionKills <= 250
-                        )
+                        if (lolParams.minionKills >= 226 && lolParams.minionKills <= 250)
                             reward += 12;
-                        if (
-                            lolParams.minionKills >= 201 &&
-                            lolParams.minionKills <= 225
-                        )
+                        if (lolParams.minionKills >= 201 && lolParams.minionKills <= 225)
                             reward += 10;
-                        if (
-                            lolParams.minionKills >= 176 &&
-                            lolParams.minionKills <= 200
-                        )
+                        if (lolParams.minionKills >= 176 && lolParams.minionKills <= 200)
                             reward += 7;
-                        if (
-                            lolParams.minionKills >= 151 &&
-                            lolParams.minionKills <= 175
-                        )
+                        if (lolParams.minionKills >= 151 && lolParams.minionKills <= 175)
                             reward += 4;
-                        if (
-                            lolParams.minionKills >= 126 &&
-                            lolParams.minionKills <= 150
-                        )
+                        if (lolParams.minionKills >= 126 && lolParams.minionKills <= 150)
                             reward += 2;
 
                         if (lolParams.level >= 18) reward += 15;
-                        if (lolParams.level >= 16 && lolParams.level <= 17)
-                            reward += 12;
-                        if (lolParams.level >= 14 && lolParams.level <= 15)
-                            reward += 10;
-                        if (lolParams.level >= 12 && lolParams.level <= 13)
-                            reward += 8;
-                        if (lolParams.level >= 10 && lolParams.level <= 11)
-                            reward += 6;
+                        if (lolParams.level >= 16 && lolParams.level <= 17) reward += 12;
+                        if (lolParams.level >= 14 && lolParams.level <= 15) reward += 10;
+                        if (lolParams.level >= 12 && lolParams.level <= 13) reward += 8;
+                        if (lolParams.level >= 10 && lolParams.level <= 11) reward += 6;
 
                         if (isWinner) reward += 45;
 
@@ -216,8 +185,7 @@ export const _getLolEvents = (token) => {
 
             case 'minions':
                 // console.log('minions');
-                lolParams.minionKills =
-                    data_to_object.info.game_info.minionKills;
+                lolParams.minionKills = data_to_object.info.game_info.minionKills;
                 // console.log(lolParams.minionKills);
                 break;
 
@@ -238,6 +206,9 @@ export const _getLolEvents = (token) => {
                 lolParams.deaths = data_to_object.info.game_info.deaths;
                 // console.log(lolParams.deaths);
                 break;
+
+            default:
+                return;
         }
 
         if (lolParams.gameStarted && !lolParams.gameInProcess) {
@@ -263,7 +234,7 @@ export const _getLolEvents = (token) => {
 export const setLoLFeatures = () => {
     console.log('Setting features for LoL');
     overwolf.games.events.setRequiredFeatures(lolFeatures, function(info) {
-        if (info.status == 'error') {
+        if (info.status === 'error') {
             window.setTimeout(setLoLFeatures, 2000);
             return;
         }

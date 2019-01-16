@@ -30,6 +30,9 @@ export const setOverwolfListeners = (token) => {
             case 'Fortnite Battle Royale':
                 getFortniteEvents(token);
                 break;
+
+            default:
+                return;
         }
     });
 
@@ -52,6 +55,9 @@ export const setOverwolfListeners = (token) => {
                 console.log('Fortnite launched');
                 getFortniteEvents(token);
                 break;
+
+            default:
+                return;
         }
     });
 };
