@@ -14,7 +14,6 @@ export default class Private extends Component {
         const token = localStorage.getItem('buff-token');
 
         console.log('setting listeners...');
-        console.log('token ->', token);
         setOverwolfListeners(token);
     };
     render() {

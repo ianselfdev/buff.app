@@ -253,11 +253,6 @@ export const _getDotaEvents = (token) => {
 
                             _sendEndGameTrs(endGameTrs, token);
 
-                            setTimeout(() => {
-                                console.log('authActoins -> ', token);
-                                authActions.getUserDataAsync(token);
-                            }, 5000);
-
                             dotaParams.gameInProcess = false;
                             dotaParams.gameStarted = undefined;
                             dotaParams.gameEnded = undefined;
