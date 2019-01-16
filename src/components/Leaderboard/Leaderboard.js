@@ -1,8 +1,6 @@
 //Core
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as mainActions from '../../actions/mainActions';
 
 //Components
 import TableRow from '../TableRow';
@@ -15,8 +13,16 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
-//REST
-import Api from '../../Store/ApiRequests';
+//Actions
+import { leaderboardActions } from '../../bus/app/leaderboard/actions';
+
+const mapStateToProps = (state) => ({
+    leaderboard: state.leaderboard,
+});
+
+const mapDispatchToProps = {
+    fetchLeadersDotaAsync: leaderboardActions.fetchLeadersDotaAsync,
+};
 
 class Leaderboard extends Component {
     state = {
@@ -26,18 +32,9 @@ class Leaderboard extends Component {
         index: 0,
     };
 
-    componentDidMount = async () => {
-        const dota = await Api.getLeaderboardDotaAPI();
-
-        const lol = await Api.getLeaderboardLoLAPI();
-
-        console.log(dota, lol);
-
-        this.setState({
-            dataDota: dota.data.leaderbord,
-            dataLol: lol.data.leaderbord,
-            dataFortnite: dota.data.leaderbord,
-        });
+    componentDidMount = () => {
+        const { fetchLeadersDotaAsync } = this.props;
+        fetchLeadersDotaAsync();
     };
 
     _handleChange = (event, value) => {
@@ -53,22 +50,16 @@ class Leaderboard extends Component {
     };
 
     render() {
-        const { index, dataDota, dataLol, dataFortnite } = this.state;
+        const { index } = this.state;
+        const { leaderboard } = this.props;
 
         return (
-            <div>
-                <p className={Styles.leaderboardHeaderText}>
-                    Start playing to earn more coins!
-                </p>
-                <h4>
-                    You will earn more coins by marking achievement in active
-                    game
-                </h4>
+            <div className={Styles.container}>
+                <p className={Styles.leaderboardHeaderText}>Start playing to earn more coins!</p>
+                <h4>You will earn more coins by marking achievement in active game</h4>
                 <div className={Styles.leaderboardContainer}>
                     <div className={Styles.leaderboardTable}>
-                        <div className={Styles.leaderboardTitle}>
-                            Leaderboard
-                        </div>
+                        <div className={Styles.leaderboardTitle}>Leaderboard</div>
                         <Tabs
                             value={index}
                             fullWidth
@@ -104,14 +95,11 @@ class Leaderboard extends Component {
                                 label="Fortnite"
                             />
                         </Tabs>
-                        <SwipeableViews
-                            index={index}
-                            onChangeIndex={this.handleChangeIndex}
-                        >
+                        <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
-                                    {dataDota.map((item, index) => {
+                                    {leaderboard.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="Dota 2"
@@ -128,7 +116,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
-                                    {dataLol.map((item, index) => {
+                                    {leaderboard.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="LoL"
@@ -144,7 +132,7 @@ class Leaderboard extends Component {
                             <div>
                                 <TableRow header />
                                 <div className={Styles.tableData}>
-                                    {dataFortnite.map((item, index) => {
+                                    {leaderboard.map((item, index) => {
                                         return (
                                             <TableRow
                                                 name="Fortnite"
@@ -167,24 +155,12 @@ class Leaderboard extends Component {
                         height="400"
                         allowtransparency="true"
                         frameBorder="0"
+                        title="unique title"
                     />
                 </div>
             </div>
         );
     }
-}
-
-const mapStateToProps = (state) => ({
-    allLeaaderBoard: state.reducerMain.leaderBoardDota,
-    allLeaaderBoardLol: state.reducerMain.leaderBoardLol,
-    username: state.reducerMain.username,
-    online: state.reducerMain.onlineUsers,
-});
-
-function mapDispatchToProps(dispatch) {
-    return {
-        ...bindActionCreators(mainActions, dispatch),
-    };
 }
 
 export default connect(

@@ -1,6 +1,9 @@
 @import '../../theme/palette.scss';
 
 .historyComponent {
+    position: absolute;
+    top: 4rem;
+    z-index: 11;
     & .historyTitle {
         margin: 25px 50px;
         font-size: 1.6em;

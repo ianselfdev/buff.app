@@ -1,107 +1,48 @@
 //Core
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Transition } from 'react-transition-group';
-import * as mainActions from '../../actions/mainActions';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 //Components
-import Spinner from '../Spinner';
 import ErrorLabel from '../ErrorLabel';
 
 //Styles
 import Styles from './styles.module.scss';
 
 //Instruments
-import logo from '../../assets/logo.png';
-import { realAuth } from '../../routes';
+import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
 
-//REST
-import Api from '../../Store/ApiRequests';
+//Actions
+import { authActions } from '../../bus/auth/actions';
+
+const mapStateToProps = (state) => ({
+    errorMessage: state.ui.get('errorMessage'),
+});
+
+const mapDispatchToProps = {
+    loginAsync: authActions.loginAsync,
+    loginWithTokenAsync: authActions.loginWithTokenAsync,
+};
 
 class Login extends Component {
     state = {
         status: {},
         login: '',
         password: '',
-        errorMessage: '',
         registration: false,
-        redirectToReferrer: false,
-        isLoading: false,
         rememberMe: false,
     };
 
-    componentDidMount = async () => {
-        const { onLogin, receiveTokens } = this.props;
-        const localStorage = window.localStorage;
-        const login = localStorage.getItem('buff-login');
-        const password = localStorage.getItem('buff-password');
-        let response = null;
+    componentDidMount() {
+        const { loginWithTokenAsync } = this.props;
+        const remember = localStorage.getItem('buff-remember-me');
+        const refreshToken = localStorage.getItem('buff-refresh-token');
 
-        if (!login || !password) {
-            return false;
+        if (remember) {
+            loginWithTokenAsync(refreshToken);
         }
-
-        try {
-            //rendering Spinner
-            this.setState({
-                isLoading: true,
-            });
-
-            //checkinh if login is email
-            if (login.includes('@')) {
-                //sending API request to get tokens
-                response = await Api.postLogin({
-                    email: login,
-                    password,
-                });
-                if (!response.success) {
-                    throw new Error(response.error);
-                }
-            } else {
-                //sending API request to get tokens
-                response = await Api.postLogin({
-                    login,
-                    password,
-                });
-                if (!response.success) {
-                    throw new Error(response.error);
-                }
-            }
-
-            receiveTokens(response.tokens);
-
-            //sending tokens to get user info
-            const user = await Api.getCurrentUser(response.tokens.token);
-
-            //logging user into application
-            await realAuth.authenticate(user.data);
-            onLogin({ ...user.data.account, ...response.tokens });
-
-            this.setState({
-                redirectToReferrer: response.success,
-                status: response,
-                isLoading: false,
-                login: '',
-                password: '',
-            });
-        } catch (error) {
-            console.error('Login errorr: ', error);
-
-            const { message: errorMessage } = error;
-
-            //setting state to render ErrorLabel
-            this.setState({
-                errorMessage,
-            });
-        } finally {
-            this.setState({
-                isLoading: false,
-            });
-        }
-    };
+    }
 
     _handleInput = (e) => {
         const { name, value } = e.target;
@@ -117,75 +58,12 @@ class Login extends Component {
         }));
     };
 
-    _handleLogin = async () => {
+    _handleLogin = (e) => {
+        e.preventDefault();
         const { login, password, rememberMe } = this.state;
-        const { onLogin, receiveTokens } = this.props;
-        const localStorage = window.localStorage;
-        let response = null;
+        const { loginAsync } = this.props;
 
-        try {
-            //rendering Spinner
-            this.setState({
-                isLoading: true,
-            });
-
-            //checkinh if login is email
-            if (login.includes('@')) {
-                //sending API request to get tokens
-                response = await Api.postLogin({
-                    email: login,
-                    password,
-                });
-                if (!response.success) {
-                    throw new Error(response.error);
-                }
-            } else {
-                //sending API request to get tokens
-                response = await Api.postLogin({
-                    login,
-                    password,
-                });
-                if (!response.success) {
-                    throw new Error(response.error);
-                }
-            }
-
-            //remembering user if needed
-            if (rememberMe) {
-                localStorage.setItem('buff-login', login);
-                localStorage.setItem('buff-password', password);
-            }
-
-            receiveTokens(response.tokens);
-
-            //sending tokens to get user info
-            const user = await Api.getCurrentUser(response.tokens.token);
-
-            //logging user into application
-            await realAuth.authenticate(user.data);
-            onLogin({ ...user.data.account, ...response.tokens });
-
-            this.setState({
-                redirectToReferrer: response.success,
-                status: response,
-                isLoading: false,
-                login: '',
-                password: '',
-            });
-        } catch (error) {
-            console.error('Login errorr: ', error);
-
-            const { message: errorMessage } = error;
-
-            //setting state to render ErrorLabel
-            this.setState({
-                errorMessage,
-            });
-        } finally {
-            this.setState({
-                isLoading: false,
-            });
-        }
+        loginAsync({ login, password, rememberMe });
     };
 
     //*animation group
@@ -216,24 +94,8 @@ class Login extends Component {
     };
 
     render() {
-        const {
-            redirectToReferrer,
-            login,
-            password,
-            errorMessage,
-            rememberMe,
-        } = this.state;
-        const { _toggleRegistration } = this.props;
-
-        const from = {
-            from: { pathname: '/' },
-        };
-
-        if (this.state.isLoading) {
-            return <Spinner />;
-        } else if (redirectToReferrer && from.pathname !== '/') {
-            return <Redirect to={from} />;
-        }
+        const { login, password, rememberMe } = this.state;
+        const { _toggleRegistration, errorMessage } = this.props;
 
         return (
             <Transition
@@ -245,14 +107,9 @@ class Login extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div>
-                    {errorMessage.length > 0 && (
-                        <ErrorLabel message={errorMessage} />
-                    )}
+                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
                     <img className={Styles.img} src={logo} alt="buff-logo" />
-                    <form
-                        className={Styles.loginForm}
-                        onSubmit={this._handleLogin}
-                    >
+                    <form className={Styles.loginForm} onSubmit={this._handleLogin}>
                         <input
                             type="text"
                             name="login"
@@ -282,10 +139,7 @@ class Login extends Component {
                     >
                         Forgot password?
                     </button>
-                    <button
-                        onClick={_toggleRegistration}
-                        className={Styles.registrationButton}
-                    >
+                    <button onClick={_toggleRegistration} className={Styles.registrationButton}>
                         Not registered yet? Click here!
                     </button>
                 </div>
@@ -294,15 +148,6 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    tokens: state.reducerMain.tokens,
-});
-
-function mapDispatchToProps(dispatch) {
-    return {
-        ...bindActionCreators(mainActions, dispatch),
-    };
-}
 export default connect(
     mapStateToProps,
     mapDispatchToProps,

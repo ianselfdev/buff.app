@@ -7,8 +7,8 @@
     z-index: 10000;
     height: 100%;
     width: 100%;
-    background: #231f20ce;
-    opacity: 0;
+    background: #004624d3;
+    animation: appear 300ms;
 
     & .container {
         position: fixed;
@@ -36,6 +36,13 @@
         }
 
         & button {
+            cursor: pointer;
+
+            position: relative;
+            left: 50%;
+            top: 0.8rem;
+            transform: translate(-50%);
+
             height: 2rem;
             padding: 0 2rem;
             box-shadow: none;
@@ -51,5 +58,14 @@
                 color: $primaryGrey;
             }
         }
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

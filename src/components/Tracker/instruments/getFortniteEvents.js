@@ -32,34 +32,6 @@ const matchData = {
     rank: null,
 };
 
-//? -------------------------------------------------------------!
-//? ------------ probably not needed at all ---------------------!
-const gameLaunched = (gameInfo) => {
-    console.log(gameInfo);
-
-    // NOTE: we divide by 10 to get the game class id without it's sequence number
-    if (Math.floor(gameInfoResult.gameInfo.id / 10) != '21216') {
-        return false;
-    }
-
-    console.log('Launching Fortnite........');
-    return true;
-};
-
-const gameRunning = (gameInfo) => {
-    console.log(gameInfo);
-
-    // NOTE: we divide by 10 to get the game class id without it's sequence number
-    if (Math.floor(gameInfoResult.gameInfo.id / 10) != '21216') {
-        return false;
-    }
-
-    console.log('Frtnt running');
-    return true;
-};
-//?--------------------------------------------------------------!
-//?--------------------------------------------------------------!
-
 // setting features to track + retry if failed
 export const setFortniteFeatures = () => {
     overwolf.games.events.setRequiredFeatures(features, (data) => {
@@ -113,8 +85,7 @@ const onNewEvents = (data, token) => {
                 gameId: '21216',
                 matchId,
                 victory: true,
-                reward:
-                    ((kills * (100 - Number(rank))) / (deaths * 10) + 1) * 0.1,
+                reward: ((kills * (100 - Number(rank))) / (deaths * 10) + 1) * 0.1,
             };
 
             console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
@@ -138,6 +109,7 @@ const onInfoUpdates2 = (data) => {
     switch (feature) {
         case 'rank':
             matchData.rank = data.info.match_info.rank;
+            break;
 
         default:
             return null;

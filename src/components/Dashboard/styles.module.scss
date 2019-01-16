@@ -1,6 +1,9 @@
 @import '../../theme/palette.scss';
 
 .dashboardComponent {
+    position: absolute;
+    top: 4rem;
+    z-index: 11;
     .dashboardTitle {
         margin: 25px 50px;
         font-size: 1.6em;
