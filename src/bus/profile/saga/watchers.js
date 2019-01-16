@@ -1,17 +1,14 @@
 //Core
-import { takeEvery, all, call } from 'redux-saga/effects';
+// import { takeEvery, all, call } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 
 //Types
-import { types } from '../types';
+// import { types } from '../types';
 
 //*REMEMBER TO REEXPORT
 //Workers
-import { fillHistory } from './workers';
-
-function* watchFetchHistory() {
-    yield takeEvery(types.FETCH_HISTORY_ASYNC, fillHistory);
-}
+import {} from './workers';
 
 export function* watchProfile() {
-    yield all([call(watchFetchHistory)]);
+    yield all([]);
 }

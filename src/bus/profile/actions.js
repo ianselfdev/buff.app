@@ -14,17 +14,6 @@ export const profileActions = {
             type: types.CLEAR_PROFILE,
         };
     },
-    fillHistory: (history) => {
-        return {
-            type: types.FILL_HISTORY,
-            payload: history,
-        };
-    },
 
     //Async
-    fetchHistoryAsync: () => {
-        return {
-            type: types.FETCH_HISTORY_ASYNC,
-        };
-    },
 };

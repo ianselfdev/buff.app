@@ -79,7 +79,7 @@ class History extends Component {
         const { history } = this.props;
         const { rowsPerPage, page } = this.state;
 
-        let dataHistory = history.get('history');
+        let dataHistory = history;
         let emptyRows = 0;
         let tableRowsHistory = this.getDataRowsHistory(dataHistory, page, rowsPerPage, emptyRows);
 
