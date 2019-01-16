@@ -24,7 +24,7 @@ import { historyActions } from '../../bus/app/history/actions';
 const title = 'start playing and earn coins!';
 
 const mapStateToProps = (state) => ({
-    history: state.app,
+    history: state.history,
 });
 
 const mapDispatchToProps = {
@@ -79,7 +79,7 @@ class History extends Component {
         const { history } = this.props;
         const { rowsPerPage, page } = this.state;
 
-        let dataHistory = history;
+        let dataHistory = history.get('history');
         let emptyRows = 0;
         let tableRowsHistory = this.getDataRowsHistory(dataHistory, page, rowsPerPage, emptyRows);
 
@@ -151,7 +151,7 @@ class History extends Component {
                                             </Table>
                                             <TablePagination
                                                 component="div"
-                                                count={dataHistory ? dataHistory.length : 0}
+                                                count={dataHistory ? dataHistory.size : 0}
                                                 rowsPerPage={rowsPerPage}
                                                 page={page}
                                                 backIconButtonProps={{
@@ -197,28 +197,33 @@ class History extends Component {
                 {dataHistory ? (
                     dataHistory
                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        .map((n, k) => {
-                            let realTime = this.getDate(n.createdAt);
-                            let gameName = this.getGameName(+n.data.gameId);
+                        .map((item, index) => {
+                            let realTime = this.getDate(item.get('createdAt'));
+                            let gameName = this.getGameName(Number(item.get('data').get('gameId')));
 
                             return (
-                                <TableRow key={k}>
+                                <TableRow key={index}>
                                     <TableCell className={Styles.tableColumn}>{realTime}</TableCell>
                                     <TableCell className={Styles.tableColumn}>{gameName}</TableCell>
                                     <TableCell className={Styles.tableColumn}>
-                                        {n.data.matchData.kda >= 0
-                                            ? n.data.matchData.kda.toFixed(2)
+                                        {item.get('data.matchData.kda') >= 0
+                                            ? item
+                                                  .get('data.matchData.kda')
+
+                                                  .toFixed(2)
                                             : '-'}
                                     </TableCell>
                                     <TableCell className={Styles.tableColumn}>
                                         {'finished'}
                                     </TableCell>
                                     <TableCell className={Styles.tableColumn}>
-                                        {Number(n.amount) ? Number(n.amount).toFixed(2) : '-'}
+                                        {Number(item.get('amount'))
+                                            ? Number(item.get('amount')).toFixed(2)
+                                            : '-'}
                                     </TableCell>
                                     <TableCell className={Styles.tableColumn}>
-                                        {Number(n.amount)
-                                            ? (Number(n.amount) / 2).toFixed(2) + '$'
+                                        {Number(item.get('amount'))
+                                            ? (Number(item.get('amount')) / 2).toFixed(2) + '$'
                                             : '-'}
                                     </TableCell>
                                 </TableRow>
