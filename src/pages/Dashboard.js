@@ -2,13 +2,13 @@
 import React, { Component } from 'react';
 
 // Components
-import { ErrorCatcher, Dashboard, AppBarDashboard } from '../components';
+import { ErrorCatcher, Dashboard, Navbar } from '../components';
 
 export default class Dash extends Component {
     render() {
         return (
             <ErrorCatcher>
-                <AppBarDashboard />
+                <Navbar />
                 <Dashboard />
             </ErrorCatcher>
         );

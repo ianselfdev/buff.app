@@ -3,7 +3,7 @@ import Login from './Login';
 // import Registration from './Registration';
 import Dashboard from './Dashboard/Dashboard';
 import Leaderboard from './Leaderboard/Leaderboard';
-import AppBarDashboard from './AppBarDashboard/AppBarDashboard';
+import Navbar from './Navbar';
 import MarketPlace from './MarketPlace/MarketPlace';
 import NewsTournaments from './NewsTournaments/NewsTournaments';
 import History from './History';
@@ -19,7 +19,7 @@ export {
     TableRow,
     Login,
     Dashboard,
-    AppBarDashboard,
+    Navbar,
     History,
     Leaderboard,
     MarketPlace,

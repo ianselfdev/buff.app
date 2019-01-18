@@ -2,13 +2,13 @@
 import React, { Component } from 'react';
 
 // Components
-import { ErrorCatcher, Leaderboard, AppBarDashboard } from '../components';
+import { ErrorCatcher, Leaderboard, Navbar } from '../components';
 
 export default class Lead extends Component {
     render() {
         return (
             <ErrorCatcher>
-                <AppBarDashboard />
+                <Navbar />
                 <Leaderboard />
             </ErrorCatcher>
         );
