@@ -194,7 +194,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-    background: #000000ee;
+    background: #000000;
     padding: 1rem 0;
 
     min-height: 100%;
@@ -286,7 +286,7 @@
         }
 
         &:hover {
-            background-image: linear-gradient(90deg, #ffffff00, #ffffff1f, #ffffff3f);
+            background-image: linear-gradient(-130deg, #ffffff00, #ffffff1f, #ffffff3f);
         }
 
         & .navitemIcon {
@@ -303,7 +303,7 @@
         padding: 0 1rem;
         height: 3.5rem;
         line-height: 3.5rem;
-        background-image: linear-gradient(170deg, #ffffff00, #ffffff1f, #ffffff3f);
+        background-image: linear-gradient(-130deg, #ffffff00, #ffffff1f, #ffffff3f);
         border-left: 3px solid $secondaryGreen;
         display: flex;
         flex-direction: row;

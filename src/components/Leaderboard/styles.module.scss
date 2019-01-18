@@ -2,8 +2,9 @@
 
 .container {
     position: absolute;
-    top: 4rem;
+    top: 0;
     z-index: 11;
+
     h4 {
         margin: 10px 50px 40px;
         font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
@@ -48,32 +49,12 @@
         width: 100%;
         padding: 40px 0;
         background: rgba(0, 0, 0, 0.699);
+        margin-left: -2rem;
 
         & .leaderboardTable {
             display: inline-block;
             height: 100%;
             width: 60%;
-        }
-
-        .papersMain {
-            font-size: 0.9em;
-            .myAcc {
-                width: 370px;
-                background: #2e2f30;
-                height: 399px;
-
-                .titleMyAcc {
-                    margin: 0;
-                    padding: 5px 25px;
-                    color: #00ee7a;
-                }
-                .balanceMyAcc {
-                    background: #1e1f21;
-                    display: flex;
-                    flex-direction: row;
-                    padding: 10px 0px 10px 25px;
-                }
-            }
         }
     }
 }

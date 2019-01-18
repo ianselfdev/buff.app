@@ -2,7 +2,7 @@
 
 .dashboardComponent {
     position: absolute;
-    top: 4rem;
+    top: 0;
     z-index: 11;
     .dashboardTitle {
         margin: 25px 50px;
@@ -24,7 +24,7 @@
         background: #131416;
         .papersMain {
             font-size: 0.9rem;
-            margin: 40px 20px;
+            margin: 40px 5px;
             .myAcc {
                 width: 100%;
                 background: #2e2f30;
@@ -100,23 +100,5 @@
                 }
             }
         }
-    }
-}
-@media screen and (min-width: 900px) {
-    ::-webkit-scrollbar {
-        width: 7px;
-    }
-}
-
-@media screen and (min-width: 900px) {
-    ::-webkit-scrollbar-thumb {
-        background: #163751;
-        border-radius: 4px;
-    }
-}
-
-@media screen and (min-width: 900px) {
-    ::-webkit-scrollbar-track {
-        background-color: transparent;
     }
 }
