@@ -2,14 +2,14 @@
 import React, { Component } from 'react';
 
 // Components
-import { ErrorCatcher, MarketPlace, Navbar } from '../components';
+import { ErrorCatcher, Navbar, Market } from '../components';
 
-export default class Market extends Component {
+export default class Marketplace extends Component {
     render() {
         return (
             <ErrorCatcher>
                 <Navbar />
-                <MarketPlace />
+                <Market />
             </ErrorCatcher>
         );
     }

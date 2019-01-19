@@ -1,0 +1,66 @@
+@import '../../theme/palette.scss';
+
+.container {
+    width: 24%;
+
+    & .filtersContainer {
+        background: $primaryGrey;
+        border-radius: 5px;
+
+        & div {
+            &:first-of-type {
+                border-radius: 5px 5px 0 0;
+            }
+            &:last-of-type {
+                border-radius: 0 0 5px 5px;
+            }
+        }
+
+        & .title {
+            width: 100%;
+            padding: 0 1rem;
+            height: 2.5rem;
+            font-size: 0.8rem;
+            line-height: 2.5rem;
+            color: $primaryGreen;
+            background: $secondaryGrey;
+        }
+
+        & .filter {
+            display: flex;
+            justify-content: space-between;
+
+            cursor: pointer;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+
+            width: 100%;
+            padding: 0 1rem;
+            height: 2.5rem;
+            font-size: 0.8rem;
+            line-height: 2.5rem;
+            color: $lightGrey;
+
+            &::after {
+                content: '▼';
+                color: $lightGrey;
+            }
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+        }
+    }
+
+    & .adContainer {
+        height: 20rem;
+        width: 100%;
+
+        margin: 2rem auto;
+
+        background-image: url('https://i.kym-cdn.com/photos/images/original/000/326/426/506.jpg');
+        background-position: center;
+        background-size: cover;
+        border-radius: 5px;
+    }
+}

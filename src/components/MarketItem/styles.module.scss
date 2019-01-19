@@ -1,0 +1,46 @@
+@import '../../theme/palette.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    height: 46%;
+    width: 21%;
+    margin: 0.7rem 2%;
+    background-image: url('https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6577/6577073_sa.jpg;maxHeight=640;maxWidth=550');
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 30px 30px 30px;
+    & .title {
+        text-align: center;
+    }
+    & .actionButtonContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        height: 3.5rem;
+        border-radius: 0 0 30px 30px;
+        border: 1px solid $secondaryGreen;
+        background: $primaryGrey;
+        & p {
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            line-height: 3.5rem;
+
+            &:last-of-type {
+                background: $secondaryGreen;
+                color: white;
+                border-radius: 0 0 30px 0;
+                cursor: pointer;
+
+                &:hover {
+                    background: $primaryGreen;
+                    color: black;
+                }
+            }
+        }
+    }
+}
