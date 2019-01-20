@@ -5,33 +5,73 @@ import React, { Component } from 'react';
 import MarketInstruments from '../MarketInstruments';
 import MarketItem from '../MarketItem';
 
+//Instruments
+import { Search } from '@material-ui/icons';
+
 //Styles
 import Styles from './styles.module.scss';
 
 export default class Market extends Component {
+    state = {
+        active: 'market',
+    };
+
+    _selectActiveTab = (e) => {
+        const { id } = e.target;
+
+        this.setState({
+            active: id,
+        });
+    };
+
     render() {
+        const { active } = this.state;
+
         return (
             <div className={Styles.mainContainer}>
                 <div className={Styles.marketContainer}>
                     <div className={Styles.controlsContainer}>
                         <div className={Styles.tabsContainer}>
-                            <div className={Styles.tabs}>Market</div>
-                            <div className={Styles.tabs}>My Inventory</div>
+                            <div
+                                onClick={this._selectActiveTab}
+                                id="market"
+                                className={
+                                    active === 'market'
+                                        ? `${Styles.tabs} ${Styles.active}`
+                                        : Styles.tabs
+                                }
+                            >
+                                Market
+                            </div>
+                            <div
+                                onClick={this._selectActiveTab}
+                                id="inventory"
+                                className={
+                                    active === 'inventory'
+                                        ? `${Styles.tabs} ${Styles.active}`
+                                        : Styles.tabs
+                                }
+                            >
+                                My Inventory
+                            </div>
                         </div>
-                        <input type="text" placeholder="Search..." />
+                        <div className={Styles.searchContainer}>
+                            <input type="text" placeholder="Search..." />
+                            <Search className={Styles.searchIcon} />
+                        </div>
                     </div>
                     <div className={Styles.marketTab}>
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
-                        <MarketItem />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
+                        <MarketItem marketItem={active === 'market'} />
                     </div>
                 </div>
                 <MarketInstruments />

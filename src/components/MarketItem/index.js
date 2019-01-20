@@ -6,6 +6,8 @@ import Styles from './styles.module.scss';
 
 export default class MarketItem extends Component {
     render() {
+        const { marketItem } = this.props;
+
         return (
             <div className={Styles.container}>
                 <div className={Styles.title}>
@@ -15,9 +17,15 @@ export default class MarketItem extends Component {
                         elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </p>
                 </div>
-                <div className={Styles.actionButtonContainer}>
+                <div
+                    className={
+                        marketItem
+                            ? Styles.actionButtonContainerBuy
+                            : Styles.actionButtonContainerSell
+                    }
+                >
                     <p>500₿</p>
-                    <p>BUY</p>
+                    <p>{marketItem ? 'BUY' : 'SELL'}</p>
                 </div>
             </div>
         );

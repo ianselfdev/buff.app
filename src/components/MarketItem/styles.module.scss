@@ -1,6 +1,7 @@
 @import '../../theme/palette.scss';
 
 .container {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -14,6 +15,7 @@
     background-position: center;
     border-radius: 0 30px 30px 30px;
     border: 1px solid $secondaryGreen;
+    animation: appear 500ms;
 
     & .title {
         cursor: pointer;
@@ -46,7 +48,7 @@
         }
     }
 
-    & .actionButtonContainer {
+    & .actionButtonContainerBuy {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -63,6 +65,35 @@
 
             &:last-of-type {
                 background: $secondaryGreen;
+                color: white;
+                border-radius: 0 0 30px 0;
+                cursor: pointer;
+
+                &:hover {
+                    background: $primaryGreen;
+                    color: black;
+                }
+            }
+        }
+    }
+
+    & .actionButtonContainerSell {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        height: 3.5rem;
+        border-radius: 0 0 30px 30px;
+        border: 1px solid $secondaryGreen;
+        background: $primaryGrey;
+
+        & p {
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            line-height: 3.5rem;
+
+            &:last-of-type {
+                background: #1c5eb4;
                 color: white;
                 border-radius: 0 0 30px 0;
                 cursor: pointer;
