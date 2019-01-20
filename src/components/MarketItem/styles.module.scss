@@ -18,7 +18,10 @@
     & .title {
         cursor: pointer;
         height: 3rem;
-        background: #231f20dd;
+        background: black;
+        background-image: url('../../theme/assets/dota.jpg');
+        background-size: 100%;
+        background-repeat: no-repeat;
         text-align: center;
         line-height: 3rem;
         border-radius: 0 30px 0 0;
