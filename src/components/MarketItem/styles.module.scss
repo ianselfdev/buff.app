@@ -13,9 +13,36 @@
     background-size: cover;
     background-position: center;
     border-radius: 0 30px 30px 30px;
+    border: 1px solid $secondaryGreen;
+
     & .title {
+        cursor: pointer;
+        height: 3rem;
+        background: #231f20dd;
         text-align: center;
+        line-height: 3rem;
+        border-radius: 0 30px 0 0;
+
+        & .description {
+            display: none;
+            animation: appear 300ms;
+        }
+
+        &:hover {
+            height: 9rem;
+
+            & .description {
+                display: block;
+                text-align: justify;
+                width: 90%;
+                margin: 1rem auto;
+                font-size: 0.8rem;
+                line-height: 0.8rem;
+                animation: appear 300ms;
+            }
+        }
     }
+
     & .actionButtonContainer {
         display: flex;
         flex-direction: row;
@@ -24,6 +51,7 @@
         border-radius: 0 0 30px 30px;
         border: 1px solid $secondaryGreen;
         background: $primaryGrey;
+
         & p {
             width: 50%;
             height: 100%;
@@ -42,5 +70,14 @@
                 }
             }
         }
+    }
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
