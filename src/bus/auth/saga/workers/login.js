@@ -44,6 +44,7 @@ export function* login({ payload: userData }) {
         if (userData.rememberMe) {
             yield apply(localStorage, localStorage.setItem, ['buff-remember-me', true]);
         }
+
         yield put(authActions.getUserDataAsync(data.tokens.token));
         yield put(newsActions.fetchNewsAsync());
         yield put(authActions.authenticate());
