@@ -7,26 +7,26 @@
     flex-wrap: nowrap;
     justify-content: space-between;
 
-    height: 40%;
+    height: 4%;
     width: 21%;
     margin: 0.7rem 2%;
     background-image: url('https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6577/6577073_sa.jpg;maxHeight=640;maxWidth=550');
     background-size: cover;
     background-position: center;
-    border-radius: 0 30px 30px 30px;
+    border-radius: 20px;
     border: 1px solid $secondaryGreen;
     animation: appear 500ms;
+
+    //? hack to get rid of border bug in chromium
+    transform: scale(1.01);
 
     & .title {
         cursor: pointer;
         height: 3rem;
         background: black;
-        background-image: url('../../theme/assets/dota.jpg');
-        background-size: 100%;
-        background-repeat: no-repeat;
         text-align: center;
         line-height: 3rem;
-        border-radius: 0 30px 0 0;
+        border-radius: 20px 20px 0 0;
 
         & .description {
             display: none;
@@ -49,24 +49,27 @@
     }
 
     & .actionButtonContainerBuy {
+        width: 100.5%;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
-        height: 3.5rem;
-        border-radius: 0 0 30px 30px;
+        justify-content: space-around;
+        height: 3rem;
+        border-radius: 0 0 20px 20px;
         border: 1px solid $secondaryGreen;
         background: $primaryGrey;
 
         & p {
-            width: 50%;
+            width: 30%;
             height: 100%;
             text-align: center;
-            line-height: 3.5rem;
+            line-height: 3rem;
 
             &:last-of-type {
+                width: 70%;
                 background: $secondaryGreen;
                 color: white;
-                border-radius: 0 0 30px 0;
+                border-radius: 0 0 20px 0;
                 cursor: pointer;
 
                 &:hover {
@@ -80,26 +83,28 @@
     & .actionButtonContainerSell {
         display: flex;
         flex-direction: row;
+        justify-content: space-around;
         flex-wrap: nowrap;
-        height: 3.5rem;
-        border-radius: 0 0 30px 30px;
+        height: 3rem;
+        border-radius: 0 0 20px 20px;
         border: 1px solid $secondaryGreen;
         background: $primaryGrey;
 
         & p {
-            width: 50%;
+            width: 30%;
             height: 100%;
             text-align: center;
-            line-height: 3.5rem;
+            line-height: 3rem;
 
             &:last-of-type {
-                background: #1c5eb4;
+                width: 70%;
+                background: #4e77e6;
                 color: white;
-                border-radius: 0 0 30px 0;
+                border-radius: 0 0 20px 0;
                 cursor: pointer;
 
                 &:hover {
-                    background: $primaryGreen;
+                    background: #6e8ee7;
                     color: black;
                 }
             }
