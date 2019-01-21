@@ -6,8 +6,10 @@ import Styles from './styles.module.scss';
 
 export default class Buy extends Component {
     render() {
+        const { closeModal } = this.props;
+
         return (
-            <div className={Styles.bg}>
+            <div className={Styles.bg} onClick={closeModal}>
                 <div className={Styles.container}>
                     <p className={Styles.title}>Name of the Item</p>
                     <img
@@ -28,7 +30,9 @@ export default class Buy extends Component {
                         <div className={Styles.amount}>500 pcs</div>
                     </div>
                     <div className={Styles.buttonContainer}>
-                        <div className={Styles.closeButton}>CLOSE</div>
+                        <div className={Styles.closeButton} onClick={closeModal}>
+                            CLOSE
+                        </div>
                         <div className={Styles.buyButton}>BUY</div>
                     </div>
                 </div>
