@@ -4,7 +4,27 @@ import React, { Component } from 'react';
 //Styles
 import Styles from './styles.module.scss';
 
+//REST
+import { Api } from '../../../REST';
+
 export default class Buy extends Component {
+    _handleBuyItem = async () => {
+        const { id } = this.props;
+
+        try {
+            const response = await Api.market.buyItem(id);
+            const data = await response.json();
+
+            console.log(data);
+
+            if (response.status !== 200) {
+                throw new Error(data.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     render() {
         const { closeModal } = this.props;
 
@@ -33,7 +53,9 @@ export default class Buy extends Component {
                         <div className={Styles.closeButton} onClick={closeModal}>
                             CLOSE
                         </div>
-                        <div className={Styles.buyButton}>BUY</div>
+                        <div className={Styles.buyButton} onClick={this._handleBuyItem}>
+                            BUY
+                        </div>
                     </div>
                 </div>
             </div>

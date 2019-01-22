@@ -6,6 +6,7 @@ import { routerReducer as router } from 'react-router-redux';
 import { authReducer as auth } from '../auth/reducer';
 import { uiReducer as ui } from '../ui/reducer';
 import { profileReducer as profile } from '../profile/reducer';
+import { marketReducer as market } from '../market/reducer';
 import { newsReducer as news } from '../app/news/reducer';
 import { historyReducer as history } from '../app/history/reducer';
 import { leaderboardReducer as leaderboard } from '../app/leaderboard/reducer';
@@ -20,4 +21,5 @@ export const rootReducer = combineReducers({
     history,
     leaderboard,
     tournaments,
+    market,
 });

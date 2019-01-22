@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Components
 import MarketInstruments from '../MarketInstruments';
@@ -11,21 +12,48 @@ import { Search } from '@material-ui/icons';
 //Styles
 import Styles from './styles.module.scss';
 
-export default class Market extends Component {
+//Actions
+import { marketActions } from '../../bus/market/actions';
+
+const mapStateToProps = (state) => {
+    return {
+        market: state.market,
+    };
+};
+
+const mapDispatchToProps = {
+    fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
+    fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
+};
+
+class Market extends Component {
     state = {
         active: 'market',
     };
 
+    componentDidMount() {
+        const { fetchMarketItemsAsync } = this.props;
+        fetchMarketItemsAsync();
+    }
+
     _selectActiveTab = (e) => {
         const { id } = e.target;
+        const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
 
         this.setState({
             active: id,
         });
+
+        if (id === 'market') {
+            fetchMarketItemsAsync();
+        } else {
+            fetchUserItemsAsync();
+        }
     };
 
     render() {
         const { active } = this.state;
+        const { market } = this.props;
 
         return (
             <div className={Styles.mainContainer}>
@@ -61,17 +89,21 @@ export default class Market extends Component {
                         </div>
                     </div>
                     <div className={Styles.marketTab}>
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
-                        <MarketItem marketItem={active === 'market'} />
+                        {market.map((item) => (
+                            <MarketItem
+                                shortDescription={item.get('descriptionShort')}
+                                discount={item.get('discount')}
+                                games={item.get('games')}
+                                price={item.get('price')}
+                                name={item.get('name')}
+                                amount={item.get('count')}
+                                id={item.get('id')}
+                                tradable={item.get('tradable')}
+                                description={item.get('description')}
+                                expire={item.get('expire')}
+                                key={item.get('id')}
+                            />
+                        ))}
                     </div>
                 </div>
                 <MarketInstruments />
@@ -79,3 +111,8 @@ export default class Market extends Component {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Market);

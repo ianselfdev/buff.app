@@ -71,4 +71,33 @@ export const Api = {
             return fetch(`${MAIN_URL}/buff/leaders?gameId=7314`);
         },
     },
+
+    market: {
+        fetchMarketItems() {
+            return fetch(`${MAIN_URL}/marketplace/items?page=1&limit=100`, {
+                method: 'GET',
+                headers: {
+                    Authorization: this.token,
+                },
+            });
+        },
+
+        fetchUserItems() {
+            return fetch(`${MAIN_URL}/marketplace/items/my?page=1&limit=100`, {
+                method: 'GET',
+                headers: {
+                    Authorization: this.token,
+                },
+            });
+        },
+
+        buyItem(itemId) {
+            return fetch(`${MAIN_URL}/marketplace/items/buy/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+    },
 };
