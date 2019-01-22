@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 //Components
 import MarketInstruments from '../MarketInstruments';
 import MarketItem from '../MarketItem';
+import UserItem from '../UserItem';
 
 //Instruments
 import { Search } from '@material-ui/icons';
@@ -32,23 +33,17 @@ class Market extends Component {
     };
 
     componentDidMount() {
-        const { fetchMarketItemsAsync } = this.props;
+        const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
         fetchMarketItemsAsync();
+        fetchUserItemsAsync();
     }
 
     _selectActiveTab = (e) => {
         const { id } = e.target;
-        const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
 
         this.setState({
             active: id,
         });
-
-        if (id === 'market') {
-            fetchMarketItemsAsync();
-        } else {
-            fetchUserItemsAsync();
-        }
     };
 
     render() {
@@ -89,21 +84,37 @@ class Market extends Component {
                         </div>
                     </div>
                     <div className={Styles.marketTab}>
-                        {market.map((item) => (
-                            <MarketItem
-                                shortDescription={item.get('descriptionShort')}
-                                discount={item.get('discount')}
-                                games={item.get('games')}
-                                price={item.get('price')}
-                                name={item.get('name')}
-                                amount={item.get('count')}
-                                id={item.get('id')}
-                                tradable={item.get('tradable')}
-                                description={item.get('description')}
-                                expire={item.get('expire')}
-                                key={item.get('id')}
-                            />
-                        ))}
+                        {active === 'market'
+                            ? market
+                                  .get('market')
+                                  .map((item, index) => (
+                                      <MarketItem
+                                          shortDescription={item.get('descriptionShort')}
+                                          discount={item.get('discount')}
+                                          games={item.get('games')}
+                                          price={item.get('price')}
+                                          name={item.get('name')}
+                                          amount={item.get('count')}
+                                          id={item.get('id')}
+                                          tradable={item.get('tradable')}
+                                          description={item.get('description')}
+                                          expire={item.get('expire')}
+                                          key={index}
+                                      />
+                                  ))
+                            : market
+                                  .get('user')
+                                  .map((item, index) => (
+                                      <UserItem
+                                          shortDescription={item.get('descriptionShort')}
+                                          description={item.get('description')}
+                                          games={item.get('games')}
+                                          name={item.get('name')}
+                                          id={item.get('id')}
+                                          tradable={item.get('tradable')}
+                                          key={index}
+                                      />
+                                  ))}
                     </div>
                 </div>
                 <MarketInstruments />
