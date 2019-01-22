@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 // Components
-import { ErrorCatcher, Navbar, Market } from '../components';
+import { ErrorCatcher, Navbar, Market, Spinner } from '../components';
 
 export default class Marketplace extends Component {
     render() {
@@ -10,6 +10,7 @@ export default class Marketplace extends Component {
             <ErrorCatcher>
                 <Navbar />
                 <Market />
+                <Spinner />
             </ErrorCatcher>
         );
     }

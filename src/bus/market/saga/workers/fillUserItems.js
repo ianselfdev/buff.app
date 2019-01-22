@@ -12,6 +12,8 @@ import { marketActions } from '../../actions';
 //* put -> dispatch
 export function* fillUserItems() {
     try {
+        yield put(uiActions.startFetching());
+
         const response = yield apply(Api, Api.market.fetchUserItems);
         const data = yield apply(response, response.json);
 
@@ -23,5 +25,7 @@ export function* fillUserItems() {
         yield put(marketActions.fillUserItems(data.data));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fillUserItems worker'));
+    } finally {
+        yield put(uiActions.stopFetching());
     }
 }
