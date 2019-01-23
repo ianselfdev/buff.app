@@ -5,7 +5,7 @@ import React, { Component, Fragment } from 'react';
 import Styles from './styles.module.scss';
 
 //Components
-import Buy from '../_marketPopups/Buy';
+import Buy from '../_popups/market/Buy';
 
 export default class MarketItem extends Component {
     state = {

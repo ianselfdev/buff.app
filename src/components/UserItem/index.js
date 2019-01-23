@@ -5,7 +5,7 @@ import React, { Component, Fragment } from 'react';
 import Styles from './styles.module.scss';
 
 //Components
-import Activation from '../_marketPopups/Activation';
+import Activation from '../_popups/market/Activation';
 
 export default class UserItem extends Component {
     state = {

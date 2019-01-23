@@ -6,10 +6,10 @@ import Styles from './styles.module.scss';
 import { connect } from 'react-redux';
 
 //REST
-import { Api } from '../../../REST';
+import { Api } from '../../../../REST';
 
 //Actions
-import { marketActions } from '../../../bus/market/actions';
+import { marketActions } from '../../../../bus/market/actions';
 
 const mapDispatchToProps = {
     fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
