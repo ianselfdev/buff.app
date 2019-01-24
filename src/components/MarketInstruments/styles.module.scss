@@ -28,6 +28,7 @@
 
         & .filter {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
 
             cursor: pointer;
@@ -41,13 +42,95 @@
             line-height: 2.5rem;
             color: $lightGrey;
 
-            &::after {
-                content: '▼';
-                color: $lightGrey;
+            & p {
+                display: flex;
+                justify-content: space-between;
+
+                &::after {
+                    content: '▼';
+                    color: $lightGrey;
+                }
+            }
+
+            & .inputsContainer {
+                display: none;
+                opacity: 0;
             }
 
             &:last-of-type {
                 border-bottom: none;
+            }
+
+            &.active {
+                height: auto;
+
+                & p {
+                    display: flex;
+                    justify-content: space-between;
+
+                    &::after {
+                        content: '▼';
+                        color: $lightGrey;
+                        transform: rotate(180deg);
+                    }
+                }
+
+                & .inputsContainer {
+                    display: flex;
+                    opacity: 1;
+                    flex-direction: row;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    & label {
+                        font-size: 1rem;
+                        color: $secondaryGreen;
+                        white-space: nowrap;
+                    }
+
+                    & input[type='checkbox'] {
+                        cursor: pointer;
+                        transition: all 0.3s;
+                        display: inline-block;
+                        margin: 0 0.5rem;
+                    }
+
+                    & input[type='text'] {
+                        background: none;
+                        border: 1px solid $secondaryGreen;
+                        border-radius: 5px;
+                        padding: 0.3rem 0;
+                        color: $secondaryGreen;
+                        font-size: 1rem;
+                        width: 20%;
+                        text-align: center;
+                        margin: 0 7.6rem;
+                    }
+
+                    & input[type='range'] {
+                        -webkit-appearance: none;
+                        background: transparent;
+                        width: 100%;
+                        padding: 0 1rem;
+
+                        &::-webkit-slider-thumb {
+                            cursor: pointer;
+                            border-radius: 360px;
+                            background: $secondaryGreen;
+                            border: 1px solid $lightGrey;
+                            -webkit-appearance: none;
+                            width: 1rem;
+                            height: 1rem;
+                            margin-top: -0.45rem;
+                        }
+
+                        &::-webkit-slider-runnable-track {
+                            height: 2px;
+                            background: $secondaryGreen;
+                        }
+                    }
+                }
             }
         }
     }
