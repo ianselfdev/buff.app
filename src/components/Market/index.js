@@ -33,13 +33,19 @@ class Market extends Component {
     };
 
     componentDidMount() {
-        const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
+        const { fetchMarketItemsAsync } = this.props;
         fetchMarketItemsAsync();
-        fetchUserItemsAsync();
     }
 
     _selectActiveTab = (e) => {
         const { id } = e.target;
+        const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
+
+        if (id === 'market') {
+            fetchMarketItemsAsync();
+        } else {
+            fetchUserItemsAsync();
+        }
 
         this.setState({
             active: id,
@@ -84,37 +90,41 @@ class Market extends Component {
                         </div>
                     </div>
                     <div className={Styles.marketTab}>
-                        {active === 'market'
-                            ? market
-                                  .get('market')
-                                  .map((item, index) => (
-                                      <MarketItem
-                                          shortDescription={item.get('descriptionShort')}
-                                          discount={item.get('discount')}
-                                          games={item.get('games')}
-                                          price={item.get('price')}
-                                          name={item.get('name')}
-                                          amount={item.get('count')}
-                                          id={item.get('id')}
-                                          tradable={item.get('tradable')}
-                                          description={item.get('description')}
-                                          expire={item.get('expire')}
-                                          key={index}
-                                      />
-                                  ))
-                            : market
-                                  .get('user')
-                                  .map((item, index) => (
-                                      <UserItem
-                                          shortDescription={item.get('descriptionShort')}
-                                          description={item.get('description')}
-                                          games={item.get('games')}
-                                          name={item.get('name')}
-                                          id={item.get('id')}
-                                          tradable={item.get('tradable')}
-                                          key={index}
-                                      />
-                                  ))}
+                        {active === 'market' && market.get('market').size > 0 ? (
+                            market
+                                .get('market')
+                                .map((item, index) => (
+                                    <MarketItem
+                                        shortDescription={item.get('descriptionShort')}
+                                        discount={item.get('discount')}
+                                        games={item.get('games')}
+                                        price={item.get('price')}
+                                        name={item.get('name')}
+                                        amount={item.get('count')}
+                                        id={item.get('id')}
+                                        tradable={item.get('tradable')}
+                                        description={item.get('description')}
+                                        expire={item.get('expire')}
+                                        key={index}
+                                    />
+                                ))
+                        ) : active === 'inventory' && market.get('user').size > 0 ? (
+                            market
+                                .get('user')
+                                .map((item, index) => (
+                                    <UserItem
+                                        shortDescription={item.get('descriptionShort')}
+                                        description={item.get('description')}
+                                        games={item.get('games')}
+                                        name={item.get('name')}
+                                        id={item.get('id')}
+                                        tradable={item.get('tradable')}
+                                        key={index}
+                                    />
+                                ))
+                        ) : (
+                            <p className={Styles.empty}>Nothing here yet :(</p>
+                        )}
                     </div>
                 </div>
                 <MarketInstruments />

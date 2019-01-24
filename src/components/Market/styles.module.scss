@@ -94,6 +94,16 @@
             flex-wrap: wrap;
             overflow-y: scroll;
             overflow-x: hidden;
+
+            & .empty {
+                font-size: 2rem;
+                color: $secondaryGreen;
+                width: 100%;
+                height: 2rem;
+                text-align: center;
+                position: relative;
+                top: 45%;
+            }
         }
     }
 }
