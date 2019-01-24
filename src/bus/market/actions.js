@@ -28,4 +28,11 @@ export const marketActions = {
             type: types.FETCH_USER_ITEMS_ASYNC,
         };
     },
+
+    buyItemAsync: (itemId) => {
+        return {
+            type: types.BUY_ITEM_ASYNC,
+            payload: itemId,
+        };
+    },
 };

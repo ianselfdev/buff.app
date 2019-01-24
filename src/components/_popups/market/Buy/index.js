@@ -5,42 +5,22 @@ import React, { Component } from 'react';
 import Styles from './styles.module.scss';
 import { connect } from 'react-redux';
 
-//REST
-import { Api } from '../../../../REST';
-
 //Actions
 import { marketActions } from '../../../../bus/market/actions';
 
 const mapDispatchToProps = {
-    fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
-    fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
+    buyItemAsync: marketActions.buyItemAsync,
 };
 
 class Buy extends Component {
-    _handleBuyItem = async () => {
-        const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
-        const { id } = this.props;
+    _handleBuyItem = () => {
+        const { id, buyItemAsync } = this.props;
 
-        try {
-            const response = await Api.market.buyItem(id);
-            const data = await response.json();
-
-            console.log(data);
-
-            if (response.status !== 200) {
-                throw new Error(data.error);
-            }
-
-            fetchMarketItemsAsync();
-            fetchUserItemsAsync();
-        } catch (error) {
-            console.error(error);
-        }
+        buyItemAsync(id);
     };
 
     render() {
         const { closeModal, name, description, price } = this.props;
-        console.log(this.props);
 
         return (
             <div className={Styles.bg} onClick={closeModal}>

@@ -1,13 +1,23 @@
 //Core
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
 
 //Components
 import Buy from '../_popups/market/Buy';
+import Success from '../_popups/market/Success';
+import Error from '../_popups/market/Error';
 
-export default class MarketItem extends Component {
+const mapStateToProps = (state) => {
+    return {
+        errorLabel: state.ui.get('errorLabel'),
+        successLabel: state.ui.get('successLabel'),
+    };
+};
+
+class MarketItem extends Component {
     state = {
         showModal: false,
     };
@@ -26,7 +36,7 @@ export default class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { shortDescription, price, name, amount } = this.props;
+        const { shortDescription, price, name, amount, errorLabel, successLabel } = this.props;
 
         return (
             <Fragment>
@@ -51,7 +61,14 @@ export default class MarketItem extends Component {
                     <button onClick={this._openModal}>REDEEM</button>
                 </div>
                 {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
+                {errorLabel && <Error />}
+                {successLabel && <Success />}
             </Fragment>
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    null,
+)(MarketItem);
