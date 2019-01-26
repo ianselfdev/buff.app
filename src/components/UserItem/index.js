@@ -1,5 +1,6 @@
 //Core
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -7,7 +8,15 @@ import Styles from './styles.module.scss';
 //Components
 import Activation from '../_popups/market/Activation';
 
-export default class UserItem extends Component {
+//Actions
+import { marketActions } from '../../bus/market/actions';
+
+//Redux connect
+const mapDispatchToProps = {
+    fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
+};
+
+class UserItem extends Component {
     state = {
         showModal: false,
     };
@@ -19,6 +28,10 @@ export default class UserItem extends Component {
     };
 
     _closeModal = () => {
+        const { fetchUserItemsAsync } = this.props;
+
+        fetchUserItemsAsync();
+
         this.setState({
             showModal: false,
         });
@@ -59,3 +72,8 @@ export default class UserItem extends Component {
         );
     }
 }
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(UserItem);
