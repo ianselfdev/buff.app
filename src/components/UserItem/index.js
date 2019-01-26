@@ -26,7 +26,7 @@ export default class UserItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { shortDescription, name, tradable = false } = this.props;
+        const { shortDescription, name, tradable = false, activatable = true } = this.props;
 
         return (
             <Fragment>
@@ -43,6 +43,8 @@ export default class UserItem extends Component {
                     <div className={Styles.priceContainer}>
                         {tradable ? (
                             <button>SELL</button>
+                        ) : activatable ? (
+                            <button onClick={this._openModal}>Activate</button>
                         ) : (
                             <div className={Styles.notTradable}>Item not tradable</div>
                         )}
@@ -52,13 +54,7 @@ export default class UserItem extends Component {
                         />
                     </div>
                 </div>
-                {showModal && (
-                    <Activation
-                        closeModal={this._closeModal}
-                        {...this.props}
-                        code="1231-2312-3456-2141-1241"
-                    />
-                )}
+                {showModal && <Activation closeModal={this._closeModal} {...this.props} />}
             </Fragment>
         );
     }

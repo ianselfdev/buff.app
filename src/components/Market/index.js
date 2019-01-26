@@ -16,6 +16,7 @@ import Styles from './styles.module.scss';
 //Actions
 import { marketActions } from '../../bus/market/actions';
 
+//Redux connect
 const mapStateToProps = (state) => {
     return {
         market: state.market,
@@ -25,11 +26,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
     fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
+    filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
+    filterUserItemsAsync: marketActions.filterUserItemsAsync,
 };
 
 class Market extends Component {
     state = {
         active: 'market',
+        marketSearch: '',
+        userSearch: '',
     };
 
     componentDidMount() {
@@ -41,6 +46,7 @@ class Market extends Component {
         const { id } = e.target;
         const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
 
+        // updating tab content
         if (id === 'market') {
             fetchMarketItemsAsync();
         } else {
@@ -52,8 +58,32 @@ class Market extends Component {
         });
     };
 
+    _handleChange = (e) => {
+        const { value, name } = e.target;
+
+        this.setState({
+            [name]: value,
+        });
+    };
+
+    _handleSearch = async (e) => {
+        const { key } = e;
+        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
+        const { active, marketSearch, userSearch } = this.state;
+
+        if (key === 'Enter') {
+            if (active === 'market') {
+                filterMarketItemsAsync('name', marketSearch);
+            } else {
+                filterUserItemsAsync('name', userSearch);
+            }
+        } else {
+            return null;
+        }
+    };
+
     render() {
-        const { active } = this.state;
+        const { active, userSearch, marketSearch } = this.state;
         const { market } = this.props;
 
         return (
@@ -85,7 +115,25 @@ class Market extends Component {
                             </div>
                         </div>
                         <div className={Styles.searchContainer}>
-                            <input type="text" placeholder="Search..." />
+                            {active === 'market' ? (
+                                <input
+                                    type="text"
+                                    name="marketSearch"
+                                    placeholder="Search..."
+                                    onKeyDown={this._handleSearch}
+                                    onChange={this._handleChange}
+                                    value={marketSearch}
+                                />
+                            ) : (
+                                <input
+                                    type="text"
+                                    name="userSearch"
+                                    placeholder="Search..."
+                                    onKeyDown={this._handleSearch}
+                                    onChange={this._handleChange}
+                                    value={userSearch}
+                                />
+                            )}
                             <Search className={Styles.searchIcon} />
                         </div>
                     </div>

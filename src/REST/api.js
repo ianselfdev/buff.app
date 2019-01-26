@@ -1,6 +1,9 @@
 //Config
 import { MAIN_URL } from './config';
 
+//Instruments
+import queryString from 'query-string';
+
 export const Api = {
     get token() {
         return localStorage.getItem('buff-token');
@@ -94,6 +97,25 @@ export const Api = {
         buyItem(itemId) {
             return fetch(`${MAIN_URL}/marketplace/items/buy/${itemId}`, {
                 method: 'POST',
+                headers: {
+                    Authorization: this.token,
+                },
+            });
+        },
+
+        activateItem(itemId) {
+            return fetch(`${MAIN_URL}/marketplace/items/my/activate/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: this.token,
+                },
+            });
+        },
+
+        filterItems(queries) {
+            const params = queryString.stringify(queries);
+            return fetch(`${MAIN_URL}/marketplace/items/?page=1&limit=100&${params}`, {
+                method: 'GET',
                 headers: {
                     Authorization: localStorage.getItem('buff-token'),
                 },

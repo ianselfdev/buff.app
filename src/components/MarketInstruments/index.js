@@ -50,15 +50,15 @@ export default class MarketInstruments extends Component {
                         <p onClick={this._toggleByGame}>By Game</p>
                         <div className={Styles.inputsContainer}>
                             <input type="checkbox" id="dota" />
-                            <label for="dota">Dota</label>
+                            <label htmlFor="dota">Dota</label>
                         </div>
                         <div className={Styles.inputsContainer}>
                             <input type="checkbox" id="dota" />
-                            <label for="dota">League of Legends</label>
+                            <label htmlFor="dota">League of Legends</label>
                         </div>
                         <div className={Styles.inputsContainer}>
                             <input type="checkbox" id="dota" />
-                            <label for="dota">Fortnite</label>
+                            <label htmlFor="dota">Fortnite</label>
                         </div>
                     </div>
                     <div className={byPrice ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
@@ -78,8 +78,8 @@ export default class MarketInstruments extends Component {
                     <div className={byType ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
                         <p onClick={this._toggleByType}>By Type</p>
                         <div className={Styles.inputsContainer}>
-                            <input type="checkbox" id="dota" checked />
-                            <label for="dota">Gift Card</label>
+                            <input type="checkbox" id="dota" checked readOnly />
+                            <label htmlFor="dota">Gift Card</label>
                         </div>
                     </div>
                 </div>

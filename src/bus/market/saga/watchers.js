@@ -5,7 +5,14 @@ import { takeEvery, call, all } from 'redux-saga/effects';
 import { types } from '../types';
 
 //Workers
-import { fillMarketItems, fillUserItems, buyItem } from './workers';
+import {
+    fillMarketItems,
+    fillUserItems,
+    buyItem,
+    activateItem,
+    filterMarketItems,
+    filterUserItems,
+} from './workers';
 
 function* watchFetchMarketItems() {
     yield takeEvery(types.FETCH_MARKET_ITEMS_ASYNC, fillMarketItems);
@@ -16,7 +23,23 @@ function* watchFetchUserItems() {
 function* watchBuyItem() {
     yield takeEvery(types.BUY_ITEM_ASYNC, buyItem);
 }
+function* watchActivateItem() {
+    yield takeEvery(types.ACTIVATE_ITEM_ASYNC, activateItem);
+}
+function* watchFilterMarketItems() {
+    yield takeEvery(types.FILTER_MARKET_ITEMS_ASYNC, filterMarketItems);
+}
+function* watchFilterUserItems() {
+    yield takeEvery(types.FILTER_USER_ITEMS_ASYNC, filterUserItems);
+}
 
 export function* watchMarket() {
-    yield all([call(watchFetchMarketItems), call(watchFetchUserItems), call(watchBuyItem)]);
+    yield all([
+        call(watchFetchMarketItems),
+        call(watchFetchUserItems),
+        call(watchBuyItem),
+        call(watchActivateItem),
+        call(watchFilterMarketItems),
+        call(watchFilterUserItems),
+    ]);
 }

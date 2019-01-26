@@ -1,5 +1,6 @@
 //Core
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -7,13 +8,31 @@ import Styles from './styles.module.scss';
 //Components
 import Confirmation from '../Confirmation';
 
-export default class Activation extends Component {
+//Actions
+import { marketActions } from '../../../../bus/market/actions';
+
+const mapDispatchToProps = {
+    activateItemAsync: marketActions.activateItemAsync,
+    fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        giftCode: state.market.get('giftCode'),
+    };
+};
+
+class Activation extends Component {
     state = {
         showConfirmation: false,
         activated: false,
     };
 
     _activate = () => {
+        const { id, activateItemAsync } = this.props;
+
+        activateItemAsync(id);
+
         this.setState({
             activated: true,
         });
@@ -32,7 +51,7 @@ export default class Activation extends Component {
     };
 
     render() {
-        const { closeModal, name, code } = this.props;
+        const { closeModal, name, giftCode } = this.props;
         const { showConfirmation, activated } = this.state;
 
         return (
@@ -47,7 +66,7 @@ export default class Activation extends Component {
                         {activated ? (
                             <p className={Styles.code}>
                                 Your gift card code is: <br />
-                                {code}
+                                {giftCode}
                             </p>
                         ) : (
                             <p className={Styles.description}>
@@ -83,3 +102,8 @@ export default class Activation extends Component {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Activation);

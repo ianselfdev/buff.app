@@ -121,11 +121,11 @@ class Navbar extends Component {
                             <ExitToApp className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Sign out</span>
                         </div>
-                        <div className={Styles.controlButton} onClick={logout}>
+                        <div className={Styles.controlButton}>
                             <HelpOutline className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Information</span>
                         </div>
-                        <div className={Styles.controlButton} onClick={logout}>
+                        <div className={Styles.controlButton}>
                             <Settings className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Settings</span>
                         </div>

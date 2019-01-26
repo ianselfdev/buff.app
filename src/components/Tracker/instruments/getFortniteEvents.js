@@ -85,7 +85,7 @@ const onNewEvents = (data, token) => {
                 gameId: '21216',
                 matchId,
                 victory: true,
-                reward: ((kills * (100 - Number(rank))) / (deaths * 10) + 1) * 0.1,
+                reward: ((kills * (100 - Number(rank))) / (Math.max(deaths, 1) * 10)) * 0.1,
             };
 
             console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);

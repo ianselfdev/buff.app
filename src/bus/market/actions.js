@@ -16,6 +16,19 @@ export const marketActions = {
         };
     },
 
+    fillGiftCode: (code) => {
+        return {
+            type: types.FILL_GIFT_CODE,
+            payload: code,
+        };
+    },
+    addFilterParameter: (parametersObj) => {
+        return {
+            type: types.ADD_FILTER_PARAMETER,
+            payload: parametersObj,
+        };
+    },
+
     //Async
     fetchMarketItemsAsync: () => {
         return {
@@ -33,6 +46,33 @@ export const marketActions = {
         return {
             type: types.BUY_ITEM_ASYNC,
             payload: itemId,
+        };
+    },
+
+    activateItemAsync: (itemId) => {
+        return {
+            type: types.ACTIVATE_ITEM_ASYNC,
+            payload: itemId,
+        };
+    },
+
+    filterMarketItemsAsync: (parameter, value) => {
+        return {
+            type: types.FILTER_MARKET_ITEMS_ASYNC,
+            payload: {
+                parameter,
+                value,
+            },
+        };
+    },
+
+    filterUserItemsAsync: (parameter, value) => {
+        return {
+            type: types.FILTER_USER_ITEMS_ASYNC,
+            payload: {
+                parameter,
+                value,
+            },
         };
     },
 };
