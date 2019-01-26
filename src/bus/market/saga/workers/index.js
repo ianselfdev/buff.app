@@ -4,3 +4,4 @@ export { buyItem } from './buyItem';
 export { activateItem } from './activateItem';
 export { filterMarketItems } from './filterMarketItems';
 export { filterUserItems } from './filterUserItems';
+export { removeFilter } from './removeFilter';

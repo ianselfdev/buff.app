@@ -29,6 +29,13 @@ export const marketActions = {
         };
     },
 
+    removeFilterParameter: (parameter) => {
+        return {
+            type: types.REMOVE_FILTER_PARAMETER,
+            payload: parameter,
+        };
+    },
+
     //Async
     fetchMarketItemsAsync: () => {
         return {
@@ -73,6 +80,13 @@ export const marketActions = {
                 parameter,
                 value,
             },
+        };
+    },
+
+    removeFilterParameterAsync: (parameter) => {
+        return {
+            type: types.REMOVE_FILTER_PARAMETER_ASYNC,
+            payload: parameter,
         };
     },
 };

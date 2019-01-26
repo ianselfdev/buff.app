@@ -28,6 +28,7 @@ const mapDispatchToProps = {
     fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
     filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
     filterUserItemsAsync: marketActions.filterUserItemsAsync,
+    removeFilterParameterAsync: marketActions.removeFilterParameterAsync,
 };
 
 class Market extends Component {
@@ -46,7 +47,7 @@ class Market extends Component {
         const { id } = e.target;
         const { fetchMarketItemsAsync, fetchUserItemsAsync } = this.props;
 
-        // updating tab content
+        // refreshing tab content to be up to date
         if (id === 'market') {
             fetchMarketItemsAsync();
         } else {
@@ -58,14 +59,21 @@ class Market extends Component {
         });
     };
 
+    //handling searchboxes changes
     _handleChange = (e) => {
         const { value, name } = e.target;
+        const { removeFilterParameterAsync } = this.props;
+
+        if (value.length === 0) {
+            removeFilterParameterAsync('name');
+        }
 
         this.setState({
             [name]: value,
         });
     };
 
+    //performig filter request with search query on Enter hit
     _handleSearch = async (e) => {
         const { key } = e;
         const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
@@ -115,6 +123,10 @@ class Market extends Component {
                             </div>
                         </div>
                         <div className={Styles.searchContainer}>
+                            {/* searchboxes are rendered according to active tab
+                                    and their values are remembered in state, so that user
+                                    could see what he was last searching, as the filtration
+                                    results are also being saved in redux */}
                             {active === 'market' ? (
                                 <input
                                     type="text"
@@ -138,6 +150,10 @@ class Market extends Component {
                         </div>
                     </div>
                     <div className={Styles.marketTab}>
+                        {/* items are rendered according to active tab,
+                                object are gotten from redux for each tab separately.
+                                Also, if no items in inventory or (OMG) on the marketplace - 
+                                fallback markdown is rendered */}
                         {active === 'market' && market.get('market').size > 0 ? (
                             market
                                 .get('market')

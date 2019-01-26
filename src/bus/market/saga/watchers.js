@@ -12,6 +12,7 @@ import {
     activateItem,
     filterMarketItems,
     filterUserItems,
+    removeFilter,
 } from './workers';
 
 function* watchFetchMarketItems() {
@@ -32,6 +33,9 @@ function* watchFilterMarketItems() {
 function* watchFilterUserItems() {
     yield takeEvery(types.FILTER_USER_ITEMS_ASYNC, filterUserItems);
 }
+function* watchRemoveFilter() {
+    yield takeEvery(types.REMOVE_FILTER_PARAMETER_ASYNC, removeFilter);
+}
 
 export function* watchMarket() {
     yield all([
@@ -41,5 +45,6 @@ export function* watchMarket() {
         call(watchActivateItem),
         call(watchFilterMarketItems),
         call(watchFilterUserItems),
+        call(watchRemoveFilter),
     ]);
 }

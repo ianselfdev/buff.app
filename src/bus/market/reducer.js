@@ -26,6 +26,8 @@ export const marketReducer = (state = initialState, action) => {
             return state.update('filters', () =>
                 state.get('filters').update(action.payload.parameter, () => action.payload.value),
             );
+        case types.REMOVE_FILTER_PARAMETER:
+            return state.update('filters', () => state.get('filters').delete(action.payload));
 
         default:
             return state;
