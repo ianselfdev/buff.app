@@ -170,8 +170,11 @@ class History extends Component {
                                     <div className={Styles.papersMain}>
                                         <iframe
                                             src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
-                                            width="350"
-                                            height="400"
+                                            style={{
+                                                marginLeft: '5%',
+                                                width: '300px',
+                                                height: '400px',
+                                            }}
                                             allowtransparency="true"
                                             frameBorder="0"
                                             title="unique title"

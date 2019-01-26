@@ -163,8 +163,8 @@ class Dashboard extends Component {
                                     <iframe
                                         src="https://discordapp.com/widget?id=442965268386283521&theme=dark"
                                         style={{
-                                            marginLeft: '13%',
-                                            width: '350px',
+                                            marginLeft: '5%',
+                                            width: '300px',
                                             height: '400px',
                                         }}
                                         allowtransparency="true"
