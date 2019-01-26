@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     return {
         errorLabel: state.ui.get('errorLabel'),
         successLabel: state.ui.get('successLabel'),
+        errorMessage: state.ui.get('errorMessage'),
     };
 };
 
@@ -36,7 +37,15 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { shortDescription, price, name, amount, errorLabel, successLabel } = this.props;
+        const {
+            shortDescription,
+            price,
+            name,
+            amount,
+            errorLabel,
+            successLabel,
+            errorMessage,
+        } = this.props;
 
         return (
             <Fragment>
@@ -61,7 +70,7 @@ class MarketItem extends Component {
                     <button onClick={this._openModal}>REDEEM</button>
                 </div>
                 {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
-                {errorLabel && <Error />}
+                {errorLabel && <Error message={errorMessage} />}
                 {successLabel && <Success />}
             </Fragment>
         );

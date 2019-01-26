@@ -20,9 +20,10 @@ export const uiActions = {
         };
     },
 
-    showErrorLabel: () => {
+    showErrorLabel: (error) => {
         return {
             type: types.SHOW_ERROR_LABEL,
+            payload: error,
         };
     },
 

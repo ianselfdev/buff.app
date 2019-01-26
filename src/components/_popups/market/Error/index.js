@@ -6,10 +6,15 @@ import Styles from './styles.module.scss';
 
 export default class Error extends Component {
     render() {
+        const { message } = this.props;
+
         return (
             <div className={Styles.bg}>
                 <div className={Styles.container}>
-                    <p>Oops, something went wrong :(</p>
+                    <p>
+                        Sorry, we've encountered an error: <br />
+                        {message}
+                    </p>
                 </div>
             </div>
         );
