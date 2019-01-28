@@ -81,13 +81,19 @@ class Activation extends Component {
                             <button className={Styles.closeButton} onClick={closeModal}>
                                 CLOSE
                             </button>
-                            <button
-                                className={Styles.buyButton}
-                                onClick={this._openModal}
-                                disabled={activated}
-                            >
-                                ACTIVATE
-                            </button>
+                            {activated ? (
+                                <button
+                                    className={Styles.buyButton}
+                                    onClick={this._openModal}
+                                    disabled
+                                >
+                                    ACTIVATED
+                                </button>
+                            ) : (
+                                <button className={Styles.buyButton} onClick={this._openModal}>
+                                    ACTIVATE
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
