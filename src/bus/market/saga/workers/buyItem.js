@@ -5,6 +5,7 @@ import { delay } from 'redux-saga';
 //Instruments
 import { Api } from '../../../../REST';
 import { uiActions } from '../../../ui/actions';
+import { authActions } from '../../../auth/actions';
 import { marketActions } from '../../actions';
 
 export function* buyItem({ payload: itemId }) {
@@ -22,6 +23,7 @@ export function* buyItem({ payload: itemId }) {
         yield put(uiActions.showSuccessLabel());
         yield delay(2000);
         yield put(uiActions.hideSuccessLabel());
+        yield put(authActions.getUserDataAsync(localStorage.getItem('buff-token')));
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
     } catch (error) {

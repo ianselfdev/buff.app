@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`market actions:  activateItemAsync 1`] = `
+Object {
+  "payload": "1",
+  "type": "ACTIVATE_ITEM_ASYNC",
+}
+`;
+
+exports[`market actions:  addFilterParameter 1`] = `
+Object {
+  "payload": Object {
+    "parameter": "parameter",
+    "value": "value",
+  },
+  "type": "ADD_FILTER_PARAMETER",
+}
+`;
+
+exports[`market actions:  buyItemAsync 1`] = `
+Object {
+  "payload": "1",
+  "type": "BUY_ITEM_ASYNC",
+}
+`;
+
+exports[`market actions:  fetchMarketItemsAsync 1`] = `
+Object {
+  "type": "FETCH_MARKET_ITEMS_ASYNC",
+}
+`;
+
+exports[`market actions:  fetchUserItemsAsync 1`] = `
+Object {
+  "type": "FETCH_USER_ITEMS_ASYNC",
+}
+`;
+
+exports[`market actions:  fillGiftCode 1`] = `
+Object {
+  "payload": "1234-1234-1234-1234",
+  "type": "FILL_GIFT_CODE",
+}
+`;
+
+exports[`market actions:  fillMarketItems 1`] = `
+Object {
+  "payload": Array [
+    Object {},
+    Object {},
+    Object {},
+    Object {},
+  ],
+  "type": "FILL_MARKET_ITEMS",
+}
+`;
+
+exports[`market actions:  fillUserItems 1`] = `
+Object {
+  "payload": Array [
+    Object {},
+    Object {},
+    Object {},
+    Object {},
+  ],
+  "type": "FILL_USER_ITEMS",
+}
+`;
+
+exports[`market actions:  removeFilterParameter 1`] = `
+Object {
+  "payload": "parameter",
+  "type": "REMOVE_FILTER_PARAMETER",
+}
+`;
+
+exports[`market actions:  removeFilterParameterAsync 1`] = `
+Object {
+  "payload": "parameter",
+  "type": "REMOVE_FILTER_PARAMETER_ASYNC",
+}
+`;

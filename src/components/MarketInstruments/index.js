@@ -20,7 +20,7 @@ class MarketInstruments extends Component {
         byGame: false,
         byPrice: false,
         byType: false,
-        value: 1,
+        value: 5000,
         selectedOption: 'none',
     };
 
@@ -44,9 +44,12 @@ class MarketInstruments extends Component {
 
     _handlePriceChange = (e) => {
         const { value } = e.target;
+        const { filterMarketItemsAsync } = this.props;
+
+        filterMarketItemsAsync('maxPrice', value || 5000);
 
         this.setState({
-            value,
+            value: value || 5000,
         });
     };
 
@@ -71,7 +74,7 @@ class MarketInstruments extends Component {
 
     render() {
         const { byGame, byType, byPrice, value, selectedOption } = this.state;
-        const max = 100;
+        const max = 5000;
 
         return (
             <div className={Styles.container}>
@@ -121,7 +124,7 @@ class MarketInstruments extends Component {
                         </div>
                     </div>
                     <div className={byPrice ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByPrice}>By Price</p>
+                        <p onClick={this._toggleByPrice}>By Max Price</p>
                         <div className={Styles.inputsContainer}>
                             <input type="text" value={value} onChange={this._handlePriceChange} />
                             <input
