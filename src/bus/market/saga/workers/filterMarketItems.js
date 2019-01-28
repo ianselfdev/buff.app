@@ -9,7 +9,7 @@ import { getFilters } from '../../selectors';
 
 export function* filterMarketItems({ payload }) {
     try {
-        yield put(uiActions.startFetching());
+        // yield put(uiActions.startFetching());
 
         yield put(marketActions.addFilterParameter(payload));
         const filters = yield select(getFilters);
@@ -25,6 +25,6 @@ export function* filterMarketItems({ payload }) {
     } catch (error) {
         yield put(uiActions.emitError('-> filterItems worker', error));
     } finally {
-        yield put(uiActions.stopFetching());
+        // yield put(uiActions.stopFetching());
     }
 }

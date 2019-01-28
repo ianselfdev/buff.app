@@ -140,8 +140,8 @@ class MarketInstruments extends Component {
                     <div className={byType ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
                         <p onClick={this._toggleByType}>By Type</p>
                         <div className={Styles.inputsContainer}>
-                            <input type="checkbox" id="dota" checked readOnly />
-                            <label htmlFor="dota">Gift Card</label>
+                            <input type="checkbox" id="giftCard" checked readOnly />
+                            <label htmlFor="giftCard">Gift Card</label>
                         </div>
                     </div>
                 </div>
