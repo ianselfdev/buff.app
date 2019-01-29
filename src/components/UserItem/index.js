@@ -39,7 +39,7 @@ class UserItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { shortDescription, name, tradable = false, activatable = true } = this.props;
+        const { shortDescription, name, tradable = false, activatable = true, img } = this.props;
 
         return (
             <Fragment>
@@ -50,7 +50,10 @@ class UserItem extends Component {
                     </div>
                     <img
                         onClick={this._openModal}
-                        src="https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg"
+                        src={
+                            img ||
+                            'https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg'
+                        }
                         alt="img"
                     />
                     <div className={Styles.priceContainer}>

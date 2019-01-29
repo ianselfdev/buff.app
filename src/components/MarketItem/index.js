@@ -45,6 +45,7 @@ class MarketItem extends Component {
             errorLabel,
             successLabel,
             errorMessage,
+            img,
         } = this.props;
 
         return (
@@ -56,7 +57,10 @@ class MarketItem extends Component {
                     </div>
                     <img
                         onClick={this._openModal}
-                        src="https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg"
+                        src={
+                            img ||
+                            'https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg'
+                        }
                         alt="img"
                     />
                     <div className={Styles.label}>{amount} left</div>

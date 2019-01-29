@@ -170,6 +170,7 @@ class Market extends Component {
                                         tradable={item.get('tradable')}
                                         description={item.get('description')}
                                         expire={item.get('expire')}
+                                        img={item.get('img')}
                                         key={index}
                                     />
                                 ))
@@ -183,6 +184,7 @@ class Market extends Component {
                                         games={item.get('games')}
                                         name={item.get('name')}
                                         id={item.get('id')}
+                                        img={item.get('img')}
                                         tradable={item.get('tradable')}
                                         key={index}
                                     />

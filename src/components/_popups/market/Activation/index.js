@@ -51,7 +51,7 @@ class Activation extends Component {
     };
 
     render() {
-        const { closeModal, name, giftCode } = this.props;
+        const { closeModal, name, giftCode, img } = this.props;
         const { showConfirmation, activated } = this.state;
 
         return (
@@ -60,7 +60,10 @@ class Activation extends Component {
                     <div className={Styles.container}>
                         <p className={Styles.title}>{name}</p>
                         <img
-                            src="https://d1u5p3l4wpay3k.cloudfront.net/dota2_gamepedia/d/dd/Cosmetic_icon_Bloodstone_of_the_Precursor.png"
+                            src={
+                                img ||
+                                'https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg'
+                            }
                             alt="img"
                         />
                         {activated ? (
