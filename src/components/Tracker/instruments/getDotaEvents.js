@@ -224,6 +224,7 @@ export const _getDotaEvents = (token) => {
                             var endGameTrs = JSON.stringify({
                                 matchId,
                                 gameId: '7314',
+                                gameName: 'Dota 2',
                                 reward: reward * 0.1,
                                 victory: isWinner,
                                 matchData: gamedata,

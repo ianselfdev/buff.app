@@ -16,7 +16,6 @@ import TableRow from '../TableRow';
 //Actions
 import { historyActions } from '../../bus/app/history/actions';
 
-//!__WARNING__!!!___HARDCODED DATA____!!!
 const headerFields = [
     {
         name: 'Type',
@@ -31,6 +30,7 @@ const headerFields = [
         name: 'Buff coins',
     },
 ];
+
 //!__WARNING__!!!___HARDCODED DATA____!!!
 const rowsFields = [
     {
@@ -64,6 +64,8 @@ class History extends Component {
     }
 
     render() {
+        const { history } = this.props;
+
         return (
             <ErrorCatcher>
                 <div className={Styles.mainContainer}>
@@ -85,11 +87,19 @@ class History extends Component {
                         </div>
                         <div className={Styles.historyTab}>
                             <TableRow header fields={headerFields} />
-                            {/* //!__WARNING__!!!___HARDCODED DATA____!!! */}
-                            <TableRow fields={rowsFields} />
-                            <TableRow fields={rowsFields} />
-                            <TableRow fields={rowsFields} />
-                            <TableRow fields={rowsFields} />
+                            <div className={Styles.historyData}>
+                                {history.map((item, index) => (
+                                    <TableRow
+                                        fields={[
+                                            { value: 'Play' },
+                                            { value: item.get('data').get('gameName') },
+                                            { value: 'someAchieve' },
+                                            { value: Number(item.get('amount')) },
+                                        ]}
+                                        key={index}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                     <HistoryInstruments />

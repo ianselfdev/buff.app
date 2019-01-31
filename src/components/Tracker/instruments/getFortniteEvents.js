@@ -83,6 +83,7 @@ const onNewEvents = (data, token) => {
                     rankedGame: true,
                 },
                 gameId: '21216',
+                gameName: 'Fortnite',
                 matchId,
                 victory: true,
                 reward: ((kills * (100 - Number(rank))) / (Math.max(deaths, 1) * 10)) * 0.1,
