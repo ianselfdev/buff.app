@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-    background: #000000ee;
+    background: rgba(0, 0, 0, 0.933);
     padding: 1rem 0;
 
     min-height: 100%;
@@ -55,7 +55,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            margin-left: -1rem;
+            margin-left: -3rem;
 
             & p {
                 font-size: 1rem;
@@ -64,7 +64,7 @@
             }
 
             & .userStatus {
-                color: #ffffff80;
+                color: rgba(255, 255, 255, 0.502);
                 font-size: 0.8rem;
                 height: 40%;
 
@@ -79,7 +79,7 @@
             max-width: 8rem;
             display: flex;
             flex-direction: column;
-            border: 1px solid #ffffff80;
+            border: 1px solid rgba(255, 255, 255, 0.502);
             border-radius: 5px;
             padding: 0.1rem 0.5rem;
 
@@ -87,7 +87,7 @@
                 font-size: 0.8rem;
                 margin: 0;
                 height: 50%;
-                color: #ffffff80;
+                color: rgba(255, 255, 255, 0.502);
                 text-align: center;
             }
 
@@ -118,17 +118,22 @@
         height: 3.5rem;
         line-height: 3.5rem;
 
-        border-top: 1px solid #ffffff1f;
+        border-top: 1px solid rgba(255, 255, 255, 0.122);
 
         display: flex;
         flex-direction: row;
 
         &:last-of-type {
-            border-bottom: 1px solid #ffffff1f;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.122);
         }
 
         &:hover {
-            background-image: linear-gradient(90deg, #ffffff00, #ffffff1f, #ffffff3f);
+            background-image: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.122),
+                rgba(255, 255, 255, 0.247)
+            );
         }
 
         & .navitemIcon {
@@ -145,7 +150,12 @@
         padding: 0 1rem;
         height: 3.5rem;
         line-height: 3.5rem;
-        background-image: linear-gradient(170deg, #ffffff00, #ffffff1f, #ffffff3f);
+        background-image: linear-gradient(
+            170deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.122),
+            rgba(255, 255, 255, 0.247)
+        );
         border-left: 3px solid $secondaryGreen;
         display: flex;
         flex-direction: row;
@@ -226,16 +236,6 @@
             display: flex;
             flex-direction: column;
             display: none;
-
-            // & p {
-            //     font-size: 0.7rem;
-            //     margin: 0.1rem;
-            //     height: 60%;
-            // }
-
-            // & .userStatus {
-            //     display: none;
-            // }
         }
 
         & .balance {
@@ -275,7 +275,7 @@
         height: 3.5rem;
         line-height: 3.5rem;
 
-        border-top: 1px solid #ffffff1f;
+        border-top: 1px solid rgba(255, 255, 255, 0.122);
 
         display: flex;
         flex-direction: row;
@@ -285,11 +285,16 @@
         }
 
         &:last-of-type {
-            border-bottom: 1px solid #ffffff1f;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.122);
         }
 
         &:hover {
-            background-image: linear-gradient(-130deg, #ffffff00, #ffffff1f, #ffffff3f);
+            background-image: linear-gradient(
+                -130deg,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.122),
+                rgba(255, 255, 255, 0.247)
+            );
         }
 
         & .navitemIcon {
@@ -306,7 +311,12 @@
         padding: 0 1rem;
         height: 3.5rem;
         line-height: 3.5rem;
-        background-image: linear-gradient(-130deg, #ffffff00, #ffffff1f, #ffffff3f);
+        background-image: linear-gradient(
+            -130deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.122),
+            rgba(255, 255, 255, 0.247)
+        );
         border-left: 3px solid $secondaryGreen;
         display: flex;
         flex-direction: row;

@@ -72,7 +72,7 @@ export const _getDotaEvents = (token) => {
     overwolf.games.events.onInfoUpdates2.addListener(function(info) {
         if (currentGame === 'Dota 2') {
             if (info.info && info.info.roster && info.info.roster.players) {
-                // console.log(info.info.roster.players);
+                console.log(JSON.parse(info.info.roster.players));
                 dotaParams.allPlayers = JSON.parse(info.info.roster.players);
             }
         }
@@ -85,26 +85,8 @@ export const _getDotaEvents = (token) => {
 
                 // Switch event name
                 switch (info.events[i].name) {
-                    case 'match_detected':
-                        // console.log('INTERESTING IF EVER HAPPENS!');
-
-                        dotaParams.allPlayers = data_to_object.match_detected.playersInfo;
-
-                        dotaParams.allPlayers.forEach((player, index) => {
-                            if (player.isLocalPlayer === true) {
-                                dotaParams.playerTeam = player.faction;
-                            }
-                        });
-
-                        if (data_to_object.gameMode === 'AllPickRanked') {
-                            dotaParams.rankedGame = true;
-                        } else {
-                            dotaParams.rankedGame = false;
-                        }
-
-                        break;
-
                     case 'match_state_changed':
+                        console.log(JSON.parse(info.events[i].data));
                         if (
                             !dotaParams.gameStarted &&
                             !dotaParams.gameInProcess &&
@@ -230,7 +212,6 @@ export const _getDotaEvents = (token) => {
                             if (isWinner) reward += 45;
 
                             var gamedata = {
-                                rankedGame: true,
                                 xpm: dotaParams.xpm,
                                 gpm: dotaParams.gpm,
                                 kda: kda,
@@ -265,6 +246,15 @@ export const _getDotaEvents = (token) => {
                         break;
 
                     case 'game_state_changed':
+                        // {
+                        //     game_state: 'playing',
+                        //     match_id: '1234535435',
+                        //     match_state: 'DOTA_GAMERULES_STATE_WAIT_FOR_PLAYERS_TO_LOAD',
+                        //     player_steam_id: "76561198143141868",
+                        //     player_team: "radiant"
+                        // }
+                        // console.log(JSON.parse(info.events[i].data));
+
                         if (!matchId && data_to_object.match_id) {
                             matchId = data_to_object.match_id;
                         }

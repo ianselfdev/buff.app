@@ -18,6 +18,7 @@ import {
     Settings,
     HelpOutline,
 } from '@material-ui/icons';
+import coin from '../../theme/assets/coin.png';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -49,8 +50,6 @@ class Navbar extends Component {
 
         //!__temporary data__
         const avatar = 'https://small-games.info/avko/7/175121_78533.gif';
-        const circle =
-            'http://www.clker.com/cliparts/a/f/e/8/14489113331706856528green-coin-stack.png';
 
         return (
             <Fragment>
@@ -69,7 +68,7 @@ class Navbar extends Component {
                             <div className={Styles.balance}>
                                 <p>Balance</p>
                                 <p className={Styles.coins}>
-                                    <img src={circle} alt="coins-pic" className={Styles.coinImg} />
+                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} />
                                     {balance}
                                 </p>
                             </div>

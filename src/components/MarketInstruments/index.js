@@ -79,7 +79,7 @@ class MarketInstruments extends Component {
         return (
             <div className={Styles.container}>
                 <div className={Styles.filtersContainer}>
-                    <div className={Styles.title}>Show results for</div>
+                    <div className={Styles.title}>Filters</div>
                     <div className={byGame ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
                         <p onClick={this._toggleByGame}>By Game</p>
                         <div className={Styles.inputsContainer}>

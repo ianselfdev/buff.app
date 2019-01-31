@@ -51,7 +51,7 @@ class Activation extends Component {
     };
 
     render() {
-        const { closeModal, name, giftCode, img } = this.props;
+        const { closeModal, name, giftCode, img, description } = this.props;
         const { showConfirmation, activated } = this.state;
 
         return (
@@ -72,13 +72,7 @@ class Activation extends Component {
                                 {giftCode}
                             </p>
                         ) : (
-                            <p className={Styles.description}>
-                                To redeem your code, please, press the buttom 'ACTIVATE' below.
-                                <br />
-                                <br />
-                                Mind that after you activate card and get the code, the card WILL
-                                DISAPPEAR and you will not be able to see the code again.
-                            </p>
+                            <p className={Styles.description}>{description}</p>
                         )}
                         <div className={Styles.buttonContainer}>
                             <button className={Styles.closeButton} onClick={closeModal}>
