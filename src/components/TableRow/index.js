@@ -3,25 +3,42 @@ import React, { Component, Fragment } from 'react';
 //Styles
 import Styles from './styles.module.scss';
 
+//Instruments
+import coin from '../../theme/assets/coin.png';
+
 export default class TableRow extends Component {
     render() {
-        const { name, period, win, reward, header } = this.props;
+        const { fields, header } = this.props;
 
         return (
-            <div className={Styles.tableRow}>
+            <div
+                className={header ? Styles.headerRow : Styles.tableRow}
+                style={{
+                    borderBottom: `1px solid ${header ? 'green' : 'black'}`,
+                }}
+            >
                 {header ? (
                     <Fragment>
-                        <div className={Styles.tableHeader}>Name</div>
-                        <div className={Styles.tableHeader}>Period</div>
-                        <div className={Styles.tableHeader}>Wins</div>
-                        <div className={Styles.tableHeader}>Buff Earned</div>
+                        {fields.map((item, index) => (
+                            <div className={Styles.tableHeader} key={index}>
+                                {item.name}
+                            </div>
+                        ))}
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <div className={Styles.tableCell}>{name}</div>
-                        <div className={Styles.tableCell}>{period}</div>
-                        <div className={Styles.tableCell}>{win ? win : 0}</div>
-                        <div className={Styles.tableCell}>{reward}</div>
+                        {fields.map((item, index) =>
+                            typeof item.value === 'number' ? (
+                                <div className={Styles.tableCell} key={index}>
+                                    <img alt="coin" src={coin} />
+                                    {item.value}
+                                </div>
+                            ) : (
+                                <div className={Styles.tableCell} key={index}>
+                                    {item.value}
+                                </div>
+                            ),
+                        )}
                     </Fragment>
                 )}
             </div>
