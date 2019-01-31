@@ -162,7 +162,6 @@ export const _getLolEvents = (token) => {
                         var endGameTrs = JSON.stringify({
                             matchData: gamedata,
                             gameId: '5426',
-                            gameName: 'LoL',
                             matchId,
                             victory: isWinner,
                             reward: reward * 0.1,

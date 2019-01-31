@@ -21,29 +21,13 @@ const headerFields = [
         name: 'Type',
     },
     {
-        name: 'Game',
+        name: 'Game Name',
     },
     {
         name: 'Achievements',
     },
     {
         name: 'Buff coins',
-    },
-];
-
-//!__WARNING__!!!___HARDCODED DATA____!!!
-const rowsFields = [
-    {
-        value: 'Play',
-    },
-    {
-        value: 'Dota 2',
-    },
-    {
-        value: Math.random() > 0.5 ? 'First Blood' : 'Triple Kill',
-    },
-    {
-        value: 50,
     },
 ];
 
@@ -92,8 +76,12 @@ class History extends Component {
                                     <TableRow
                                         fields={[
                                             { value: 'Play' },
-                                            { value: item.get('data').get('gameName') },
-                                            { value: 'someAchieve' },
+                                            {
+                                                value:
+                                                    item.get('data').get('gameName') ||
+                                                    'Unknown game',
+                                            },
+                                            { value: 'Wow!' },
                                             { value: Number(item.get('amount')) },
                                         ]}
                                         key={index}
