@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
 
-let matchId = 1;
+let matchId = 0;
 let currentGame = 'Dota 2';
 
 const dotaFeatures = [
@@ -295,7 +295,7 @@ export const _getDotaEvents = (token) => {
 
                 // Send transaction for Game Started
                 if (matchId && dotaParams.gameStarted && !dotaParams.gameInProcess) {
-                    matchId = uuid();
+                    // matchId = uuid();
 
                     var startGameTrs = JSON.stringify({
                         gameId: '7314',

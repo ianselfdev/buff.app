@@ -1,104 +1,157 @@
 @import '../../theme/palette.scss';
 
-.dashboardComponent {
-    position: absolute;
+.mainContainer {
+    position: relative;
     top: 0;
-    z-index: 11;
-    .dashboardTitle {
-        margin: 25px 50px;
-        font-size: 1.6em;
-        width: 250px;
-    }
-    .contentTitle {
-        margin: 0 50px;
-        filter: brightness(70%);
-    }
-    .buttonShareEarn {
-        color: #43a047;
-        margin-top: 50px;
-    }
-    .dashboardMain {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        background: #131416;
-        .papersMain {
-            font-size: 0.9rem;
-            margin: 40px 5px;
-            .myAcc {
+    left: 0;
+
+    z-index: 12;
+
+    display: flex;
+    justify-content: space-around;
+
+    height: 100vh;
+    width: 100%;
+
+    & .contentContainer {
+        margin: 1rem;
+
+        display: flex;
+        flex-direction: column;
+
+        &:first-of-type {
+            flex-grow: 1;
+            max-width: 20%;
+
+            & .contentBox {
                 width: 100%;
-                background: #2e2f30;
-                height: 399px;
-                margin: 0 auto;
+                border-radius: 5px;
 
-                .titleMyAcc {
-                    margin: 0;
-                    padding: 5px 25px;
-                    color: #00ee7a;
-                }
-                .balanceMyAcc {
-                    background: #1e1f21;
+                &:first-of-type {
+                    flex-grow: 6;
+                    margin: 0.5rem 0;
+                    background: $primaryGrey;
+                    border: 1px solid $secondaryGrey;
                     display: flex;
-                    flex-direction: row;
-                    padding: 10px 0px 10px 25px;
-                }
+                    max-height: 50%;
+                    flex-direction: column;
 
-                &.newsBox {
-                    overflow-y: scroll;
-                    height: 400px;
-
-                    &::-webkit-scrollbar-thumb {
-                        background: $secondaryGreen;
+                    & .chart {
+                        max-height: 10rem;
                     }
-                }
 
-                .newsMain {
-                    background: #1e1f21;
-                    display: flex;
-                    flex-direction: row;
-                    height: 50px;
-                    .newsContent {
-                        padding-top: 10px;
-
+                    & .legend {
                         display: flex;
-                        justify-content: center;
-                        color: #919191;
                         flex-direction: column;
-                        width: 100%;
-                        .sectionButton {
-                            display: flex;
-                            flex-direction: row;
-                            justify-content: space-between;
-                            padding-bottom: 3px;
-                            color: #616161;
-                            .newsTitle {
-                                font-size: 0.8em;
-                                align-self: flex-end;
+                        padding: 0.5rem 2rem;
+
+                        & .legendDatabox {
+                            margin: 0.2rem;
+
+                            & p {
+                                &:first-of-type {
+                                    font-size: 0.9rem;
+
+                                    &::before {
+                                        content: '●';
+                                        margin-right: 0.5rem;
+                                    }
+                                }
+                                &:last-of-type {
+                                    margin-left: 0.8rem;
+                                    font-size: 0.8rem;
+                                    color: $lightGrey;
+                                }
                             }
-                            .buttonReadMore {
-                                color: #616161;
-                                position: relative;
-                                bottom: 8px;
-                            }
-                            .buttonReadMore:hover {
-                                color: #43a047;
+
+                            & .coinImg {
+                                height: 0.9rem;
+                                width: 0.9rem;
+                                border: none;
+                                margin-right: 0.3rem;
                             }
                         }
                     }
-                    .newsDotesContents {
-                        width: 30px;
-                        display: flex;
-                        justify-content: center;
-                        padding-bottom: 15px;
-                        .newsDotes {
-                            align-self: center;
-                            background: #00ee7a;
-                            border-radius: 50%;
-                            padding: 3px;
+
+                    & .legendButton {
+                        cursor: pointer;
+                        margin: 0 auto;
+                        background: $secondaryGreen;
+                        padding: 0.5rem 1rem;
+                        border-radius: 5px;
+                        font-size: 0.8rem;
+
+                        &:hover {
+                            background: $primaryGreen;
                         }
                     }
+                }
+
+                &:last-of-type {
+                    flex-grow: 5;
+                    margin: 0.5rem 0;
+                    background: $primaryGrey;
+                    border: 1px solid $secondaryGrey;
                 }
             }
+        }
+        &:nth-of-type(2) {
+            flex-grow: 2;
+            max-width: 50%;
+
+            & .contentBox {
+                width: 100%;
+                border-radius: 5px;
+
+                &:first-of-type {
+                    flex-grow: 3;
+                    margin: 0.5rem 0;
+                    background: $primaryGrey;
+                    border: 1px solid $secondaryGrey;
+                }
+
+                &:last-of-type {
+                    flex-grow: 2;
+                    margin: 0.5rem 0;
+                    background: $primaryGrey;
+                    border: 1px solid $secondaryGrey;
+                }
+            }
+        }
+        &:last-of-type {
+            flex-grow: 1;
+            max-width: 25%;
+
+            & .contentBox {
+                width: 100%;
+                border-radius: 5px;
+
+                &:first-of-type {
+                    flex-grow: 6;
+                    margin: 0.5rem 0;
+                    background: $primaryGrey;
+                    border: 1px solid $secondaryGrey;
+                }
+
+                &:last-of-type {
+                    flex-grow: 5;
+                    margin: 0.5rem 0;
+                    background: $primaryGrey;
+                    border: 1px solid $secondaryGrey;
+                    background-image: url('../../theme/assets/banner.jpg');
+                    background-position: center;
+                    background-size: cover;
+                }
+            }
+        }
+
+        & .titleBox {
+            height: 2.5rem;
+            color: $primaryGreen;
+            padding-left: 1rem;
+            line-height: 2.5rem;
+            background: $secondaryGrey;
+            font-size: 0.9rem;
         }
     }
 }

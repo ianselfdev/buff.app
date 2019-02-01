@@ -14,46 +14,47 @@ import HistoryInstruments from '../HistoryInstruments';
 import TableRow from '../TableRow';
 
 //Actions
-import { historyActions } from '../../bus/app/history/actions';
+import { leaderboardActions } from '../../bus/app/leaderboard/actions';
 
 const headerFields = [
     {
-        name: 'Type',
+        name: 'Name',
     },
     {
-        name: 'Game Name',
+        name: 'Period',
     },
     {
-        name: 'Achievements',
+        name: 'Nickname',
     },
     {
-        name: 'Buff coins',
+        name: 'Wins',
+    },
+    {
+        name: 'Buff earned',
     },
 ];
 
 const mapStateToProps = (state) => ({
-    history: state.history,
+    leaderboard: state.leaderboard,
 });
 
 const mapDispatchToProps = {
-    fetchHistoryAsync: historyActions.fetchHistoryAsync,
+    fetchLeadersDotaAsync: leaderboardActions.fetchLeadersDotaAsync,
 };
 
-class History extends Component {
-    state = {};
-
-    componentDidMount() {
-        const { fetchHistoryAsync } = this.props;
-        fetchHistoryAsync();
-    }
+class Leaderboard extends Component {
+    componentDidMount = () => {
+        const { fetchLeadersDotaAsync } = this.props;
+        fetchLeadersDotaAsync();
+    };
 
     render() {
-        const { history } = this.props;
+        const { leaderboard } = this.props;
 
         return (
             <ErrorCatcher>
                 <div className={Styles.mainContainer}>
-                    <div className={Styles.historyContainer}>
+                    <div className={Styles.leaderboardContainer}>
                         <div className={Styles.controlsContainer}>
                             <div className={Styles.tabsContainer}>
                                 <div id="recent" className={`${Styles.tabs} ${Styles.active}`}>
@@ -62,25 +63,32 @@ class History extends Component {
                             </div>
                             <div className={Styles.searchContainer}>
                                 {/* searchboxes are rendered according to active tab
-                                    and their values are remembered in state, so that user
-                                    could see what he was last searching, as the filtration
-                                    results are also being saved in redux */}
-                                <input type="text" name="historySearch" placeholder="Search..." />
+                                and their values are remembered in state, so that user
+                                could see what he was last searching, as the filtration
+                                results are also being saved in redux */}
+                                <input
+                                    type="text"
+                                    name="leaderboardSearch"
+                                    placeholder="Search..."
+                                />
                                 <Search className={Styles.searchIcon} />
                             </div>
                         </div>
-                        <div className={Styles.historyTab}>
+                        <div className={Styles.leaderboardTab}>
                             <TableRow header fields={headerFields} />
-                            <div className={Styles.historyData}>
-                                {history.map((item, index) => (
+                            <div className={Styles.leaderboardData}>
+                                {leaderboard.map((item, index) => (
                                     <TableRow
                                         fields={[
-                                            { value: 'Play' },
+                                            { value: 'Dota 2' },
                                             {
-                                                value: item.get('name') || 'Unknown game',
+                                                value: 'Past week',
                                             },
-                                            { value: 'Wow!' },
-                                            { value: Number(item.get('amount')) },
+                                            {
+                                                value: item.get('nickname'),
+                                            },
+                                            { value: item.get('wins').toString() },
+                                            { value: Number(item.get('balance')) },
                                         ]}
                                         key={index}
                                     />
@@ -98,4 +106,4 @@ class History extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(History);
+)(Leaderboard);
