@@ -7,6 +7,7 @@
     line-height: 2.5rem;
     background: $secondaryGrey;
     font-size: 0.9rem;
+    margin: 0 0 1rem;
 }
 
 .chart {
@@ -17,9 +18,10 @@
     display: flex;
     flex-direction: column;
     padding: 0.5rem 2rem;
+    margin: 2rem 0 0;
 
     & .legendDatabox {
-        margin: 0.2rem;
+        margin: 0.5rem;
 
         & p {
             &:first-of-type {

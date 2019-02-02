@@ -21,7 +21,7 @@
 
         &:first-of-type {
             flex-grow: 1;
-            max-width: 20%;
+            min-width: 25%;
 
             & .contentBox {
                 width: 100%;
@@ -69,7 +69,7 @@
         }
         &:last-of-type {
             flex-grow: 1;
-            max-width: 25%;
+            min-width: 400px;
 
             & .contentBox {
                 width: 100%;
@@ -90,7 +90,7 @@
                     background-image: url('../../theme/assets/banner.jpg');
                     background-position: center;
                     background-size: cover;
-                    min-height: 250px;
+                    min-height: 300px;
                 }
             }
         }
