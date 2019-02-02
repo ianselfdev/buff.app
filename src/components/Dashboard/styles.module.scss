@@ -28,7 +28,7 @@
                 border-radius: 5px;
 
                 &:first-of-type {
-                    flex-grow: 5;
+                    height: 48%;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
@@ -37,7 +37,7 @@
                 }
 
                 &:last-of-type {
-                    flex-grow: 5;
+                    height: 48%;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
@@ -53,14 +53,14 @@
                 border-radius: 5px;
 
                 &:first-of-type {
-                    flex-grow: 3;
+                    height: 48%;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
                 }
 
                 &:last-of-type {
-                    flex-grow: 2;
+                    height: 48%;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
@@ -76,14 +76,14 @@
                 border-radius: 5px;
 
                 &:first-of-type {
-                    flex-grow: 6;
+                    height: 48%;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
                 }
 
                 &:last-of-type {
-                    flex-grow: 5;
+                    height: 48%;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
