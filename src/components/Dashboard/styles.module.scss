@@ -14,7 +14,7 @@
     width: 100%;
 
     & .contentContainer {
-        margin: 1rem;
+        margin: 0.7rem;
 
         display: flex;
         flex-direction: column;
@@ -28,63 +28,12 @@
                 border-radius: 5px;
 
                 &:first-of-type {
-                    flex-grow: 6;
+                    flex-grow: 5;
                     margin: 0.5rem 0;
                     background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
                     display: flex;
-                    max-height: 50%;
                     flex-direction: column;
-
-                    & .chart {
-                        max-height: 10rem;
-                    }
-
-                    & .legend {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 0.5rem 2rem;
-
-                        & .legendDatabox {
-                            margin: 0.2rem;
-
-                            & p {
-                                &:first-of-type {
-                                    font-size: 0.9rem;
-
-                                    &::before {
-                                        content: '●';
-                                        margin-right: 0.5rem;
-                                    }
-                                }
-                                &:last-of-type {
-                                    margin-left: 0.8rem;
-                                    font-size: 0.8rem;
-                                    color: $lightGrey;
-                                }
-                            }
-
-                            & .coinImg {
-                                height: 0.9rem;
-                                width: 0.9rem;
-                                border: none;
-                                margin-right: 0.3rem;
-                            }
-                        }
-                    }
-
-                    & .legendButton {
-                        cursor: pointer;
-                        margin: 0 auto;
-                        background: $secondaryGreen;
-                        padding: 0.5rem 1rem;
-                        border-radius: 5px;
-                        font-size: 0.8rem;
-
-                        &:hover {
-                            background: $primaryGreen;
-                        }
-                    }
                 }
 
                 &:last-of-type {
@@ -141,17 +90,9 @@
                     background-image: url('../../theme/assets/banner.jpg');
                     background-position: center;
                     background-size: cover;
+                    min-height: 250px;
                 }
             }
-        }
-
-        & .titleBox {
-            height: 2.5rem;
-            color: $primaryGreen;
-            padding-left: 1rem;
-            line-height: 2.5rem;
-            background: $secondaryGrey;
-            font-size: 0.9rem;
         }
     }
 }

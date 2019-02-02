@@ -40,8 +40,6 @@ const mapDispatchToProps = {
 };
 
 class History extends Component {
-    state = {};
-
     componentDidMount() {
         const { fetchHistoryAsync } = this.props;
         fetchHistoryAsync();

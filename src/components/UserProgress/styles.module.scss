@@ -1,0 +1,61 @@
+@import '../../theme/palette.scss';
+
+.titleBox {
+    height: 2.5rem;
+    color: $primaryGreen;
+    padding-left: 1rem;
+    line-height: 2.5rem;
+    background: $secondaryGrey;
+    font-size: 0.9rem;
+}
+
+.chart {
+    max-height: 10rem;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 2rem;
+
+    & .legendDatabox {
+        margin: 0.2rem;
+
+        & p {
+            &:first-of-type {
+                font-size: 0.9rem;
+
+                &::before {
+                    content: '●';
+                    margin-right: 0.5rem;
+                }
+            }
+            &:last-of-type {
+                margin-left: 0.8rem;
+                font-size: 0.8rem;
+                color: $lightGrey;
+            }
+        }
+
+        & .coinImg {
+            height: 0.9rem;
+            width: 0.9rem;
+            border: none;
+            margin-right: 0.3rem;
+        }
+    }
+}
+
+.legendButton {
+    cursor: pointer;
+    margin: 0 auto;
+    background: $secondaryGreen;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.8rem;
+
+    &:hover {
+        background: $primaryGreen;
+        color: $primaryGrey;
+    }
+}

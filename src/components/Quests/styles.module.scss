@@ -1,0 +1,68 @@
+@import '../../theme/palette.scss';
+
+.titleBox {
+    height: 2.5rem;
+    color: $primaryGreen;
+    padding-left: 1rem;
+    line-height: 2.5rem;
+    background: $secondaryGrey;
+    font-size: 0.9rem;
+}
+
+.questsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0.7rem 0;
+    max-height: 280px;
+
+    & .questsItem {
+        width: 43%;
+        margin: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: $secondaryGrey;
+        border: 1px solid $lightGrey;
+        border-radius: 5px;
+        padding: 0.5rem;
+
+        & p {
+            text-align: center;
+            color: $lightGrey;
+            font-size: 0.9rem;
+        }
+
+        & img {
+            filter: grayscale(1);
+            width: 40%;
+            margin: 1rem 0;
+        }
+
+        & div {
+            cursor: pointer;
+            display: flex;
+            width: 80%;
+            padding: 0.3rem;
+            border: 1px solid $secondaryGreen;
+            box-shadow: 0px 0px 2px 1px $secondaryGreen;
+            border-radius: 5px;
+
+            & img {
+                width: 1rem;
+                height: 1rem;
+                margin: 0 1rem 0 0;
+                filter: none;
+            }
+
+            &:hover {
+                background: $secondaryGreen;
+
+                & img {
+                    filter: grayscale(1);
+                }
+            }
+        }
+    }
+}

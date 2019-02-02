@@ -71,7 +71,7 @@ export const Api = {
         },
 
         fetchLeadersDota() {
-            return fetch(`${MAIN_URL}/buff/leaders?gameId=7314`);
+            return fetch(`${MAIN_URL}/buff/leaders`);
         },
     },
 

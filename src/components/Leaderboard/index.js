@@ -85,10 +85,11 @@ class Leaderboard extends Component {
                                                 value: 'Past week',
                                             },
                                             {
-                                                value: item.get('nickname'),
+                                                value: item.get('login'),
                                             },
+                                            //toString needs to be used to render without coin image
                                             { value: item.get('wins').toString() },
-                                            { value: Number(item.get('balance')) },
+                                            { value: Number(item.get('amount')) },
                                         ]}
                                         key={index}
                                     />
