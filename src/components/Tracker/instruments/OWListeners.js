@@ -1,5 +1,5 @@
-import { _getDotaEvents, setDotaFeatures } from './getDotaEvents';
-import { _getLolEvents, setLoLFeatures } from './getLolEvents';
+import { getDotaEvents } from './getDotaEvents2';
+import { getLolEvents } from './getLolEvents2';
 import { getFortniteEvents } from './getFortniteEvents';
 
 /*eslint-disable no-undef*/
@@ -18,13 +18,11 @@ export const setOverwolfListeners = (token) => {
 
         switch (gameTitle) {
             case 'Dota 2':
-                _getDotaEvents(token);
-                setTimeout(setDotaFeatures, 1000);
+                getDotaEvents(token);
                 break;
 
             case 'League of Legends':
-                _getLolEvents(token);
-                setTimeout(setLoLFeatures, 1000);
+                getLolEvents(token);
                 break;
 
             case 'Fortnite Battle Royale':
@@ -42,12 +40,12 @@ export const setOverwolfListeners = (token) => {
 
         switch (gameTitle) {
             case 'Dota 2':
-                _getDotaEvents(token);
+                getDotaEvents(token);
                 console.log('Dota 2 launched');
                 break;
 
             case 'League of Legends':
-                _getLolEvents(token);
+                getLolEvents(token);
                 console.log('LoL launched');
                 break;
 

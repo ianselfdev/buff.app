@@ -1,5 +1,4 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
-import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
 
@@ -72,7 +71,7 @@ export const _getDotaEvents = (token) => {
     overwolf.games.events.onInfoUpdates2.addListener(function(info) {
         if (currentGame === 'Dota 2') {
             if (info.info && info.info.roster && info.info.roster.players) {
-                console.log(JSON.parse(info.info.roster.players));
+                // console.log(JSON.parse(info.info.roster.players));
                 dotaParams.allPlayers = JSON.parse(info.info.roster.players);
             }
         }
@@ -86,16 +85,12 @@ export const _getDotaEvents = (token) => {
                 // Switch event name
                 switch (info.events[i].name) {
                     case 'match_state_changed':
-                        console.log(JSON.parse(info.events[i].data));
+                        // console.log(JSON.parse(info.events[i].data));
                         if (
                             !dotaParams.gameStarted &&
                             !dotaParams.gameInProcess &&
                             data_to_object.match_state === 'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS'
                         ) {
-                            // console.log(
-                            //     'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS',
-                            // );
-
                             dotaParams.gameStarted = data_to_object;
                         }
 
@@ -229,6 +224,8 @@ export const _getDotaEvents = (token) => {
                                 matchData: gamedata,
                             });
 
+                            console.log(endGameTrs);
+
                             _sendEndGameTrs(endGameTrs, token);
 
                             dotaParams.gameInProcess = false;
@@ -296,11 +293,15 @@ export const _getDotaEvents = (token) => {
                 // Send transaction for Game Started
                 if (matchId && dotaParams.gameStarted && !dotaParams.gameInProcess) {
                     // matchId = uuid();
+                    matchId = matchId;
 
                     var startGameTrs = JSON.stringify({
                         gameId: '7314',
                         matchId: matchId,
                     });
+
+                    console.log(startGameTrs);
+                    console.log(matchId);
 
                     _sendStartGameTrs(startGameTrs, token);
 

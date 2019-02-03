@@ -1,10 +1,9 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
-import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
 
 let currentGame = null;
-let matchId = 1;
+let matchId = 0;
 
 const lolFeatures = [
     'summoner_info',
@@ -76,6 +75,8 @@ export const _getLolEvents = (token) => {
                 ) {
                     console.log('MATCH STARTED');
                     lolParams.gameStarted = true;
+                    matchId = data_to_object.info.game_info.matchId;
+                    console.log(`%cYour match ID is: ${matchId}`, 'color:black, background:red');
                 }
 
                 if (
@@ -212,12 +213,9 @@ export const _getLolEvents = (token) => {
         }
 
         if (lolParams.gameStarted && !lolParams.gameInProcess) {
-            matchId = uuid();
-
             var startGameTrs = JSON.stringify({
                 gameId: '5426',
                 matchId,
-                // rankedGame: true,
             });
 
             _sendStartGameTrs(startGameTrs, token);
