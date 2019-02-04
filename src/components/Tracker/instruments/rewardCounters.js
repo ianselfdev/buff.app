@@ -44,16 +44,16 @@ export const sendLolReward = (data, token) => {
         Math.max(0, Math.min(20, (level - 10) * 2)) +
         (victory ? 45 : 0);
 
-    console.log(`%cReward: ${rewardPoints / 10}`, 'color:orange');
-    console.log(`%cKDA: ${kda} => ${Math.max(0, Math.min(20, (kda - 1.5) * 8))}`, 'color:orange');
-    console.log(
-        `%cLH: ${minionKills} => ${Math.max(0, Math.min(20, (minionKills - 124) / 9))}`,
-        'color:orange',
-    );
-    console.log(
-        `%cLVL: ${level} => ${Math.max(0, Math.min(20, (level - 10) * 2))}`,
-        'color:orange',
-    );
+    // console.log(`%cReward: ${rewardPoints / 10}`, 'color:orange');
+    // console.log(`%cKDA: ${kda} => ${Math.max(0, Math.min(20, (kda - 1.5) * 8))}`, 'color:orange');
+    // console.log(
+    //     `%cLH: ${minionKills} => ${Math.max(0, Math.min(20, (minionKills - 124) / 9))}`,
+    //     'color:orange',
+    // );
+    // console.log(
+    //     `%cLVL: ${level} => ${Math.max(0, Math.min(20, (level - 10) * 2))}`,
+    //     'color:orange',
+    // );
 
     const countedData = {
         ...data,
