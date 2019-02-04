@@ -1,4 +1,5 @@
 import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import { sendLolReward } from './rewardCounters';
 
 /*eslint-disable no-undef*/
 
@@ -28,12 +29,12 @@ let matchData = {
     deaths: 0,
     assists: 0,
     minionKills: 0,
+    level: 1,
 
     rankedGame: false,
     gameMode: '',
-    victory: false,
 
-    matchId: '0',
+    matchId: '1',
 };
 
 // setting features to track + retry if failed
@@ -46,7 +47,7 @@ export const setLolFeatures = () => {
 };
 
 const onNewEvents = (data, token) => {
-    // console.log(data);
+    // console.log('on new events: ', data);
 };
 
 const onGameInfoUpdated = (data) => {
@@ -72,10 +73,10 @@ const onInfoUpdates2 = (data, token) => {
                 //* ---------------------->
                 console.log('%cStart game', 'color: green');
                 //Lol gameId === 5426
-                const startGameTrs = JSON.stringify({
+                const startGameTrs = {
                     gameId: '5426',
                     matchId: info.matchId || '0',
-                });
+                };
 
                 _sendStartGameTrs(startGameTrs, token);
             } else {
@@ -84,25 +85,26 @@ const onInfoUpdates2 = (data, token) => {
                 console.log('%cGame end', 'color: orange');
                 console.log(matchData);
 
-                const endGameTrs = JSON.stringify({
+                const endGameTrs = {
                     matchData,
                     gameId: '5426',
-                    matchId: matchData.matchId,
+                    matchId: matchData.gameMode === 'ranked' ? '1' : '0',
                     victory: info.matchOutcome === 'win',
                     reward: 1,
-                });
+                };
 
-                _sendEndGameTrs(endGameTrs, token);
+                sendLolReward(endGameTrs, token);
+                // _sendEndGameTrs(endGameTrs, token);
 
                 matchData = {
                     kills: 0,
                     deaths: 0,
                     assists: 0,
                     minionKills: 0,
+                    level: 1,
 
                     rankedGame: false,
                     gameMode: '',
-                    victory: false,
 
                     matchId: '0',
                 };
@@ -115,6 +117,7 @@ const onInfoUpdates2 = (data, token) => {
             break;
 
         case 'level':
+            matchData.level++;
             break;
 
         case 'kill':

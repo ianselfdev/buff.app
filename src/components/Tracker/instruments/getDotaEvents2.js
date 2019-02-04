@@ -1,4 +1,5 @@
-import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import { _sendStartGameTrs } from './gamestats';
+import { sendDotaReward } from './rewardCounters';
 
 /*eslint-disable no-undef*/
 
@@ -87,10 +88,10 @@ const onNewEvents = (data, token) => {
                     console.log('%cSending startGame transaction', 'color:green');
 
                     //Dota2 gameId in OW === 7314
-                    const startGameTrs = JSON.stringify({
+                    const startGameTrs = {
                         gameId: '7314',
                         matchId: matchData.matchId,
-                    });
+                    };
 
                     _sendStartGameTrs(startGameTrs, token);
                     break;
@@ -133,16 +134,18 @@ const onNewEvents = (data, token) => {
                 victory: matchData.playerTeam === info.winner,
             };
 
+            console.log('%cGame end', 'color: orange');
             //Dota2 gameId === 7314
-            const endGameTrs = JSON.stringify({
+            const endGameTrs = {
                 matchId: matchData.matchId,
                 gameId: '7314',
                 reward: 1,
                 victory: matchData.victory,
                 matchData,
-            });
+            };
 
-            _sendEndGameTrs(endGameTrs, token);
+            // _sendEndGameTrs(endGameTrs, token);
+            sendDotaReward(endGameTrs, token);
 
             //returning defaults
             matchData = {

@@ -1,6 +1,6 @@
 import { port } from '../../../REST/config';
 
-export const _sendStartGameTrs = async (tx, token) => {
+export const _sendStartGameTrs = async (data, token) => {
     // console.log(tx);
 
     const response = await fetch(`http://18.188.224.32:${port}/api/games/start`, {
@@ -9,7 +9,7 @@ export const _sendStartGameTrs = async (tx, token) => {
             'Content-Type': 'application/json',
             Authorization: token,
         },
-        body: tx,
+        body: JSON.stringify(data),
     });
 
     console.log('SEND START GAME TX');
@@ -18,14 +18,14 @@ export const _sendStartGameTrs = async (tx, token) => {
     console.log(result);
 };
 
-export const _sendEndGameTrs = async (tx, token) => {
+export const _sendEndGameTrs = async (data, token) => {
     const response = await fetch(`http://18.188.224.32:${port}/api/games/end`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             Authorization: token,
         },
-        body: tx,
+        body: JSON.stringify(data),
     });
 
     console.log('SEND END GAME TX');
