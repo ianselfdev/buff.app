@@ -53,4 +53,9 @@ export const authActions = {
             payload: token,
         };
     },
+    refreshTokensAsync: () => {
+        return {
+            type: types.REFRESH_TOKENS_ASYNC,
+        };
+    },
 };

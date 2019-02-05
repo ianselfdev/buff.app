@@ -1,5 +1,5 @@
-import { getDotaEvents } from './getDotaEvents2';
-import { getLolEvents } from './getLolEvents2';
+import { getDotaEvents } from './getDotaEvents';
+import { getLolEvents } from './getLolEvents';
 import { getFortniteEvents } from './getFortniteEvents';
 
 /*eslint-disable no-undef*/
@@ -13,7 +13,8 @@ const gameLaunched = (gameInfoResult) => {
 };
 
 export const setOverwolfListeners = (token) => {
-    overwolf.games.onGameInfoUpdated.addListener(function(res) {
+    overwolf.games.onGameInfoUpdated.addListener((res) => {
+        // console.log(res.runningChanged);
         let gameTitle = gameLaunched(res);
 
         switch (gameTitle) {
@@ -34,7 +35,7 @@ export const setOverwolfListeners = (token) => {
         }
     });
 
-    overwolf.games.onGameLaunched.addListener(function(res) {
+    overwolf.games.onGameLaunched.addListener((res) => {
         let gameTitle = res.title;
         console.log('onGameLaunched: ', res);
 

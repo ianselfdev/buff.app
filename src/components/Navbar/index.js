@@ -31,11 +31,31 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     logout: authActions.logoutAsync,
+    getUserDataAsync: authActions.getUserDataAsync,
+    refreshTokensAsync: authActions.refreshTokensAsync,
 };
 
 class Navbar extends Component {
     state = {
         opened: false,
+    };
+
+    componentDidMount = () => {
+        const { getUserDataAsync, refreshTokensAsync } = this.props;
+        const token = localStorage.getItem('buff-token');
+
+        //refresh tokens every minute
+        setInterval(refreshTokensAsync, 60000);
+
+        //!__temp hack to update user balance and info permanently
+        setInterval(getUserDataAsync, 5000, token);
+    };
+
+    componentWillUnmount = () => {
+        const { getUserDataAsync, refreshTokensAsync } = this.props;
+
+        clearInterval(refreshTokensAsync);
+        clearInterval(getUserDataAsync);
     };
 
     _handleClick = () => {
