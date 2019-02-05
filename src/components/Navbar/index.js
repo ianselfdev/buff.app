@@ -42,20 +42,20 @@ class Navbar extends Component {
 
     componentDidMount = () => {
         const { getUserDataAsync, refreshTokensAsync } = this.props;
-        const token = localStorage.getItem('buff-token');
 
         //refresh tokens every minute
-        setInterval(refreshTokensAsync, 60000);
+        if (!localStorage.getItem('intervals-set')) {
+            console.log('settting new intervals');
+            setInterval(refreshTokensAsync, 60000);
 
-        //!__temp hack to update user balance and info permanently
-        setInterval(getUserDataAsync, 5000, token);
-    };
+            //!__temp hack to update user balance and info permanently
+            setInterval(() => {
+                let token = localStorage.getItem('buff-token');
+                getUserDataAsync(token);
+            }, 5000);
 
-    componentWillUnmount = () => {
-        const { getUserDataAsync, refreshTokensAsync } = this.props;
-
-        clearInterval(refreshTokensAsync);
-        clearInterval(getUserDataAsync);
+            localStorage.setItem('intervals-set', true);
+        }
     };
 
     _handleClick = () => {

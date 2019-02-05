@@ -11,6 +11,7 @@ import { setOverwolfListeners } from '../components/Tracker/instruments/OWListen
 
 export default class Private extends Component {
     componentDidMount = () => {
+        localStorage.removeItem('intervals-set');
         const token = localStorage.getItem('buff-token');
 
         try {
@@ -20,6 +21,7 @@ export default class Private extends Component {
             return null;
         }
     };
+
     render() {
         return (
             <Switch>

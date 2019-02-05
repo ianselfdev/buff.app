@@ -22,6 +22,6 @@ export function* refreshTokens() {
         yield apply(localStorage, localStorage.setItem, ['buff-token', token]);
         yield apply(localStorage, localStorage.setItem, ['buff-refresh-token', refreshToken]);
     } catch (error) {
-        yield put(uiActions.emitError(error, '-> loginWithToken worker'));
+        yield put(uiActions.emitError(error, '-> refreshToken worker'));
     }
 }
