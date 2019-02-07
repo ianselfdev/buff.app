@@ -10,10 +10,41 @@ export const leaderboardActions = {
         };
     },
 
+    addLeadersFilterParameter: (parametersObj) => {
+        return {
+            type: types.ADD_LEADERS_FILTER_PARAMETER,
+            payload: parametersObj,
+        };
+    },
+
+    removeLeadersFilterParameter: (parameter) => {
+        return {
+            type: types.REMOVE_LEADERS_FILTER_PARAMETER,
+            payload: parameter,
+        };
+    },
+
     //Async
     fetchLeadersDotaAsync: () => {
         return {
             type: types.FETCH_LEADERS_DOTA,
+        };
+    },
+
+    filterLeadersAsync: (parameter, value) => {
+        return {
+            type: types.FILTER_LEADERS_ASYNC,
+            payload: {
+                parameter,
+                value,
+            },
+        };
+    },
+
+    removeLeadersFilterParameterAsync: (parameter) => {
+        return {
+            type: types.REMOVE_LEADERS_FILTER_PARAMETER_ASYNC,
+            payload: parameter,
         };
     },
 };

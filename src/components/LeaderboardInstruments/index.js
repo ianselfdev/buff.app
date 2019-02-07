@@ -6,16 +6,18 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Actions
-// import { marketActions } from '../../bus/market/actions';
+import { leaderboardActions } from '../../bus/app/leaderboard/actions';
 
 //Redux connect
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    removeLeadersFilterParameterAsync: leaderboardActions.removeLeadersFilterParameterAsync,
+    filterLeadersAsync: leaderboardActions.filterLeadersAsync,
+};
 
 class HistoryInstruments extends Component {
     state = {
         byGame: false,
         byPeriod: false,
-        value: 5000,
         selectedGame: 'none',
         selectedPeriod: 'none',
     };
@@ -32,50 +34,32 @@ class HistoryInstruments extends Component {
         }));
     };
 
-    _toggleByType = () => {
-        this.setState((prevState) => ({
-            byType: !prevState.byType,
-        }));
-    };
-
-    _handlePriceChange = (e) => {
-        const { value } = e.target;
-        const { filterMarketItemsAsync } = this.props;
-
-        filterMarketItemsAsync('maxPrice', value || 5000);
-
-        this.setState({
-            value: value || 5000,
-        });
-    };
-
     _handleGameChange = (e) => {
-        let { id } = e.target;
-        // const { removeMarketFilterParameterAsync, filterLeaderboardAsync } = this.props;
-        // if (id === 'none') {
-        //     removeMarketFilterParameterAsync('game');
-        // } else {
-        //     filterLeaderboardAsync('game', id);
-        // }
-
-        console.log(id);
+        const { id } = e.target;
+        const { removeLeadersFilterParameterAsync, filterLeadersAsync } = this.props;
+        if (id === 'none') {
+            removeLeadersFilterParameterAsync('gameId');
+        } else {
+            filterLeadersAsync('gameId', id);
+        }
         this.setState({
             selectedGame: id,
         });
     };
 
     _handlePeriodChange = (e) => {
-        let { id } = e.target;
-        // const { removeMarketFilterParameterAsync, filterLeaderboardAsync } = this.props;
+        const { id } = e.target;
+        console.log(id);
+        // const { removeLeadersFilterParameterAsync,
+        //     filterLeadersAsync } = this.props;
         // if (id === 'none') {
-        //     removeMarketFilterParameterAsync('game');
+        //     removeLeadersFilterParameterAsync('period');
         // } else {
-        //     filterLeaderboardAsync('game', id);
+        //     filterLeadersAsync('period', id);
         // }
 
-        console.log(id);
         this.setState({
-            selectedPeriod: id,
+            period: id,
         });
     };
 
@@ -92,31 +76,31 @@ class HistoryInstruments extends Component {
                             <input
                                 type="radio"
                                 name="byGameFilter"
-                                id="dota"
-                                checked={selectedGame === 'dota'}
+                                id="7314"
+                                checked={selectedGame === '7314'}
                                 onChange={this._handleGameChange}
                             />
-                            <label htmlFor="dota">Dota</label>
+                            <label htmlFor="7314">Dota</label>
                         </div>
                         <div className={Styles.inputsContainer}>
                             <input
                                 type="radio"
                                 name="byGameFilter"
-                                id="lol"
-                                checked={selectedGame === 'lol'}
+                                id="5426"
+                                checked={selectedGame === '5426'}
                                 onChange={this._handleGameChange}
                             />
-                            <label htmlFor="lol">League of Legends</label>
+                            <label htmlFor="5426">League of Legends</label>
                         </div>
                         <div className={Styles.inputsContainer}>
                             <input
                                 type="radio"
                                 name="byGameFilter"
-                                id="fortnite"
-                                checked={selectedGame === 'fortnite'}
+                                id="21216"
+                                checked={selectedGame === '21216'}
                                 onChange={this._handleGameChange}
                             />
-                            <label htmlFor="fortnite">Fortnite</label>
+                            <label htmlFor="21216">Fortnite</label>
                         </div>
                         <div className={Styles.inputsContainer}>
                             <input
@@ -134,7 +118,7 @@ class HistoryInstruments extends Component {
                         <div className={Styles.inputsContainer}>
                             <input
                                 type="radio"
-                                name="byGameFilter"
+                                name="byPeriodFilter"
                                 id="86400000"
                                 checked={selectedPeriod === '86400000'}
                                 onChange={this._handlePeriodChange}
@@ -144,7 +128,7 @@ class HistoryInstruments extends Component {
                         <div className={Styles.inputsContainer}>
                             <input
                                 type="radio"
-                                name="byGameFilter"
+                                name="byPeriodFilter"
                                 id="604800000"
                                 checked={selectedPeriod === '604800000'}
                                 onChange={this._handlePeriodChange}
@@ -154,7 +138,7 @@ class HistoryInstruments extends Component {
                         <div className={Styles.inputsContainer}>
                             <input
                                 type="radio"
-                                name="byGameFilter"
+                                name="byPeriodFilter"
                                 id="2592000000"
                                 checked={selectedPeriod === '2592000000'}
                                 onChange={this._handlePeriodChange}
@@ -164,7 +148,7 @@ class HistoryInstruments extends Component {
                         <div className={Styles.inputsContainer}>
                             <input
                                 type="radio"
-                                name="byGameFilter"
+                                name="byPeriodFilter"
                                 id="none"
                                 checked={selectedPeriod === 'none'}
                                 onChange={this._handlePeriodChange}

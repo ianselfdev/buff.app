@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
-//Instruments
-import { Search } from '@material-ui/icons';
-
 //Components
 import ErrorCatcher from '../ErrorCatcher';
 import HistoryInstruments from '../HistoryInstruments';

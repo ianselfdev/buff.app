@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
-//Instruments
-import { Search } from '@material-ui/icons';
-
 //Components
 import ErrorCatcher from '../ErrorCatcher';
 import LeaderboardInstruments from '../LeaderboardInstruments';
@@ -61,23 +58,11 @@ class Leaderboard extends Component {
                                     Leaderboard
                                 </div>
                             </div>
-                            <div className={Styles.searchContainer}>
-                                {/* searchboxes are rendered according to active tab
-                                and their values are remembered in state, so that user
-                                could see what he was last searching, as the filtration
-                                results are also being saved in redux */}
-                                <input
-                                    type="text"
-                                    name="leaderboardSearch"
-                                    placeholder="Search..."
-                                />
-                                <Search className={Styles.searchIcon} />
-                            </div>
                         </div>
                         <div className={Styles.leaderboardTab}>
                             <TableRow header fields={headerFields} />
                             <div className={Styles.leaderboardData}>
-                                {leaderboard.map((item, index) => (
+                                {leaderboard.get('leaders').map((item, index) => (
                                     <TableRow
                                         fields={[
                                             //toString needs to be used to render without coin image

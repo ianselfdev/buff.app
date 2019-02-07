@@ -71,8 +71,9 @@ export const Api = {
             });
         },
 
-        fetchLeadersDota() {
-            return fetch(`${MAIN_URL}/buff/leaders`);
+        fetchLeadersDota(queries) {
+            const params = queryString.stringify(queries);
+            return fetch(`${MAIN_URL}/buff/leaders?${params}`);
         },
     },
 
