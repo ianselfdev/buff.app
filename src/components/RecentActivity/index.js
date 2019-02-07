@@ -33,7 +33,7 @@ class RecentActivity extends Component {
                 <div className={Styles.titleBox}>Recent Activity</div>
                 <div className={Styles.activitiesContainer}>
                     <div className={Styles.historyData}>
-                        {history.map((item, index) => (
+                        {history.get('history').map((item, index) => (
                             <TableRow
                                 fields={[
                                     { value: 'Play' },

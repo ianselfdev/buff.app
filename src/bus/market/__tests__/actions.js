@@ -48,22 +48,22 @@ Object {
 }
 `);
     });
-    test('addFilterParameter', () => {
-        expect(marketActions.addFilterParameter(market.parametersObj)).toMatchInlineSnapshot(`
+    test('addMarketFilterParameter', () => {
+        expect(marketActions.addMarketFilterParameter(market.parametersObj)).toMatchInlineSnapshot(`
 Object {
   "payload": Object {
     "parameter": "parameter",
     "value": "value",
   },
-  "type": "ADD_FILTER_PARAMETER",
+  "type": "ADD_MARKET_FILTER_PARAMETER",
 }
 `);
     });
-    test('removeFilterParameter', () => {
-        expect(marketActions.removeFilterParameter(market.parameter)).toMatchInlineSnapshot(`
+    test('removeMarketFilterParameter', () => {
+        expect(marketActions.removeMarketFilterParameter(market.parameter)).toMatchInlineSnapshot(`
 Object {
   "payload": "parameter",
-  "type": "REMOVE_FILTER_PARAMETER",
+  "type": "REMOVE_MARKET_FILTER_PARAMETER",
 }
 `);
     });
@@ -98,11 +98,12 @@ Object {
 }
 `);
     });
-    test('removeFilterParameterAsync', () => {
-        expect(marketActions.removeFilterParameterAsync(market.parameter)).toMatchInlineSnapshot(`
+    test('removeMarketFilterParameterAsync', () => {
+        expect(marketActions.removeMarketFilterParameterAsync(market.parameter))
+            .toMatchInlineSnapshot(`
 Object {
   "payload": "parameter",
-  "type": "REMOVE_FILTER_PARAMETER_ASYNC",
+  "type": "REMOVE_MARKET_FILTER_PARAMETER_ASYNC",
 }
 `);
     });

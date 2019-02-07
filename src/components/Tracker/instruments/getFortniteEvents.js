@@ -41,66 +41,66 @@ export const setFortniteFeatures = () => {
     });
 };
 
-const onNewEvents = (data, token) => {
-    const event = data.events[0].name;
-    console.log(event);
+const onNewEvents = (data) => {
+    overwolf.games.getRunningGameInfo((res) => {
+        if (res.title === 'Fortnite Battle Royale') {
+            const event = data.events[0].name;
+            switch (event) {
+                case 'matchStart':
+                    //* return default states
+                    matchData.kills = 0;
+                    matchData.deaths = 0;
+                    matchData.rank = null;
 
-    switch (event) {
-        case 'matchStart':
-            //* return default states
-            matchData.kills = 0;
-            matchData.deaths = 0;
-            matchData.rank = null;
+                    matchId = uuid();
 
-            matchId = uuid();
+                    const startGameData = {
+                        gameId: '21216',
+                        matchId,
+                        // rankedGame: true,
+                    };
 
-            const startGameData = {
-                gameId: '21216',
-                matchId,
-                // rankedGame: true,
-            };
+                    let token = localStorage.getItem('buff-token');
+                    _sendStartGameTrs(startGameData, token);
 
-            _sendStartGameTrs(JSON.stringify(startGameData), token);
+                    break;
 
-            break;
+                case 'kill':
+                    console.log('kill');
+                    matchData.kills++;
+                    break;
 
-        case 'kill':
-            console.log('kill');
-            matchData.kills++;
-            break;
+                case 'death':
+                    console.log('dead');
+                    matchData.deaths++;
+                    break;
 
-        case 'death':
-            console.log('dead');
-            matchData.deaths++;
-            break;
+                case 'matchEnd':
+                    const { kills, deaths, rank } = matchData;
 
-        case 'matchEnd':
-            const { kills, deaths, rank } = matchData;
+                    const endGameData = {
+                        matchData: {
+                            ...matchData,
+                            rankedGame: true,
+                        },
+                        gameId: '21216',
+                        matchId,
+                        victory: true,
+                        reward: ((kills * (100 - Number(rank))) / (Math.max(deaths, 1) * 10)) * 0.1,
+                    };
 
-            const endGameData = {
-                matchData: {
-                    ...matchData,
-                    rankedGame: true,
-                },
-                gameId: '21216',
-                matchId,
-                victory: true,
-                reward: ((kills * (100 - Number(rank))) / (Math.max(deaths, 1) * 10)) * 0.1,
-            };
+                    console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
+                    console.log(`Reward points: ${endGameData.reward}`);
 
-            console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
-            console.log(`Reward points: ${endGameData.reward}`);
+                    token = localStorage.getItem('buff-token');
+                    _sendEndGameTrs(endGameData, token);
+                    break;
 
-            _sendEndGameTrs(JSON.stringify(endGameData), token);
-            break;
-
-        default:
-            return null;
-    }
-};
-
-const onGameInfoUpdated = (data) => {
-    console.log('onGameInfoUpdated');
+                default:
+                    return null;
+            }
+        }
+    });
 };
 
 const onInfoUpdates2 = (data) => {
@@ -117,9 +117,8 @@ const onInfoUpdates2 = (data) => {
 };
 
 //setting listeners for OW events
-export const getFortniteEvents = (token) => {
+export const getFortniteEvents = () => {
     //SETTING LISTENERS
-
     setFortniteFeatures();
 
     //tracking errors
@@ -143,7 +142,7 @@ export const getFortniteEvents = (token) => {
     //listening to game info updates
     if (!listeners.onGameInfoUpdated) {
         overwolf.games.onGameInfoUpdated.addListener((data) => {
-            onGameInfoUpdated(data);
+            // onGameInfoUpdated(data);
         });
 
         listeners.onGameInfoUpdated = true;
@@ -154,7 +153,7 @@ export const getFortniteEvents = (token) => {
     //listening to in-game events
     if (!listeners.onNewEvents) {
         overwolf.games.events.onNewEvents.addListener((data) => {
-            onNewEvents(data, token);
+            onNewEvents(data);
         });
 
         listeners.onNewEvents = true;

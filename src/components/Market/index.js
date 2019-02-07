@@ -28,7 +28,7 @@ const mapDispatchToProps = {
     fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
     filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
     filterUserItemsAsync: marketActions.filterUserItemsAsync,
-    removeFilterParameterAsync: marketActions.removeFilterParameterAsync,
+    removeMarketFilterParameterAsync: marketActions.removeMarketFilterParameterAsync,
 };
 
 class Market extends Component {
@@ -62,11 +62,11 @@ class Market extends Component {
     //handling searchboxes changes
     _handleChange = (e) => {
         const { value, name } = e.target;
-        const { removeFilterParameterAsync } = this.props;
+        const { removeMarketFilterParameterAsync } = this.props;
 
         //check when user clears search field
         if (value.length === 0) {
-            removeFilterParameterAsync('name');
+            removeMarketFilterParameterAsync('name');
         }
 
         this.setState({

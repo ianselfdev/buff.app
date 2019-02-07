@@ -12,7 +12,7 @@ import { marketActions } from '../../bus/market/actions';
 const mapDispatchToProps = {
     filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
     filterUserItemsAsync: marketActions.filterUserItemsAsync,
-    removeFilterParameterAsync: marketActions.removeFilterParameterAsync,
+    removeMarketFilterParameterAsync: marketActions.removeMarketFilterParameterAsync,
 };
 
 class MarketInstruments extends Component {
@@ -58,10 +58,10 @@ class MarketInstruments extends Component {
         const {
             filterMarketItemsAsync,
             filterUserItemsAsync,
-            removeFilterParameterAsync,
+            removeMarketFilterParameterAsync,
         } = this.props;
         if (id === 'none') {
-            removeFilterParameterAsync('game');
+            removeMarketFilterParameterAsync('game');
         } else {
             filterMarketItemsAsync('game', id);
             filterUserItemsAsync('game', id);

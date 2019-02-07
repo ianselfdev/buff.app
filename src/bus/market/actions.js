@@ -22,16 +22,16 @@ export const marketActions = {
             payload: code,
         };
     },
-    addFilterParameter: (parametersObj) => {
+    addMarketFilterParameter: (parametersObj) => {
         return {
-            type: types.ADD_FILTER_PARAMETER,
+            type: types.ADD_MARKET_FILTER_PARAMETER,
             payload: parametersObj,
         };
     },
 
-    removeFilterParameter: (parameter) => {
+    removeMarketFilterParameter: (parameter) => {
         return {
-            type: types.REMOVE_FILTER_PARAMETER,
+            type: types.REMOVE_MARKET_FILTER_PARAMETER,
             payload: parameter,
         };
     },
@@ -83,9 +83,9 @@ export const marketActions = {
         };
     },
 
-    removeFilterParameterAsync: (parameter) => {
+    removeMarketFilterParameterAsync: (parameter) => {
         return {
-            type: types.REMOVE_FILTER_PARAMETER_ASYNC,
+            type: types.REMOVE_MARKET_FILTER_PARAMETER_ASYNC,
             payload: parameter,
         };
     },

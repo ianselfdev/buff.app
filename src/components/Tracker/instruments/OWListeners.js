@@ -12,22 +12,22 @@ const gameLaunched = (gameInfoResult) => {
     return undefined;
 };
 
-export const setOverwolfListeners = (token) => {
+export const setOverwolfListeners = () => {
     overwolf.games.onGameInfoUpdated.addListener((res) => {
         // console.log(res.runningChanged);
         let gameTitle = gameLaunched(res);
 
         switch (gameTitle) {
             case 'Dota 2':
-                getDotaEvents(token);
+                getDotaEvents();
                 break;
 
             case 'League of Legends':
-                getLolEvents(token);
+                getLolEvents();
                 break;
 
             case 'Fortnite Battle Royale':
-                getFortniteEvents(token);
+                getFortniteEvents();
                 break;
 
             default:
@@ -41,18 +41,18 @@ export const setOverwolfListeners = (token) => {
 
         switch (gameTitle) {
             case 'Dota 2':
-                getDotaEvents(token);
+                getDotaEvents();
                 console.log('Dota 2 launched');
                 break;
 
             case 'League of Legends':
-                getLolEvents(token);
+                getLolEvents();
                 console.log('LoL launched');
                 break;
 
             case 'Fortnite Battle Royale':
                 console.log('Fortnite launched');
-                getFortniteEvents(token);
+                getFortniteEvents();
                 break;
 
             default:

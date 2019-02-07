@@ -34,7 +34,7 @@ function* watchFilterUserItems() {
     yield takeEvery(types.FILTER_USER_ITEMS_ASYNC, filterUserItems);
 }
 function* watchRemoveFilter() {
-    yield takeEvery(types.REMOVE_FILTER_PARAMETER_ASYNC, removeFilter);
+    yield takeEvery(types.REMOVE_MARKET_FILTER_PARAMETER_ASYNC, removeFilter);
 }
 
 export function* watchMarket() {

@@ -11,7 +11,7 @@ export function* filterMarketItems({ payload }) {
     try {
         // yield put(uiActions.startFetching());
 
-        yield put(marketActions.addFilterParameter(payload));
+        yield put(marketActions.addMarketFilterParameter(payload));
         const filters = yield select(getFilters);
 
         const response = yield apply(Api, Api.market.filterItems, [filters]);

@@ -58,19 +58,11 @@ class History extends Component {
                                     Recent activity
                                 </div>
                             </div>
-                            <div className={Styles.searchContainer}>
-                                {/* searchboxes are rendered according to active tab
-                                    and their values are remembered in state, so that user
-                                    could see what he was last searching, as the filtration
-                                    results are also being saved in redux */}
-                                <input type="text" name="historySearch" placeholder="Search..." />
-                                <Search className={Styles.searchIcon} />
-                            </div>
                         </div>
                         <div className={Styles.historyTab}>
                             <TableRow header fields={headerFields} />
                             <div className={Styles.historyData}>
-                                {history.map((item, index) => (
+                                {history.get('history').map((item, index) => (
                                     <TableRow
                                         fields={[
                                             { value: 'Play' },

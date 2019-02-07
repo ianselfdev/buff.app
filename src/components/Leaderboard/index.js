@@ -10,7 +10,7 @@ import { Search } from '@material-ui/icons';
 
 //Components
 import ErrorCatcher from '../ErrorCatcher';
-import HistoryInstruments from '../HistoryInstruments';
+import LeaderboardInstruments from '../LeaderboardInstruments';
 import TableRow from '../TableRow';
 
 //Actions
@@ -18,7 +18,7 @@ import { leaderboardActions } from '../../bus/app/leaderboard/actions';
 
 const headerFields = [
     {
-        name: 'Name',
+        name: 'Rank',
     },
     {
         name: 'Period',
@@ -58,7 +58,7 @@ class Leaderboard extends Component {
                         <div className={Styles.controlsContainer}>
                             <div className={Styles.tabsContainer}>
                                 <div id="recent" className={`${Styles.tabs} ${Styles.active}`}>
-                                    Recent activity
+                                    Leaderboard
                                 </div>
                             </div>
                             <div className={Styles.searchContainer}>
@@ -80,14 +80,14 @@ class Leaderboard extends Component {
                                 {leaderboard.map((item, index) => (
                                     <TableRow
                                         fields={[
-                                            { value: 'Dota 2' },
+                                            //toString needs to be used to render without coin image
+                                            { value: (index + 1).toString() },
                                             {
                                                 value: 'Past week',
                                             },
                                             {
                                                 value: item.get('login'),
                                             },
-                                            //toString needs to be used to render without coin image
                                             { value: item.get('wins').toString() },
                                             { value: Number(item.get('amount')) },
                                         ]}
@@ -97,7 +97,7 @@ class Leaderboard extends Component {
                             </div>
                         </div>
                     </div>
-                    <HistoryInstruments />
+                    <LeaderboardInstruments />
                 </div>
             </ErrorCatcher>
         );

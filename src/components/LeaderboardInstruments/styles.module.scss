@@ -1,0 +1,148 @@
+@import '../../theme/palette.scss';
+
+.container {
+    width: 24%;
+
+    & .filtersContainer {
+        background: $primaryGrey;
+        border-radius: 5px;
+
+        & div {
+            &:first-of-type {
+                border-radius: 5px 5px 0 0;
+            }
+            &:last-of-type {
+                border-radius: 0 0 5px 5px;
+            }
+        }
+
+        & .title {
+            width: 100%;
+            padding: 0 1rem;
+            height: 2.5rem;
+            font-size: 0.8rem;
+            line-height: 2.5rem;
+            color: $primaryGreen;
+            background: $secondaryGrey;
+        }
+
+        & .filter {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            cursor: pointer;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+
+            width: 100%;
+            padding: 0 1rem;
+            height: 2.5rem;
+            font-size: 0.8rem;
+            line-height: 2.5rem;
+            color: $lightGrey;
+
+            & p {
+                display: flex;
+                justify-content: space-between;
+
+                &::after {
+                    content: '▼';
+                    color: $lightGrey;
+                }
+            }
+
+            & .inputsContainer {
+                display: none;
+                opacity: 0;
+            }
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+
+            &.active {
+                height: auto;
+
+                & p {
+                    display: flex;
+                    justify-content: space-between;
+
+                    &::after {
+                        content: '▼';
+                        color: $lightGrey;
+                        transform: rotate(180deg);
+                    }
+                }
+
+                & .inputsContainer {
+                    display: block;
+                    opacity: 1;
+
+                    & label {
+                        font-size: 1rem;
+                        color: $secondaryGreen;
+                        display: inline-block;
+                        line-height: 1rem;
+                    }
+
+                    & input[type='radio'] {
+                        width: 5%;
+                        cursor: pointer;
+                        transition: all 0.3s;
+                        display: inline-block;
+                        margin: 0.5rem;
+                        background: #000;
+                    }
+
+                    & input[type='text'] {
+                        background: none;
+                        border: 1px solid $secondaryGreen;
+                        border-radius: 5px;
+                        padding: 0.3rem 0;
+                        color: $secondaryGreen;
+                        font-size: 1rem;
+                        width: 20%;
+                        text-align: center;
+                        margin: 0 5.6rem;
+                    }
+
+                    & input[type='range'] {
+                        -webkit-appearance: none;
+                        background: transparent;
+                        width: 100%;
+                        padding: 0 1rem;
+
+                        &::-webkit-slider-thumb {
+                            cursor: pointer;
+                            border-radius: 360px;
+                            background: $secondaryGreen;
+                            border: 1px solid $lightGrey;
+                            -webkit-appearance: none;
+                            width: 1rem;
+                            height: 1rem;
+                            margin-top: -0.45rem;
+                        }
+
+                        &::-webkit-slider-runnable-track {
+                            height: 2px;
+                            background: $secondaryGreen;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & .adContainer {
+        height: 20rem;
+        width: 100%;
+
+        margin: 2rem auto;
+
+        background-image: url('../../theme/assets/banner.jpg');
+        background-position: center;
+        background-size: cover;
+        border-radius: 5px;
+    }
+}

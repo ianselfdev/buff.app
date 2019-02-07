@@ -17,7 +17,7 @@ export function* getUserData({ payload: token }) {
         const data = yield apply(response, response.json);
 
         if (response.status === 401) {
-            // yield put(authActions.logoutAsync());
+            yield put(authActions.logoutAsync());
             throw new Error(data.error);
         }
 

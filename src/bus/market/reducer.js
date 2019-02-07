@@ -22,11 +22,11 @@ export const marketReducer = (state = initialState, action) => {
         case types.FILL_GIFT_CODE:
             return state.update('giftCode', () => action.payload);
 
-        case types.ADD_FILTER_PARAMETER:
+        case types.ADD_MARKET_FILTER_PARAMETER:
             return state.update('filters', () =>
                 state.get('filters').update(action.payload.parameter, () => action.payload.value),
             );
-        case types.REMOVE_FILTER_PARAMETER:
+        case types.REMOVE_MARKET_FILTER_PARAMETER:
             return state.update('filters', () => state.get('filters').delete(action.payload));
 
         default:

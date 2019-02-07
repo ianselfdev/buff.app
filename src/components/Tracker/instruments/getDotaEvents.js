@@ -1,11 +1,6 @@
 import { _sendStartGameTrs } from './gamestats';
 import { sendDotaReward } from './rewardCounters';
 
-//Actions
-import { authActions } from '../../../bus/auth/actions';
-
-const token = localStorage.getItem('buff-token');
-
 /*eslint-disable no-undef*/
 
 const listeners = {
@@ -58,16 +53,18 @@ export const setDotaFeatures = () => {
     });
 };
 
-const onNewEvents = (data, token) => {
-    // getting and parsing data from OW
-    const eventName = data.events[0].name;
-    const info = JSON.parse(data.events[0].data);
+const onNewEvents = (data) => {
+    overwolf.games.getRunningGameInfo((res) => {
+        if (res.title === 'Dota 2') {
+            // getting and parsing data from OW
+            const eventName = data.events[0].name;
+            const info = JSON.parse(data.events[0].data);
 
-    switch (eventName) {
-        case 'game_state_changed':
-            console.log('Game state changed');
-            console.log(info);
-            /* shape
+            switch (eventName) {
+                case 'game_state_changed':
+                    console.log('Game state changed');
+                    console.log(info);
+                    /* shape
             {
                 game_state: "playing"
                 match_id: "4385208972"
@@ -76,106 +73,107 @@ const onNewEvents = (data, token) => {
                 player_team: "radiant"
             }
             */
-            matchData = {
-                ...matchData,
-                matchId: info.match_id,
-                playerTeam: info.player_team,
-            };
-
-            console.log('Match id set to: ', matchData.matchId);
-            console.log('Player team: ', matchData.playerTeam);
-            break;
-
-        //checking when match actually starts
-        case 'match_state_changed':
-            switch (info.match_state) {
-                case 'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS':
-                    console.log('%cSending startGame transaction', 'color:green');
-
-                    //Dota2 gameId in OW === 7314
-                    const startGameTrs = {
-                        gameId: '7314',
-                        matchId: matchData.matchId,
+                    matchData = {
+                        ...matchData,
+                        matchId: info.match_id,
+                        playerTeam: info.player_team,
                     };
 
-                    _sendStartGameTrs(startGameTrs, token);
+                    console.log('Match id set to: ', matchData.matchId);
+                    console.log('Player team: ', matchData.playerTeam);
+                    break;
+
+                //checking when match actually starts
+                case 'match_state_changed':
+                    switch (info.match_state) {
+                        case 'DOTA_GAMERULES_STATE_GAME_IN_PROGRESS':
+                            console.log('%cSending startGame transaction', 'color:green');
+
+                            //Dota2 gameId in OW === 7314
+                            const startGameTrs = {
+                                gameId: '7314',
+                                matchId: matchData.matchId,
+                            };
+
+                            // let runningGame = overwolf.games.getRunningGameInfo((data) => data.title)
+                            let token = localStorage.getItem('buff-token');
+                            _sendStartGameTrs(startGameTrs, token);
+                            break;
+
+                        default:
+                            return null;
+                    }
+
+                    break;
+
+                case 'kill':
+                    matchData.kills++;
+                    break;
+                case 'assist':
+                    matchData.assists++;
+                    break;
+                case 'xpm':
+                    matchData.xpm++;
+                    break;
+                case 'gpm':
+                    matchData.gpm++;
+                    break;
+
+                case 'death':
+                    matchData.deaths++;
+                    break;
+
+                case 'cs':
+                    matchData = {
+                        ...matchData,
+                        lastHits: info.last_hits,
+                        denies: info.denies,
+                    };
+                    break;
+
+                case 'match_ended':
+                    matchData = {
+                        ...matchData,
+                        kda: (matchData.kills + matchData.asssists) / (matchData.deaths || 1),
+                        victory: matchData.playerTeam === info.winner,
+                    };
+
+                    console.log('%cGame end', 'color: orange');
+                    //Dota2 gameId === 7314
+                    const endGameTrs = {
+                        matchId: matchData.matchId,
+                        gameId: '7314',
+                        reward: 1,
+                        victory: matchData.victory,
+                        matchData,
+                    };
+
+                    // _sendEndGameTrs(endGameTrs, token);
+                    let token = localStorage.getItem('buff-token');
+                    sendDotaReward(endGameTrs, token);
+
+                    //returning defaults
+                    matchData = {
+                        kills: 0,
+                        deaths: 0,
+                        asssists: 0,
+                        kda: 0,
+                        xpm: 0,
+                        gpm: 0,
+                        lastHits: 0,
+                        denies: 0,
+                        matchId: 0,
+                        playerTeam: null,
+                        victory: false,
+                    };
+
                     break;
 
                 default:
                     return null;
             }
-
-            break;
-
-        case 'kill':
-            matchData.kills++;
-            break;
-        case 'assist':
-            matchData.assists++;
-            break;
-        case 'xpm':
-            matchData.xpm++;
-            break;
-        case 'gpm':
-            matchData.gpm++;
-            break;
-
-        case 'death':
-            matchData.deaths++;
-            break;
-
-        case 'cs':
-            matchData = {
-                ...matchData,
-                lastHits: info.last_hits,
-                denies: info.denies,
-            };
-            break;
-
-        case 'match_ended':
-            matchData = {
-                ...matchData,
-                kda: (matchData.kills + matchData.asssists) / (matchData.deaths || 1),
-                victory: matchData.playerTeam === info.winner,
-            };
-
-            console.log('%cGame end', 'color: orange');
-            //Dota2 gameId === 7314
-            const endGameTrs = {
-                matchId: matchData.matchId,
-                gameId: '7314',
-                reward: 1,
-                victory: matchData.victory,
-                matchData,
-            };
-
-            // _sendEndGameTrs(endGameTrs, token);
-            sendDotaReward(endGameTrs, token);
-
-            console.log('getting user data');
-            authActions.getUserDataAsync(token);
-            console.log('got user data');
-
-            //returning defaults
-            matchData = {
-                kills: 0,
-                deaths: 0,
-                asssists: 0,
-                kda: 0,
-                xpm: 0,
-                gpm: 0,
-                lastHits: 0,
-                denies: 0,
-                matchId: 0,
-                playerTeam: null,
-                victory: false,
-            };
-
-            break;
-
-        default:
-            return null;
-    }
+        }
+    });
 };
 
 const onGameInfoUpdated = (data) => {
@@ -193,6 +191,7 @@ const onInfoUpdates2 = (data) => {
                 matchData.matchId = '0';
                 console.log('%cBots match detected', 'color:red');
             }
+            return null;
         });
     } catch (error) {
         return null;
@@ -200,9 +199,8 @@ const onInfoUpdates2 = (data) => {
 };
 
 //setting listeners for OW events
-export const getDotaEvents = (token) => {
+export const getDotaEvents = () => {
     //SETTING LISTENERS
-
     setDotaFeatures();
 
     //tracking errors
@@ -237,7 +235,7 @@ export const getDotaEvents = (token) => {
     //listening to in-game events
     if (!listeners.onNewEvents) {
         overwolf.games.events.onNewEvents.addListener((data) => {
-            onNewEvents(data, token);
+            onNewEvents(data);
         });
 
         listeners.onNewEvents = true;

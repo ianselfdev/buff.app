@@ -61,8 +61,9 @@ export const Api = {
             return fetch(`${MAIN_URL}/buff/tournaments?page=1&limit=100`);
         },
 
-        fetchHistory() {
-            return fetch(`${MAIN_URL}/games/history?page=1&limit=100`, {
+        fetchHistory(queries) {
+            const params = queryString.stringify(queries);
+            return fetch(`${MAIN_URL}/games/history?page=1&limit=100&${params}`, {
                 method: 'GET',
                 headers: {
                     Authorization: this.token,

@@ -24,6 +24,10 @@
             margin-left: 0.5rem;
         }
     }
+
+    &:first-of-type {
+        width: 10%;
+    }
 }
 
 .headerRow {
@@ -32,6 +36,7 @@
     min-height: 2rem;
     justify-content: space-around;
     background: #202020;
+    padding-left: 3rem;
 }
 
 .tableRow {
@@ -40,6 +45,7 @@
     min-height: 3rem;
     justify-content: space-around;
     background: #202020;
+    padding-left: 3rem;
 }
 
 .tableCell {
@@ -63,5 +69,9 @@
 
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    &:first-of-type {
+        width: 10%;
     }
 }
