@@ -89,6 +89,7 @@ const onInfoUpdates2 = (data) => {
                             matchId: matchData.matchId,
                         };
 
+                        console.log(startGameTrs);
                         let token = localStorage.getItem('buff-token');
                         _sendStartGameTrs(startGameTrs, token);
                     } else {

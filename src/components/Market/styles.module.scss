@@ -91,6 +91,7 @@
             border: 1px solid $secondaryGrey;
             border-radius: 0 0 5px 5px;
             display: flex;
+            justify-content: space-evenly;
             flex-wrap: wrap;
             overflow-y: scroll;
             overflow-x: hidden;

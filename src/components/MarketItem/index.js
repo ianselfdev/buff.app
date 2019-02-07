@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
+//Instruments
+import coin from '../../theme/assets/coin.png';
+
 //Components
 import Buy from '../_popups/market/Buy';
 import Success from '../_popups/market/Success';
@@ -37,41 +40,36 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const {
-            shortDescription,
-            price,
-            name,
-            amount,
-            errorLabel,
-            successLabel,
-            errorMessage,
-            img,
-        } = this.props;
+        const { price, name, errorLabel, successLabel, errorMessage, img } = this.props;
 
         return (
             <Fragment>
                 <div className={Styles.container}>
-                    <div className={Styles.titleContainer} onClick={this._openModal}>
-                        <p className={Styles.title}> {name} </p>
-                        <p className={Styles.category}>{shortDescription}</p>
-                    </div>
-                    <img
-                        onClick={this._openModal}
-                        src={
-                            img ||
-                            'https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg'
-                        }
-                        alt="img"
-                    />
-                    <div className={Styles.label}>{amount} left</div>
                     <div className={Styles.priceContainer}>
-                        <p>{price}</p>
                         <img
+                            className={Styles.gameLogo}
                             src="https://1000logos.net/wp-content/uploads/2017/12/CSGO-Logo.png"
                             alt="logo"
                         />
+                        <p>
+                            <img src={coin} alt="coin" />
+                            {price}
+                        </p>
                     </div>
-                    <button onClick={this._openModal}>REDEEM</button>
+                    <div
+                        className={Styles.infoContainer}
+                        style={{
+                            backgroundImage: `url(${img ||
+                                'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
+                        }}
+                    >
+                        <div className={Styles.label}>label</div>
+                        <div className={Styles.info}>
+                            <p>{name}</p>
+                            <p>{'Line 2 Category'}</p>
+                            <button onClick={this._openModal}>REDEEM</button>
+                        </div>
+                    </div>
                 </div>
                 {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
                 {errorLabel && <Error message={errorMessage} />}
