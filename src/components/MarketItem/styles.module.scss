@@ -52,15 +52,26 @@
         background-size: cover;
         background-position: center;
         height: 85%;
+        min-height: 230px;
         border-radius: 0 0 5px 5px;
 
         & .label {
             background: $secondaryGreen;
-            clip-path: polygon(100% 0, 65% 0, 100% 100%);
+            clip-path: polygon(100% 0, 60% 0, 100% 100%);
             width: 100%;
             height: 35%;
+            min-height: 85px;
             text-align: right;
-            padding: 0.5rem;
+            padding: 0.5rem 0.2rem;
+
+            & .labelTitle {
+                font-size: 0.7rem;
+            }
+
+            & .timer {
+                font-size: 0.9rem;
+                padding: 0.2rem;
+            }
         }
 
         & .info {
@@ -74,7 +85,7 @@
             background-image: linear-gradient(transparent, black 80%);
             border-radius: 0 0 5px 5px;
 
-            & p {
+            & .itemName {
                 text-align: center;
 
                 &:last-of-type {
@@ -88,7 +99,7 @@
                 }
             }
 
-            & button {
+            & .actionButton {
                 cursor: pointer;
                 width: 45%;
                 border: 1px solid #fff;

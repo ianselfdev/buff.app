@@ -32,22 +32,13 @@
             width: 25%;
             filter: invert(1);
             min-height: 0;
-        }
-
-        & p {
-            font-size: 1.3rem;
-
-            &::before {
-                content: '₿';
-                color: $primaryGreen;
-                filter: brightness(85%);
-            }
+            margin: 0 auto;
         }
     }
 
     & .infoContainer {
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         justify-content: space-between;
 
         background-size: cover;
@@ -75,7 +66,7 @@
             background-image: linear-gradient(transparent, black 80%);
             border-radius: 0 0 5px 5px;
 
-            & p {
+            & .itemName {
                 text-align: center;
 
                 &:last-of-type {
@@ -89,7 +80,7 @@
                 }
             }
 
-            & button {
+            & .actionButton {
                 cursor: pointer;
                 width: 45%;
                 border: 1px solid #fff;

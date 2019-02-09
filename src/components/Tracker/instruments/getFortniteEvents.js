@@ -45,6 +45,7 @@ const onNewEvents = (data) => {
     overwolf.games.getRunningGameInfo((res) => {
         if (res.title === 'Fortnite Battle Royale') {
             const event = data.events[0].name;
+            console.log('event name: ', event);
             switch (event) {
                 case 'matchStart':
                     //* return default states
@@ -76,6 +77,9 @@ const onNewEvents = (data) => {
                     break;
 
                 case 'matchEnd':
+                    overwolf.games.events.getInfo((res) => {
+                        console.log('getInfo: ', res);
+                    });
                     const { kills, deaths, rank } = matchData;
 
                     const endGameData = {
@@ -105,6 +109,7 @@ const onNewEvents = (data) => {
 
 const onInfoUpdates2 = (data) => {
     const feature = data.feature;
+    console.log('onInfoUpdates2: ', data);
 
     switch (feature) {
         case 'rank':

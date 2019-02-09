@@ -50,7 +50,6 @@ class UserItem extends Component {
                             src="https://1000logos.net/wp-content/uploads/2017/12/CSGO-Logo.png"
                             alt="logo"
                         />
-                        {/* <p>{price}</p> */}
                     </div>
                     <div
                         className={Styles.infoContainer}
@@ -59,11 +58,12 @@ class UserItem extends Component {
                                 'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
                         }}
                     >
-                        <div className={Styles.label}>label</div>
                         <div className={Styles.info}>
-                            <p>{name}</p>
-                            <p>{'Line 2 Category'}</p>
-                            <button onClick={this._openModal}>ACTIVATE</button>
+                            <p className={Styles.itemName}>{name}</p>
+                            <p className={Styles.itemName}>{'Line 2 Category'}</p>
+                            <button className={Styles.actionButton} onClick={this._openModal}>
+                                ACTIVATE
+                            </button>
                         </div>
                     </div>
                 </div>

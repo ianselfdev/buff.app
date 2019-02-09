@@ -20,115 +20,113 @@
         background: $primaryGrey;
         border: 2px solid $secondaryGreen;
         border-radius: 5px;
+        box-shadow: 0px 0px 100px 0px $secondaryGreen;
 
         //? box shadow
         animation: animateShadow 3000ms infinite;
         animation: appear 800ms;
 
-        & .title {
-            height: 4rem;
-            line-height: 4rem;
-            font-size: 1.8rem;
-            color: $secondaryGreen;
-            padding: 0 2rem;
-        }
-
-        & img {
-            width: 100%;
-            height: 40%;
-        }
-
-        & .description {
-            font-size: 1rem;
-            line-height: 1.5rem;
-            width: 90%;
-            height: 9rem;
-            margin: 0.3rem auto;
-            overflow-y: scroll;
-        }
-
-        & .numbersContainer {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-            height: 4rem;
-            border-top: 1px solid $secondaryGrey;
-            margin: 0.2rem 0;
-
-            & .price {
-                width: 50%;
-                height: 3rem;
-                line-height: 3rem;
-                font-size: 1.5rem;
-                padding: 0 3rem;
-                font-weight: 700;
-
-                &::before {
-                    content: '₿';
-                    font-size: 1.5rem;
-                    color: $primaryGreen;
-                    font-weight: 100;
-                }
-            }
-
-            & .amount {
-                width: 50%;
-                height: 3rem;
-                line-height: 3rem;
-                font-size: 1.5rem;
-                padding: 0 3rem;
-                color: $lightGrey;
-            }
-        }
-
-        & .buttonContainer {
+        & .priceContainer {
             display: flex;
             justify-content: space-between;
-            width: 85%;
-            height: 3rem;
-            margin: 1rem auto;
+            align-items: center;
+            padding: 0.5rem 10%;
 
-            & div {
-                height: 2.5rem;
-                line-height: 2.5rem;
-                font-size: 1rem;
-                border-radius: 5px;
-                text-align: center;
-                cursor: pointer;
+            height: 10%;
+            background: $secondaryGrey;
+            border-radius: 5px 5px 0 0;
+
+            & .gameLogo {
+                margin-top: -0.3rem;
+                width: 25%;
+                filter: invert(1);
             }
 
-            & .closeButton {
-                border: 1px solid $lightGrey;
-                color: $lightGrey;
-                width: 30%;
+            & p {
+                font-size: 1.5rem;
 
-                &:hover {
-                    filter: brightness(120%);
-                }
-            }
-
-            & .buyButton {
-                width: 60%;
-                background: $secondaryGreen;
-
-                &:hover {
-                    background: $primaryGreen;
+                & img {
+                    height: 1rem;
+                    margin-right: 0.2rem;
                 }
             }
         }
-    }
-}
 
-@keyframes animateShadow {
-    0% {
-        box-shadow: 0px 0px 80px 0px $secondaryGreen;
-    }
-    50% {
-        box-shadow: 0px 0px 100px 0px $secondaryGreen;
-    }
-    100% {
-        box-shadow: 0px 0px 80px 0px $secondaryGreen;
+        & .infoContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            background-size: cover;
+            background-position: center;
+            height: 90%;
+            min-height: 230px;
+            border-radius: 0 0 5px 5px;
+
+            & .label {
+                background: $secondaryGreen;
+                clip-path: polygon(100% 0, 70% 0, 100% 100%);
+                width: 100%;
+                height: 25%;
+                min-height: 85px;
+                text-align: right;
+                padding: 1rem 0.2rem;
+
+                & .labelTitle {
+                    font-size: 1rem;
+                }
+
+                & .timer {
+                    font-size: 1.2rem;
+                    padding: 0.3rem;
+                }
+            }
+
+            & .info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+
+                height: 50%;
+                padding: 4rem 0 0.5rem;
+                background-image: linear-gradient(transparent, black 80%);
+                border-radius: 0 0 5px 5px;
+
+                & .itemName {
+                    text-align: center;
+                    font-size: 1.5rem;
+
+                    &:last-of-type {
+                        width: 80%;
+                        max-height: 4rem;
+                        margin: 0.2rem 0 0.4rem;
+                        text-overflow: ellipsis;
+                        white-space: wrap;
+                        overflow: hidden;
+                        font-size: 0.8rem;
+                        overflow-y: scroll;
+                    }
+                }
+
+                & .actionButton {
+                    cursor: pointer;
+                    width: 45%;
+                    border: 1px solid #fff;
+                    background: transparent;
+                    color: #fff;
+                    height: 1.8rem;
+                    border-radius: 5px;
+                    font-weight: 600;
+                    font-size: 0.8rem;
+
+                    &:hover {
+                        border: 1px solid $secondaryGreen;
+                        background: $secondaryGreen;
+                    }
+                }
+            }
+        }
     }
 }
 

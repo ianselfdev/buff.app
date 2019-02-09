@@ -71,13 +71,13 @@ const onInfoUpdates2 = (data) => {
                 case 'matchState':
                     console.log('matchState: ', info);
                     overwolf.games.events.getInfo((data) => {
-                        // console.log('getInfo: ', data);
-                        matchData = {
-                            ...matchData,
-                            matchId:
-                                matchData.gameMode === 'ranked' ? data.res.game_info.matchId : '0',
-                            accountId: data.res.summoner_info.accountId,
-                        };
+                        console.log('getInfo: ', data);
+                        // matchData = {
+                        //     ...matchData,
+                        //     matchId:
+                        //         matchData.gameMode === 'ranked' ? data.res.game_info.matchId : '0',
+                        //     accountId: data.res.summoner_info.accountId,
+                        // };
                     });
                     if (info.matchStarted) {
                         //* start game transaction

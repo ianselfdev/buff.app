@@ -56,7 +56,7 @@ class Activation extends Component {
 
         return (
             <Fragment>
-                <div className={Styles.bg}>
+                {/* <div className={Styles.bg}>
                     <div className={Styles.container}>
                         <p className={Styles.title}>{name}</p>
                         <img
@@ -100,7 +100,36 @@ class Activation extends Component {
                         closeModal={this._closeModal}
                         type="giftCard"
                     />
-                )}
+                )} */}
+                <div className={Styles.bg} onClick={closeModal} id="closeModal">
+                    <div className={Styles.container}>
+                        <div className={Styles.priceContainer}>
+                            <img
+                                className={Styles.gameLogo}
+                                src="https://1000logos.net/wp-content/uploads/2017/12/CSGO-Logo.png"
+                                alt="logo"
+                            />
+                        </div>
+                        <div
+                            className={Styles.infoContainer}
+                            style={{
+                                backgroundImage: `url(${img ||
+                                    'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
+                            }}
+                        >
+                            <div className={Styles.info}>
+                                <p className={Styles.itemName}>{name}</p>
+                                <p className={Styles.itemName}>{description}</p>
+                                <button
+                                    className={Styles.actionButton}
+                                    onClick={this._handleBuyItem}
+                                >
+                                    REDEEM
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </Fragment>
         );
     }

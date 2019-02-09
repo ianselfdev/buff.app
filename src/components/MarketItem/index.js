@@ -32,19 +32,23 @@ class MarketItem extends Component {
         });
     };
 
-    _closeModal = () => {
-        this.setState({
-            showModal: false,
-        });
+    _closeModal = (e) => {
+        if (e.target.id === 'closeModal') {
+            this.setState({
+                showModal: false,
+            });
+        }
     };
 
     render() {
         const { showModal } = this.state;
-        const { price, name, errorLabel, successLabel, errorMessage, img } = this.props;
+        const { price, name, errorLabel, successLabel, errorMessage, img, expire } = this.props;
+
+        const expiresIn = (Math.abs(new Date(expire).getTime() - new Date()) / 1000 / 60).toFixed();
 
         return (
             <Fragment>
-                <div className={Styles.container}>
+                <div className={Styles.container} onClick={this._openModal}>
                     <div className={Styles.priceContainer}>
                         <img
                             className={Styles.gameLogo}
@@ -63,11 +67,22 @@ class MarketItem extends Component {
                                 'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
                         }}
                     >
-                        <div className={Styles.label}>label</div>
+                        <div className={Styles.label}>
+                            <p className={Styles.labelTitle}>Expires in:</p>
+                            {/* getting hours and minutes calculated and rendered in the XX:XX format */}
+                            <p className={Styles.timer}>{`${(expiresIn / 60)
+                                .toFixed()
+                                .toString()
+                                .padStart(2, '0')}:${(expiresIn % 60)
+                                .toString()
+                                .padStart(2, '0')}`}</p>
+                        </div>
                         <div className={Styles.info}>
-                            <p>{name}</p>
-                            <p>{'Line 2 Category'}</p>
-                            <button onClick={this._openModal}>REDEEM</button>
+                            <p className={Styles.itemName}>{name}</p>
+                            <p className={Styles.itemName}>{'Line 2 Category'}</p>
+                            <button className={Styles.actionButton} onClick={this._openModal}>
+                                REDEEM
+                            </button>
                         </div>
                     </div>
                 </div>

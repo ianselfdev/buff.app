@@ -54,7 +54,7 @@ class MarketRecomendations extends Component {
                                 />
                             ))
                     ) : (
-                        <p>No recomendations for you now :(</p>
+                        <p className={Styles.noRecomendations}>No recomendations for you now :(</p>
                     )}
                 </div>
                 <div className={Styles.button}>View more</div>
