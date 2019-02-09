@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 
 class Activation extends Component {
     state = {
-        showConfirmation: false,
+        showConfirmation: true,
         activated: false,
     };
 
