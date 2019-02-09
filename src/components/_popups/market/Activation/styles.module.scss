@@ -26,78 +26,104 @@
         animation: animateShadow 3000ms infinite;
         animation: appear 800ms;
 
-        & .title {
-            height: 4rem;
-            line-height: 4rem;
-            font-size: 1.8rem;
-            color: $secondaryGreen;
-            padding: 0 2rem;
-        }
-
-        & img {
-            width: 100%;
-            height: 40%;
-        }
-
-        & .description {
-            font-size: 1rem;
-            line-height: 1.5rem;
-            width: 90%;
-            height: 9rem;
-            margin: 0.3rem auto;
-            overflow-y: scroll;
-        }
-
-        & .code {
-            font-size: 1rem;
-            line-height: 1.5rem;
-            width: 90%;
-            height: 9rem;
-            margin: 0.3rem auto;
-            text-align: center;
-        }
-
-        & .buttonContainer {
+        & .priceContainer {
             display: flex;
             justify-content: space-between;
-            width: 85%;
-            height: 3rem;
-            margin: 3rem auto;
+            align-items: center;
+            padding: 0.5rem 10%;
 
-            & button {
-                height: 2.5rem;
-                line-height: 2.5rem;
-                font-size: 1rem;
-                border-radius: 5px;
-                text-align: center;
-                border: none;
-                cursor: pointer;
+            height: 10%;
+            background: $secondaryGrey;
+            border-radius: 5px 5px 0 0;
+
+            & .gameLogo {
+                margin-top: -0.3rem;
+                width: 25%;
+                filter: invert(1);
             }
 
-            & .closeButton {
-                border: 1px solid $lightGrey;
-                color: $lightGrey;
-                width: 30%;
-                background: none;
+            & p {
+                font-size: 1.5rem;
 
-                &:hover {
-                    filter: brightness(120%);
+                & img {
+                    height: 1rem;
+                    margin-right: 0.2rem;
                 }
             }
+        }
 
-            & .buyButton {
-                width: 60%;
+        & .infoContainer {
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: space-between;
+
+            background-size: cover;
+            background-position: center;
+            height: 90%;
+            min-height: 230px;
+            border-radius: 0 0 5px 5px;
+
+            & .label {
                 background: $secondaryGreen;
-                color: #fff;
+                clip-path: polygon(100% 0, 70% 0, 100% 100%);
+                width: 100%;
+                height: 25%;
+                min-height: 85px;
+                text-align: right;
+                padding: 1rem 0.2rem;
 
-                &:hover {
-                    background: $primaryGreen;
+                & .labelTitle {
+                    font-size: 1rem;
                 }
 
-                &:disabled {
-                    border: 1px solid $lightGrey;
-                    color: $lightGrey;
-                    background: none;
+                & .timer {
+                    font-size: 1.2rem;
+                    padding: 0.3rem;
+                }
+            }
+
+            & .info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+
+                height: 50%;
+                padding: 4rem 0 0.5rem;
+                background-image: linear-gradient(transparent, black 80%);
+                border-radius: 0 0 5px 5px;
+
+                & .itemName {
+                    text-align: center;
+                    font-size: 1.5rem;
+
+                    &:last-of-type {
+                        width: 80%;
+                        max-height: 4rem;
+                        margin: 0.2rem 0 0.4rem;
+                        text-overflow: ellipsis;
+                        white-space: wrap;
+                        overflow: hidden;
+                        font-size: 0.8rem;
+                        overflow-y: scroll;
+                    }
+                }
+
+                & .actionButton {
+                    cursor: pointer;
+                    width: 45%;
+                    border: 1px solid #fff;
+                    background: transparent;
+                    color: #fff;
+                    height: 1.8rem;
+                    border-radius: 5px;
+                    font-weight: 600;
+                    font-size: 0.8rem;
+
+                    &:hover {
+                        border: 1px solid $secondaryGreen;
+                        background: $secondaryGreen;
+                    }
                 }
             }
         }

@@ -119,17 +119,28 @@ class Activation extends Component {
                         >
                             <div className={Styles.info}>
                                 <p className={Styles.itemName}>{name}</p>
-                                <p className={Styles.itemName}>{description}</p>
-                                <button
-                                    className={Styles.actionButton}
-                                    onClick={this._handleBuyItem}
-                                >
-                                    REDEEM
+                                {activated ? (
+                                    <p className={Styles.itemName}>
+                                        Your gift card code is: <br />
+                                        {giftCode}
+                                    </p>
+                                ) : (
+                                    <p className={Styles.itemName}>{description}</p>
+                                )}
+                                <button className={Styles.actionButton} onClick={this._openModal}>
+                                    ACTIVATE
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {showConfirmation && (
+                    <Confirmation
+                        confirm={this._activate}
+                        closeModal={this._closeModal}
+                        type="giftCard"
+                    />
+                )}
             </Fragment>
         );
     }

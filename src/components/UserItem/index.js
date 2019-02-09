@@ -27,14 +27,16 @@ class UserItem extends Component {
         });
     };
 
-    _closeModal = () => {
+    _closeModal = (e) => {
         const { fetchUserItemsAsync } = this.props;
 
-        fetchUserItemsAsync();
+        if (e.target.id === 'closeModal') {
+            fetchUserItemsAsync();
 
-        this.setState({
-            showModal: false,
-        });
+            this.setState({
+                showModal: false,
+            });
+        }
     };
 
     render() {
@@ -43,7 +45,7 @@ class UserItem extends Component {
 
         return (
             <Fragment>
-                <div className={Styles.container}>
+                <div className={Styles.container} onClick={this._openModal}>
                     <div className={Styles.priceContainer}>
                         <img
                             className={Styles.gameLogo}
