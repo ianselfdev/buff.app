@@ -1,13 +1,13 @@
 import { port } from '../../../REST/config';
 
-export const _sendStartGameTrs = async (data, token) => {
+export const _sendStartGameTrs = async (data) => {
     // console.log(tx);
 
     const response = await fetch(`http://18.188.224.32:${port}/api/games/start`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            Authorization: localStorage.getItem('buff-token'),
         },
         body: JSON.stringify(data),
     });
@@ -18,12 +18,12 @@ export const _sendStartGameTrs = async (data, token) => {
     console.log(result);
 };
 
-export const _sendEndGameTrs = async (data, token) => {
+export const _sendEndGameTrs = async (data) => {
     const response = await fetch(`http://18.188.224.32:${port}/api/games/end`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            Authorization: localStorage.getItem('buff-token'),
         },
         body: JSON.stringify(data),
     });
@@ -34,17 +34,21 @@ export const _sendEndGameTrs = async (data, token) => {
     console.log(result);
 };
 
-export const _changeState = async (state) => {
-    const response = await fetch('http://18.188.224.32:4000/api/state', {
-        method: 'PUT',
+export const _sendFortniteEvent = async (data) => {
+    // const schema = {
+    //     event: joi.string().required(),
+    //     data: joi.string().required()
+    //   };
+
+    const response = await fetch(`http://18.188.224.32:${port}/api/games/fortnite/event`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('buff-token'),
         },
-        body: JSON.stringify({
-            state,
-        }),
+        body: JSON.stringify(data),
     });
 
     const result = await response.json();
-    return result;
+    console.log(result);
 };

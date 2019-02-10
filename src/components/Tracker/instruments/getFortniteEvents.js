@@ -1,4 +1,4 @@
-import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import { _sendStartGameTrs, _sendEndGameTrs, _sendFortniteEvent } from './gamestats';
 import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
@@ -30,6 +30,7 @@ const matchData = {
     kills: 0,
     deaths: 0,
     rank: null,
+    matchId: '0',
 };
 
 // setting features to track + retry if failed
@@ -46,6 +47,7 @@ const onNewEvents = (data) => {
         if (res.title === 'Fortnite Battle Royale') {
             const event = data.events[0].name;
             console.log('event name: ', event);
+            console.log(data);
             switch (event) {
                 case 'matchStart':
                     //* return default states
@@ -53,33 +55,48 @@ const onNewEvents = (data) => {
                     matchData.deaths = 0;
                     matchData.rank = null;
 
-                    matchId = uuid();
+                    matchData.matchId = uuid();
+
+                    overwolf.games.events.getInfo((res) => {
+                        console.log('match start -> getInfo', res);
+                    });
 
                     const startGameData = {
                         gameId: '21216',
-                        matchId,
-                        // rankedGame: true,
+                        matchId: matchData.matchId,
                     };
 
-                    let token = localStorage.getItem('buff-token');
-                    _sendStartGameTrs(startGameData, token);
+                    // let token = localStorage.getItem('buff-token');
+                    _sendStartGameTrs(startGameData);
 
                     break;
 
+                case 'killer':
+                    _sendFortniteEvent({
+                        event,
+                        data: data.events[0].data || '',
+                    });
+                    break;
+
                 case 'kill':
-                    console.log('kill');
+                    // console.log('kill');
+                    _sendFortniteEvent({
+                        event,
+                        data: data.events[0].data || '',
+                    });
                     matchData.kills++;
                     break;
 
                 case 'death':
-                    console.log('dead');
+                    // console.log('dead');
+                    _sendFortniteEvent({
+                        event,
+                        data: data.events[0].data || '',
+                    });
                     matchData.deaths++;
                     break;
 
                 case 'matchEnd':
-                    overwolf.games.events.getInfo((res) => {
-                        console.log('getInfo: ', res);
-                    });
                     const { kills, deaths, rank } = matchData;
 
                     const endGameData = {
@@ -88,7 +105,7 @@ const onNewEvents = (data) => {
                             rankedGame: true,
                         },
                         gameId: '21216',
-                        matchId,
+                        matchId: matchData.matchId,
                         victory: true,
                         reward: ((kills * (100 - Number(rank))) / (Math.max(deaths, 1) * 10)) * 0.1,
                     };
@@ -96,8 +113,8 @@ const onNewEvents = (data) => {
                     console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
                     console.log(`Reward points: ${endGameData.reward}`);
 
-                    token = localStorage.getItem('buff-token');
-                    _sendEndGameTrs(endGameData, token);
+                    // token = localStorage.getItem('buff-token');
+                    _sendEndGameTrs(endGameData);
                     break;
 
                 default:
@@ -109,7 +126,7 @@ const onNewEvents = (data) => {
 
 const onInfoUpdates2 = (data) => {
     const feature = data.feature;
-    console.log('onInfoUpdates2: ', data);
+    // console.log('onInfoUpdates2: ', data);
 
     switch (feature) {
         case 'rank':

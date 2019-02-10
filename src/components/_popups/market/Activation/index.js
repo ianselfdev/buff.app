@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
 
 class Activation extends Component {
     state = {
-        showConfirmation: true,
+        showConfirmation: false,
         activated: false,
     };
 
@@ -56,51 +56,6 @@ class Activation extends Component {
 
         return (
             <Fragment>
-                {/* <div className={Styles.bg}>
-                    <div className={Styles.container}>
-                        <p className={Styles.title}>{name}</p>
-                        <img
-                            src={
-                                img ||
-                                'https://d1u5p3l4wpay3k.cloudfront.net/allstars_gamepedia/thumb/b/b8/Epic_Loot_Chest.jpg/300px-Epic_Loot_Chest.jpg'
-                            }
-                            alt="img"
-                        />
-                        {activated ? (
-                            <p className={Styles.code}>
-                                Your gift card code is: <br />
-                                {giftCode}
-                            </p>
-                        ) : (
-                            <p className={Styles.description}>{description}</p>
-                        )}
-                        <div className={Styles.buttonContainer}>
-                            <button className={Styles.closeButton} onClick={closeModal}>
-                                CLOSE
-                            </button>
-                            {activated ? (
-                                <button
-                                    className={Styles.buyButton}
-                                    onClick={this._openModal}
-                                    disabled
-                                >
-                                    ACTIVATED
-                                </button>
-                            ) : (
-                                <button className={Styles.buyButton} onClick={this._openModal}>
-                                    ACTIVATE
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-                {showConfirmation && (
-                    <Confirmation
-                        confirm={this._activate}
-                        closeModal={this._closeModal}
-                        type="giftCard"
-                    />
-                )} */}
                 <div className={Styles.bg} onClick={closeModal} id="closeModal">
                     <div className={Styles.container}>
                         <div className={Styles.priceContainer}>
@@ -120,16 +75,30 @@ class Activation extends Component {
                             <div className={Styles.info}>
                                 <p className={Styles.itemName}>{name}</p>
                                 {activated ? (
-                                    <p className={Styles.itemName}>
-                                        Your gift card code is: <br />
-                                        {giftCode}
-                                    </p>
+                                    <Fragment>
+                                        <p className={Styles.itemName}>
+                                            Your gift card code is: <br />
+                                            {giftCode}
+                                        </p>
+                                        <button
+                                            className={Styles.actionButton}
+                                            onClick={closeModal}
+                                            id="closeModal"
+                                        >
+                                            CLOSE
+                                        </button>
+                                    </Fragment>
                                 ) : (
-                                    <p className={Styles.itemName}>{description}</p>
+                                    <Fragment>
+                                        <p className={Styles.itemName}>{description}</p>
+                                        <button
+                                            className={Styles.actionButton}
+                                            onClick={this._openModal}
+                                        >
+                                            ACTIVATE
+                                        </button>
+                                    </Fragment>
                                 )}
-                                <button className={Styles.actionButton} onClick={this._openModal}>
-                                    ACTIVATE
-                                </button>
                             </div>
                         </div>
                     </div>

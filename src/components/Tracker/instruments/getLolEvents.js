@@ -30,12 +30,14 @@ let matchData = {
     assists: 0,
     minionKills: 0,
     level: 1,
+    champion: '',
 
     rankedGame: false,
-    gameMode: '',
 
+    gameId: '5426',
     matchId: '0',
     accountId: '0',
+    region: '',
 };
 
 // setting features to track + retry if failed
@@ -60,29 +62,25 @@ const onInfoUpdates2 = (data) => {
         if (res.title === 'League of Legends') {
             const info = data.info.game_info;
             switch (data.feature) {
-                case 'gameMode':
-                    console.log('gameMode: ', info.gameMode);
-                    matchData = {
-                        ...matchData,
-                        gameMode: info.gameMode,
-                    };
-                    break;
-
                 case 'matchState':
                     console.log('matchState: ', info);
-                    overwolf.games.events.getInfo((data) => {
-                        console.log('getInfo: ', data);
-                        // matchData = {
-                        //     ...matchData,
-                        //     matchId:
-                        //         matchData.gameMode === 'ranked' ? data.res.game_info.matchId : '0',
-                        //     accountId: data.res.summoner_info.accountId,
-                        // };
-                    });
                     if (info.matchStarted) {
                         //* start game transaction
                         //* ---------------------->
                         console.log('%cStart game', 'color: green');
+
+                        overwolf.games.events.getInfo((data) => {
+                            console.log('match started -> getInfo: ', data);
+                            matchData = {
+                                ...matchData,
+                                matchId: data.res.game_info.matchId,
+                                accountId: data.res.summoner_info.accountId,
+                                someOtherId: data.res.summoner_info.id,
+                                region: data.res.summoner_info.region,
+                                champion: data.res.summoner_info.champion,
+                            };
+                        });
+
                         //Lol gameId === 5426
                         const startGameTrs = {
                             gameId: '5426',
@@ -96,7 +94,16 @@ const onInfoUpdates2 = (data) => {
                         //* end game transaction
                         //* ---------------------->
                         console.log('%cGame end', 'color: orange');
-                        console.log(matchData);
+
+                        overwolf.games.events.getInfo((data) => {
+                            console.log('match ended -> getInfo: ', data);
+                            matchData = {
+                                ...matchData,
+                                gameMode: data.res.game_info.gameMode,
+                                neutralMinionKills: data.res.game_info.neutralMinionKills,
+                                gold: data.res.game_info.gold,
+                            };
+                        });
 
                         const endGameTrs = {
                             matchData,
@@ -106,6 +113,7 @@ const onInfoUpdates2 = (data) => {
                             reward: 1,
                         };
 
+                        console.log('endGameData -> ', endGameTrs);
                         let token = localStorage.getItem('buff-token');
                         sendLolReward(endGameTrs, token);
                         // _sendEndGameTrs(endGameTrs, token);
@@ -116,11 +124,13 @@ const onInfoUpdates2 = (data) => {
                             assists: 0,
                             minionKills: 0,
                             level: 1,
+                            champion: '',
 
                             rankedGame: false,
-                            gameMode: '',
 
                             matchId: '0',
+                            accountId: '0',
+                            region: '',
                         };
                     }
                     break;
