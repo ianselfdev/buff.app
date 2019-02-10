@@ -94,6 +94,16 @@
                     background: $secondaryGreen;
                 }
             }
+
+            & .notTradable {
+                border: 1px solid $lightGrey;
+                color: $lightGrey;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                font-size: 0.8rem;
+                padding: 0 0.5rem;
+                border-radius: 5px;
+            }
         }
     }
 }

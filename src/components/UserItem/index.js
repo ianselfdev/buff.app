@@ -63,13 +63,23 @@ class UserItem extends Component {
                         <div className={Styles.info}>
                             <p className={Styles.itemName}>{name}</p>
                             <p className={Styles.itemName}>{'Line 2 Category'}</p>
-                            <button className={Styles.actionButton} onClick={this._openModal}>
-                                ACTIVATE
-                            </button>
+                            {activatable ? (
+                                <button className={Styles.actionButton} onClick={this._openModal}>
+                                    ACTIVATE
+                                </button>
+                            ) : tradable ? (
+                                <button className={Styles.actionButton} onClick={this._openModal}>
+                                    SELL
+                                </button>
+                            ) : (
+                                <p className={Styles.notTradable}>ITEM IS NOT TRADABLE</p>
+                            )}
                         </div>
                     </div>
                 </div>
-                {showModal && <Activation closeModal={this._closeModal} {...this.props} />}
+                {showModal && activatable && (
+                    <Activation closeModal={this._closeModal} {...this.props} />
+                )}
             </Fragment>
         );
     }

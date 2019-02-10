@@ -3,8 +3,6 @@ import uuid from 'uuid/v4';
 
 /*eslint-disable no-undef*/
 
-let matchId = null;
-
 const listeners = {
     onNewEvents: false,
     onGameInfoUpdated: false,
