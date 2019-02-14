@@ -11,15 +11,20 @@ import { connect } from 'react-redux';
 //Actions
 import { marketActions } from '../../../../bus/market/actions';
 
+//Analytics
+import { Analytics } from '../../../../analytics';
+
 const mapDispatchToProps = {
     buyItemAsync: marketActions.buyItemAsync,
 };
 
 class Buy extends Component {
     _handleBuyItem = () => {
-        const { id, buyItemAsync } = this.props;
+        const { id, buyItemAsync, closeModal } = this.props;
 
+        Analytics.event('Item purchase', { category: id });
         buyItemAsync(id);
+        closeModal();
     };
 
     render() {

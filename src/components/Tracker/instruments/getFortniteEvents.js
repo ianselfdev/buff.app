@@ -27,7 +27,7 @@ const features = [
 const matchData = {
     kills: 0,
     deaths: 0,
-    rank: null,
+    rank: '100',
     matchId: '0',
 };
 
@@ -51,7 +51,7 @@ const onNewEvents = (data) => {
                     //* return default states
                     matchData.kills = 0;
                     matchData.deaths = 0;
-                    matchData.rank = null;
+                    matchData.rank = '100';
 
                     matchData.matchId = uuid();
 
@@ -64,6 +64,7 @@ const onNewEvents = (data) => {
                         matchId: matchData.matchId,
                     };
 
+                    console.log(startGameData);
                     // let token = localStorage.getItem('buff-token');
                     _sendStartGameTrs(startGameData);
 
@@ -72,7 +73,7 @@ const onNewEvents = (data) => {
                 case 'killer':
                     _sendFortniteEvent({
                         event,
-                        data: data.events[0].data || '',
+                        data: data.events[0].data,
                     });
                     break;
 
@@ -80,7 +81,7 @@ const onNewEvents = (data) => {
                     // console.log('kill');
                     _sendFortniteEvent({
                         event,
-                        data: data.events[0].data || '',
+                        data: data.events[0].data || 'kill',
                     });
                     matchData.kills++;
                     break;
@@ -89,13 +90,14 @@ const onNewEvents = (data) => {
                     // console.log('dead');
                     _sendFortniteEvent({
                         event,
-                        data: data.events[0].data || '',
+                        data: data.events[0].data || 'death',
                     });
                     matchData.deaths++;
                     break;
 
                 case 'matchEnd':
                     const { kills, deaths, rank } = matchData;
+                    console.log(matchData);
 
                     const endGameData = {
                         matchData: {
@@ -111,6 +113,7 @@ const onNewEvents = (data) => {
                     console.info(`Kills: ${kills}, Deaths: ${deaths} Rank: ${rank}`);
                     console.log(`Reward points: ${endGameData.reward}`);
 
+                    console.log(endGameData);
                     // token = localStorage.getItem('buff-token');
                     _sendEndGameTrs(endGameData);
                     break;
@@ -128,7 +131,10 @@ const onInfoUpdates2 = (data) => {
 
     switch (feature) {
         case 'rank':
-            matchData.rank = data.info.match_info.rank;
+            const rank = data.info.match_info.rank;
+            if (rank) {
+                matchData.rank = data.info.match_info.rank;
+            }
             break;
 
         default:

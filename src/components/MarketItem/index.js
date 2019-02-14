@@ -13,6 +13,9 @@ import Buy from '../_popups/market/Buy';
 import Success from '../_popups/market/Success';
 import Error from '../_popups/market/Error';
 
+//Analytics
+import { Analytics } from '../../analytics';
+
 const mapStateToProps = (state) => {
     return {
         errorLabel: state.ui.get('errorLabel'),
@@ -27,6 +30,9 @@ class MarketItem extends Component {
     };
 
     _openModal = () => {
+        const { id } = this.props;
+        Analytics.event('Market item details opened', { category: id });
+
         this.setState({
             showModal: true,
         });

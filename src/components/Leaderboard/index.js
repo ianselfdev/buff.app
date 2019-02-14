@@ -42,6 +42,7 @@ const mapDispatchToProps = {
 class Leaderboard extends Component {
     componentDidMount = () => {
         const { fetchLeadersDotaAsync } = this.props;
+
         fetchLeadersDotaAsync();
     };
 

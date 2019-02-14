@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -11,7 +12,38 @@ import MarketRecomendations from '../MarketRecomendations';
 import RecentActivity from '../RecentActivity';
 import DashboardFavorite from '../DashboardFavorite';
 
-export default class Dashboard extends Component {
+//Actions
+import { advertisementActions } from '../../bus/app/advertisements/actions';
+
+const mapStateToProps = (state) => ({
+    advertisements: state.advertisements,
+});
+
+const mapDispatchToProps = {
+    createAdInstanceAsync: advertisementActions.createAdInstanceAsync,
+};
+
+class Dashboard extends Component {
+    state = {
+        ad: {},
+    };
+
+    componentDidMount = () => {
+        const { createAdInstanceAsync, advertisements } = this.props;
+
+        if (advertisements.refreshAd) {
+            advertisements.refreshAd();
+        } else {
+            createAdInstanceAsync(document.getElementById('ad-div'));
+        }
+    };
+
+    componentWillUnmount = () => {
+        const { advertisements } = this.props;
+
+        advertisements.removeAd();
+    };
+
     render() {
         return (
             <div className={Styles.mainContainer}>
@@ -35,9 +67,14 @@ export default class Dashboard extends Component {
                     <div className={Styles.contentBox}>
                         <DashboardFavorite />
                     </div>
-                    <div className={Styles.contentBox} />
+                    <div className={Styles.contentBox} id="ad-div" />
                 </div>
             </div>
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Dashboard);

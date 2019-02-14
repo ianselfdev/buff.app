@@ -1,6 +1,7 @@
 import { getDotaEvents } from './getDotaEvents';
 import { getLolEvents } from './getLolEvents';
 import { getFortniteEvents } from './getFortniteEvents';
+import { dota } from './drawer';
 
 /*eslint-disable no-undef*/
 
@@ -43,6 +44,7 @@ export const setOverwolfListeners = () => {
             case 'Dota 2':
                 getDotaEvents();
                 console.log('Dota 2 launched');
+                dota();
                 break;
 
             case 'League of Legends':

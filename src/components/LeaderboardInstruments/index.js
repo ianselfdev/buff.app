@@ -9,6 +9,11 @@ import Styles from './styles.module.scss';
 import { leaderboardActions } from '../../bus/app/leaderboard/actions';
 
 //Redux connect
+
+const mapStateToProps = (state) => ({
+    advertisements: state.advertisements,
+});
+
 const mapDispatchToProps = {
     removeLeadersFilterParameterAsync: leaderboardActions.removeLeadersFilterParameterAsync,
     filterLeadersAsync: leaderboardActions.filterLeadersAsync,
@@ -20,6 +25,19 @@ class HistoryInstruments extends Component {
         byPeriod: false,
         selectedGame: 'none',
         selectedPeriod: 'none',
+        ad: {},
+    };
+
+    componentDidMount = () => {
+        const { advertisements } = this.props;
+
+        advertisements.refreshAd();
+    };
+
+    componentWillUnmount = () => {
+        const { advertisements } = this.props;
+
+        advertisements.removeAd();
     };
 
     _toggleByGame = () => {
@@ -157,13 +175,13 @@ class HistoryInstruments extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={Styles.adContainer} />
+                <div className={Styles.adContainer} id="ad-div" />
             </div>
         );
     }
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(HistoryInstruments);

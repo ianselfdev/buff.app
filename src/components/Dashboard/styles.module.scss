@@ -85,12 +85,9 @@
                 &:last-of-type {
                     height: 48%;
                     margin: 0.5rem 0;
-                    background: $primaryGrey;
                     border: 1px solid $secondaryGrey;
-                    background-image: url('../../theme/assets/banner.jpg');
-                    background-position: center;
-                    background-size: cover;
                     min-height: 300px;
+                    min-width: 400px;
                 }
             }
         }

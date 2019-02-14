@@ -35,8 +35,8 @@ let matchData = {
     rankedGame: false,
 
     gameId: '5426',
-    matchId: '0',
-    accountId: '0',
+    matchId: '',
+    accountId: '',
     region: '',
 };
 
@@ -79,17 +79,17 @@ const onInfoUpdates2 = (data) => {
                                 region: data.res.summoner_info.region,
                                 champion: data.res.summoner_info.champion,
                             };
+
+                            //Lol gameId === 5426
+                            const startGameTrs = {
+                                gameId: '5426',
+                                matchId: matchData.matchId,
+                            };
+
+                            console.log('startGameTrs -> ', startGameTrs);
+                            let token = localStorage.getItem('buff-token');
+                            _sendStartGameTrs(startGameTrs, token);
                         });
-
-                        //Lol gameId === 5426
-                        const startGameTrs = {
-                            gameId: '5426',
-                            matchId: matchData.matchId,
-                        };
-
-                        console.log(startGameTrs);
-                        let token = localStorage.getItem('buff-token');
-                        _sendStartGameTrs(startGameTrs, token);
                     } else {
                         //* end game transaction
                         //* ---------------------->
@@ -103,35 +103,35 @@ const onInfoUpdates2 = (data) => {
                                 neutralMinionKills: data.res.game_info.neutralMinionKills,
                                 gold: data.res.game_info.gold,
                             };
+
+                            const endGameTrs = {
+                                matchData,
+                                gameId: '5426',
+                                matchId: matchData.matchId,
+                                victory: info.matchOutcome === 'win',
+                                reward: 1,
+                            };
+
+                            console.log('endGameData -> ', endGameTrs);
+                            let token = localStorage.getItem('buff-token');
+                            sendLolReward(endGameTrs, token);
+                            // _sendEndGameTrs(endGameTrs, token);
+
+                            matchData = {
+                                kills: 0,
+                                deaths: 0,
+                                assists: 0,
+                                minionKills: 0,
+                                level: 1,
+                                champion: '',
+
+                                rankedGame: false,
+
+                                matchId: '0',
+                                accountId: '0',
+                                region: '',
+                            };
                         });
-
-                        const endGameTrs = {
-                            matchData,
-                            gameId: '5426',
-                            matchId: matchData.matchId,
-                            victory: info.matchOutcome === 'win',
-                            reward: 1,
-                        };
-
-                        console.log('endGameData -> ', endGameTrs);
-                        let token = localStorage.getItem('buff-token');
-                        sendLolReward(endGameTrs, token);
-                        // _sendEndGameTrs(endGameTrs, token);
-
-                        matchData = {
-                            kills: 0,
-                            deaths: 0,
-                            assists: 0,
-                            minionKills: 0,
-                            level: 1,
-                            champion: '',
-
-                            rankedGame: false,
-
-                            matchId: '0',
-                            accountId: '0',
-                            region: '',
-                        };
                     }
                     break;
 

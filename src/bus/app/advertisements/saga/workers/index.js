@@ -1,0 +1,1 @@
+export { createAdInstance } from './createAdInstance';

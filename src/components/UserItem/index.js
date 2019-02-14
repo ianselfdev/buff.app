@@ -11,6 +11,9 @@ import Activation from '../_popups/market/Activation';
 //Actions
 import { marketActions } from '../../bus/market/actions';
 
+//Analytics
+import { Analytics } from '../../analytics';
+
 //Redux connect
 const mapDispatchToProps = {
     fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
@@ -22,6 +25,9 @@ class UserItem extends Component {
     };
 
     _openModal = () => {
+        const { id } = this.props;
+        Analytics.event('User inventory item details opened', { category: id });
+
         this.setState({
             showModal: true,
         });

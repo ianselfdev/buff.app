@@ -4,13 +4,13 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding-top: 1rem;
     margin: 1rem;
     z-index: 12;
 
     & .leaderboardContainer {
-        width: 75%;
+        width: calc(100% - 420px);
 
         & .controlsContainer {
             display: flex;

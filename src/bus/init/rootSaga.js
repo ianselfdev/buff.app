@@ -9,6 +9,7 @@ import { watchLeaderboard } from '../app/leaderboard/saga/watchers';
 import { watchProfile } from '../profile/saga/watchers';
 import { watchMarket } from '../market/saga/watchers';
 import { watchTournaments } from '../app/tournaments/saga/watchers';
+import { watchAdvertisements } from '../app/advertisements/saga/watchers';
 
 export function* rootSaga() {
     yield all([
@@ -19,5 +20,6 @@ export function* rootSaga() {
         call(watchLeaderboard),
         call(watchTournaments),
         call(watchMarket),
+        call(watchAdvertisements),
     ]);
 }

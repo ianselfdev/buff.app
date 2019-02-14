@@ -16,6 +16,9 @@ import Styles from './styles.module.scss';
 //Actions
 import { marketActions } from '../../bus/market/actions';
 
+//Analytics
+import { Analytics } from '../../analytics';
+
 //Redux connect
 const mapStateToProps = (state) => {
     return {
@@ -53,6 +56,8 @@ class Market extends Component {
         } else {
             fetchUserItemsAsync();
         }
+
+        Analytics.event('Market tab click', { category: id });
 
         this.setState({
             active: id,

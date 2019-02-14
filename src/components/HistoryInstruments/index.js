@@ -9,6 +9,11 @@ import Styles from './styles.module.scss';
 import { historyActions } from '../../bus/app/history/actions';
 
 //Redux connect
+
+const mapStateToProps = (state) => ({
+    advertisements: state.advertisements,
+});
+
 const mapDispatchToProps = {
     removeHistoryFilterParameterAsync: historyActions.removeHistoryFilterParameterAsync,
     filterHistoryAsync: historyActions.filterHistoryAsync,
@@ -21,6 +26,19 @@ class HistoryInstruments extends Component {
         value: 5000,
         type: 'none',
         period: 'none',
+        ad: {},
+    };
+
+    componentDidMount = () => {
+        const { advertisements } = this.props;
+
+        advertisements.refreshAd();
+    };
+
+    componentWillUnmount = () => {
+        const { advertisements } = this.props;
+
+        advertisements.removeAd();
     };
 
     _toggleByPeriod = () => {
@@ -158,13 +176,13 @@ class HistoryInstruments extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={Styles.adContainer} />
+                <div className={Styles.adContainer} id="ad-div" />
             </div>
         );
     }
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(HistoryInstruments);

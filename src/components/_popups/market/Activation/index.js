@@ -11,6 +11,9 @@ import Confirmation from '../Confirmation';
 //Actions
 import { marketActions } from '../../../../bus/market/actions';
 
+//Analytics
+import { Analytics } from '../../../../analytics';
+
 const mapDispatchToProps = {
     activateItemAsync: marketActions.activateItemAsync,
     fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
@@ -31,6 +34,7 @@ class Activation extends Component {
     _activate = () => {
         const { id, activateItemAsync } = this.props;
 
+        Analytics.event('Item activation', { category: id });
         activateItemAsync(id);
 
         this.setState({

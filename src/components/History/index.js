@@ -39,6 +39,7 @@ const mapDispatchToProps = {
 class History extends Component {
     componentDidMount() {
         const { fetchHistoryAsync } = this.props;
+
         fetchHistoryAsync();
     }
 
@@ -62,14 +63,26 @@ class History extends Component {
                                 {history.get('history').map((item, index) => (
                                     <TableRow
                                         fields={[
-                                            { value: 'Play' },
+                                            { value: item.get('type') === 4 ? 'Fraud' : 'Game' },
                                             {
                                                 value: item.get('name') || 'Unknown game',
                                             },
-                                            { value: 'Wow!' },
+                                            {
+                                                value:
+                                                    item.get('type') === 4
+                                                        ? 'You, son of a cheater!'
+                                                        : `${
+                                                              Number(item.get('amount')) > 10
+                                                                  ? 'More than 10 coins! Wow!'
+                                                                  : Number(item.get('amount')) > 5
+                                                                  ? 'More than 5 coins!'
+                                                                  : 'Well, you tried'
+                                                          }`,
+                                            },
                                             { value: Number(item.get('amount')) },
                                         ]}
                                         key={index}
+                                        type={item.get('type')}
                                     />
                                 ))}
                             </div>

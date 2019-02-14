@@ -23,6 +23,9 @@ import coin from '../../theme/assets/coin.png';
 //Actions
 import { authActions } from '../../bus/auth/actions';
 
+//Analytics
+import { Analytics } from '../../analytics';
+
 const mapStateToProps = (state) => ({
     login: state.profile.get('login'),
     balance: state.profile.get('balance'),
@@ -43,18 +46,20 @@ class Navbar extends Component {
     componentDidMount = () => {
         const { getUserDataAsync, refreshTokensAsync } = this.props;
 
-        //refresh tokens every minute
-        if (!localStorage.getItem('intervals-set')) {
-            console.log('settting new intervals');
-            setInterval(refreshTokensAsync, 60000);
+        if (process.env.NODE_ENV === 'production') {
+            //refresh tokens every minute
+            if (!localStorage.getItem('intervals-set')) {
+                console.log('settting new intervals');
+                setInterval(refreshTokensAsync, 60000);
 
-            //!__temp hack to update user balance and info permanently
-            setInterval(() => {
-                let token = localStorage.getItem('buff-token');
-                getUserDataAsync(token);
-            }, 5000);
+                //!__temp hack to update user balance and info permanently
+                setInterval(() => {
+                    let token = localStorage.getItem('buff-token');
+                    getUserDataAsync(token);
+                }, 5000);
 
-            localStorage.setItem('intervals-set', true);
+                localStorage.setItem('intervals-set', true);
+            }
         }
     };
 
@@ -62,6 +67,11 @@ class Navbar extends Component {
         this.setState((prevState) => ({
             opened: !prevState.opened,
         }));
+    };
+
+    _handleNav = (e) => {
+        const { id } = e.target;
+        Analytics.event('Navigation link click', { category: id });
     };
 
     render() {
@@ -97,41 +107,61 @@ class Navbar extends Component {
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.dashboard}
+                            onClick={this._handleNav}
+                            id="dashboard"
                         >
-                            <Dashboard className={Styles.navitemIcon} />
-                            <span className={Styles.navText}>Dashboard</span>
+                            <Dashboard className={Styles.navitemIcon} id="dashboard" />
+                            <span className={Styles.navText} id="dashboard">
+                                Dashboard
+                            </span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.history}
+                            onClick={this._handleNav}
+                            id="history"
                         >
-                            <History className={Styles.navitemIcon} />
-                            <span className={Styles.navText}>History</span>
+                            <History className={Styles.navitemIcon} id="history" />
+                            <span className={Styles.navText} id="history">
+                                History
+                            </span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.leaderboard}
+                            onClick={this._handleNav}
+                            id="leaderboard"
                         >
-                            <Equalizer className={Styles.navitemIcon} />
-                            <span className={Styles.navText}>Leaderboard</span>
+                            <Equalizer className={Styles.navitemIcon} id="leaderboard" />
+                            <span className={Styles.navText} id="leaderboard">
+                                Leaderboard
+                            </span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.market}
+                            onClick={this._handleNav}
+                            id="marketplace"
                         >
-                            <Shop className={Styles.navitemIcon} />
-                            <span className={Styles.navText}>Marketplace</span>
+                            <Shop className={Styles.navitemIcon} id="marketplace" />
+                            <span className={Styles.navText} id="marketplace">
+                                Marketplace
+                            </span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.tournaments}
+                            onClick={this._handleNav}
+                            id="tournaments"
                         >
-                            <FitnessCenter className={Styles.navitemIcon} />
-                            <span className={Styles.navText}>Tournaments</span>
+                            <FitnessCenter className={Styles.navitemIcon} id="tournaments" />
+                            <span className={Styles.navText} id="tournaments">
+                                Tournaments
+                            </span>
                         </NavLink>
                     </div>
 
