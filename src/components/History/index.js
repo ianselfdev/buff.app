@@ -73,7 +73,7 @@ class History extends Component {
                                                         ? 'You, son of a cheater!'
                                                         : `${
                                                               Number(item.get('amount')) > 10
-                                                                  ? 'More than 10 coins! Wow!'
+                                                                  ? 'More than 10 coins!'
                                                                   : Number(item.get('amount')) > 5
                                                                   ? 'More than 5 coins!'
                                                                   : 'Well, you tried'
