@@ -32,13 +32,19 @@ class HistoryInstruments extends Component {
     componentDidMount = () => {
         const { advertisements } = this.props;
 
-        advertisements.refreshAd();
+        //fallback
+        if (advertisements.refreshAd) {
+            advertisements.refreshAd();
+        }
     };
 
     componentWillUnmount = () => {
         const { advertisements } = this.props;
 
-        advertisements.removeAd();
+        //fallback
+        if (advertisements.refreshAd) {
+            advertisements.removeAd();
+        }
     };
 
     _toggleByPeriod = () => {

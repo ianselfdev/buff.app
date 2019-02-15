@@ -12,6 +12,8 @@ const initialState = Map({
     login: '',
     nickname: '',
     balance: '',
+    tier: {},
+    isNew: false,
 });
 
 export const profileReducer = (state = initialState, action) => {

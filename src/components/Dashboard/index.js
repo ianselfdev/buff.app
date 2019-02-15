@@ -31,6 +31,7 @@ class Dashboard extends Component {
     componentDidMount = () => {
         const { createAdInstanceAsync, advertisements } = this.props;
 
+        //fallback
         if (advertisements.refreshAd) {
             advertisements.refreshAd();
         } else {
@@ -41,7 +42,10 @@ class Dashboard extends Component {
     componentWillUnmount = () => {
         const { advertisements } = this.props;
 
-        advertisements.removeAd();
+        //fallback
+        if (advertisements.refreshAd) {
+            advertisements.removeAd();
+        }
     };
 
     render() {

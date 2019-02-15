@@ -5,8 +5,6 @@ import { put } from 'redux-saga/effects';
 import { advertisementActions } from '../../actions';
 
 export function* createAdInstance({ payload }) {
-    console.log(payload);
-
     const prod = process.env.NODE_ENV === 'production';
     const { OwAd } = yield window;
 

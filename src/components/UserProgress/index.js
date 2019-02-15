@@ -1,5 +1,6 @@
 //Core
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -8,29 +9,44 @@ import Styles from './styles.module.scss';
 import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
 
-const data = [{ x: 'User', y: 750 }, { x: 'Goal', y: 2500 }];
+const mapStateToProps = (state) => {
+    const { points, level, start, end } = state.profile.get('tier');
 
-export default class UserProgress extends Component {
+    return {
+        points,
+        level,
+        start,
+        end,
+    };
+};
+
+class UserProgress extends Component {
     render() {
+        const { points, level, end } = this.props;
+        const data = [
+            { x: 'Current progress', y: points },
+            { x: 'Goal', y: Math.max(end - points, 0) },
+        ];
+
         return (
             <Fragment>
                 <div className={Styles.titleBox}>Your progress</div>
                 <div className={Styles.chart}>
-                    <UserStatusChart data={data} status="Bronze" />
+                    <UserStatusChart data={data} status={level} />
                 </div>
                 <div className={Styles.legend}>
                     <div className={Styles.legendDatabox}>
                         <p>Next Level</p>
                         <p>
                             <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                            2500 in 15 days
+                            {Math.max(end - points, 0)} points for the next level
                         </p>
                     </div>
                     <div className={Styles.legendDatabox}>
-                        <p>Your coins</p>
+                        <p>Your points</p>
                         <p>
                             <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                            750
+                            {points}
                         </p>
                     </div>
                 </div>
@@ -39,3 +55,8 @@ export default class UserProgress extends Component {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    null,
+)(UserProgress);

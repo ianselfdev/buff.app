@@ -11,7 +11,6 @@ export const UserStatusChart = (props) => (
             data={props.data}
             colorScale={['goldenrod', 'lightgrey']}
             innerRadius={125}
-            padAngle={2}
             style={{ labels: { fontSize: 20, fill: 'transparent' } }}
         />
         <VictoryLabel
