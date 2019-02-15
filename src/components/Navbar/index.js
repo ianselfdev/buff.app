@@ -29,6 +29,7 @@ import { Analytics } from '../../analytics';
 const mapStateToProps = (state) => ({
     login: state.profile.get('login'),
     balance: state.profile.get('balance'),
+    level: state.profile.get('tier').level,
     // nickname: state.profile.get('nickname'),
 });
 
@@ -75,7 +76,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { logout, login, balance } = this.props;
+        const { logout, login, balance, level } = this.props;
         const { opened } = this.state;
 
         //!__temporary data__
@@ -88,11 +89,26 @@ class Navbar extends Component {
                     <div>
                         <div className={Styles.logo} onClick={this._handleClick} />
                         <div className={Styles.profileInfo}>
-                            <img src={avatar} alt="profile-pic" />
+                            <img
+                                src={avatar}
+                                alt="profile-pic"
+                                style={{
+                                    border: `1.5px solid ${
+                                        level === 'bronze'
+                                            ? 'green'
+                                            : level === 'silver'
+                                            ? 'silver'
+                                            : level === 'gold'
+                                            ? 'goldenrod'
+                                            : 'floralwhite'
+                                    }`,
+                                }}
+                                className={level === 'platinum' ? Styles.platinum : null}
+                            />
                             <div className={Styles.username}>
                                 <p>{login}</p>
                                 <p className={Styles.userStatus}>
-                                    Status: <span>Bronze</span>
+                                    Status: <span>{level}</span>
                                 </p>
                             </div>
                             <div className={Styles.balance}>

@@ -47,8 +47,12 @@
         & img {
             width: 2.5rem;
             height: 2.5rem;
-            border: 1.5px solid goldenrod;
+            // border: 1.5px solid goldenrod;
             border-radius: 5px;
+        }
+
+        & .platinum {
+            animation: shine 3s infinite;
         }
 
         & .username {
@@ -228,8 +232,12 @@
         & img {
             width: 1.5rem;
             height: 1.5rem;
-            border: 1.5px solid goldenrod;
+            // border: 1.5px solid goldenrod;
             border-radius: 5px;
+        }
+
+        & .platinum {
+            animation: shine 3s infinite;
         }
 
         & .username {
@@ -359,5 +367,19 @@
         &:hover {
             filter: brightness(100%);
         }
+    }
+}
+
+@keyframes shine {
+    0% {
+        box-shadow: 0px 0px 25px 1.5px floralwhite;
+    }
+
+    50% {
+        box-shadow: 0px 0px 25px 3px floralwhite;
+    }
+
+    100% {
+        box-shadow: 0px 0px 25px 1.5px floralwhite;
     }
 }

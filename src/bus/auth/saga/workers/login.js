@@ -47,7 +47,6 @@ export function* login({ payload: userData }) {
 
         yield put(authActions.getUserDataAsync(data.tokens.token));
         yield put(newsActions.fetchNewsAsync());
-        yield put(authActions.authenticate());
         yield apply(localStorage, localStorage.setItem, ['buff-token', data.tokens.token]);
         yield apply(localStorage, localStorage.setItem, [
             'buff-refresh-token',

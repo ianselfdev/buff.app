@@ -26,8 +26,6 @@ export function* loginWithToken({ payload: userToken }) {
 
         yield put(authActions.getUserDataAsync(token));
         yield put(newsActions.fetchNewsAsync());
-        yield put(authActions.authenticate());
-
         yield apply(localStorage, localStorage.setItem, ['buff-remember-me', true]);
         yield apply(localStorage, localStorage.setItem, ['buff-token', token]);
         yield apply(localStorage, localStorage.setItem, ['buff-refresh-token', refreshToken]);
