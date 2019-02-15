@@ -36,10 +36,16 @@ class UserProgress extends Component {
                 </div>
                 <div className={Styles.legend}>
                     <div className={Styles.legendDatabox}>
-                        <p>Next Level</p>
+                        <p>Next Tier</p>
                         <p>
-                            <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                            {Math.max(end - points, 0)} points for the next level
+                            {end - points > 0 ? (
+                                <>
+                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} /> `$
+                                    {end - points} points for the next tier`
+                                </>
+                            ) : (
+                                `You're already at the top tier!`
+                            )}
                         </p>
                     </div>
                     <div className={Styles.legendDatabox}>
