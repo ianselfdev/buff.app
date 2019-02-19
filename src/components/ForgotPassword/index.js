@@ -114,6 +114,7 @@ class ForgotPassword extends Component {
             errorResetPasswordMessage,
         } = this.props;
 
+        //rendering fields
         const inputFields =
             page === 1
                 ? [
@@ -159,6 +160,7 @@ class ForgotPassword extends Component {
                       },
                   ];
 
+        // validating inputs
         const isValid =
             page === 1
                 ? email.includes('@')
