@@ -18,8 +18,6 @@ export function* resetPassword({ payload }) {
         }
 
         yield put(uiActions.showSuccessPasswordResetLabel());
-        yield delay(2000);
-        yield put(uiActions.hideSuccessPasswordResetLabel());
     } catch (error) {
         yield put(uiActions.emitError(error, '-> resetPassword worker'));
         yield put(uiActions.showErrorPasswordResetLabel(error));

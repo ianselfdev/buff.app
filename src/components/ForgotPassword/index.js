@@ -52,7 +52,7 @@ class ForgotPassword extends Component {
         e.preventDefault();
 
         const { email, code, newPassword } = this.state;
-        const { _closeForgotPassword, getPasswordResetCodeAsync, resetPasswordAsync } = this.props;
+        const { getPasswordResetCodeAsync, resetPasswordAsync } = this.props;
 
         this.setState((prevState) => {
             switch (prevState.page) {
@@ -63,7 +63,6 @@ class ForgotPassword extends Component {
                     };
                 case 4:
                     resetPasswordAsync(email, newPassword, code);
-                    _closeForgotPassword();
                     return {
                         email: '',
                         code: '',
@@ -160,6 +159,23 @@ class ForgotPassword extends Component {
                       },
                   ];
 
+        const isValid =
+            page === 1
+                ? email.includes('@')
+                    ? true
+                    : false
+                : page === 2
+                ? code.length > 0
+                    ? true
+                    : false
+                : page === 3
+                ? newPassword.length > 6
+                    ? true
+                    : false
+                : page === 4
+                ? confNewPassword === newPassword
+                : false;
+
         return (
             <>
                 <Transition
@@ -190,7 +206,7 @@ class ForgotPassword extends Component {
                         </form>
                         <button
                             className={Styles.submitButton}
-                            // disabled={!isValidEmail}
+                            disabled={!isValid}
                             onClick={this._nextPage}
                         >
                             Next
@@ -200,8 +216,12 @@ class ForgotPassword extends Component {
                         </button>
                     </div>
                 </Transition>
-                {true && <ErrorResetPasswordLabel message={errorResetPasswordMessage} />}
-                {successResetPasswordLabel && <SuccessResetPasswordLabel />}
+                {errorResetPasswordLabel && (
+                    <ErrorResetPasswordLabel message={errorResetPasswordMessage} />
+                )}
+                {successResetPasswordLabel && (
+                    <SuccessResetPasswordLabel closeModal={_closeForgotPassword} />
+                )}
             </>
         );
     }

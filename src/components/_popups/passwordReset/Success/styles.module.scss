@@ -24,12 +24,31 @@
 
         animation: appear 800ms;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
         & p {
-            line-height: 13rem;
-            position: relative;
             text-align: center;
             font-size: 1.7rem;
             color: $secondaryGreen;
+        }
+
+        & button {
+            display: block;
+            padding: 0.5rem 1rem;
+            background: $secondaryGreen;
+            border: 1px solid $secondaryGreen;
+            border-radius: 5px;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            margin: 0 auto;
+
+            &:hover {
+                background: $primaryGreen;
+            }
         }
     }
 }
