@@ -6,9 +6,12 @@ import { types } from './types';
 
 const initialState = Map({
     isFetching: false,
-    successLabel: false,
-    errorLabel: false,
+    successPurchaseLabel: false,
+    errorMarketLabel: false,
+    successResetPasswordLabel: false,
+    errorResetPasswordLabel: false,
     errorMessage: '',
+    errorResetPasswordMessage: '',
 });
 
 export const uiReducer = (state = initialState, action) => {
@@ -19,17 +22,31 @@ export const uiReducer = (state = initialState, action) => {
         case types.STOP_FETCHING:
             return state.set('isFetching', false);
 
-        case types.SHOW_SUCCESS_LABEL:
-            return state.set('successLabel', true);
+        case types.SHOW_SUCCESS_PURCHASE_LABEL:
+            return state.set('successPurchaseLabel', true);
 
-        case types.HIDE_SUCCESS_LABEL:
-            return state.set('successLabel', false).set('errorMessage', '');
+        case types.HIDE_SUCCESS_PURCHASE_LABEL:
+            return state.set('successPurchaseLabel', false);
 
-        case types.SHOW_ERROR_LABEL:
-            return state.set('errorLabel', true).set('errorMessage', action.payload.message);
+        case types.SHOW_ERROR_MARKET_LABEL:
+            return state.set('errorMarketLabel', true).set('errorMessage', action.payload.message);
 
-        case types.HIDE_ERROR_LABEL:
-            return state.set('errorLabel', false);
+        case types.HIDE_ERROR_MARKET_LABEL:
+            return state.set('errorMarketLabel', false).set('errorMessage', '');
+
+        case types.SHOW_SUCCESS_PASSWORD_RESET_LABEL:
+            return state.set('successResetPasswordLabel', true);
+
+        case types.HIDE_SUCCESS_PASSWORD_RESET_LABEL:
+            return state.set('successResetPasswordLabel', false);
+
+        case types.SHOW_ERROR_PASSWORD_RESET_LABEL:
+            return state
+                .set('errorResetPasswordLabel', true)
+                .set('errorResetPasswordMessage', action.payload.message);
+
+        case types.HIDE_ERROR_PASSWORD_RESET_LABEL:
+            return state.set('errorResetPasswordLabel', false).set('errorResetPasswordMessage', '');
 
         case types.EMIT_ERROR:
             return state.set('errorMessage', action.payload.message);

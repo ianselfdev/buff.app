@@ -14,7 +14,6 @@ import {
     History,
     Equalizer,
     Shop,
-    FitnessCenter,
     Settings,
     HelpOutline,
 } from '@material-ui/icons';
@@ -167,7 +166,7 @@ class Navbar extends Component {
                                 Marketplace
                             </span>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.tournaments}
@@ -178,7 +177,7 @@ class Navbar extends Component {
                             <span className={Styles.navText} id="tournaments">
                                 Tournaments
                             </span>
-                        </NavLink>
+                        </NavLink> */}
                     </div>
 
                     <div>

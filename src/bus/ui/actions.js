@@ -14,28 +14,53 @@ export const uiActions = {
         };
     },
 
-    showSuccessLabel: () => {
+    showSuccessMarketLabel: () => {
         return {
-            type: types.SHOW_SUCCESS_LABEL,
+            type: types.SHOW_SUCCESS_PURCHASE_LABEL,
         };
     },
 
-    showErrorLabel: (error) => {
+    showErrorMarketLabel: (error) => {
         return {
-            type: types.SHOW_ERROR_LABEL,
+            type: types.SHOW_ERROR_MARKET_LABEL,
             payload: error,
         };
     },
 
-    hideSuccessLabel: () => {
+    hideSuccessMarketLabel: () => {
         return {
-            type: types.HIDE_SUCCESS_LABEL,
+            type: types.HIDE_SUCCESS_PURCHASE_LABEL,
         };
     },
 
-    hideErrorLabel: () => {
+    hideErrorMarketLabel: () => {
         return {
-            type: types.HIDE_ERROR_LABEL,
+            type: types.HIDE_ERROR_MARKET_LABEL,
+        };
+    },
+
+    showSuccessPasswordResetLabel: () => {
+        return {
+            type: types.SHOW_SUCCESS_PASSWORD_RESET_LABEL,
+        };
+    },
+
+    showErrorPasswordResetLabel: (error) => {
+        return {
+            type: types.SHOW_ERROR_PASSWORD_RESET_LABEL,
+            payload: error,
+        };
+    },
+
+    hideSuccessPasswordResetLabel: () => {
+        return {
+            type: types.HIDE_SUCCESS_PASSWORD_RESET_LABEL,
+        };
+    },
+
+    hideErrorPasswordResetLabel: () => {
+        return {
+            type: types.HIDE_ERROR_PASSWORD_RESET_LABEL,
         };
     },
 

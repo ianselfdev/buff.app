@@ -67,14 +67,14 @@ describe('buyItem saga: ', () => {
         test('should dispatch stopFetching action', () => {
             expect(clone.next().value).toEqual(put(uiActions.stopFetching()));
         });
-        test('should dispatch showErrorLabel action', () => {
-            expect(clone.next().value).toEqual(put(uiActions.showErrorLabel(error)));
+        test('should dispatch showErrorMarketLabel action', () => {
+            expect(clone.next().value).toEqual(put(uiActions.showErrorMarketLabel(error)));
         });
         test('should delay by 2000', () => {
             expect(clone.next().value).toEqual(delay(2000));
         });
-        test('should dispatch hideErrorLabel action', () => {
-            expect(clone.next().value).toEqual(put(uiActions.hideErrorLabel()));
+        test('should dispatch hideErrorMarketLabel action', () => {
+            expect(clone.next().value).toEqual(put(uiActions.hideErrorMarketLabel()));
         });
         test('should dispatch fetchMarketItemsAsync action', () => {
             expect(clone.next().value).toEqual(put(marketActions.fetchMarketItemsAsync()));
@@ -96,14 +96,14 @@ describe('buyItem saga: ', () => {
         test('should dispatch stopFetching action', () => {
             expect(saga.next().value).toEqual(put(uiActions.stopFetching()));
         });
-        test('should dispatch showSuccessLabel action', () => {
-            expect(saga.next().value).toEqual(put(uiActions.showSuccessLabel()));
+        test('should dispatch showSuccessMarketLabel action', () => {
+            expect(saga.next().value).toEqual(put(uiActions.showSuccessMarketLabel()));
         });
         test('should delay by 2000', () => {
             expect(saga.next().value).toEqual(delay(2000));
         });
-        test('should dispatch hideSuccessLabel action', () => {
-            expect(saga.next().value).toEqual(put(uiActions.hideSuccessLabel()));
+        test('should dispatch hideSuccessMarketLabel action', () => {
+            expect(saga.next().value).toEqual(put(uiActions.hideSuccessMarketLabel()));
         });
         test('should dispatch getUserData action', () => {
             expect(saga.next().value).toEqual(

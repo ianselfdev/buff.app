@@ -31,7 +31,7 @@ class Login extends Component {
         login: '',
         password: '',
         registration: false,
-        passwordReset: false,
+        passwordReset: true,
         rememberMe: true,
     };
 

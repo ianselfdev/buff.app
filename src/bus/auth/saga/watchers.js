@@ -6,7 +6,16 @@ import { types } from '../types';
 
 //*REMEMBER TO REEXPORT
 //Workers
-import { login, getUserData, logout, signup, loginWithToken, refreshTokens } from './workers';
+import {
+    login,
+    getUserData,
+    logout,
+    signup,
+    loginWithToken,
+    refreshTokens,
+    getPasswordResetCode,
+    resetPassword,
+} from './workers';
 
 function* watchLogin() {
     yield takeEvery(types.LOGIN_ASYNC, login);
@@ -26,6 +35,12 @@ function* watchSignup() {
 function* watchRefreshTokens() {
     yield takeEvery(types.REFRESH_TOKENS_ASYNC, refreshTokens);
 }
+function* watchGetPasswordResetCode() {
+    yield takeEvery(types.GET_PASSWORD_RESET_CODE_ASYNC, getPasswordResetCode);
+}
+function* watchResetPassword() {
+    yield takeEvery(types.RESET_PASSWORD_ASYNC, resetPassword);
+}
 
 export function* watchAuth() {
     yield all([
@@ -35,5 +50,7 @@ export function* watchAuth() {
         call(watchLogout),
         call(watchSignup),
         call(watchRefreshTokens),
+        call(watchGetPasswordResetCode),
+        call(watchResetPassword),
     ]);
 }

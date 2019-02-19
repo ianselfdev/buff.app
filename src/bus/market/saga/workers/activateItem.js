@@ -22,9 +22,9 @@ export function* activateItem({ payload: itemId }) {
     } catch (error) {
         yield put(uiActions.emitError('-> activateItem worker', error));
         yield put(uiActions.stopFetching());
-        yield put(uiActions.showErrorLabel(error));
+        yield put(uiActions.showErrorMarketLabel(error));
         yield delay(2000);
-        yield put(uiActions.hideErrorLabel());
+        yield put(uiActions.hideErrorMarketLabel());
     } finally {
         yield put(uiActions.stopFetching());
     }

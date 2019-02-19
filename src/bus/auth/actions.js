@@ -58,4 +58,16 @@ export const authActions = {
             type: types.REFRESH_TOKENS_ASYNC,
         };
     },
+    getPasswordResetCodeAsync: (email) => {
+        return {
+            type: types.GET_PASSWORD_RESET_CODE_ASYNC,
+            payload: email,
+        };
+    },
+    resetPasswordAsync: (email, password, code) => {
+        return {
+            type: types.RESET_PASSWORD_ASYNC,
+            payload: { email, password, code },
+        };
+    },
 };

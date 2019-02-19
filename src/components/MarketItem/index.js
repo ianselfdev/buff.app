@@ -18,8 +18,8 @@ import { Analytics } from '../../analytics';
 
 const mapStateToProps = (state) => {
     return {
-        errorLabel: state.ui.get('errorLabel'),
-        successLabel: state.ui.get('successLabel'),
+        errorMarketLabel: state.ui.get('errorMarketLabel'),
+        successPurchaseLabel: state.ui.get('successPurchaseLabel'),
         errorMessage: state.ui.get('errorMessage'),
     };
 };
@@ -48,7 +48,15 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { price, name, errorLabel, successLabel, errorMessage, img, expire } = this.props;
+        const {
+            price,
+            name,
+            errorMarketLabel,
+            successPurchaseLabel,
+            errorMessage,
+            img,
+            expire,
+        } = this.props;
 
         const expiresIn = (Math.abs(new Date(expire).getTime() - new Date()) / 1000 / 60).toFixed();
 
@@ -93,8 +101,8 @@ class MarketItem extends Component {
                     </div>
                 </div>
                 {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
-                {errorLabel && <Error message={errorMessage} />}
-                {successLabel && <Success />}
+                {errorMarketLabel && <Error message={errorMessage} />}
+                {successPurchaseLabel && <Success />}
             </Fragment>
         );
     }

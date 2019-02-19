@@ -50,6 +50,29 @@ export const Api = {
                 }),
             });
         },
+
+        getPasswordResetCode(email) {
+            return fetch(`${MAIN_URL}/accounts/forget/email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                }),
+            });
+        },
+
+        resetPassword(data) {
+            console.log(data);
+            return fetch(`${MAIN_URL}/accounts/restore/email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+        },
     },
 
     data: {

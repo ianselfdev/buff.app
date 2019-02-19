@@ -20,18 +20,18 @@ export function* buyItem({ payload: itemId }) {
         }
 
         yield put(uiActions.stopFetching());
-        yield put(uiActions.showSuccessLabel());
+        yield put(uiActions.showSuccessMarketLabel());
         yield delay(2000);
-        yield put(uiActions.hideSuccessLabel());
+        yield put(uiActions.hideSuccessMarketLabel());
         yield put(authActions.getUserDataAsync(localStorage.getItem('buff-token')));
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
     } catch (error) {
         yield put(uiActions.emitError('-> buyItem worker', error));
         yield put(uiActions.stopFetching());
-        yield put(uiActions.showErrorLabel(error));
+        yield put(uiActions.showErrorMarketLabel(error));
         yield delay(2000);
-        yield put(uiActions.hideErrorLabel());
+        yield put(uiActions.hideErrorMarketLabel());
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
     }

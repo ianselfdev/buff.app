@@ -5,6 +5,8 @@ import { Transition } from 'react-transition-group';
 
 //Components
 import LabeledInput from '../LabeledInput';
+import ErrorResetPasswordLabel from '../_popups/passwordReset/Error';
+import SuccessResetPasswordLabel from '../_popups/passwordReset/Success';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -12,6 +14,22 @@ import Styles from './styles.module.scss';
 //Instruments
 import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
+
+//Actions
+import { authActions } from '../../bus/auth/actions';
+
+const mapStateToProps = (state) => {
+    return {
+        successResetPasswordLabel: state.ui.get('successResetPasswordLabel'),
+        errorResetPasswordLabel: state.ui.get('errorResetPasswordLabel'),
+        errorResetPasswordMessage: state.ui.get('errorResetPasswordMessage'),
+    };
+};
+
+const mapDispatchToProps = {
+    getPasswordResetCodeAsync: authActions.getPasswordResetCodeAsync,
+    resetPasswordAsync: authActions.resetPasswordAsync,
+};
 
 class ForgotPassword extends Component {
     state = {
@@ -34,23 +52,17 @@ class ForgotPassword extends Component {
         e.preventDefault();
 
         const { email, code, newPassword } = this.state;
-        const { _closeForgotPassword } = this.props;
+        const { _closeForgotPassword, getPasswordResetCodeAsync, resetPasswordAsync } = this.props;
 
         this.setState((prevState) => {
             switch (prevState.page) {
                 case 1:
-                    console.log('sending an email');
-                    console.log(email);
+                    getPasswordResetCodeAsync(email);
                     return {
                         page: 2,
                     };
-                    break;
                 case 4:
-                    console.log('sending req with email, pass and code');
-                    console.log(email);
-                    console.log(code);
-                    console.log(newPassword);
-                    console.log('showing success sign and returning back to login page');
+                    resetPasswordAsync(email, newPassword, code);
                     _closeForgotPassword();
                     return {
                         email: '',
@@ -59,7 +71,6 @@ class ForgotPassword extends Component {
                         confNewPassword: '',
                         page: 1,
                     };
-                    break;
                 default:
                     return {
                         page: ++prevState.page,
@@ -97,7 +108,12 @@ class ForgotPassword extends Component {
 
     render() {
         const { email, page, code, newPassword, confNewPassword } = this.state;
-        const { _closeForgotPassword } = this.props;
+        const {
+            _closeForgotPassword,
+            successResetPasswordLabel,
+            errorResetPasswordLabel,
+            errorResetPasswordMessage,
+        } = this.props;
 
         const inputFields =
             page === 1
@@ -117,7 +133,7 @@ class ForgotPassword extends Component {
                           value: code,
                           onChange: this._handleInput,
                           name: 'code',
-                          type: 'code',
+                          type: 'text',
                           label: 'Code',
                           placeholder: 'Enter code here',
                       },
@@ -128,7 +144,7 @@ class ForgotPassword extends Component {
                           value: newPassword,
                           onChange: this._handleInput,
                           name: 'newPassword',
-                          type: 'newPassword',
+                          type: 'password',
                           label: 'New password',
                           placeholder: 'Enter new password here',
                       },
@@ -138,56 +154,60 @@ class ForgotPassword extends Component {
                           value: confNewPassword,
                           onChange: this._handleInput,
                           name: 'confNewPassword',
-                          type: 'confNewPassword',
+                          type: 'password',
                           label: 'Confirm password',
                           placeholder: 'Confirm your new password',
                       },
                   ];
 
         return (
-            <Transition
-                in
-                appear
-                mountOnEnter
-                timeout={100}
-                onEnter={this._animateEnteringComponent}
-                onExit={this._animateExitingComponent}
-            >
-                <div className={Styles.container}>
-                    <div className={Styles.header}>
-                        <img className={Styles.img} src={logo} alt="buff-logo" />
-                        <p>Password recovery</p>
+            <>
+                <Transition
+                    in
+                    appear
+                    mountOnEnter
+                    timeout={100}
+                    onEnter={this._animateEnteringComponent}
+                    onExit={this._animateExitingComponent}
+                >
+                    <div className={Styles.container}>
+                        <div className={Styles.header}>
+                            <img className={Styles.img} src={logo} alt="buff-logo" />
+                            <p>Password recovery</p>
+                        </div>
+                        <form className={Styles.form} onSubmit={this._nextPage}>
+                            {inputFields.map((item, index) => (
+                                <LabeledInput
+                                    value={item.value}
+                                    onChange={item.onChange}
+                                    placeholder={item.placeholder}
+                                    name={item.name}
+                                    type={item.type}
+                                    label={item.label}
+                                    key={index}
+                                />
+                            ))}
+                        </form>
+                        <button
+                            className={Styles.submitButton}
+                            // disabled={!isValidEmail}
+                            onClick={this._nextPage}
+                        >
+                            Next
+                        </button>
+                        <button className={Styles.backToLoginButton} onClick={_closeForgotPassword}>
+                            Back To Login
+                        </button>
                     </div>
-                    <form onSubmit={this._handleRegistration} className={Styles.form}>
-                        {inputFields.map((item, index) => (
-                            <LabeledInput
-                                value={item.value}
-                                onChange={item.onChange}
-                                placeholder={item.placeholder}
-                                name={item.name}
-                                type={item.type}
-                                label={item.label}
-                                key={index}
-                            />
-                        ))}
-                    </form>
-                    <button
-                        className={Styles.submitButton}
-                        // disabled={!isValidEmail}
-                        onClick={this._nextPage}
-                    >
-                        Next
-                    </button>
-                    <button className={Styles.backToLoginButton} onClick={_closeForgotPassword}>
-                        Back To Login
-                    </button>
-                </div>
-            </Transition>
+                </Transition>
+                {true && <ErrorResetPasswordLabel message={errorResetPasswordMessage} />}
+                {successResetPasswordLabel && <SuccessResetPasswordLabel />}
+            </>
         );
     }
 }
 
 export default connect(
-    null,
-    null,
+    mapStateToProps,
+    mapDispatchToProps,
 )(ForgotPassword);
