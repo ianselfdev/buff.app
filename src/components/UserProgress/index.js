@@ -40,8 +40,8 @@ class UserProgress extends Component {
                         <p>
                             {end - points > 0 ? (
                                 <>
-                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} /> `$
-                                    {end - points} points for the next tier`
+                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} />{' '}
+                                    {`${(end - points).toFixed(2)} points for the next tier`}
                                 </>
                             ) : (
                                 `You're already at the top tier!`
@@ -52,7 +52,7 @@ class UserProgress extends Component {
                         <p>Your points</p>
                         <p>
                             <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                            {points}
+                            {points.toFixed(2)}
                         </p>
                     </div>
                 </div>
