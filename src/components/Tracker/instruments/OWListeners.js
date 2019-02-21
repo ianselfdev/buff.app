@@ -1,6 +1,7 @@
 import { getDotaEvents } from './getDotaEvents';
 import { getLolEvents } from './getLolEvents';
 import { getFortniteEvents } from './getFortniteEvents';
+import { getCsgoEvents } from './getCsgoEvents';
 import { dota } from './drawer';
 
 /*eslint-disable no-undef*/
@@ -31,7 +32,13 @@ export const setOverwolfListeners = () => {
                 getFortniteEvents();
                 break;
 
+            case 'Counter-Strike: Global Offensive':
+                console.log('CS:GO launched');
+                getCsgoEvents();
+                break;
+
             default:
+                console.log(gameTitle);
                 return;
         }
     });
@@ -57,7 +64,13 @@ export const setOverwolfListeners = () => {
                 getFortniteEvents();
                 break;
 
+            case 'Counter-Strike: Global Offensive':
+                console.log('CS:GO launched');
+                getCsgoEvents();
+                break;
+
             default:
+                console.log(gameTitle);
                 return;
         }
     });
