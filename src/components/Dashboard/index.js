@@ -28,7 +28,7 @@ const mapDispatchToProps = {
 class Dashboard extends Component {
     state = {
         ad: {},
-        isNew: true,
+        isNew: false,
     };
 
     componentDidMount = () => {
@@ -41,9 +41,9 @@ class Dashboard extends Component {
             createAdInstanceAsync(document.getElementById('ad-div'));
         }
 
-        // this.setState({
-        //     isNew,
-        // });
+        this.setState({
+            isNew,
+        });
     };
 
     componentWillUnmount = () => {

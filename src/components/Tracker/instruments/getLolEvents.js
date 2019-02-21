@@ -149,6 +149,11 @@ const onInfoUpdates2 = (data) => {
                     matchData.kills++;
                     break;
 
+                case 'assist':
+                    // console.log('assist');
+                    matchData.assists++;
+                    break;
+
                 case 'death':
                     // console.log('death');
                     matchData.deaths++;

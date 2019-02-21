@@ -11,6 +11,7 @@ import { newsReducer as news } from '../../app/news/reducer';
 import { historyReducer as history } from '../../app/history/reducer';
 import { leaderboardReducer as leaderboard } from '../../app/leaderboard/reducer';
 import { tournamentsReducer as tournaments } from '../../app/tournaments/reducer';
+import { advertisementsReducer as advertisements } from '../../app/advertisements/reducer';
 
 //Store
 import { store } from '../store';
@@ -24,6 +25,7 @@ const referenceRootReducer = combineReducers({
     history,
     leaderboard,
     tournaments,
+    advertisements,
     market,
 });
 

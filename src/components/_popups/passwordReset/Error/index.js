@@ -5,6 +5,12 @@ import React, { Component } from 'react';
 import Styles from './styles.module.scss';
 
 export default class ErrorResetPasswordLabel extends Component {
+    componentWillMount = () => {
+        const { resetPage } = this.props;
+
+        resetPage();
+    };
+
     render() {
         const { message } = this.props;
 

@@ -44,15 +44,29 @@ class ForgotPassword extends Component {
         const { name, value } = e.target;
 
         this.setState({
-            [name]: value,
+            [name]: value.trim(),
+        });
+    };
+
+    _resetPage = () => {
+        this.setState({
+            code: '',
+            newPassword: '',
+            confNewPassword: '',
+            page: 1,
         });
     };
 
     _nextPage = (e) => {
         e.preventDefault();
 
-        const { email, code, newPassword } = this.state;
+        const { email, code, newPassword, page } = this.state;
         const { getPasswordResetCodeAsync, resetPasswordAsync } = this.props;
+
+        //refuse proceeding if password is not valid
+        if ((page === 3 && newPassword.length < 6) || (page === 2 && code.length < 36)) {
+            return null;
+        }
 
         this.setState((prevState) => {
             switch (prevState.page) {
@@ -167,7 +181,7 @@ class ForgotPassword extends Component {
                     ? true
                     : false
                 : page === 2
-                ? code.length > 0
+                ? code.length >= 36
                     ? true
                     : false
                 : page === 3
@@ -219,7 +233,10 @@ class ForgotPassword extends Component {
                     </div>
                 </Transition>
                 {errorResetPasswordLabel && (
-                    <ErrorResetPasswordLabel message={errorResetPasswordMessage} />
+                    <ErrorResetPasswordLabel
+                        message={errorResetPasswordMessage}
+                        resetPage={this._resetPage}
+                    />
                 )}
                 {successResetPasswordLabel && (
                     <SuccessResetPasswordLabel closeModal={_closeForgotPassword} />
