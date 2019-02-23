@@ -1,4 +1,5 @@
-import { _sendStartGameTrs, _sendEndGameTrs } from './gamestats';
+import { _sendStartGameTrs } from './gamestats';
+import { sendCsgoReward } from './rewardCounters';
 
 /*eslint-disable no-undef*/
 
@@ -35,7 +36,8 @@ const matchData = {
     assists: 0,
     headshots: 0,
     mvps: 0,
-    team: '',
+    score: 0,
+    matchId: '1',
 };
 
 // setting features to track + retry if failed
@@ -52,30 +54,31 @@ const onNewEvents = (data) => {
         if (res.title === 'Counter-Strike: Global Offensive') {
             const event = data.events[0];
             switch (event.name) {
+                case 'match_start':
+                    console.log(`event -> match_start ->`, JSON.parse(event.data));
+
+                    const startGameData = {
+                        gameId: '7764',
+                        matchId: matchData.matchId,
+                    };
+                    _sendStartGameTrs(startGameData);
+                    break;
                 case 'kill':
-                    // console.log('event -> kill');
                     matchData.kills++;
                     break;
                 case 'death':
-                    // console.log('event -> death');
                     matchData.deaths++;
                     break;
                 case 'assist':
-                    // console.log('event -> assist');
                     matchData.assists++;
                     break;
                 case 'headshot':
-                    // console.log('event -> headshot');
                     matchData.headshots++;
                     break;
                 case 'bomb_planted':
                     console.log('event -> bomb_planted');
                     break;
                 case 'bomb_change':
-                    // console.log('event -> bomb_change');
-                    break;
-                case 'weapon_acquired':
-                    console.log(`event -> weapon_acquired ->`, JSON.parse(event.data));
                     break;
                 case 'fired':
                     break;
@@ -83,11 +86,11 @@ const onNewEvents = (data) => {
                     break;
                 case 'weapon_change':
                     break;
+                case 'weapon_acquired':
+                    // console.log(`event -> weapon_acquired ->`, JSON.parse(event.data));
+                    break;
                 case 'round_start':
                     // console.log(`event -> round start ->`, JSON.parse(event.data));
-                    break;
-                case 'match_start':
-                    console.log(`event -> match_start ->`, JSON.parse(event.data));
                     break;
                 case 'team_set':
                     // console.log(`event -> team_set ->`, JSON.parse(event.data));
@@ -101,7 +104,13 @@ const onNewEvents = (data) => {
 
                 case 'match_end':
                     console.log(`event -> match_end ->`, JSON.parse(event.data));
-                    console.log(matchData);
+                    const endGameData = {
+                        matchData,
+                        gameId: '7764',
+                        matchId: matchData.matchId,
+                    };
+                    console.log(endGameData);
+                    sendCsgoReward(endGameData);
                     break;
 
                 default:
@@ -115,12 +124,23 @@ const onNewEvents = (data) => {
 };
 
 const onInfoUpdates2 = (data) => {
-    if (data.info.player) {
-        console.log('player ->', data.info.player);
+    if (data.info.player === undefined) return null;
+
+    if (data.info.player.totalMvps !== undefined) {
+        console.log('totalMvps ->', data.info);
+        console.log('totalMvps ->', data.info.player);
+        console.log('totalMvps ->', data.info.player.totalMvps);
+        matchData.mvps = Math.max(matchData.mvps, data.info.player.totalMvps);
     }
-    if (data.info.roster) {
-        console.log('roster ->', data.info.roster);
+    if (data.info.player.score !== undefined) {
+        console.log('score ->', data.info);
+        console.log('score ->', data.info.player);
+        console.log('score ->', data.info.player.score);
+        matchData.score = Math.max(matchData.score, data.info.player.score);
     }
+    // if (data.info.roster) {
+    //     console.log('roster ->', data.info.roster);
+    // }
 };
 
 //setting listeners for OW events

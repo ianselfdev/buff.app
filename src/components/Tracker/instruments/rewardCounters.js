@@ -1,6 +1,6 @@
 import { _sendEndGameTrs } from './gamestats';
 
-export const sendDotaReward = (data, token) => {
+export const sendDotaReward = (data) => {
     const { gpm, xpm, kda, lastHits, denies, victory } = data.matchData;
 
     const rewardPoints =
@@ -30,10 +30,10 @@ export const sendDotaReward = (data, token) => {
         reward: rewardPoints / 10,
     };
 
-    _sendEndGameTrs(countedData, token);
+    _sendEndGameTrs(countedData);
 };
 
-export const sendLolReward = (data, token) => {
+export const sendLolReward = (data) => {
     const { kills, deaths, assists, minionKills, level } = data.matchData;
     const { victory } = data;
     const kda = (kills + assists) / (deaths || 1);
@@ -60,5 +60,24 @@ export const sendLolReward = (data, token) => {
         reward: rewardPoints / 10,
     };
 
-    _sendEndGameTrs(countedData, token);
+    _sendEndGameTrs(countedData);
+};
+
+export const sendCsgoReward = (data) => {
+    const { kills, deaths, assists, headshots, mvps, score } = data.matchData;
+    const kda = (kills + assists) / (deaths || 1);
+
+    const rewardPoints =
+        Math.max(0, Math.min(20, (kda - 1) * 15)) +
+        Math.max(0, Math.min(20, headshots * 2)) +
+        Math.max(0, Math.min(20, mvps * 2)) +
+        Math.max(0, Math.min(20, (score - 35) * 2));
+
+    const countedData = {
+        ...data,
+        victory: true,
+        reward: rewardPoints / 10,
+    };
+    console.log('counted data ->', countedData);
+    _sendEndGameTrs(countedData);
 };
