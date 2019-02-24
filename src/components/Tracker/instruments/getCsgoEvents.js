@@ -1,4 +1,4 @@
-import { _sendStartGameTrs } from './gamestats';
+import { _sendStartGameTrs, _sendCsgoEvent } from './gamestats';
 import { sendCsgoReward } from './rewardCounters';
 
 /*eslint-disable no-undef*/
@@ -81,19 +81,37 @@ const onNewEvents = (data) => {
                 case 'bomb_change':
                     break;
                 case 'fired':
+                    _sendCsgoEvent({
+                        event: event.name,
+                    });
                     break;
                 case 'reloading':
+                    _sendCsgoEvent({
+                        event: event.name,
+                    });
                     break;
                 case 'weapon_change':
+                    _sendCsgoEvent({
+                        event: event.name,
+                    });
                     break;
                 case 'weapon_acquired':
                     // console.log(`event -> weapon_acquired ->`, JSON.parse(event.data));
+                    _sendCsgoEvent({
+                        event: event.name,
+                    });
                     break;
                 case 'round_start':
                     // console.log(`event -> round start ->`, JSON.parse(event.data));
+                    _sendCsgoEvent({
+                        event: event.name,
+                    });
                     break;
                 case 'team_set':
                     // console.log(`event -> team_set ->`, JSON.parse(event.data));
+                    _sendCsgoEvent({
+                        event: event.name,
+                    });
                     break;
                 case 'player_activity_change':
                     // console.log(`event -> player_activity_change ->`, JSON.parse(event.data));

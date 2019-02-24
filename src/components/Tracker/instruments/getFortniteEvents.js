@@ -71,13 +71,15 @@ const onNewEvents = (data) => {
                     break;
 
                 case 'killer':
+                    console.log(data.events[0]);
                     _sendFortniteEvent({
                         event,
-                        data: data.events[0].data,
+                        data: data.events[0].data || 'killer',
                     });
                     break;
 
                 case 'kill':
+                    console.log(data.events[0]);
                     // console.log('kill');
                     _sendFortniteEvent({
                         event,
@@ -86,7 +88,18 @@ const onNewEvents = (data) => {
                     matchData.kills++;
                     break;
 
+                case 'hit':
+                    console.log(data.events[0]);
+                    // console.log('hit');
+                    _sendFortniteEvent({
+                        event,
+                        data: data.events[0].data || 'hit',
+                    });
+                    matchData.kills++;
+                    break;
+
                 case 'death':
+                    console.log(data.events[0]);
                     // console.log('dead');
                     _sendFortniteEvent({
                         event,
@@ -114,7 +127,6 @@ const onNewEvents = (data) => {
                     console.log(`Reward points: ${endGameData.reward}`);
 
                     console.log(endGameData);
-                    // token = localStorage.getItem('buff-token');
                     _sendEndGameTrs(endGameData);
                     break;
 
