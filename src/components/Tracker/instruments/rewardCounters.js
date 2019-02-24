@@ -4,12 +4,12 @@ export const sendDotaReward = (data) => {
     const { gpm, xpm, kda, lastHits, denies, victory } = data.matchData;
 
     const rewardPoints =
-        Math.max(0, (gpm - 250) / 20) +
-        Math.max(0, (xpm - 250) / 20) +
+        Math.max(0, (gpm - 350) / 20) +
+        Math.max(0, (xpm - 350) / 20) +
         Math.max(0, (kda - 1.5) * 5) +
-        Math.max(0, (lastHits - 100) / 32) +
-        Math.max(0, (denies - 10) / 11) +
-        (victory ? 55 : 0);
+        Math.max(0, (lastHits - 150) / 30) +
+        Math.max(0, (denies - 20) / 10) +
+        (victory ? 65 : 0);
 
     // console.log(`%cReward: ${rewardPoints / 10}`, 'color:orange');
     // console.log(`%cGPM: ${gpm} => ${Math.max(0, Math.min(15, (gpm - 250) / 20))}`, 'color:orange');
