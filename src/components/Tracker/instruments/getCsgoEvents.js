@@ -83,34 +83,40 @@ const onNewEvents = (data) => {
                 case 'fired':
                     _sendCsgoEvent({
                         event: event.name,
+                        data: event.name,
                     });
                     break;
                 case 'reloading':
                     _sendCsgoEvent({
                         event: event.name,
+                        data: event.name,
                     });
                     break;
                 case 'weapon_change':
                     _sendCsgoEvent({
                         event: event.name,
+                        data: event.name,
                     });
                     break;
                 case 'weapon_acquired':
                     // console.log(`event -> weapon_acquired ->`, JSON.parse(event.data));
                     _sendCsgoEvent({
                         event: event.name,
+                        data: event.name,
                     });
                     break;
                 case 'round_start':
                     // console.log(`event -> round start ->`, JSON.parse(event.data));
                     _sendCsgoEvent({
                         event: event.name,
+                        data: event.name,
                     });
                     break;
                 case 'team_set':
                     // console.log(`event -> team_set ->`, JSON.parse(event.data));
                     _sendCsgoEvent({
                         event: event.name,
+                        data: event.name,
                     });
                     break;
                 case 'player_activity_change':

@@ -1,2 +1,2 @@
 export { Api } from './api';
-export { MAIN_URL } from './config';
+export { MAIN_URL, SOCKET_URL } from './config';

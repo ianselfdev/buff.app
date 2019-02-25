@@ -62,9 +62,7 @@ export const _sendCsgoEvent = async (data) => {
     //     data: joi.string().required()
     //   };
 
-    console.log('csgo event ->', data);
-
-    const response = await fetch(`http://18.188.224.32:${port}/api/game/csgo/event`, {
+    const response = await fetch(`http://18.188.224.32:${port}/api/games/csgo/event`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

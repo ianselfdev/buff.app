@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { socket } from '../../socket';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -46,6 +47,16 @@ class Navbar extends Component {
     componentDidMount = () => {
         const { getUserDataAsync, refreshTokensAsync } = this.props;
 
+        console.log('socket connected ->', socket.connected);
+        socket.on('success', (data) => {
+            console.log('socket -> success');
+            console.log(data);
+        });
+        socket.on('bonus', (data) => {
+            console.log('socket -> bonus');
+            console.log(data);
+        });
+
         if (process.env.NODE_ENV === 'production') {
             //refresh tokens every minute
             if (!localStorage.getItem('intervals-set')) {
@@ -61,6 +72,11 @@ class Navbar extends Component {
                 localStorage.setItem('intervals-set', true);
             }
         }
+    };
+
+    componentWillUnmount = () => {
+        socket.removeAllListeners();
+        console.log('socket listeners removed');
     };
 
     _handleClick = () => {
