@@ -47,15 +47,25 @@ class Navbar extends Component {
     componentDidMount = () => {
         const { getUserDataAsync, refreshTokensAsync } = this.props;
 
-        console.log('socket connected ->', socket.connected);
+        if (!socket.connected) {
+            socket.open();
+        }
+        socket.on('connect', () => {
+            console.log('connectedsdasdasdasd');
+        });
         socket.on('success', (data) => {
             console.log('socket -> success');
+            console.log(data);
+        });
+        socket.on('ERROR', (data) => {
+            console.log('socket -> ERROR');
             console.log(data);
         });
         socket.on('bonus', (data) => {
             console.log('socket -> bonus');
             console.log(data);
         });
+        console.log('socket connected ->', socket.connected);
 
         if (process.env.NODE_ENV === 'production') {
             //refresh tokens every minute

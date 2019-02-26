@@ -81,6 +81,7 @@ const onNewEvents = (data) => {
                 case 'bomb_change':
                     break;
                 case 'fired':
+                    console.log('c%EVENT -> FIRED', 'color:red');
                     _sendCsgoEvent({
                         event: event.name,
                         data: event.name,
@@ -106,6 +107,8 @@ const onNewEvents = (data) => {
                     // });
                     break;
                 case 'round_start':
+                    console.log('c%EVENT -> ROUND_START', 'color:red');
+
                     // console.log(`event -> round start ->`, JSON.parse(event.data));
                     _sendCsgoEvent({
                         event: event.name,
@@ -113,6 +116,8 @@ const onNewEvents = (data) => {
                     });
                     break;
                 case 'team_set':
+                    console.log('c%EVENT -> TEAM_SET', 'color:red');
+
                     // console.log(`event -> team_set ->`, JSON.parse(event.data));
                     _sendCsgoEvent({
                         event: event.name,
