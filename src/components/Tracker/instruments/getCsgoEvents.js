@@ -87,23 +87,23 @@ const onNewEvents = (data) => {
                     });
                     break;
                 case 'reloading':
-                    _sendCsgoEvent({
-                        event: event.name,
-                        data: event.name,
-                    });
+                    // _sendCsgoEvent({
+                    //     event: event.name,
+                    //     data: event.name,
+                    // });
                     break;
                 case 'weapon_change':
-                    _sendCsgoEvent({
-                        event: event.name,
-                        data: event.name,
-                    });
+                    // _sendCsgoEvent({
+                    //     event: event.name,
+                    //     data: event.name,
+                    // });
                     break;
                 case 'weapon_acquired':
                     // console.log(`event -> weapon_acquired ->`, JSON.parse(event.data));
-                    _sendCsgoEvent({
-                        event: event.name,
-                        data: event.name,
-                    });
+                    // _sendCsgoEvent({
+                    //     event: event.name,
+                    //     data: event.name,
+                    // });
                     break;
                 case 'round_start':
                     // console.log(`event -> round start ->`, JSON.parse(event.data));

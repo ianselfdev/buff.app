@@ -19,12 +19,12 @@ const mapDispatchToProps = {
 };
 
 class Buy extends Component {
-    _handleBuyItem = () => {
+    _handleBuyItem = (e) => {
         const { id, buyItemAsync, closeModal } = this.props;
 
         Analytics.event('Item purchase', { category: id });
         buyItemAsync(id);
-        closeModal();
+        closeModal(e);
     };
 
     render() {

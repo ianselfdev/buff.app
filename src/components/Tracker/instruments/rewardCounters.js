@@ -36,7 +36,7 @@ export const sendDotaReward = (data) => {
 export const sendLolReward = (data) => {
     const { kills, deaths, assists, minionKills, level } = data.matchData;
     const { victory } = data;
-    const kda = (kills + assists) / (deaths || 1);
+    const kda = (kills + assists * 0.5) / (deaths || 1);
 
     const rewardPoints =
         Math.max(0, Math.min(20, (kda - 1.5) * 8)) +
