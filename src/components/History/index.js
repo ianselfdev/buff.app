@@ -68,21 +68,23 @@ class History extends Component {
                                                 value: item.get('name') || 'Unknown game',
                                             },
                                             {
-                                                value:
-                                                    item.get('type') === 4
-                                                        ? 'You, son of a cheater!'
-                                                        : `${
-                                                              Number(item.get('amount')) > 10
-                                                                  ? 'More than 10 coins!'
-                                                                  : Number(item.get('amount')) > 5
-                                                                  ? 'More than 5 coins!'
-                                                                  : 'Well, you tried'
-                                                          }`,
+                                                value: item.get('data').get('name')
+                                                    ? item.get('data').get('name')
+                                                    : item.get('type') === 4
+                                                    ? 'Unconfirmed'
+                                                    : `${
+                                                          Number(item.get('amount')) > 10
+                                                              ? 'More than 10 coins!'
+                                                              : Number(item.get('amount')) > 5
+                                                              ? 'More than 5 coins!'
+                                                              : 'Well, you tried'
+                                                      }`,
                                             },
                                             { value: Number(item.get('amount')) },
                                         ]}
                                         key={index}
                                         type={item.get('type')}
+                                        isConfirmed={item.get('isConfirmed')}
                                     />
                                 ))}
                             </div>

@@ -50,6 +50,8 @@
 
 .tableCell {
     width: 18%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     overflow-x: scroll;
     text-align: left;
     margin: 0 20px;

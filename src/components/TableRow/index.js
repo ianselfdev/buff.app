@@ -8,7 +8,7 @@ import coin from '../../theme/assets/coin.png';
 
 export default class TableRow extends Component {
     render() {
-        const { fields, header, type } = this.props;
+        const { fields, header, type, isConfirmed } = this.props;
 
         return (
             <div
@@ -32,7 +32,7 @@ export default class TableRow extends Component {
                                 <div
                                     className={Styles.tableCell}
                                     key={index}
-                                    style={{ color: `${type === 4 ? 'red' : ''}` }}
+                                    style={{ color: `${type === 4 || !isConfirmed ? 'red' : ''}` }}
                                 >
                                     <img alt="coin" src={coin} />
                                     {item.value}
@@ -41,7 +41,7 @@ export default class TableRow extends Component {
                                 <div
                                     className={Styles.tableCell}
                                     key={index}
-                                    style={{ color: `${type === 4 ? 'red' : ''}` }}
+                                    style={{ color: `${type === 4 || !isConfirmed ? 'red' : ''}` }}
                                 >
                                     {item.value}
                                 </div>
