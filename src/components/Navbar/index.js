@@ -19,6 +19,7 @@ import {
     HelpOutline,
 } from '@material-ui/icons';
 import coin from '../../theme/assets/coin.png';
+import discordLogo from '../../theme/assets/Discord-Logo-White.png';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -207,17 +208,23 @@ class Navbar extends Component {
                     </div>
 
                     <div>
-                        <div className={Styles.controlButton} onClick={logout}>
-                            <ExitToApp className={Styles.controlButtonIcon} />
-                            <span className={Styles.controlText}>Sign out</span>
+                        <div className={Styles.controlButton}>
+                            <a href="https://discord.gg/fAhV4SY" target="_blank">
+                                <img src={discordLogo} className={Styles.discordLogo} />
+                            </a>
+                            <span className={Styles.controlText}>Join us</span>
+                        </div>
+                        <div className={Styles.controlButton}>
+                            <Settings className={Styles.controlButtonIcon} />
+                            <span className={Styles.controlText}>Settings</span>
                         </div>
                         <div className={Styles.controlButton}>
                             <HelpOutline className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Information</span>
                         </div>
-                        <div className={Styles.controlButton}>
-                            <Settings className={Styles.controlButtonIcon} />
-                            <span className={Styles.controlText}>Settings</span>
+                        <div className={Styles.controlButton} onClick={logout}>
+                            <ExitToApp className={Styles.controlButtonIcon} />
+                            <span className={Styles.controlText}>Sign out</span>
                         </div>
                     </div>
                 </div>
