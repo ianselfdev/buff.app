@@ -10,6 +10,12 @@ export const historyActions = {
         };
     },
 
+    clearHistory: () => {
+        return {
+            type: types.CLEAR_HISTORY,
+        };
+    },
+
     addHistoryFilterParameter: (parametersObj) => {
         return {
             type: types.ADD_HISTORY_FILTER_PARAMETER,

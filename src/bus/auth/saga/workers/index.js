@@ -1,4 +1,5 @@
 export { login } from './login';
+export { loginDemo } from './loginDemo';
 export { loginWithToken } from './loginWithToken';
 export { getUserData } from './getUserData';
 export { logout } from './logout';

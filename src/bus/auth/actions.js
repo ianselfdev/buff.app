@@ -17,6 +17,11 @@ export const authActions = {
             type: types.REGISTRATION_SUCCESS,
         };
     },
+    loginDemo: () => {
+        return {
+            type: types.LOGIN_DEMO,
+        };
+    },
 
     //Async
     loginAsync: (userData) => {

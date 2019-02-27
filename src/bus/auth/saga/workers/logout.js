@@ -4,6 +4,7 @@ import { put, apply } from 'redux-saga/effects';
 //Instruments
 import { profileActions } from '../../../profile/actions';
 import { authActions } from '../../../auth/actions';
+import { historyActions } from '../../../app/history/actions';
 
 //* apply(context, method, arrayOfArguments)
 //* викликає метод з потрібним контекстом і аргументами
@@ -18,5 +19,6 @@ export function* logout() {
     yield apply(localStorage, localStorage.removeItem, ['buff-refresh-token']);
     yield apply(localStorage, localStorage.removeItem, ['buff-remember-me']);
     yield put(profileActions.clearProfile());
+    yield put(historyActions.clearHistory());
     // yield put(replace(book.login));
 }

@@ -209,8 +209,16 @@ class Navbar extends Component {
 
                     <div>
                         <div className={Styles.controlButton}>
-                            <a href="https://discord.gg/fAhV4SY" target="_blank">
-                                <img src={discordLogo} className={Styles.discordLogo} />
+                            <a
+                                href="https://discord.gg/fAhV4SY"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <img
+                                    src={discordLogo}
+                                    className={Styles.discordLogo}
+                                    alt="discord logo"
+                                />
                             </a>
                             <span className={Styles.controlText}>Join us</span>
                         </div>

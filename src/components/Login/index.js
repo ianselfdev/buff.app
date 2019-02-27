@@ -22,6 +22,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     loginAsync: authActions.loginAsync,
+    loginDemo: authActions.loginDemo,
     loginWithTokenAsync: authActions.loginWithTokenAsync,
 };
 
@@ -96,7 +97,7 @@ class Login extends Component {
 
     render() {
         const { login, password, rememberMe } = this.state;
-        const { _toggleRegistration, _toggleForgotPassword, errorMessage } = this.props;
+        const { _toggleRegistration, _toggleForgotPassword, errorMessage, loginDemo } = this.props;
 
         return (
             <Transition
@@ -137,6 +138,9 @@ class Login extends Component {
                     </button>
                     <button onClick={_toggleRegistration} className={Styles.registrationButton}>
                         Not registered yet? Click here!
+                    </button>
+                    <button onClick={loginDemo} className={Styles.tryDemoButton}>
+                        Try demo
                     </button>
                 </div>
             </Transition>

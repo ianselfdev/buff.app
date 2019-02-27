@@ -14,6 +14,9 @@ export const historyReducer = (state = initialState, action) => {
         case types.FILL_HISTORY:
             return state.update('history', () => fromJS(action.payload));
 
+        case types.CLEAR_HISTORY:
+            return state;
+
         case types.ADD_HISTORY_FILTER_PARAMETER:
             return state.update('filters', () =>
                 state.get('filters').update(action.payload.parameter, () => action.payload.value),
