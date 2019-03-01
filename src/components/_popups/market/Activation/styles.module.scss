@@ -18,9 +18,9 @@
         height: 80%;
         width: 35%;
         background: $primaryGrey;
-        border: 2px solid $secondaryGreen;
+        border: 1px solid $secondaryGreen;
         border-radius: 5px;
-        box-shadow: 0px 0px 100px 0px $secondaryGreen;
+        box-shadow: 0px 0px 50px 0px $secondaryGreen;
 
         //? box shadow
         animation: animateShadow 3000ms infinite;

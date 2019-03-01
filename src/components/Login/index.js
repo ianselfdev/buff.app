@@ -97,7 +97,12 @@ class Login extends Component {
 
     render() {
         const { login, password, rememberMe } = this.state;
-        const { _toggleRegistration, _toggleForgotPassword, errorMessage, loginDemo } = this.props;
+        const {
+            _toggleRegistration,
+            _togglePasswordRecovery,
+            errorMessage,
+            loginDemo,
+        } = this.props;
 
         return (
             <Transition
@@ -133,7 +138,7 @@ class Login extends Component {
                         />
                         <input type="submit" value="Log In" />
                     </form>
-                    <button onClick={_toggleForgotPassword} className={Styles.forgotPassButton}>
+                    <button onClick={_togglePasswordRecovery} className={Styles.forgotPassButton}>
                         Forgot password?
                     </button>
                     <button onClick={_toggleRegistration} className={Styles.registrationButton}>

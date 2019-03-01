@@ -10,6 +10,7 @@ const initialState = Map({
     errorMarketLabel: false,
     successResetPasswordLabel: false,
     errorResetPasswordLabel: false,
+    bonusPopup: false,
     errorMessage: '',
     errorResetPasswordMessage: '',
 });
@@ -47,6 +48,12 @@ export const uiReducer = (state = initialState, action) => {
 
         case types.HIDE_ERROR_PASSWORD_RESET_LABEL:
             return state.set('errorResetPasswordLabel', false).set('errorResetPasswordMessage', '');
+
+        case types.SHOW_BONUS_POPUP:
+            return state.set('bonusPopup', true);
+
+        case types.HIDE_BONUS_POPUP:
+            return state.set('bonusPopup', false);
 
         case types.EMIT_ERROR:
             return state.set('errorMessage', action.payload.message);

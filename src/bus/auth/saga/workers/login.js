@@ -15,6 +15,9 @@ export function* login({ payload: userData }) {
     try {
         yield put(uiActions.startFetching());
 
+        const ipResponse = yield apply(Api, Api.auth.getUserIp);
+        const { ip } = yield apply(ipResponse, ipResponse.json);
+        console.log(`ip -> `, ip);
         //need to define response in this scope
         let response;
 
@@ -24,6 +27,7 @@ export function* login({ payload: userData }) {
                 {
                     email: userData.login,
                     password: userData.password,
+                    // ip,
                 },
             ]);
         } else {
@@ -31,6 +35,7 @@ export function* login({ payload: userData }) {
                 {
                     login: userData.login,
                     password: userData.password,
+                    // ip,
                 },
             ]);
         }

@@ -57,6 +57,9 @@ const onNewEvents = (data) => {
                 case 'match_start':
                     console.log(`event -> match_start ->`, JSON.parse(event.data));
 
+                    overwolf.games.events.getInfo((info) => {
+                        console.log('match started -> getInfo: ', info);
+                    });
                     const startGameData = {
                         gameId: '7764',
                         matchId: matchData.matchId,

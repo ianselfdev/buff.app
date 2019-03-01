@@ -7,6 +7,7 @@ import { Transition } from 'react-transition-group';
 import LabeledInput from '../LabeledInput';
 import ErrorResetPasswordLabel from '../_popups/passwordReset/Error';
 import SuccessResetPasswordLabel from '../_popups/passwordReset/Success';
+import Hint from '../_popups/passwordReset/Hint';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -31,13 +32,14 @@ const mapDispatchToProps = {
     resetPasswordAsync: authActions.resetPasswordAsync,
 };
 
-class ForgotPassword extends Component {
+class PasswordRecovery extends Component {
     state = {
         email: '',
         code: '',
         newPassword: '',
         confNewPassword: '',
         page: 1,
+        hint: false,
     };
 
     _handleInput = (e) => {
@@ -54,7 +56,14 @@ class ForgotPassword extends Component {
             newPassword: '',
             confNewPassword: '',
             page: 1,
+            hint: false,
         });
+    };
+
+    _toggleHint = () => {
+        this.setState((prevState) => ({
+            hint: !prevState.hint,
+        }));
     };
 
     _nextPage = (e) => {
@@ -72,6 +81,7 @@ class ForgotPassword extends Component {
             switch (prevState.page) {
                 case 1:
                     getPasswordResetCodeAsync(email);
+                    this._toggleHint();
                     return {
                         page: 2,
                     };
@@ -120,9 +130,9 @@ class ForgotPassword extends Component {
     };
 
     render() {
-        const { email, page, code, newPassword, confNewPassword } = this.state;
+        const { email, page, code, newPassword, confNewPassword, hint } = this.state;
         const {
-            _closeForgotPassword,
+            _closePasswordRecovery,
             successResetPasswordLabel,
             errorResetPasswordLabel,
             errorResetPasswordMessage,
@@ -227,7 +237,10 @@ class ForgotPassword extends Component {
                         >
                             Next
                         </button>
-                        <button className={Styles.backToLoginButton} onClick={_closeForgotPassword}>
+                        <button
+                            className={Styles.backToLoginButton}
+                            onClick={_closePasswordRecovery}
+                        >
                             Back To Login
                         </button>
                     </div>
@@ -239,8 +252,9 @@ class ForgotPassword extends Component {
                     />
                 )}
                 {successResetPasswordLabel && (
-                    <SuccessResetPasswordLabel closeModal={_closeForgotPassword} />
+                    <SuccessResetPasswordLabel closeModal={_closePasswordRecovery} />
                 )}
+                {hint && <Hint closeModal={this._toggleHint} />}
             </>
         );
     }
@@ -249,4 +263,4 @@ class ForgotPassword extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(ForgotPassword);
+)(PasswordRecovery);

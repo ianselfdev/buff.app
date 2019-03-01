@@ -45,6 +45,12 @@ export const uiActions = {
         };
     },
 
+    hideSuccessPasswordResetLabel: () => {
+        return {
+            type: types.HIDE_SUCCESS_PASSWORD_RESET_LABEL,
+        };
+    },
+
     showErrorPasswordResetLabel: (error) => {
         return {
             type: types.SHOW_ERROR_PASSWORD_RESET_LABEL,
@@ -52,15 +58,21 @@ export const uiActions = {
         };
     },
 
-    hideSuccessPasswordResetLabel: () => {
-        return {
-            type: types.HIDE_SUCCESS_PASSWORD_RESET_LABEL,
-        };
-    },
-
     hideErrorPasswordResetLabel: () => {
         return {
             type: types.HIDE_ERROR_PASSWORD_RESET_LABEL,
+        };
+    },
+
+    showBonusPopup: () => {
+        return {
+            type: types.SHOW_BONUS_POPUP,
+        };
+    },
+
+    hideBonusPopup: () => {
+        return {
+            type: types.HIDE_BONUS_POPUP,
         };
     },
 

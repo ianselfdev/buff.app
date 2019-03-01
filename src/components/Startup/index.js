@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 //Components
 import Registration from '../Registration';
 import Login from '../Login';
-import ForgotPassword from '../ForgotPassword';
+import PasswordRecovery from '../PasswordRecovery';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -12,7 +12,7 @@ import Styles from './styles.module.scss';
 export default class Startup extends Component {
     state = {
         registration: false,
-        forgotPassword: false,
+        passwordRecovery: false,
     };
 
     _toggleRegistration = () => {
@@ -21,32 +21,32 @@ export default class Startup extends Component {
         }));
     };
 
-    _toggleForgotPassword = () => {
+    _togglePasswordRecovery = () => {
         this.setState((prevState) => ({
-            forgotPassword: !prevState.forgotPassword,
+            passwordRecovery: !prevState.passwordRecovery,
         }));
     };
 
     render() {
-        const { registration, forgotPassword } = this.state;
+        const { registration, passwordRecovery } = this.state;
         return (
             <div
                 className={
                     registration
                         ? Styles.containerRegistration
-                        : forgotPassword
-                        ? Styles.containerForgotPassword
+                        : passwordRecovery
+                        ? Styles.containerPasswordRecovery
                         : Styles.container
                 }
             >
                 {registration ? (
                     <Registration _closeRegistration={this._toggleRegistration} />
-                ) : forgotPassword ? (
-                    <ForgotPassword _closeForgotPassword={this._toggleForgotPassword} />
+                ) : passwordRecovery ? (
+                    <PasswordRecovery _closePasswordRecovery={this._togglePasswordRecovery} />
                 ) : (
                     <Login
                         _toggleRegistration={this._toggleRegistration}
-                        _toggleForgotPassword={this._toggleForgotPassword}
+                        _togglePasswordRecovery={this._togglePasswordRecovery}
                     />
                 )}
             </div>

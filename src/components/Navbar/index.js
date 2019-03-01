@@ -1,11 +1,18 @@
 //Core
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { socket } from '../../socket';
 
 //Styles
 import Styles from './styles.module.scss';
+
+//Components
+import Bonus from '../_popups/ui/Bonus';
+
+//Animations
+import gsap from 'gsap';
+import { Transition } from 'react-transition-group';
 
 //Instruments
 import { book } from '../../core/book';
@@ -21,23 +28,26 @@ import {
 import coin from '../../theme/assets/coin.png';
 import discordLogo from '../../theme/assets/Discord-Logo-White.png';
 
-//Actions
-import { authActions } from '../../bus/auth/actions';
-
 //Analytics
 import { Analytics } from '../../analytics';
+
+//Actions
+import { authActions } from '../../bus/auth/actions';
+import { uiActions } from '../../bus/ui/actions';
 
 const mapStateToProps = (state) => ({
     login: state.profile.get('login'),
     balance: state.profile.get('balance'),
     level: state.profile.get('tier').level,
     // nickname: state.profile.get('nickname'),
+    bonusPopup: state.ui.get('bonusPopup'),
 });
 
 const mapDispatchToProps = {
     logout: authActions.logoutAsync,
     getUserDataAsync: authActions.getUserDataAsync,
     refreshTokensAsync: authActions.refreshTokensAsync,
+    showBonusPopup: uiActions.showBonusPopup,
 };
 
 class Navbar extends Component {
@@ -46,7 +56,7 @@ class Navbar extends Component {
     };
 
     componentDidMount = () => {
-        const { getUserDataAsync, refreshTokensAsync } = this.props;
+        const { getUserDataAsync, refreshTokensAsync, showBonusPopup } = this.props;
 
         if (!socket.connected) {
             socket.open();
@@ -63,6 +73,7 @@ class Navbar extends Component {
             console.log(data);
         });
         socket.on('bonus', (data) => {
+            showBonusPopup();
             console.log('socket -> bonus');
             console.log(data);
         });
@@ -101,15 +112,29 @@ class Navbar extends Component {
         Analytics.event('Navigation link click', { category: id });
     };
 
+    _animateBonusEnter = (bonus) => {
+        //element, animation in SECONDS, { from point, to point }
+        gsap.fromTo(
+            bonus,
+            1.5,
+            {
+                x: 500,
+            },
+            {
+                x: 0,
+            },
+        );
+    };
+
     render() {
-        const { logout, login, balance, level } = this.props;
+        const { logout, login, balance, level, bonusPopup, showBonusPopup } = this.props;
         const { opened } = this.state;
 
         //!__temporary data__
         const avatar = 'https://small-games.info/avko/7/175121_78533.gif';
 
         return (
-            <Fragment>
+            <>
                 <div className={Styles.background} />
                 <div className={opened ? Styles.containerOpened : Styles.containerClosed}>
                     <div>
@@ -223,7 +248,10 @@ class Navbar extends Component {
                             <span className={Styles.controlText}>Join us</span>
                         </div>
                         <div className={Styles.controlButton}>
-                            <Settings className={Styles.controlButtonIcon} />
+                            <Settings
+                                className={Styles.controlButtonIcon}
+                                onClick={showBonusPopup}
+                            />
                             <span className={Styles.controlText}>Settings</span>
                         </div>
                         <div className={Styles.controlButton}>
@@ -236,7 +264,17 @@ class Navbar extends Component {
                         </div>
                     </div>
                 </div>
-            </Fragment>
+                {bonusPopup && (
+                    <Transition
+                        appear
+                        in={bonusPopup}
+                        timeout={{ enter: 1500 }}
+                        onEnter={this._animateBonusEnter}
+                    >
+                        <Bonus />
+                    </Transition>
+                )}
+            </>
         );
     }
 }

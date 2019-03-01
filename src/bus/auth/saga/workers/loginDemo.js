@@ -1,5 +1,5 @@
 //Core
-import { put, apply } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 
 //Instruments
 import { authActions } from '../../actions';
