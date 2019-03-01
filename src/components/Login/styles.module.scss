@@ -7,6 +7,14 @@
     transform: translate(-50%, -50%) scale(0.15);
 }
 
+.discordLink {
+    display: inline;
+    & img {
+        width: 3rem;
+        margin: -1rem 0 0 0.2rem;
+    }
+}
+
 .loginForm {
     position: absolute;
     left: 50%;
@@ -35,11 +43,13 @@
         }
 
         &[type='submit'] {
+            display: inline-block;
             background: $secondaryGreen;
             color: #000;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1rem;
+            width: 82%;
 
             &:hover {
                 background: $primaryGreen;
@@ -51,7 +61,7 @@
             height: 1.3rem;
             cursor: pointer;
             transition: all 0.3s;
-            display: inline-block;
+            display: block;
             margin: -10px 10px 20px;
 
             &:after {

@@ -10,6 +10,7 @@ import ErrorLabel from '../ErrorLabel';
 import Styles from './styles.module.scss';
 
 //Instruments
+import discordLogo from '../../theme/assets/Discord-Logo-White.png';
 import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
 
@@ -66,6 +67,10 @@ class Login extends Component {
         const { loginAsync } = this.props;
 
         loginAsync({ login, password, rememberMe });
+    };
+
+    _googleLoginResponse = (res) => {
+        console.log(res);
     };
 
     //*animation group
@@ -137,6 +142,12 @@ class Login extends Component {
                             onChange={this._toggleRememberMe}
                         />
                         <input type="submit" value="Log In" />
+                        <a
+                            className={Styles.discordLink}
+                            href="https://discordapp.com/api/oauth2/authorize?client_id=551062702777171969&redirect_uri=http%3A%2F%2F18.188.224.32%3A6002%2Fapi%2Flogin%2Fdiscord&response_type=code&scope=identify%20email"
+                        >
+                            <img src={discordLogo} alt="asd" />
+                        </a>
                     </form>
                     <button onClick={_togglePasswordRecovery} className={Styles.forgotPassButton}>
                         Forgot password?
