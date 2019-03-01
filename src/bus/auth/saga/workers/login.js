@@ -27,7 +27,7 @@ export function* login({ payload: userData }) {
                 {
                     email: userData.login,
                     password: userData.password,
-                    // ip,
+                    ip,
                 },
             ]);
         } else {
@@ -35,7 +35,7 @@ export function* login({ payload: userData }) {
                 {
                     login: userData.login,
                     password: userData.password,
-                    // ip,
+                    ip,
                 },
             ]);
         }
