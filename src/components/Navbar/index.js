@@ -127,7 +127,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { logout, login, balance, level, bonusPopup, showBonusPopup } = this.props;
+        const { logout, login, balance, level, bonusPopup } = this.props;
         const { opened } = this.state;
 
         //!__temporary data__
@@ -248,10 +248,7 @@ class Navbar extends Component {
                             <span className={Styles.controlText}>Join us</span>
                         </div>
                         <div className={Styles.controlButton}>
-                            <Settings
-                                className={Styles.controlButtonIcon}
-                                onClick={showBonusPopup}
-                            />
+                            <Settings className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Settings</span>
                         </div>
                         <div className={Styles.controlButton}>
