@@ -17,7 +17,6 @@ export function* login({ payload: userData }) {
 
         const ipResponse = yield apply(Api, Api.auth.getUserIp);
         const { ip } = yield apply(ipResponse, ipResponse.json);
-        console.log(`ip -> `, ip);
         //need to define response in this scope
         let response;
 
