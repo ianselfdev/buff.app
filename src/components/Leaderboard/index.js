@@ -78,6 +78,7 @@ class Leaderboard extends Component {
                                             { value: Number(item.get('amount')) },
                                         ]}
                                         key={index}
+                                        isConfirmed
                                     />
                                 ))}
                             </div>
