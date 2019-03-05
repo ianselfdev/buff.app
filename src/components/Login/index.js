@@ -11,6 +11,7 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import discordLogoWhite from '../../theme/assets/Discord-Logo-White.png';
+import googleLogoWhite from '../../theme/assets/Google-Logo-White.png';
 import logo from '../../theme/assets/logo.png';
 import gsap from 'gsap';
 import queryString from 'query-string';
@@ -163,7 +164,10 @@ class Login extends Component {
                         <input type="submit" value="Log In" />
 
                         <a href="http://18.188.224.32:6002/api/accounts/login/discord">
-                            <img src={discordLogoWhite} alt="asd" className={Styles.discordLink} />
+                            <img src={discordLogoWhite} alt="asd" className={Styles.authLinks} />
+                        </a>
+                        <a href="http://18.188.224.32:6002/api/accounts/login/google">
+                            <img src={googleLogoWhite} alt="asd" className={Styles.authLinks} />
                         </a>
                     </form>
                     <button onClick={_togglePasswordRecovery} className={Styles.forgotPassButton}>

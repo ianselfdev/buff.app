@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { socket } from '../../socket';
+import { socket as io } from '../../socket';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -38,6 +38,7 @@ import { uiActions } from '../../bus/ui/actions';
 const mapStateToProps = (state) => ({
     login: state.profile.get('login'),
     balance: state.profile.get('balance'),
+    bonusBalance: state.profile.get('bonusBalance'),
     level: state.profile.get('tier').level,
     // nickname: state.profile.get('nickname'),
     bonusPopup: state.ui.get('bonusPopup'),
@@ -50,6 +51,8 @@ const mapDispatchToProps = {
     showBonusPopup: uiActions.showBonusPopup,
 };
 
+const socket = io();
+
 class Navbar extends Component {
     state = {
         opened: false,
@@ -61,6 +64,7 @@ class Navbar extends Component {
         if (!socket.connected) {
             socket.open();
         }
+
         socket.on('connect', () => {
             console.log('connectedsdasdasdasd');
         });
@@ -127,7 +131,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { logout, login, balance, level, bonusPopup } = this.props;
+        const { logout, login, balance, level, bonusPopup, bonusBalance } = this.props;
         const { opened } = this.state;
 
         //!__temporary data__
@@ -166,7 +170,7 @@ class Navbar extends Component {
                                 <p>Balance</p>
                                 <p className={Styles.coins}>
                                     <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                                    {balance}
+                                    {+balance + +bonusBalance}
                                 </p>
                             </div>
                         </div>
