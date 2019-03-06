@@ -56,7 +56,9 @@ class UserProgress extends Component {
                         </p>
                     </div>
                 </div>
-                <div className={Styles.legendButton}>Get Gold Benefits</div>
+                <button className={Styles.legendButton} disabled>
+                    Get Gold Benefits
+                </button>
             </Fragment>
         );
     }

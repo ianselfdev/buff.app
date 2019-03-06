@@ -1,6 +1,7 @@
 //Core
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -56,7 +57,9 @@ class RecentActivity extends Component {
                         ))}
                     </div>
                 </div>
-                <div className={Styles.button}>View more</div>
+                <Link to="/history">
+                    <div className={Styles.button}>View more</div>
+                </Link>
             </Fragment>
         );
     }

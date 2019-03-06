@@ -51,12 +51,25 @@
     cursor: pointer;
     margin: 0 auto;
     background: $secondaryGreen;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     border-radius: 5px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    border: 1px solid $secondaryGreen;
+    color: #fff;
 
     &:hover {
         background: $primaryGreen;
         color: $primaryGrey;
+        border: 1px solid $primaryGreen;
+    }
+
+    &:disabled {
+        border: 1px solid $lightGrey;
+        background: none;
+        color: $lightGrey;
+
+        &:hover {
+            /* disabling hover effects */
+        }
     }
 }

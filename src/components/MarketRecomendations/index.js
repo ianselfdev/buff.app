@@ -1,6 +1,7 @@
 //Core
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -57,7 +58,9 @@ class MarketRecomendations extends Component {
                         <p className={Styles.noRecomendations}>No recomendations for you now :(</p>
                     )}
                 </div>
-                <div className={Styles.button}>View more</div>
+                <Link to="/market">
+                    <div className={Styles.button}>View more</div>
+                </Link>
             </Fragment>
         );
     }
