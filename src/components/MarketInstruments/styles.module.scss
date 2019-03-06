@@ -1,7 +1,7 @@
 @import '../../theme/palette.scss';
 
 .container {
-    width: 24%;
+    width: 400px;
 
     & .filtersContainer {
         background: $primaryGrey;
@@ -135,14 +135,11 @@
     }
 
     & .adContainer {
-        height: 20rem;
+        height: 300px;
         width: 100%;
 
         margin: 2rem auto;
 
-        background-image: url('../../theme/assets/banner.jpg');
-        background-position: center;
-        background-size: cover;
         border-radius: 5px;
     }
 }

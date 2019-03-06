@@ -7,12 +7,18 @@ import Styles from './styles.module.scss';
 
 //Actions
 import { marketActions } from '../../bus/market/actions';
+import { advertisementActions } from '../../bus/app/advertisements/actions';
 
 //Redux connect
+const mapStateToProps = (state) => ({
+    advertisements: state.advertisements,
+});
+
 const mapDispatchToProps = {
     filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
     filterUserItemsAsync: marketActions.filterUserItemsAsync,
     removeMarketFilterParameterAsync: marketActions.removeMarketFilterParameterAsync,
+    createAdInstanceAsync: advertisementActions.createAdInstanceAsync,
 };
 
 class MarketInstruments extends Component {
@@ -22,6 +28,26 @@ class MarketInstruments extends Component {
         byType: false,
         value: 5000,
         selectedOption: 'none',
+    };
+
+    componentDidMount = () => {
+        const { createAdInstanceAsync, advertisements } = this.props;
+
+        //fallback
+        if (advertisements.refreshAd) {
+            advertisements.refreshAd();
+        } else {
+            createAdInstanceAsync(document.getElementById('ad-div'));
+        }
+    };
+
+    componentWillUnmount = () => {
+        const { advertisements } = this.props;
+
+        //fallback
+        if (advertisements.refreshAd) {
+            advertisements.removeAd();
+        }
     };
 
     _toggleByGame = () => {
@@ -145,13 +171,13 @@ class MarketInstruments extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={Styles.adContainer} />
+                <div className={Styles.adContainer} id="ad-div" />
             </div>
         );
     }
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(MarketInstruments);

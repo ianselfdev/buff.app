@@ -58,7 +58,13 @@ class MarketItem extends Component {
             expire,
         } = this.props;
 
-        const expiresIn = (Math.abs(new Date(expire).getTime() - new Date()) / 1000 / 60).toFixed();
+        const expiresIn = (
+            Math.abs(new Date(expire).getTime() - new Date()) /
+            1000 /
+            60 /
+            60 /
+            24
+        ).toFixed();
 
         return (
             <Fragment>
@@ -83,13 +89,10 @@ class MarketItem extends Component {
                     >
                         <div className={Styles.label}>
                             <p className={Styles.labelTitle}>Expires in:</p>
-                            {/* getting hours and minutes calculated and rendered in the XX:XX format */}
-                            <p className={Styles.timer}>{`${(expiresIn / 60)
-                                .toFixed()
-                                .toString()
-                                .padStart(2, '0')}:${(expiresIn % 60)
-                                .toString()
-                                .padStart(2, '0')}`}</p>
+                            {/* getting amount of days */}
+                            <p className={Styles.timer}>{`${expiresIn} day${
+                                expiresIn === 1 ? '' : 's'
+                            }`}</p>
                         </div>
                         <div className={Styles.info}>
                             <p className={Styles.itemName}>{name}</p>

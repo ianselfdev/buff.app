@@ -57,10 +57,9 @@
 
         & .label {
             background: $secondaryGreen;
-            clip-path: polygon(100% 0, 60% 0, 100% 100%);
+            clip-path: polygon(100% 0, 55% 0, 100% 100%);
             width: 100%;
-            height: 35%;
-            min-height: 85px;
+            min-height: 100px;
             text-align: right;
             padding: 0.5rem 0.2rem;
 
@@ -69,7 +68,7 @@
             }
 
             & .timer {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
                 padding: 0.2rem;
             }
         }

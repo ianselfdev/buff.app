@@ -10,7 +10,7 @@
     z-index: 12;
 
     & .marketContainer {
-        width: 75%;
+        width: calc(99% - 400px);
 
         & .controlsContainer {
             display: flex;
