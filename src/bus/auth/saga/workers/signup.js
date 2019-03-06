@@ -1,5 +1,6 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/';
@@ -24,7 +25,7 @@ export function* signup({ payload: userData }) {
         yield put(authActions.registrationSyccesfull());
     } catch (error) {
         yield put(uiActions.emitError(error, '-> signup worker'));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     } finally {
         yield put(uiActions.stopFetching());

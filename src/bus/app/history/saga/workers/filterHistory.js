@@ -1,5 +1,6 @@
 //Core
 import { put, apply, select } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../../REST/api';
@@ -22,7 +23,7 @@ export function* filterHistory({ payload }) {
         yield put(historyActions.fillHistory(data.history));
     } catch (error) {
         yield put(uiActions.emitError('-> filterItems worker', error));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     }
 }

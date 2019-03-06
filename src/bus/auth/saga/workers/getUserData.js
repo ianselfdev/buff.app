@@ -1,5 +1,6 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/';
@@ -29,7 +30,7 @@ export function* getUserData({ payload: token }) {
         yield put(authActions.authenticate());
     } catch (error) {
         yield put(uiActions.emitError(error, '-> getUserData worker'));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     }
 }

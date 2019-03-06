@@ -30,9 +30,10 @@ export function* buyItem({ payload: itemId }) {
         yield put(uiActions.emitError('-> buyItem worker', error));
         yield put(uiActions.stopFetching());
         yield put(uiActions.showErrorMarketLabel(error));
-        yield delay(2000);
+        yield delay(5000);
         yield put(uiActions.hideErrorMarketLabel());
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
+        yield put(uiActions.clearErrorMessage());
     }
 }

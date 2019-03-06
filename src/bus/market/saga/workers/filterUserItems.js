@@ -1,5 +1,6 @@
 //Core
 import { put, apply, select } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/api';
@@ -24,6 +25,8 @@ export function* filterUserItems({ payload }) {
         yield put(marketActions.fillUserItems(data.data));
     } catch (error) {
         yield put(uiActions.emitError('-> filterUserItems worker', error));
+        yield delay(5000);
+        yield put(uiActions.clearErrorMessage());
     } finally {
         // yield put(uiActions.stopFetching());
     }

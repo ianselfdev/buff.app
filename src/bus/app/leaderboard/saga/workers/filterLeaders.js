@@ -1,5 +1,6 @@
 //Core
 import { put, apply, select } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../../REST/api';
@@ -22,7 +23,7 @@ export function* filterLeaders({ payload }) {
         yield put(leaderboardActions.fillLeadersDota(data.leaderbord));
     } catch (error) {
         yield put(uiActions.emitError('-> filterLeaders worker', error));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     }
 }

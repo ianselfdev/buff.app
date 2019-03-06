@@ -23,7 +23,7 @@ export function* fillHistory() {
         yield put(historyActions.fillHistory(data.history));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fillHistory worker'));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     }
 }

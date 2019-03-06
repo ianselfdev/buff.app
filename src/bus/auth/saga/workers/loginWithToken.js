@@ -31,7 +31,6 @@ export function* loginWithToken({ payload: userToken }) {
         yield apply(localStorage, localStorage.setItem, ['buff-refresh-token', refreshToken]);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> loginWithToken worker'));
-        yield put(delay(5000));
         yield put(uiActions.clearErrorMessage());
     } finally {
         yield put(uiActions.stopFetching());

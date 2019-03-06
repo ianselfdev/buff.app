@@ -1,5 +1,6 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/';
@@ -23,7 +24,7 @@ export function* refreshTokens() {
         yield apply(localStorage, localStorage.setItem, ['buff-refresh-token', refreshToken]);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> refreshToken worker'));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     }
 }

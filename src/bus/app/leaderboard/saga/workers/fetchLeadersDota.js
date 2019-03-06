@@ -1,5 +1,6 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../../REST/api';
@@ -22,7 +23,7 @@ export function* fetchLeadersDota() {
         yield put(leaderboardActions.fillLeadersDota(data.leaderbord));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fetchLeadersDota worker'));
-        yield put(delay(5000));
+        yield delay(5000);
         yield put(uiActions.clearErrorMessage());
     }
 }

@@ -1,5 +1,6 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST';
@@ -24,6 +25,8 @@ export function* fillMarketItems() {
         yield put(marketActions.fillMarketItems(data.data));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fillMarketItems worker'));
+        yield delay(5000);
+        yield put(uiActions.clearErrorMessage());
     } finally {
         yield put(uiActions.stopFetching());
     }
