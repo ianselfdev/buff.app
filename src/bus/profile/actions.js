@@ -14,6 +14,16 @@ export const profileActions = {
             type: types.CLEAR_PROFILE,
         };
     },
+    openTutorial: () => {
+        return {
+            type: types.OPEN_TUTORIAL,
+        };
+    },
+    closeTutorial: () => {
+        return {
+            type: types.CLOSE_TUTORIAL,
+        };
+    },
 
     //Async
 };

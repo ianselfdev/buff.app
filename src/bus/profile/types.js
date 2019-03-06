@@ -2,6 +2,8 @@ export const types = {
     //Sync
     FILL_PROFILE: 'FILL_PROFILE',
     CLEAR_PROFILE: 'CLEAR_PROFILE',
+    OPEN_TUTORIAL: 'OPEN_TUTORIAL',
+    CLOSE_TUTORIAL: 'CLOSE_TUTORIAL',
 
     //Async
 };

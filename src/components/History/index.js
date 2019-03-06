@@ -63,7 +63,14 @@ class History extends Component {
                                 {history.get('history').map((item, index) => (
                                     <TableRow
                                         fields={[
-                                            { value: item.get('type') === 4 ? 'Fraud' : 'Game' },
+                                            {
+                                                value:
+                                                    item.get('type') === 4
+                                                        ? 'Fraud'
+                                                        : item.get('type') === 5
+                                                        ? 'Bonus'
+                                                        : 'Game',
+                                            },
                                             {
                                                 value: item.get('name') || 'Unknown game',
                                             },

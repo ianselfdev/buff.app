@@ -7,6 +7,7 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import coin from '../../theme/assets/coin.png';
+import logo from '../../theme/assets/Logo_nav.png';
 
 //Components
 import Buy from '../_popups/market/Buy';
@@ -70,11 +71,7 @@ class MarketItem extends Component {
             <Fragment>
                 <div className={Styles.container} onClick={this._openModal}>
                     <div className={Styles.priceContainer}>
-                        <img
-                            className={Styles.gameLogo}
-                            src="https://1000logos.net/wp-content/uploads/2017/12/CSGO-Logo.png"
-                            alt="logo"
-                        />
+                        <img className={Styles.gameLogo} src={logo} alt="logo" />
                         <p>
                             <img src={coin} alt="coin" />
                             {price}

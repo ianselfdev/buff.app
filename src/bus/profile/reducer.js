@@ -24,6 +24,12 @@ export const profileReducer = (state = initialState, action) => {
         case types.CLEAR_PROFILE:
             return state.clear();
 
+        case types.OPEN_TUTORIAL:
+            return state.set('isNew', true);
+
+        case types.CLOSE_TUTORIAL:
+            return state.set('isNew', false);
+
         default:
             return state;
     }

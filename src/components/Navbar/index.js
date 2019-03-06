@@ -9,6 +9,7 @@ import Styles from './styles.module.scss';
 
 //Components
 import Bonus from '../_popups/ui/Bonus';
+import FirstTimeUX from '../FirstTimeUX';
 
 //Animations
 import gsap from 'gsap';
@@ -34,6 +35,7 @@ import { Analytics } from '../../analytics';
 //Actions
 import { authActions } from '../../bus/auth/actions';
 import { uiActions } from '../../bus/ui/actions';
+import { profileActions } from '../../bus/profile/actions';
 
 const mapStateToProps = (state) => ({
     login: state.profile.get('login'),
@@ -42,6 +44,7 @@ const mapStateToProps = (state) => ({
     level: state.profile.get('tier').level,
     // nickname: state.profile.get('nickname'),
     bonusPopup: state.ui.get('bonusPopup'),
+    isNew: state.profile.get('isNew'),
 });
 
 const mapDispatchToProps = {
@@ -49,6 +52,8 @@ const mapDispatchToProps = {
     getUserDataAsync: authActions.getUserDataAsync,
     refreshTokensAsync: authActions.refreshTokensAsync,
     showBonusPopup: uiActions.showBonusPopup,
+    openTutorial: profileActions.openTutorial,
+    closeTutorial: profileActions.closeTutorial,
 };
 
 const socket = io();
@@ -116,6 +121,16 @@ class Navbar extends Component {
         Analytics.event('Navigation link click', { category: id });
     };
 
+    _toggleTutorial = () => {
+        const { isNew, openTutorial, closeTutorial } = this.props;
+
+        if (isNew) {
+            closeTutorial();
+        } else {
+            openTutorial();
+        }
+    };
+
     _animateBonusEnter = (bonus) => {
         //element, animation in SECONDS, { from point, to point }
         gsap.fromTo(
@@ -131,7 +146,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { logout, login, balance, level, bonusPopup, bonusBalance } = this.props;
+        const { logout, login, balance, level, bonusPopup, bonusBalance, isNew } = this.props;
         const { opened } = this.state;
 
         //!__temporary data__
@@ -139,6 +154,7 @@ class Navbar extends Component {
 
         return (
             <>
+                {isNew && <FirstTimeUX closeTutorial={this._toggleTutorial} />}
                 <div className={Styles.background} />
                 <div className={opened ? Styles.containerOpened : Styles.containerClosed}>
                     <div>
@@ -255,7 +271,7 @@ class Navbar extends Component {
                             <Settings className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Settings</span>
                         </div>
-                        <div className={Styles.controlButton}>
+                        <div className={Styles.controlButton} onClick={this._toggleTutorial}>
                             <HelpOutline className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Information</span>
                         </div>
