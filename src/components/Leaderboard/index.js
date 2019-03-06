@@ -18,9 +18,6 @@ const headerFields = [
         name: 'Rank',
     },
     {
-        name: 'Period',
-    },
-    {
         name: 'Nickname',
     },
     {
@@ -68,9 +65,6 @@ class Leaderboard extends Component {
                                         fields={[
                                             //toString needs to be used to render without coin image
                                             { value: (index + 1).toString() },
-                                            {
-                                                value: 'Past week',
-                                            },
                                             {
                                                 value: item.get('login'),
                                             },

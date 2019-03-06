@@ -15,7 +15,7 @@ export function* removeFilter({ payload: parameter }) {
         yield put(leaderboardActions.removeLeadersFilterParameter(parameter));
         const filters = yield select(getFilters);
 
-        const response = yield apply(Api, Api.data.fetchLeadersDota, [filters]);
+        const response = yield apply(Api, Api.data.fetchLeadersDota, [{ ...filters, limit: 100 }]);
         const data = yield apply(response, response.json);
 
         if (response.status !== 200) {

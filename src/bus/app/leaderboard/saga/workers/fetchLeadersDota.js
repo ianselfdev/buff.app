@@ -13,7 +13,7 @@ import { uiActions } from '../../../../ui/actions';
 //* put -> запускає діспатч
 export function* fetchLeadersDota() {
     try {
-        const response = yield apply(Api, Api.data.fetchLeadersDota);
+        const response = yield apply(Api, Api.data.fetchLeadersDota, [{ limit: 100 }]);
         const data = yield apply(response, response.json);
 
         if (response.status !== 200) {

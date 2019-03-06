@@ -121,11 +121,11 @@ class HistoryInstruments extends Component {
                             <input
                                 type="radio"
                                 name="byTypeFilter"
-                                id="4"
-                                checked={type === '4'}
+                                id="5"
+                                checked={type === '5'}
                                 onChange={this._handleTypeChange}
                             />
-                            <label htmlFor="4">Fraud</label>
+                            <label htmlFor="5">Bonus</label>
                         </div>
                         <div className={Styles.inputsContainer}>
                             <input

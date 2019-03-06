@@ -18,10 +18,10 @@ const headerFields = [
         name: 'Type',
     },
     {
-        name: 'Game Name',
+        name: 'Date',
     },
     {
-        name: 'Achievements',
+        name: 'Game Name',
     },
     {
         name: 'Buff coins',
@@ -71,21 +71,12 @@ class History extends Component {
                                                         ? 'Bonus'
                                                         : 'Game',
                                             },
+
                                             {
-                                                value: item.get('name') || 'Unknown game',
+                                                value: item.get('createdAt').slice(0, 10),
                                             },
                                             {
-                                                value: item.get('data').get('name')
-                                                    ? item.get('data').get('name')
-                                                    : item.get('type') === 4
-                                                    ? 'Unconfirmed'
-                                                    : `${
-                                                          Number(item.get('amount')) > 10
-                                                              ? 'More than 10 coins!'
-                                                              : Number(item.get('amount')) > 5
-                                                              ? 'More than 5 coins!'
-                                                              : 'Well, you tried'
-                                                      }`,
+                                                value: item.get('name') || 'Unknown game',
                                             },
                                             { value: Number(item.get('amount')) },
                                         ]}
