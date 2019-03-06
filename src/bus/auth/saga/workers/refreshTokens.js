@@ -23,5 +23,7 @@ export function* refreshTokens() {
         yield apply(localStorage, localStorage.setItem, ['buff-refresh-token', refreshToken]);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> refreshToken worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

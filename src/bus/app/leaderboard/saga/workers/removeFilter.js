@@ -24,6 +24,8 @@ export function* removeFilter({ payload: parameter }) {
         yield put(leaderboardActions.fillLeadersDota(data.leaderbord));
     } catch (error) {
         yield put(uiActions.emitError('-> removeFilter worker', error));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     } finally {
         yield put(uiActions.stopFetching());
     }

@@ -22,5 +22,7 @@ export function* filterHistory({ payload }) {
         yield put(historyActions.fillHistory(data.history));
     } catch (error) {
         yield put(uiActions.emitError('-> filterItems worker', error));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

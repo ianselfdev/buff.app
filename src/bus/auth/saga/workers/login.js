@@ -58,6 +58,8 @@ export function* login({ payload: userData }) {
         ]);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> login worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     } finally {
         yield put(uiActions.stopFetching());
     }

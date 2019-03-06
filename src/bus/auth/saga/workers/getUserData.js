@@ -29,5 +29,7 @@ export function* getUserData({ payload: token }) {
         yield put(authActions.authenticate());
     } catch (error) {
         yield put(uiActions.emitError(error, '-> getUserData worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

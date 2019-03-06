@@ -21,6 +21,8 @@ export function* fetchLeadersDota() {
 
         yield put(leaderboardActions.fillLeadersDota(data.leaderbord));
     } catch (error) {
-        yield put(uiActions.emitError(error, '-> fetchLeaders worker'));
+        yield put(uiActions.emitError(error, '-> fetchLeadersDota worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

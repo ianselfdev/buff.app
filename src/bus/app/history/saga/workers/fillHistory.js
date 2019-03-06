@@ -1,5 +1,6 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../../REST/';
@@ -22,5 +23,7 @@ export function* fillHistory() {
         yield put(historyActions.fillHistory(data.history));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fillHistory worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

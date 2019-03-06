@@ -19,7 +19,8 @@ export function* getPasswordResetCode({ payload: email }) {
     } catch (error) {
         yield put(uiActions.emitError(error, '-> getPasswordResetCode worker'));
         yield put(uiActions.showErrorPasswordResetLabel(error));
-        yield delay(3000);
+        yield delay(5000);
         yield put(uiActions.hideErrorPasswordResetLabel());
+        yield put(uiActions.clearErrorMessage());
     }
 }

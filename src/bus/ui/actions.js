@@ -84,4 +84,10 @@ export const uiActions = {
             meta,
         };
     },
+
+    clearErrorMessage: () => {
+        return {
+            type: types.CLEAR_ERROR_MESSAGE,
+        };
+    },
 };

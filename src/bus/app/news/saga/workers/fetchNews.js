@@ -22,5 +22,7 @@ export function* fetchNews() {
         yield put(newsActions.fillNews(data.news));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fetchNews worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

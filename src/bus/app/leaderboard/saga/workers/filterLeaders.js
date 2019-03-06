@@ -22,5 +22,7 @@ export function* filterLeaders({ payload }) {
         yield put(leaderboardActions.fillLeadersDota(data.leaderbord));
     } catch (error) {
         yield put(uiActions.emitError('-> filterLeaders worker', error));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

@@ -58,6 +58,9 @@ export const uiReducer = (state = initialState, action) => {
         case types.EMIT_ERROR:
             return state.set('errorMessage', action.payload.message);
 
+        case types.CLEAR_ERROR_MESSAGE:
+            return state.set('errorMessage', '');
+
         default:
             return state;
     }

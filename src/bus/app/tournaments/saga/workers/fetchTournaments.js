@@ -22,5 +22,7 @@ export function* fetchTournaments() {
         yield put(tournamentsActions.fillTournaments(data.tournaments));
     } catch (error) {
         yield put(uiActions.emitError(error, '-> fetchNews worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     }
 }

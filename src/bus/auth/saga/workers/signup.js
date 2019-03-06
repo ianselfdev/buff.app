@@ -23,7 +23,9 @@ export function* signup({ payload: userData }) {
 
         yield put(authActions.registrationSyccesfull());
     } catch (error) {
-        yield put(uiActions.emitError(error, '-> registration worker'));
+        yield put(uiActions.emitError(error, '-> signup worker'));
+        yield put(delay(5000));
+        yield put(uiActions.clearErrorMessage());
     } finally {
         yield put(uiActions.stopFetching());
     }
