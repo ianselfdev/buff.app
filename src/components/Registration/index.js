@@ -34,6 +34,7 @@ class Registration extends Component {
         confEmail: '',
         email: '',
         password: '',
+        referral: '',
     };
 
     _handleInput = (e) => {
@@ -53,10 +54,10 @@ class Registration extends Component {
     _handleRegistration = async (e) => {
         e.preventDefault();
 
-        const { login, email, password } = this.state;
+        const { login, email, password, referral } = this.state;
         const { signupAsync } = this.props;
 
-        signupAsync({ login, email, password });
+        signupAsync({ login, email, password, referral });
     };
 
     _gotIt = () => {
@@ -69,6 +70,7 @@ class Registration extends Component {
             email: '',
             password: '',
             errorMessage: '',
+            referral: '',
         });
 
         _closeRegistration();
@@ -134,12 +136,13 @@ class Registration extends Component {
     render() {
         const { _closeRegistration, registrationSuccess, errorMessage } = this.props;
 
-        const { login, email, password, confEmail, confPassword } = this.state;
+        const { login, email, password, confEmail, confPassword, referral } = this.state;
 
         const validation =
             login.length >= 6 &&
             login.length <= 18 &&
             email === confEmail &&
+            (referral.length === 36 || referral.length === 0) &&
             password === confPassword &&
             email.length > 0 &&
             password.length > 6 &&
@@ -194,6 +197,13 @@ class Registration extends Component {
                 name: 'confPassword',
                 type: 'password',
                 label: 'Confirm password',
+            },
+            {
+                value: referral,
+                onChange: this._handleInput,
+                name: 'referral',
+                type: 'text',
+                label: 'Invitation code',
             },
         ];
 

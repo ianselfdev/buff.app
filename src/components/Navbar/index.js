@@ -70,9 +70,6 @@ class Navbar extends Component {
             socket.open();
         }
 
-        socket.on('connect', () => {
-            console.log('connectedsdasdasdasd');
-        });
         socket.on('success', (data) => {
             console.log('socket -> success');
             console.log(data);
@@ -97,7 +94,9 @@ class Navbar extends Component {
                 //!__temp hack to update user balance and info permanently
                 setInterval(() => {
                     let token = localStorage.getItem('buff-token');
-                    getUserDataAsync(token);
+                    if (token) {
+                        getUserDataAsync(token);
+                    }
                 }, 5000);
 
                 localStorage.setItem('intervals-set', true);

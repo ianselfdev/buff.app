@@ -95,7 +95,6 @@ const onNewEvents = (data) => {
                         event,
                         data: data.events[0].data || 'hit',
                     });
-                    matchData.kills++;
                     break;
 
                 case 'death':

@@ -11,6 +11,7 @@
 
 .chart {
     max-height: 10rem;
+    animation: appear 300ms;
 }
 
 .legend {
@@ -18,6 +19,7 @@
     flex-direction: column;
     padding: 0.5rem 2rem;
     margin: 1rem 0 0;
+    animation: appear 300ms;
 
     & .legendDatabox {
         margin: 0.5rem;
@@ -47,7 +49,33 @@
     }
 }
 
+.infoContainer {
+    width: 100%;
+    height: 100%;
+    background: #000000d0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    animation: appear 300ms;
+
+    & ul {
+        width: 85%;
+        margin: 1rem 1rem 1rem 1.5rem;
+        font-size: 0.8rem;
+        color: $lightGrey;
+
+        & li {
+            margin: 0.5rem;
+        }
+    }
+
+    & .legendButton {
+        margin: 1rem auto;
+    }
+}
+
 .legendButton {
+    display: inline-block;
     cursor: pointer;
     margin: 0 auto;
     background: $secondaryGreen;
@@ -56,6 +84,7 @@
     font-size: 0.9rem;
     border: 1px solid $secondaryGreen;
     color: #fff;
+    animation: appear 300ms;
 
     &:hover {
         background: $primaryGreen;
@@ -71,5 +100,14 @@
         &:hover {
             /* disabling hover effects */
         }
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

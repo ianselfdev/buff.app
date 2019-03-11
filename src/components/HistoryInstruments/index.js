@@ -75,13 +75,12 @@ class HistoryInstruments extends Component {
 
     _handlePeriodChange = (e) => {
         const { id } = e.target;
-        console.log(id);
-        // const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
-        // if (id === 'none') {
-        //     removeHistoryFilterParameterAsync('period');
-        // } else {
-        //     filterHistoryAsync('period', id);
-        // }
+        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
+        if (id === 'none') {
+            removeHistoryFilterParameterAsync('period');
+        } else {
+            filterHistoryAsync('period', id);
+        }
 
         this.setState({
             period: id,

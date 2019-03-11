@@ -69,6 +69,8 @@ class History extends Component {
                                                         ? 'Fraud'
                                                         : item.get('type') === 5
                                                         ? 'Bonus'
+                                                        : item.get('type') === 3
+                                                        ? 'Market'
                                                         : 'Game',
                                             },
 

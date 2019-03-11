@@ -37,7 +37,16 @@ class RecentActivity extends Component {
                         {history.get('history').map((item, index) => (
                             <TableRow
                                 fields={[
-                                    { value: item.get('type') === 4 ? 'Fraud' : 'Game' },
+                                    {
+                                        value:
+                                            item.get('type') === 4
+                                                ? 'Fraud'
+                                                : item.get('type') === 5
+                                                ? 'Bonus'
+                                                : item.get('type') === 3
+                                                ? 'Market'
+                                                : 'Game',
+                                    },
                                     {
                                         value: item.get('name') || 'Unknown game',
                                     },

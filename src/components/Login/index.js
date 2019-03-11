@@ -44,32 +44,38 @@ class Login extends Component {
         const remember = localStorage.getItem('buff-remember-me');
         const refreshToken = localStorage.getItem('buff-refresh-token');
 
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'buff-external-auth') {
-                const { rememberMe } = this.state;
-
-                //parsing query stored in the localStorage
-                //getting refresh token
-                const query = queryString.parse(localStorage.getItem('buff-external-auth'));
-                const tokens = JSON.parse(query.tokens);
-
-                //saving tokens if needed and loggin in
-                if (rememberMe) {
-                    localStorage.setItem('buff-token', tokens.token);
-                    localStorage.setItem('buff-refresh-token', tokens.refreshToken);
-                }
-                loginWithTokenAsync(tokens.refreshToken);
-
-                //cleaning up
-                window.removeEventListener('storage');
-                localStorage.removeItem('buff-external-auth');
-            }
-        });
+        window.addEventListener('storage', this._localStorageListener);
 
         if (remember) {
             loginWithTokenAsync(refreshToken);
         }
     }
+
+    componentWillUnmount = () => {
+        //cleaning up
+        window.removeEventListener('storage', this._localStorageListener);
+        localStorage.removeItem('buff-external-auth');
+    };
+
+    _localStorageListener = (e) => {
+        const { loginWithTokenAsync } = this.props;
+
+        if (e.key === 'buff-external-auth') {
+            const { rememberMe } = this.state;
+
+            //parsing query stored in the localStorage
+            //getting refresh token
+            const query = queryString.parse(localStorage.getItem('buff-external-auth'));
+            const tokens = JSON.parse(query.tokens);
+
+            //saving tokens if needed and loggin in
+            if (rememberMe) {
+                localStorage.setItem('buff-token', tokens.token);
+                localStorage.setItem('buff-refresh-token', tokens.refreshToken);
+            }
+            loginWithTokenAsync(tokens.refreshToken);
+        }
+    };
 
     _handleInput = (e) => {
         const { name, value } = e.target;
