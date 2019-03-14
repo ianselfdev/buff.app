@@ -34,3 +34,64 @@ body {
         background-color: transparent;
     }
 }
+
+/* notifications */
+.toast-container {
+    z-index: 100;
+}
+
+.toast-error {
+    background: darkred;
+
+    & .error-body {
+        display: flex;
+        align-items: center;
+        &::before {
+            content: url('../theme/assets/icons/error.svg');
+            margin-right: 1rem;
+            filter: invert(1);
+        }
+    }
+}
+
+.toast-success {
+    background: $secondaryGreen;
+
+    & .success-body {
+        display: flex;
+        align-items: center;
+        &::before {
+            content: url('../theme/assets/icons/success.svg');
+            margin-right: 1rem;
+            filter: invert(1);
+        }
+    }
+}
+
+.toast-warn {
+    background: goldenrod;
+
+    & .warn-body {
+        display: flex;
+        align-items: center;
+        &::before {
+            content: url('../theme/assets/icons/warn.svg');
+            margin-right: 1rem;
+            filter: invert(1);
+        }
+    }
+}
+
+.toast-info {
+    background: goldenrod;
+
+    & .info-body {
+        display: flex;
+        align-items: center;
+        &::before {
+            content: url('../theme/assets/icons/info.svg');
+            margin-right: 1rem;
+            filter: invert(1);
+        }
+    }
+}

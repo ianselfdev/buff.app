@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 //Instruments
 import Switch from 'react-switch';
+import { notifications } from '../_notifications';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -16,6 +17,10 @@ export default class Settings extends Component {
     };
 
     _toggleCheckedNotifications = () => {
+        notifications.error('ERROR');
+        notifications.warning('WARNING');
+        notifications.success('SUCCESS');
+        notifications.info('INFO');
         this.setState((prevState) => ({
             checkedNotifications: !prevState.checkedNotifications,
         }));
@@ -53,7 +58,7 @@ export default class Settings extends Component {
                 </div>
                 <div className={Styles.toggleBlock}>
                     <span id="switchLabel" className={Styles.switchLabel}>
-                        Notifications
+                        Test notifications
                     </span>
                     <Switch
                         onChange={this._toggleCheckedNotifications}

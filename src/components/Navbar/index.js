@@ -298,7 +298,7 @@ class Navbar extends Component {
                         <Bonus />
                     </Transition>
                 )}
-                {settingsOpened && <Settings />}
+                {settingsOpened && <Settings inProp={settingsOpened} />}
             </>
         );
     }

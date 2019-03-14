@@ -4,6 +4,10 @@ import { hot } from 'react-hot-loader';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+//Instruments
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 //Components
 import Private from './Private';
 import Public from './Public';
@@ -18,7 +22,12 @@ class App extends Component {
     render() {
         const { isAuthenticated } = this.props;
 
-        return isAuthenticated ? <Private /> : <Public />;
+        return (
+            <>
+                {isAuthenticated ? <Private /> : <Public />}
+                <ToastContainer className="toast-container" />
+            </>
+        );
     }
 }
 
