@@ -7,6 +7,7 @@ export const notifications = {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-error',
             bodyClassName: 'error-body',
+            closeButton: false,
         });
     },
     success: (message) => {
@@ -14,6 +15,7 @@ export const notifications = {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-success',
             bodyClassName: 'success-body',
+            closeButton: false,
         });
     },
     warning: (message) => {
@@ -21,6 +23,7 @@ export const notifications = {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-warn',
             bodyClassName: 'warn-body',
+            closeButton: false,
         });
     },
     info: (message) => {
@@ -28,6 +31,7 @@ export const notifications = {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-info',
             bodyClassName: 'info-body',
+            closeButton: false,
         });
     },
 };
