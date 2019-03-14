@@ -10,6 +10,7 @@ import Styles from './styles.module.scss';
 //Components
 import Bonus from '../_popups/ui/Bonus';
 import FirstTimeUX from '../FirstTimeUX';
+import Settings from '../Settings';
 
 //Animations
 import gsap from 'gsap';
@@ -23,7 +24,7 @@ import {
     History,
     Equalizer,
     Shop,
-    Settings,
+    Settings as SettingsIcon,
     HelpOutline,
 } from '@material-ui/icons';
 import coin from '../../theme/assets/coin.png';
@@ -54,6 +55,7 @@ const mapDispatchToProps = {
     showBonusPopup: uiActions.showBonusPopup,
     openTutorial: profileActions.openTutorial,
     closeTutorial: profileActions.closeTutorial,
+    settingsOpened: true,
 };
 
 const socket = io();
@@ -130,6 +132,12 @@ class Navbar extends Component {
         }
     };
 
+    _toggleSettings = () => {
+        this.setState((prevState) => ({
+            settingsOpened: !prevState.settingsOpened,
+        }));
+    };
+
     _animateBonusEnter = (bonus) => {
         //element, animation in SECONDS, { from point, to point }
         gsap.fromTo(
@@ -146,7 +154,7 @@ class Navbar extends Component {
 
     render() {
         const { logout, login, balance, level, bonusPopup, bonusBalance, isNew } = this.props;
-        const { opened } = this.state;
+        const { opened, settingsOpened } = this.state;
 
         //!__temporary data__
         const avatar = 'https://small-games.info/avko/7/175121_78533.gif';
@@ -266,8 +274,8 @@ class Navbar extends Component {
                             </a>
                             <span className={Styles.controlText}>Join us</span>
                         </div>
-                        <div className={Styles.controlButton}>
-                            <Settings className={Styles.controlButtonIcon} />
+                        <div className={Styles.controlButton} onClick={this._toggleSettings}>
+                            <SettingsIcon className={Styles.controlButtonIcon} />
                             <span className={Styles.controlText}>Settings</span>
                         </div>
                         <div className={Styles.controlButton} onClick={this._toggleTutorial}>
@@ -290,6 +298,7 @@ class Navbar extends Component {
                         <Bonus />
                     </Transition>
                 )}
+                {settingsOpened && <Settings />}
             </>
         );
     }

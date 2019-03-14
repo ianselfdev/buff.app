@@ -1,0 +1,104 @@
+@import '../../theme/palette.scss';
+
+.settingsContainer {
+    position: absolute;
+    bottom: 0;
+    width: 60vw;
+    height: calc(100vh - 21.5rem);
+    background: #000000;
+    border-top: 1px solid $secondaryGreen;
+    border-right: 1px solid $secondaryGreen;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+
+    z-index: 13;
+
+    animation: appear 500ms;
+
+    & .title {
+        margin-left: 2rem;
+        font-size: 1.2rem;
+        color: $secondaryGreen;
+    }
+
+    & .switchLabel {
+        padding-bottom: 1rem;
+        margin: 1rem;
+    }
+
+    & .toggleBlock {
+        display: flex;
+        align-items: center;
+
+        & span {
+            padding: 0;
+        }
+    }
+
+    & .inputsBlock {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 5rem 0.5rem 0;
+
+        & span {
+            width: 25%;
+        }
+
+        & input {
+            background: transparent;
+            color: $secondaryGreen;
+            border: none;
+            font-size: 1rem;
+        }
+
+        & button {
+            width: 104px;
+            height: 2rem;
+            background: transparent;
+            cursor: pointer;
+
+            border: 1px solid #f4ba26;
+            color: #f4ba26;
+            box-sizing: border-box;
+            border-radius: 4px;
+
+            &:hover {
+                border: 1px solid #f4ba26;
+                background: #f4ba26;
+                color: black;
+            }
+        }
+    }
+
+    & .testButton {
+        width: 104px;
+        height: 33px;
+        background: transparent;
+        cursor: pointer;
+
+        border: 1px solid #f4ba26;
+        color: #f4ba26;
+        box-sizing: border-box;
+        border-radius: 4px;
+
+        &:hover {
+            border: 1px solid #f4ba26;
+            background: #f4ba26;
+            color: black;
+        }
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

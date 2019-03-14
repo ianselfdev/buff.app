@@ -63,7 +63,10 @@ const onInfoUpdates2 = (data) => {
             const info = data.info.game_info;
             switch (data.feature) {
                 case 'matchState':
-                    console.log('matchState: ', info);
+                    console.log('matchState -> ', info);
+                    if (info.queueId) {
+                        console.log('MATCH_TYPE ---->', info.queueId);
+                    }
                     if (info.matchStarted) {
                         //* start game transaction
                         //* ---------------------->
@@ -71,6 +74,7 @@ const onInfoUpdates2 = (data) => {
 
                         overwolf.games.events.getInfo((data) => {
                             console.log('match started -> getInfo: ', data);
+
                             matchData = {
                                 ...matchData,
                                 matchId: data.res.game_info.matchId,

@@ -34,6 +34,7 @@
         "react-scripts": "^2.1.1",
         "react-social-login": "^3.4.4",
         "react-swipeable-views": "^0.12.13",
+        "react-switch": "^4.1.0",
         "react-test-renderer": "^16.7.0",
         "react-tooltip": "^3.6.0",
         "react-transition-group": "^2.5.2",
