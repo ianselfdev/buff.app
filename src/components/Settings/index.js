@@ -18,9 +18,18 @@ export default class Settings extends Component {
 
     _toggleCheckedNotifications = () => {
         notifications.error('ERROR');
-        notifications.warning('WARNING');
-        notifications.success('SUCCESS');
-        notifications.info('INFO');
+        setTimeout(() => {
+        notifications.bonus('BONUS');
+            
+        }, 100);
+        setTimeout(() => {
+            notifications.success('SUCCESS');
+
+        }, 200);
+        setTimeout(() => {
+            notifications.info('INFO');
+
+        }, 300);
         this.setState((prevState) => ({
             checkedNotifications: !prevState.checkedNotifications,
         }));

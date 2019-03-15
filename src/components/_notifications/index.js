@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 export const notifications = {
     error: (message) => {
-        toast.error(message, {
+        toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-error',
             bodyClassName: 'error-body',
@@ -11,23 +11,23 @@ export const notifications = {
         });
     },
     success: (message) => {
-        toast.success(message, {
+        toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-success',
             bodyClassName: 'success-body',
             closeButton: false,
         });
     },
-    warning: (message) => {
-        toast.warn(message, {
+    bonus: (message) => {
+        toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
-            className: 'toast-warn',
-            bodyClassName: 'warn-body',
+            className: 'toast-bonus',
+            bodyClassName: 'bonus-body',
             closeButton: false,
         });
     },
     info: (message) => {
-        toast.info(message, {
+        toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-info',
             bodyClassName: 'info-body',
