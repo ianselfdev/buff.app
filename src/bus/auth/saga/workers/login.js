@@ -58,6 +58,7 @@ export function* login({ payload: userData }) {
             data.tokens.refreshToken,
         ]);
     } catch (error) {
+        yield put(uiActions.stopFetching());
         yield put(uiActions.emitError(error, '-> login worker'));
         yield delay(5000);
         yield put(uiActions.clearErrorMessage());
