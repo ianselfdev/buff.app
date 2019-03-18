@@ -39,6 +39,10 @@ body {
 .toast-container {
     z-index: 100;
 }
+.toast-progress-line {
+    background: $lightGrey;
+    height: 1px;
+}
 
 .toast-error {
     background: darkred;
@@ -46,6 +50,7 @@ body {
     & .error-body {
         display: flex;
         align-items: center;
+        color: white;
         &::before {
             content: url('../theme/assets/icons/error.svg');
             margin-right: 1rem;
@@ -60,6 +65,7 @@ body {
     & .success-body {
         display: flex;
         align-items: center;
+        color: white;
         &::before {
             content: url('../theme/assets/icons/success.svg');
             margin-right: 1rem;
@@ -68,12 +74,14 @@ body {
     }
 }
 
-.toast-warn {
-    background: goldenrod;
+.toast-bonus {
+    background: #000;
+    border: 1px solid $secondaryGreen;
 
-    & .warn-body {
+    & .bonus-body {
         display: flex;
         align-items: center;
+        color: white;
         &::before {
             content: url('../theme/assets/icons/warn.svg');
             margin-right: 1rem;
@@ -83,11 +91,13 @@ body {
 }
 
 .toast-info {
-    background: goldenrod;
+    background: #000;
+    border: 1px solid $secondaryGreen;
 
     & .info-body {
         display: flex;
         align-items: center;
+        color: white;
         &::before {
             content: url('../theme/assets/icons/info.svg');
             margin-right: 1rem;
