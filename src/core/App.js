@@ -25,7 +25,10 @@ class App extends Component {
         return (
             <>
                 {isAuthenticated ? <Private /> : <Public />}
-                <ToastContainer className="toast-container" progressClassName="toast-progress-line"/>
+                <ToastContainer
+                    className="toast-container"
+                    progressClassName="toast-progress-line"
+                />
             </>
         );
     }

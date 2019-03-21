@@ -8,43 +8,30 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    transform: translate(-50%, -50%);
+
     height: 70%;
-    width: 35%;
-    transform: translate(-50%, -50%);
-
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid $secondaryGreen;
-    border-radius: 3px;
-
-    overflow-y: hidden;
-}
-
-.containerRegistration {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 90%;
-    width: 35%;
-    transform: translate(-50%, -50%);
-
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid $secondaryGreen;
-    border-radius: 3px;
-
-    overflow-y: hidden;
-}
-
-.containerPasswordRecovery {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 30%;
     width: 50%;
-    transform: translate(-50%, -50%);
 
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid $secondaryGreen;
-    border-radius: 3px;
+    background: $paletteGrey1;
+    border: 1px solid $paletteGrey2;
+    border-radius: 8px;
+
+    display: flex;
 
     overflow-y: hidden;
+
+    & .firstChild {
+        width: 40%;
+
+        &:first-child {
+            height: 15%;
+            margin: auto;
+        }
+    }
+
+    & .lastChild {
+        width: 60%;
+        background: $paletteGrey2;
+    }
 }

@@ -135,59 +135,7 @@ class Login extends Component {
             loginDemo,
         } = this.props;
 
-        return (
-            <Transition
-                in
-                appear
-                mountOnEnter
-                timeout={100}
-                onEnter={this._animateEnteringComponent}
-                onExit={this._animateExitingComponent}
-            >
-                <div>
-                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
-                    <img className={Styles.img} src={logo} alt="buff-logo" />
-                    <form className={Styles.loginForm} onSubmit={this._handleLogin}>
-                        <input
-                            type="text"
-                            name="login"
-                            placeholder="Login or Email"
-                            value={login}
-                            onChange={this._handleInput}
-                        />
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={this._handleInput}
-                        />
-                        <input
-                            type="checkbox"
-                            checked={rememberMe}
-                            onChange={this._toggleRememberMe}
-                        />
-                        <input type="submit" value="Log In" />
-
-                        <a href="http://18.188.224.32:6002/api/accounts/login/discord">
-                            <img src={discordLogoWhite} alt="asd" className={Styles.authLinks} />
-                        </a>
-                        <a href="http://18.188.224.32:6002/api/accounts/login/google">
-                            <img src={googleLogoWhite} alt="asd" className={Styles.authLinks} />
-                        </a>
-                    </form>
-                    <button onClick={_togglePasswordRecovery} className={Styles.forgotPassButton}>
-                        Forgot password?
-                    </button>
-                    <button onClick={_toggleRegistration} className={Styles.registrationButton}>
-                        Not registered yet? Click here!
-                    </button>
-                    <button onClick={loginDemo} className={Styles.tryDemoButton}>
-                        Try demo
-                    </button>
-                </div>
-            </Transition>
-        );
+        return <></>;
     }
 }
 

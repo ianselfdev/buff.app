@@ -14,11 +14,10 @@ a {
 
 body {
     padding-left: 5rem;
-    color: white;
+    color: $paletteWhite;
     max-width: 100vw;
     max-height: 100vh;
-    background: url('../theme/assets/Materials/loginBG.jpg');
-    background-size: cover;
+    background: $paletteGrey1;
     font-family: Arial, Helvetica, Helvetica Neue, serif;
     overflow: hidden;
 
