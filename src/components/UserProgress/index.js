@@ -10,14 +10,13 @@ import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
 
 const mapStateToProps = (state) => {
-    const { points, level, start, end } = state.profile.get('tier');
-
-    return {
-        points,
-        level,
-        start,
-        end,
-    };
+    // const { points, level, start, end } = state.profile.get('tier');
+    // return {
+    //     points,
+    //     level,
+    //     start,
+    //     end,
+    // };
 };
 
 class UserProgress extends Component {
@@ -42,7 +41,7 @@ class UserProgress extends Component {
         return (
             <>
                 <div className={Styles.titleBox}>Your progress</div>
-                {help ? (
+                {/* {help ? (
                     <div className={Styles.infoContainer}>
                         <ul>
                             <li>
@@ -94,7 +93,7 @@ class UserProgress extends Component {
                             How do I level up?
                         </button>
                     </>
-                )}
+                )} */}
             </>
         );
     }

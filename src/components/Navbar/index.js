@@ -42,7 +42,7 @@ const mapStateToProps = (state) => ({
     login: state.profile.get('login'),
     balance: state.profile.get('balance'),
     bonusBalance: state.profile.get('bonusBalance'),
-    level: state.profile.get('tier').level,
+    // level: state.profile.get('tier').level,
     // nickname: state.profile.get('nickname'),
     bonusPopup: state.ui.get('bonusPopup'),
     isNew: state.profile.get('isNew'),
