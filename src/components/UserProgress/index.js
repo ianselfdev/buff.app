@@ -41,7 +41,7 @@ class UserProgress extends Component {
         return (
             <>
                 <div className={Styles.titleBox}>Your progress</div>
-                {/* {help ? (
+                {help ? (
                     <div className={Styles.infoContainer}>
                         <ul>
                             <li>
@@ -93,7 +93,7 @@ class UserProgress extends Component {
                             How do I level up?
                         </button>
                     </>
-                )} */}
+                )}
             </>
         );
     }
