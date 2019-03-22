@@ -1,10 +1,9 @@
 //Core
 import React, { Component } from 'react';
-import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux';
+import { Transition } from 'react-transition-group';
 
 //Components
-import ErrorLabel from '../ErrorLabel';
 import LabeledInput from '../LabeledInput';
 
 //Styles
@@ -13,8 +12,8 @@ import Styles from './styles.module.scss';
 //Instruments
 import discordLogoWhite from '../../theme/assets/Discord-Logo-White.png';
 import googleLogoWhite from '../../theme/assets/Google-Logo-White.png';
-import gsap from 'gsap';
 import queryString from 'query-string';
+import gsap from 'gsap';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -99,7 +98,7 @@ class Login extends Component {
         loginAsync({ login, password, rememberMe });
     };
 
-    //*animation group
+    //* animation group
     _animateEnteringComponent = (node) => {
         gsap.fromTo(
             node,
@@ -153,36 +152,52 @@ class Login extends Component {
         ];
 
         return (
-            <div className={Styles.container}>
-                <p className={Styles.title}>Sign in</p>
-                {inputFields.map((item, index) => (
-                    <LabeledInput
-                        value={item.value}
-                        onChange={item.onChange}
-                        placeholder={item.placeholder}
-                        name={item.name}
-                        type={item.type}
-                        label={item.label}
-                        key={index}
-                    />
-                ))}
-                <div className={Styles.functionalContainer}>
-                    <input type="checkbox" checked={rememberMe} className={Styles.checkbox} />
-                    <span className={Styles.forgotPassword}>Forgot password?</span>
+            <Transition
+                in
+                appear
+                mountOnEnter
+                timeout={100}
+                onEnter={this._animateEnteringComponent}
+                onExit={this._animateExitingComponent}
+            >
+                <div className={Styles.container}>
+                    <p className={Styles.title}>Sign in</p>
+                    {inputFields.map((item, index) => (
+                        <LabeledInput
+                            value={item.value}
+                            onChange={item.onChange}
+                            placeholder={item.placeholder}
+                            name={item.name}
+                            type={item.type}
+                            label={item.label}
+                            key={index}
+                        />
+                    ))}
+                    <div className={Styles.functionalContainer}>
+                        <input
+                            type="checkbox"
+                            checked={rememberMe}
+                            className={Styles.checkbox}
+                            onChange={this._toggleRememberMe}
+                        />
+                        <span className={Styles.forgotPassword} onClick={_togglePasswordRecovery}>
+                            Forgot password?
+                        </span>
+                    </div>
+                    <div className={Styles.buttonsContainer}>
+                        <button onClick={this._handleLogin}>Log in</button>
+                        <button>Try demo</button>
+                    </div>
+                    <p className={Styles.accountCreation}>
+                        Don't have an account?{' '}
+                        <span onClick={_toggleRegistration}>Create an account</span>
+                    </p>
+                    <div className={Styles.socialContainer}>
+                        <img src={discordLogoWhite} alt="discord login" />
+                        <img src={googleLogoWhite} alt="google login" />
+                    </div>
                 </div>
-                <div className={Styles.buttonsContainer}>
-                    <button>Log in</button>
-                    <button>Try demo</button>
-                </div>
-                <p className={Styles.accountCreation}>
-                    Don't have an account?{' '}
-                    <span onClick={_toggleRegistration}>Create an account</span>
-                </p>
-                <div className={Styles.socialContainer}>
-                    <img src={discordLogoWhite} alt="discord login" />
-                    <img src={googleLogoWhite} alt="google login" />
-                </div>
-            </div>
+            </Transition>
         );
     }
 }

@@ -5,8 +5,6 @@ import { Transition } from 'react-transition-group';
 
 //Components
 import LabeledInput from '../LabeledInput';
-import ErrorLabel from '../ErrorLabel';
-import SuccessMessage from '../SuccessMessage';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -195,24 +193,33 @@ class Registration extends Component {
         ];
 
         return (
-            <div className={Styles.container}>
-                <p className={Styles.title}>
-                    <img src={arrow} alt="back to login" onClick={_closeRegistration} />
-                    Sign up
-                </p>
-                {inputFields.map((item, index) => (
-                    <LabeledInput
-                        value={item.value}
-                        onChange={item.onChange}
-                        placeholder={item.placeholder}
-                        name={item.name}
-                        type={item.type}
-                        label={item.label}
-                        key={index}
-                    />
-                ))}
-                <button className={Styles.button}>Sign up</button>
-            </div>
+            <Transition
+                in
+                appear
+                mountOnEnter
+                timeout={100}
+                onEnter={this._animateEnteringComponent}
+                onExit={this._animateExitingComponent}
+            >
+                <div className={Styles.container}>
+                    <p className={Styles.title}>
+                        <img src={arrow} alt="back to login" onClick={_closeRegistration} />
+                        Sign up
+                    </p>
+                    {inputFields.map((item, index) => (
+                        <LabeledInput
+                            value={item.value}
+                            onChange={item.onChange}
+                            placeholder={item.placeholder}
+                            name={item.name}
+                            type={item.type}
+                            label={item.label}
+                            key={index}
+                        />
+                    ))}
+                    <button className={Styles.button}>Sign up</button>
+                </div>
+            </Transition>
         );
     }
 }
