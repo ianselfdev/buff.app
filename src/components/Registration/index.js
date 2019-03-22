@@ -12,7 +12,7 @@ import SuccessMessage from '../SuccessMessage';
 import Styles from './styles.module.scss';
 
 //Instruments
-import logo from '../../theme/assets/logo.png';
+import arrow from '../../theme/svg/arrow-left.svg';
 import gsap from 'gsap';
 
 //Actions
@@ -149,19 +149,6 @@ class Registration extends Component {
             confEmail.length > 0 &&
             confPassword.length > 0;
 
-        const warningSign =
-            login.length > 0 && email.length > 0 && confEmail.length > 0 && confPassword.length > 0
-                ? login.length < 6 || login.length > 18
-                    ? 'Login must be 6-18 characters long'
-                    : email !== confEmail
-                    ? 'Emails do not match'
-                    : password !== confPassword
-                    ? 'Passwords do not match'
-                    : password.length < 6
-                    ? 'Password must be more than 6 characters long'
-                    : null
-                : null;
-
         const inputFields = [
             {
                 value: login,
@@ -208,51 +195,24 @@ class Registration extends Component {
         ];
 
         return (
-            <Transition
-                in
-                appear
-                mountOnEnter
-                timeout={100}
-                onEnter={this._animateEnteringComponent}
-                onExit={this._animateExitingComponent}
-            >
-                <div className={Styles.container}>
-                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
-                    {registrationSuccess && <SuccessMessage onClick={this._gotIt} />}
-                    <img className={Styles.img} src={logo} alt="buff-logo" />
-                    <form onSubmit={this._handleRegistration} className={Styles.form}>
-                        {inputFields.map((item, index) => (
-                            <LabeledInput
-                                value={item.value}
-                                onChange={item.onChange}
-                                placeholder={item.placeholder}
-                                name={item.name}
-                                type={item.type}
-                                label={item.label}
-                                key={index}
-                            />
-                        ))}
-                    </form>
-                    <Transition
-                        in={warningSign}
-                        timeout={500}
-                        onEnter={this._animateEnterWarning}
-                        onExit={this._animateExitWarning}
-                    >
-                        <p className={Styles.warning}>{warningSign}</p>
-                    </Transition>
-                    <button
-                        disabled={!validation}
-                        className={Styles.signUpButton}
-                        onClick={this._handleRegistration}
-                    >
-                        Sign Up
-                    </button>
-                    <button className={Styles.backToLoginButton} onClick={_closeRegistration}>
-                        Back To Login
-                    </button>
-                </div>
-            </Transition>
+            <div className={Styles.container}>
+                <p className={Styles.title}>
+                    <img src={arrow} alt="back to login" onClick={_closeRegistration} />
+                    Sign up
+                </p>
+                {inputFields.map((item, index) => (
+                    <LabeledInput
+                        value={item.value}
+                        onChange={item.onChange}
+                        placeholder={item.placeholder}
+                        name={item.name}
+                        type={item.type}
+                        label={item.label}
+                        key={index}
+                    />
+                ))}
+                <button className={Styles.button}>Sign up</button>
+            </div>
         );
     }
 }

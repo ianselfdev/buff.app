@@ -128,12 +128,12 @@ class Login extends Component {
 
     render() {
         const { login, password, rememberMe } = this.state;
-        // const {
-        //     _toggleRegistration,
-        //     _togglePasswordRecovery,
-        //     errorMessage,
-        //     loginDemo,
-        // } = this.props;
+        const {
+            _toggleRegistration,
+            _togglePasswordRecovery,
+            errorMessage,
+            loginDemo,
+        } = this.props;
 
         const inputFields = [
             {
@@ -175,7 +175,8 @@ class Login extends Component {
                     <button>Try demo</button>
                 </div>
                 <p className={Styles.accountCreation}>
-                    Don't have an account? <span>Create an account</span>
+                    Don't have an account?{' '}
+                    <span onClick={_toggleRegistration}>Create an account</span>
                 </p>
                 <div className={Styles.socialContainer}>
                     <img src={discordLogoWhite} alt="discord login" />

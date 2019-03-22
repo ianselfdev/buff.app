@@ -14,7 +14,7 @@ import Styles from './styles.module.scss';
 
 export default class Startup extends Component {
     state = {
-        registration: false,
+        registration: true,
         passwordRecovery: false,
     };
 

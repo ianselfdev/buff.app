@@ -1,13 +1,12 @@
 @import '../../theme/palette.scss';
 
 .div {
-    // width: 80%;
-    margin: 0.3rem auto;
+    margin: 0 auto;
 
     & .span {
-        color: $paletteWhite;
-        margin: 0 0 5px 1rem;
-        font-size: 0.8rem;
+        color: $paletteGrey3;
+        margin: 0 1rem;
+        font-size: 0.7rem;
     }
 
     & .input {

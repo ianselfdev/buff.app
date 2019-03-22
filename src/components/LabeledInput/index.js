@@ -13,7 +13,7 @@ export default class LabeledInput extends Component {
     _animateEnter = (node) => {
         gsap.fromTo(
             node,
-            0.5,
+            0.2,
             {
                 y: -10,
                 opacity: 0,
@@ -28,7 +28,7 @@ export default class LabeledInput extends Component {
     _animateExit = (node) => {
         gsap.fromTo(
             node,
-            0.5,
+            0.2,
             {
                 y: 0,
                 opacity: 1,
@@ -47,7 +47,7 @@ export default class LabeledInput extends Component {
             <div className={Styles.div}>
                 <Transition
                     in={value.length > 0}
-                    timeout={500}
+                    timeout={200}
                     onEnter={this._animateEnter}
                     onExit={this._animateExit}
                 >
