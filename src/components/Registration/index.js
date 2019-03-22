@@ -12,6 +12,7 @@ import Styles from './styles.module.scss';
 //Instruments
 import arrow from '../../theme/svg/arrow-left.svg';
 import gsap from 'gsap';
+import { notifications } from '../_notifications';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -55,7 +56,12 @@ class Registration extends Component {
         const { login, email, password, referral } = this.state;
         const { signupAsync } = this.props;
 
-        signupAsync({ login, email, password, referral });
+        //not sending referral if the field is empty
+        if (referral.length > 0) {
+            signupAsync({ login, email, password, referral });
+        } else {
+            signupAsync({ login, email, password });
+        }
     };
 
     _gotIt = () => {
@@ -136,7 +142,7 @@ class Registration extends Component {
 
         const { login, email, password, confEmail, confPassword, referral } = this.state;
 
-        const validation =
+        const inputsValid =
             login.length >= 6 &&
             login.length <= 18 &&
             email === confEmail &&
@@ -192,6 +198,14 @@ class Registration extends Component {
             },
         ];
 
+        if (registrationSuccess) {
+            notifications.success(
+                'Registration successful! Check your email to activate your account.',
+            );
+        } else if (errorMessage.length > 0) {
+            notifications.error(errorMessage);
+        }
+
         return (
             <Transition
                 in
@@ -217,7 +231,13 @@ class Registration extends Component {
                             key={index}
                         />
                     ))}
-                    <button className={Styles.button}>Sign up</button>
+                    <button
+                        className={Styles.button}
+                        onClick={this._handleRegistration}
+                        disabled={!inputsValid}
+                    >
+                        Sign up
+                    </button>
                 </div>
             </Transition>
         );

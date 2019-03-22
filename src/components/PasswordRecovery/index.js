@@ -20,7 +20,6 @@ import { authActions } from '../../bus/auth/actions';
 
 const mapStateToProps = (state) => {
     return {
-        successResetPasswordLabel: state.ui.get('successResetPasswordLabel'),
         errorResetPasswordMessage: state.ui.get('errorResetPasswordMessage'),
     };
 };
@@ -96,7 +95,7 @@ class PasswordRecovery extends Component {
                             page: 1,
                         };
                     }, 500);
-
+                    break;
                 default:
                     return prevState;
             }

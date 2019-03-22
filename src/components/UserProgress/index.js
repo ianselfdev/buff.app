@@ -10,13 +10,13 @@ import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
 
 const mapStateToProps = (state) => {
-    // const { points, level, start, end } = state.profile.get('tier');
-    // return {
-    //     points,
-    //     level,
-    //     start,
-    //     end,
-    // };
+    const { points, level, start, end } = state.profile.get('tier');
+    return {
+        points,
+        level,
+        start,
+        end,
+    };
 };
 
 class UserProgress extends Component {

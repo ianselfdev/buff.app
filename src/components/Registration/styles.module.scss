@@ -40,5 +40,12 @@
             background: $paletteGreen2;
             color: $paletteGrey1;
         }
+
+        &:disabled {
+            cursor: not-allowed;
+            background: $paletteGrey1;
+            border: 1px solid $paletteGrey1;
+            color: $paletteGrey3;
+        }
     }
 }

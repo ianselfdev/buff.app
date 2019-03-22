@@ -14,6 +14,7 @@ import discordLogoWhite from '../../theme/assets/Discord-Logo-White.png';
 import googleLogoWhite from '../../theme/assets/Google-Logo-White.png';
 import queryString from 'query-string';
 import gsap from 'gsap';
+import { notifications } from '../_notifications';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -151,6 +152,10 @@ class Login extends Component {
             },
         ];
 
+        if (errorMessage.length > 0) {
+            notifications.error(errorMessage);
+        }
+
         return (
             <Transition
                 in
@@ -186,7 +191,7 @@ class Login extends Component {
                     </div>
                     <div className={Styles.buttonsContainer}>
                         <button onClick={this._handleLogin}>Log in</button>
-                        <button>Try demo</button>
+                        <button onClick={loginDemo}>Try demo</button>
                     </div>
                     <p className={Styles.accountCreation}>
                         Don't have an account?{' '}

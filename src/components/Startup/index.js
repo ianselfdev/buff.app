@@ -15,7 +15,7 @@ import Styles from './styles.module.scss';
 export default class Startup extends Component {
     state = {
         registration: false,
-        passwordRecovery: true,
+        passwordRecovery: false,
     };
 
     _toggleRegistration = () => {
