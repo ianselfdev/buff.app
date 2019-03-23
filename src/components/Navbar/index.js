@@ -33,27 +33,25 @@ import { profileActions } from '../../bus/profile/actions';
 const mapStateToProps = (state) => ({
     balance: state.profile.get('balance'),
     bonusBalance: state.profile.get('bonusBalance'),
-    level: state.profile.get('tier').level,
     nickname: state.profile.get('nickname'),
     bonusPopup: state.ui.get('bonusPopup'),
     isNew: state.profile.get('isNew'),
 });
 
 const mapDispatchToProps = {
-    logout: authActions.logoutAsync,
     getUserDataAsync: authActions.getUserDataAsync,
     refreshTokensAsync: authActions.refreshTokensAsync,
     showBonusPopup: uiActions.showBonusPopup,
     openTutorial: profileActions.openTutorial,
     closeTutorial: profileActions.closeTutorial,
-    settingsOpened: true,
 };
 
 const socket = io();
 
 class Navbar extends Component {
     state = {
-        opened: true,
+        opened: false,
+        settingsOpened: false,
     };
 
     componentDidMount = () => {
@@ -130,7 +128,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { logout, nickname, balance, level, bonusBalance, isNew } = this.props;
+        const { nickname, balance, bonusBalance, isNew } = this.props;
         const { opened, settingsOpened } = this.state;
 
         return (

@@ -51,28 +51,14 @@ class Dashboard extends Component {
     render() {
         return (
             <div className={Styles.mainContainer}>
-                <div className={Styles.contentContainer}>
-                    <div className={Styles.contentBox}>
-                        <UserProgress />
-                    </div>
-                    <div className={Styles.contentBox}>
-                        <Quests />
-                    </div>
-                </div>
-                <div className={Styles.contentContainer}>
-                    <div className={Styles.contentBox}>
-                        <MarketRecomendations />
-                    </div>
-                    <div className={Styles.contentBox}>
-                        <RecentActivity />
-                    </div>
-                </div>
-                <div className={Styles.contentContainer}>
-                    <div className={Styles.contentBox}>
-                        <DashboardFavorite />
-                    </div>
-                    <div className={Styles.contentBox} id="ad-div" />
-                </div>
+                <div className={Styles.userProgress}>1</div>
+                <div className={Styles.weeklyStats}>2</div>
+                <div className={Styles.userFavorite}>3</div>
+                <div className={Styles.invites}>4</div>
+                <div className={Styles.dailyBonus}>5</div>
+                <div className={Styles.userGoal}>6</div>
+                <div className={Styles.userRecommended}>7</div>
+                <div className={Styles.ad} id="ad-div" />
             </div>
         );
     }
