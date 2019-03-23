@@ -99,6 +99,14 @@ class Login extends Component {
         loginAsync({ login, password, rememberMe });
     };
 
+    _handleEnterPress = (e) => {
+        const enterKey = e.key === 'Enter';
+
+        if (enterKey) {
+            this._handleLogin(e);
+        }
+    };
+
     //* animation group
     _animateEnteringComponent = (node) => {
         gsap.fromTo(
@@ -165,7 +173,7 @@ class Login extends Component {
                 onEnter={this._animateEnteringComponent}
                 onExit={this._animateExitingComponent}
             >
-                <div className={Styles.container}>
+                <div className={Styles.container} onKeyPress={this._handleEnterPress}>
                     <p className={Styles.title}>Sign in</p>
                     {inputFields.map((item, index) => (
                         <LabeledInput

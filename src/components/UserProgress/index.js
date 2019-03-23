@@ -33,9 +33,12 @@ class UserProgress extends Component {
     render() {
         const { help } = this.state;
         const { points, level, end } = this.props;
+
+        //kmelct is a lazy dick if you ever wanted to know
+        const pointsToEarn = +end === Infinity ? 0 - points : end - points;
         const data = [
             { x: 'Current progress', y: points },
-            { x: 'Goal', y: Math.max(end - points, 0) },
+            { x: 'Goal', y: Math.max(pointsToEarn, 0) },
         ];
 
         return (
@@ -65,16 +68,14 @@ class UserProgress extends Component {
                             <div className={Styles.legendDatabox}>
                                 <p>Next Tier</p>
                                 <p>
-                                    {end - points > 0 ? (
+                                    {pointsToEarn > 0 ? (
                                         <>
                                             <img
                                                 src={coin}
                                                 alt="coins-pic"
                                                 className={Styles.coinImg}
                                             />{' '}
-                                            {`${(end - points).toFixed(
-                                                2,
-                                            )} points for the next tier`}
+                                            {`${pointsToEarn.toFixed(2)} points for the next tier`}
                                         </>
                                     ) : (
                                         `You're already at the top tier!`
