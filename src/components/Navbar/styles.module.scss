@@ -11,13 +11,13 @@
     justify-content: space-between;
 
     background: $paletteGrey2;
-    padding: 1rem 0;
 
     min-height: 100%;
-    width: 5rem;
+    width: 4.5rem;
 
+    //? ______TOP CONTAINER WITH NAVIGATION ITEMS__________
     & .navigationContainer {
-        // border: 1px solid red;
+        padding: 0.5rem 0;
 
         & .logoContainer {
             display: flex;
@@ -40,10 +40,12 @@
             display: flex;
             flex-direction: column;
 
+            margin: 0.8rem auto;
+
             & p {
                 font-size: 0.7rem;
                 color: $paletteGrey3;
-                margin: 0 auto;
+                margin: 0.1rem auto;
             }
 
             & .balance {
@@ -77,7 +79,11 @@
             }
 
             &:hover {
-                background: linear-gradient(270deg, #49ae5166 11.67%, rgba(73, 174, 81, 0) 100%);
+                background: linear-gradient(
+                    270deg,
+                    rgba(73, 174, 81, 0.4) 11.67%,
+                    rgba(73, 174, 81, 0) 100%
+                );
 
                 & img {
                     filter: brightness(100%);
@@ -99,7 +105,11 @@
             display: flex;
             justify-content: center;
 
-            background: linear-gradient(270deg, #49ae5166 11.67%, rgba(73, 174, 81, 0) 100%);
+            background: linear-gradient(
+                270deg,
+                rgba(73, 174, 81, 0.4) 11.67%,
+                rgba(73, 174, 81, 0) 100%
+            );
 
             & img {
                 filter: brightness(100%);
@@ -107,8 +117,92 @@
         }
     }
 
+    //? ______BOTTOM CONTAINER WITH FUNCTIONAL BUTTONS__________
     & .functionalContainer {
-        background: green;
+        padding: 1rem 0;
+
+        & .bonusBlock {
+            width: 80%;
+            margin: 0 auto;
+
+            & button {
+                cursor: pointer;
+
+                padding: .5rem;
+
+                border: 1px solid $paletteGreen2;
+                border-radius: 4px;
+                background: transparent;
+
+                color: $paletteGreen2;
+
+                &:hover {
+                    background: $paletteGreen2;
+                    color: $paletteWhite;
+                }
+            }
+        }
+
+        & .welcomeMessageBlock {
+            display: flex;
+            flex-direction: column;
+
+            margin: 0.8rem auto;
+
+            & p {
+                font-size: 0.7rem;
+                color: $paletteGrey3;
+                margin: 0.1rem auto;
+            }
+
+            & .nickname {
+                color: $paletteWhite;
+                font-size: 0.8rem;
+            }
+        }
+
+        & .notificationBlock {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+
+            & img {
+                filter: brightness(40%);
+            }
+
+            & span {
+                display: none;
+            }
+
+            &:hover {
+                img {
+                    filter: brightness(100%);
+                }
+            }
+        }
+
+        & .settingsBlock {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+
+            & img {
+                filter: brightness(40%);
+            }
+
+            & span {
+                display: none;
+            }
+
+            &:hover {
+                img {
+                    filter: brightness(100%);
+                }
+            }
+        }
+
     }
 }
 

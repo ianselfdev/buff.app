@@ -22,6 +22,8 @@ import coin from '../../theme/svg/coin.svg';
 import dashboard from '../../theme/svg/dashboard.svg';
 import market from '../../theme/svg/market.svg';
 import history from '../../theme/svg/history.svg';
+import notification from '../../theme/svg/notification.svg';
+import settings from '../../theme/svg/settings.svg';
 
 //Analytics
 import { Analytics } from '../../analytics';
@@ -145,7 +147,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { logout, nickname, balance, level, bonusPopup, bonusBalance, isNew } = this.props;
+        const { logout, nickname, balance, level, bonusBalance, isNew } = this.props;
         const { opened, settingsOpened } = this.state;
 
         return (
@@ -160,7 +162,7 @@ class Navbar extends Component {
                             <p>Balance</p>
                             <p className={Styles.balance}>
                                 <img src={coin} alt="" />
-                                100500.56
+                                {+balance + +bonusBalance}
                             </p>
                         </div>
                         <NavLink
@@ -200,7 +202,23 @@ class Navbar extends Component {
                             <img src={history} alt="" />
                         </NavLink>
                     </div>
-                    <div className={Styles.functionalContainer}>123</div>
+                    <div className={Styles.functionalContainer}>
+                        <div className={Styles.bonusBlock}>
+                            <button>Bonus</button>
+                        </div>
+                        <div className={Styles.welcomeMessageBlock}>
+                            <p>Welcome:</p>
+                            <p className={Styles.nickname}>{nickname}</p>
+                        </div>
+                        <div className={Styles.notificationBlock}>
+                            <img src={notification} alt="" />
+                            {/* <span>Notifications</span> */}
+                        </div>
+                        <div className={Styles.settingsBlock}>
+                            <img src={settings} alt="" />
+                            {/* <span>Settings</span> */}
+                        </div>
+                    </div>
                 </div>
 
                 {settingsOpened && <Settings inProp={settingsOpened} />}
