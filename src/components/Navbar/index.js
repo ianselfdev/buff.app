@@ -11,13 +11,10 @@ import Styles from './styles.module.scss';
 import FirstTimeUX from '../FirstTimeUX';
 import Settings from '../Settings';
 
-//Animations
-import gsap from 'gsap';
-import { Transition } from 'react-transition-group';
-
 //Instruments
 import { book } from '../../core/book';
 import logo from '../../theme/svg/logo-short.svg';
+import fullLogo from '../../theme/svg/fullLogo.svg';
 import coin from '../../theme/svg/coin.svg';
 import dashboard from '../../theme/svg/dashboard.svg';
 import market from '../../theme/svg/market.svg';
@@ -56,7 +53,7 @@ const socket = io();
 
 class Navbar extends Component {
     state = {
-        opened: false,
+        opened: true,
     };
 
     componentDidMount = () => {
@@ -105,15 +102,10 @@ class Navbar extends Component {
         console.log('socket listeners removed');
     };
 
-    _handleClick = () => {
+    _toggleOpened = () => {
         this.setState((prevState) => ({
             opened: !prevState.opened,
         }));
-    };
-
-    _handleNav = (e) => {
-        const { id } = e.target;
-        Analytics.event('Navigation link click', { category: id });
     };
 
     _toggleTutorial = () => {
@@ -132,18 +124,9 @@ class Navbar extends Component {
         }));
     };
 
-    _animateBonusEnter = (bonus) => {
-        //element, animation in SECONDS, { from point, to point }
-        gsap.fromTo(
-            bonus,
-            1.5,
-            {
-                x: 500,
-            },
-            {
-                x: 0,
-            },
-        );
+    _handleNav = (e) => {
+        const { id } = e.target;
+        Analytics.event('Navigation link click', { category: id });
     };
 
     render() {
@@ -155,11 +138,11 @@ class Navbar extends Component {
                 {isNew && <FirstTimeUX closeTutorial={this._toggleTutorial} />}
                 <div className={opened ? Styles.containerOpened : Styles.containerClosed}>
                     <div className={Styles.navigationContainer}>
-                        <div className={Styles.logoContainer}>
-                            <img src={logo} alt="" />
+                        <div className={Styles.logoContainer} onClick={this._toggleOpened}>
+                            <img src={opened ? fullLogo : logo} alt="" />
                         </div>
                         <div className={Styles.balanceContainer}>
-                            <p>Balance</p>
+                            <p>Balance:</p>
                             <p className={Styles.balance}>
                                 <img src={coin} alt="" />
                                 {+balance + +bonusBalance}
@@ -173,6 +156,7 @@ class Navbar extends Component {
                             id="dashboard"
                         >
                             <img src={dashboard} alt="" />
+                            <span>Lounge</span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
@@ -182,6 +166,7 @@ class Navbar extends Component {
                             id="marketplace"
                         >
                             <img src={market} alt="" />
+                            <span>Marketplace</span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
@@ -191,8 +176,9 @@ class Navbar extends Component {
                             id="history"
                         >
                             <img src={history} alt="" />
+                            <span>History</span>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
                             to={book.leaderboard}
@@ -200,7 +186,7 @@ class Navbar extends Component {
                             id="leaderboard"
                         >
                             <img src={history} alt="" />
-                        </NavLink>
+                        </NavLink> */}
                     </div>
                     <div className={Styles.functionalContainer}>
                         <div className={Styles.bonusBlock}>
@@ -212,11 +198,11 @@ class Navbar extends Component {
                         </div>
                         <div className={Styles.notificationBlock}>
                             <img src={notification} alt="" />
-                            {/* <span>Notifications</span> */}
+                            <span>Notifications</span>
                         </div>
                         <div className={Styles.settingsBlock}>
                             <img src={settings} alt="" />
-                            {/* <span>Settings</span> */}
+                            <span>Settings</span>
                         </div>
                     </div>
                 </div>
