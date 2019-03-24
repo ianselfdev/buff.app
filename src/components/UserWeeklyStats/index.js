@@ -14,13 +14,10 @@ export default class UserWeeklyStats extends Component {
             <div className={Styles.container}>
                 <Select
                     data={[
-                        { value: 'itemNumberSHO123TO' },
-                        { value: 'itemNumberSHO123222TO' },
-                        { value: 'itemNTO' },
-                        { value: 'iTO' },
-                        { value: 'itemNumTO' },
-                        { value: 'it1111erSHOTO' },
-                        { value: 'itemNumb321323erSHOTO' },
+                        { value: 'DOTA 2' },
+                        { value: 'League of Legends' },
+                        { value: 'Fortnite' },
+                        { value: 'CS:GO' },
                     ]}
                     containerStyles={{
                         width: '70%',

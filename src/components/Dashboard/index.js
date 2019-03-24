@@ -8,6 +8,8 @@ import Styles from './styles.module.scss';
 //Components
 import UserProgress from '../UserProgress';
 import UserWeeklyStats from '../UserWeeklyStats';
+import Invites from '../Invites';
+import DailyBonus from '../DailyBonus';
 
 //Actions
 import { advertisementActions } from '../../bus/app/advertisements/actions';
@@ -58,9 +60,11 @@ class Dashboard extends Component {
                 </div>
                 <div className={Styles.invites}>
                     <span className={Styles.title}>Invites</span>
+                    <Invites />
                 </div>
                 <div className={Styles.dailyBonus}>
                     <span className={Styles.title}>Daily bonus</span>
+                    <DailyBonus />
                 </div>
                 <div className={Styles.userFavorite}>
                     <span className={Styles.title}>Your favorite</span>

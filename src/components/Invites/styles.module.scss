@@ -1,0 +1,57 @@
+@import '../../theme/palette.scss';
+
+.container {
+    display: grid;
+    grid-template-columns: 8rem auto 6rem;
+
+    width: 100%;
+    height: 64%;
+    padding: 1rem;
+
+    background: $paletteGrey2;
+
+    border-radius: 4px;
+
+    & .text {
+        font-size: 0.8rem;
+    }
+
+    & .earningsContainer {
+        padding: 0 1.5rem;
+        & p {
+            font-size: 0.7rem;
+            color: $paletteGrey3;
+        }
+
+        & .coins {
+            font-size: 0.8rem;
+            color: $paletteGreen1;
+
+            & img {
+                width: 0.7rem;
+                margin-right: 0.3rem;
+            }
+        }
+    }
+
+    & .button {
+        cursor: pointer;
+
+        height: 2.1rem;
+        width: 100%;
+        padding: 0.5rem;
+
+        background: transparent;
+
+        color: $paletteGreen1;
+
+        border: 1px solid $paletteGreen1;
+        border-radius: 4px;
+
+        &:hover {
+            background: $paletteGreen1;
+
+            color: $paletteWhite;
+        }
+    }
+}

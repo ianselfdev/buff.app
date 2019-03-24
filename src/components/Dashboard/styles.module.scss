@@ -8,6 +8,7 @@
 
     display: grid;
     grid-column-gap: 1rem;
+    grid-row-gap: 0.5rem;
     grid-template-columns: 15rem 8.5rem auto 15rem 400px;
     grid-template-rows: 14rem 6rem 330px;
 
@@ -60,7 +61,6 @@
     }
 
     & .userGoal {
-        margin: 1rem 0 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -70,7 +70,6 @@
     }
 
     & .userRecommended {
-        margin: 1rem 0 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
