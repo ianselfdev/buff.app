@@ -51,13 +51,28 @@ class Dashboard extends Component {
     render() {
         return (
             <div className={Styles.mainContainer}>
-                <div className={Styles.userProgress}>1</div>
-                <div className={Styles.weeklyStats}>2</div>
-                <div className={Styles.userFavorite}>3</div>
-                <div className={Styles.invites}>4</div>
-                <div className={Styles.dailyBonus}>5</div>
-                <div className={Styles.userGoal}>6</div>
-                <div className={Styles.userRecommended}>7</div>
+                <div className={Styles.userProgress}>
+                    <span className={Styles.title}>Your progress</span>
+                    <UserProgress />
+                </div>
+                <div className={Styles.weeklyStats}>
+                    <span className={Styles.title}>Your weekly stats</span>
+                </div>
+                <div className={Styles.invites}>
+                    <span className={Styles.title}>Invites</span>
+                </div>
+                <div className={Styles.dailyBonus}>
+                    <span className={Styles.title}>Daily bonus</span>
+                </div>
+                <div className={Styles.userFavorite}>
+                    <span className={Styles.title}>Your favorite</span>
+                </div>
+                <div className={Styles.userGoal}>
+                    <span className={Styles.title}>Goal</span>
+                </div>
+                <div className={Styles.userRecommended}>
+                    <span className={Styles.title}>Recomended for you</span>
+                </div>
                 <div className={Styles.ad} id="ad-div" />
             </div>
         );

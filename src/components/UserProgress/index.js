@@ -8,6 +8,7 @@ import Styles from './styles.module.scss';
 //Instruments
 import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
+import chartMock from '../../theme/assets/chartMock.PNG';
 
 const mapStateToProps = (state) => {
     const { points, level, start, end } = state.profile.get('tier');
@@ -43,58 +44,31 @@ class UserProgress extends Component {
 
         return (
             <>
-                <div className={Styles.titleBox}>Your progress</div>
-                {help ? (
-                    <div className={Styles.infoContainer}>
-                        <ul>
-                            <li>
-                                Level up by earning more coins and spending them on the marketplace
-                            </li>
-                            <li>Each earned coin gives 1 tier point</li>
-                            <li>Each spent coin gives x3 tier points</li>
-                            <li>Each tier gives bonuses to the amount of coins you earn</li>
-                            <li>Follow your progress on the chart!</li>
-                        </ul>
-                        <button className={Styles.legendButton} onClick={this._toggleHelp}>
-                            Got it!
-                        </button>
+                <div className={Styles.container}>
+                    <div className={Styles.chart}>
+                        <img src={chartMock} alt="" />
                     </div>
-                ) : (
-                    <>
-                        <div className={Styles.chart}>
-                            <UserStatusChart data={data} status={level} />
-                        </div>
-                        <div className={Styles.legend}>
-                            <div className={Styles.legendDatabox}>
-                                <p>Next Tier</p>
-                                <p>
-                                    {pointsToEarn > 0 ? (
-                                        <>
-                                            <img
-                                                src={coin}
-                                                alt="coins-pic"
-                                                className={Styles.coinImg}
-                                            />{' '}
-                                            {`${pointsToEarn.toFixed(2)} points for the next tier`}
-                                        </>
-                                    ) : (
-                                        `You're already at the top tier!`
-                                    )}
-                                </p>
-                            </div>
-                            <div className={Styles.legendDatabox}>
-                                <p>Your points</p>
-                                <p>
-                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                                    {points.toFixed(2)}
-                                </p>
-                            </div>
-                        </div>
-                        <button className={Styles.legendButton} onClick={this._toggleHelp}>
-                            How do I level up?
-                        </button>
-                    </>
-                )}
+                    <div className={Styles.chartText}>
+                        <p className={Styles.playerTier}>{level}</p>
+                        <p className={Styles.tierBonus}>
+                            Tier bonus: <span>5%</span>
+                        </p>
+                    </div>
+                    <div className={Styles.userBalance}>
+                        Your Balance <p>100500</p>
+                    </div>
+                    <div className={Styles.nextTier}>
+                        Next tier
+                        <p>
+                            5678<span>/6000</span>
+                        </p>
+                    </div>
+                    <div className={Styles.moreCoins}>
+                        <p>Feeling hungry for reward?</p>
+                        <p>Buy premium to get more bonuses</p>
+                    </div>
+                    <button className={Styles.button}>Learn more</button>
+                </div>
             </>
         );
     }
