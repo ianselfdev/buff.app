@@ -8,7 +8,7 @@ import Styles from './styles.module.scss';
 //Instruments
 import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
-import chartMock from '../../theme/assets/chartMock.PNG';
+import medal from '../../theme/svg/medal.svg';
 
 const mapStateToProps = (state) => {
     const { points, level, start, end } = state.profile.get('tier');
@@ -37,16 +37,14 @@ class UserProgress extends Component {
 
         //kmelct is a lazy dick if you ever wanted to know
         const pointsToEarn = +end === Infinity ? 0 - points : end - points;
-        const data = [
-            { x: 'Current progress', y: points },
-            { x: 'Goal', y: Math.max(pointsToEarn, 0) },
-        ];
+        const data = [{ x: 'Current progress', y: 5000 }, { x: 'Goal', y: 100 }];
 
         return (
             <>
                 <div className={Styles.container}>
                     <div className={Styles.chart}>
-                        <img src={chartMock} alt="" />
+                        <UserStatusChart data={data} />
+                        <img src={medal} alt="" className={Styles.medal} />
                     </div>
                     <div className={Styles.chartText}>
                         <p className={Styles.playerTier}>{level}</p>

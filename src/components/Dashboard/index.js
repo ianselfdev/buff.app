@@ -7,10 +7,7 @@ import Styles from './styles.module.scss';
 
 //Components
 import UserProgress from '../UserProgress';
-import Quests from '../Quests';
-import MarketRecomendations from '../MarketRecomendations';
-import RecentActivity from '../RecentActivity';
-import DashboardFavorite from '../DashboardFavorite';
+import UserWeeklyStats from '../UserWeeklyStats';
 
 //Actions
 import { advertisementActions } from '../../bus/app/advertisements/actions';
@@ -57,6 +54,7 @@ class Dashboard extends Component {
                 </div>
                 <div className={Styles.weeklyStats}>
                     <span className={Styles.title}>Your weekly stats</span>
+                    <UserWeeklyStats />
                 </div>
                 <div className={Styles.invites}>
                     <span className={Styles.title}>Invites</span>

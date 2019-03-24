@@ -18,13 +18,10 @@
         grid-column: 1;
         grid-row: 1 / 3;
 
-        & img {
-            width: 90%;
-            height: 90%;
-
+        & .medal {
             position: relative;
-            top: 5%;
-            left: 5%;
+            top: -85%;
+            left: 37%;
         }
     }
 
@@ -115,6 +112,8 @@
         grid-column: 2 / 4;
         grid-row: 3;
 
+        cursor: pointer;
+
         height: 60%;
         width: 85%;
 
@@ -125,6 +124,10 @@
 
         background: transparent;
         color: $paletteWhite;
+
+        &:hover {
+            background: $paletteGrey3;
+        }
     }
 }
 
