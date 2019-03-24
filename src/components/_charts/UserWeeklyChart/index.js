@@ -36,8 +36,8 @@ export const UserWeeklyChart = (props) => {
     return (
         <AreaChart width={350} height={165} data={data}>
             <CartesianGrid strokeDasharray="4 4" stroke="#474B5E" />
-            <XAxis dataKey="day" />
-            <YAxis />
+            <XAxis dataKey="day" fontSize=".7rem" />
+            <YAxis fontSize=".7rem" />
             <Tooltip
                 contentStyle={{ backgroundColor: '#1C1C1C', borderRadius: 4 }}
                 labelStyle={{
