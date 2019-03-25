@@ -101,103 +101,45 @@ class Market extends Component {
         const { market } = this.props;
 
         return (
-            <div className={Styles.mainContainer}>
-                <div className={Styles.marketContainer}>
-                    <div className={Styles.controlsContainer}>
-                        <div className={Styles.tabsContainer}>
-                            <div
-                                onClick={this._selectActiveTab}
-                                id="market"
-                                className={
-                                    active === 'market'
-                                        ? `${Styles.tabs} ${Styles.active}`
-                                        : Styles.tabs
-                                }
-                            >
-                                Market
-                            </div>
-                            <div
-                                onClick={this._selectActiveTab}
-                                id="inventory"
-                                className={
-                                    active === 'inventory'
-                                        ? `${Styles.tabs} ${Styles.active}`
-                                        : Styles.tabs
-                                }
-                            >
-                                My Inventory
-                            </div>
-                        </div>
-                        <div className={Styles.searchContainer}>
-                            {/* searchboxes are rendered according to active tab
-                                    and their values are remembered in state, so that user
-                                    could see what he was last searching, as the filtration
-                                    results are also being saved in redux */}
-                            {active === 'market' ? (
-                                <input
-                                    type="text"
-                                    name="marketSearch"
-                                    placeholder="Search..."
-                                    onKeyDown={this._handleSearch}
-                                    onChange={this._handleChange}
-                                    value={marketSearch}
+            <div className={Styles.container}>
+                <div className={Styles.itemsContainer}>
+                    {active === 'market' && market.get('market').size > 0 ? (
+                        market
+                            .get('market')
+                            .map((item, index) => (
+                                <MarketItem
+                                    shortDescription={item.get('descriptionShort')}
+                                    discount={item.get('discount')}
+                                    games={item.get('games')}
+                                    price={item.get('price')}
+                                    name={item.get('name')}
+                                    amount={item.get('count')}
+                                    id={item.get('id')}
+                                    tradable={item.get('tradable')}
+                                    description={item.get('description')}
+                                    expire={item.get('expire')}
+                                    img={item.get('img')}
+                                    key={index}
                                 />
-                            ) : (
-                                <input
-                                    type="text"
-                                    name="userSearch"
-                                    placeholder="Search..."
-                                    onKeyDown={this._handleSearch}
-                                    onChange={this._handleChange}
-                                    value={userSearch}
+                            ))
+                    ) : active === 'inventory' && market.get('user').size > 0 ? (
+                        market
+                            .get('user')
+                            .map((item, index) => (
+                                <UserItem
+                                    shortDescription={item.get('descriptionShort')}
+                                    description={item.get('description')}
+                                    games={item.get('games')}
+                                    name={item.get('name')}
+                                    id={item.get('id')}
+                                    img={item.get('img')}
+                                    tradable={item.get('tradable')}
+                                    key={index}
                                 />
-                            )}
-                            <Search className={Styles.searchIcon} />
-                        </div>
-                    </div>
-                    <div className={Styles.marketTab}>
-                        {/* items are rendered according to active tab,
-                                object are gotten from redux for each tab separately.
-                                Also, if no items in inventory or (OMG) on the marketplace - 
-                                fallback markdown is rendered */}
-                        {active === 'market' && market.get('market').size > 0 ? (
-                            market
-                                .get('market')
-                                .map((item, index) => (
-                                    <MarketItem
-                                        shortDescription={item.get('descriptionShort')}
-                                        discount={item.get('discount')}
-                                        games={item.get('games')}
-                                        price={item.get('price')}
-                                        name={item.get('name')}
-                                        amount={item.get('count')}
-                                        id={item.get('id')}
-                                        tradable={item.get('tradable')}
-                                        description={item.get('description')}
-                                        expire={item.get('expire')}
-                                        img={item.get('img')}
-                                        key={index}
-                                    />
-                                ))
-                        ) : active === 'inventory' && market.get('user').size > 0 ? (
-                            market
-                                .get('user')
-                                .map((item, index) => (
-                                    <UserItem
-                                        shortDescription={item.get('descriptionShort')}
-                                        description={item.get('description')}
-                                        games={item.get('games')}
-                                        name={item.get('name')}
-                                        id={item.get('id')}
-                                        img={item.get('img')}
-                                        tradable={item.get('tradable')}
-                                        key={index}
-                                    />
-                                ))
-                        ) : (
-                            <p className={Styles.empty}>Nothing here yet :(</p>
-                        )}
-                    </div>
+                            ))
+                    ) : (
+                        <p className={Styles.empty}>Nothing here yet :(</p>
+                    )}
                 </div>
                 <MarketInstruments />
             </div>

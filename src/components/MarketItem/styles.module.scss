@@ -1,7 +1,10 @@
 @import '../../theme/palette.scss';
 
 .container {
+    cursor: pointer;
+
     height: 100%;
+    max-height: 295px;
     width: 15rem;
 
     display: flex;

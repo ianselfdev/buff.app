@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Instruments
-import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
 import medal from '../../theme/svg/medal.svg';
 
@@ -17,6 +16,8 @@ const mapStateToProps = (state) => {
         level,
         start,
         end,
+        balance: state.profile.get('balance'),
+        bonusBalance: state.profile.get('bonusBalance'),
     };
 };
 
@@ -32,12 +33,14 @@ class UserProgress extends Component {
     };
 
     render() {
-        const { help } = this.state;
-        const { points, level, end } = this.props;
+        const { points, level, end, start, balance, bonusBalance } = this.props;
 
         //kmelct is a lazy dick if you ever wanted to know
         const pointsToEarn = +end === Infinity ? 0 - points : end - points;
-        const data = [{ x: 'Current progress', y: 5000 }, { x: 'Goal', y: 100 }];
+        const data = [{ x: 'Current progress', y: points }, { x: 'Goal', y: pointsToEarn }];
+
+        //Tiers counting
+        const currentTierPoints = Math.min(points, +end === Infinity ? start : end);
 
         return (
             <>
@@ -53,12 +56,13 @@ class UserProgress extends Component {
                         </p>
                     </div>
                     <div className={Styles.userBalance}>
-                        Your Balance <p>100500</p>
+                        Your Balance <p>{+balance + +bonusBalance}</p>
                     </div>
                     <div className={Styles.nextTier}>
                         Next tier
                         <p>
-                            5678<span>/6000</span>
+                            {currentTierPoints}
+                            <span>/{(+end === Infinity ? +start : +end).toFixed(0)}</span>
                         </p>
                     </div>
                     <div className={Styles.moreCoins}>
