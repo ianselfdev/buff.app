@@ -30,11 +30,11 @@ class MarketItem extends Component {
     };
 
     _openModal = () => {
-        // const { id } = this.props;
-        // Analytics.event('Market item details opened', { category: id });
-        // this.setState({
-        //     showModal: true,
-        // });
+        const { id } = this.props;
+        Analytics.event('Market item details opened', { category: id });
+        this.setState({
+            showModal: true,
+        });
     };
 
     _closeModal = (e) => {
@@ -47,15 +47,7 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const {
-            price,
-            name,
-            errorMarketLabel,
-            successPurchaseLabel,
-            errorMessage,
-            img,
-            expire,
-        } = this.props;
+        const { price, name, img, expire, shortDescription } = this.props;
 
         const expiresIn = (
             Math.abs(new Date(expire).getTime() - new Date()) /
@@ -75,14 +67,16 @@ class MarketItem extends Component {
                     <p className={Styles.title}>{name}</p>
                     <div className={Styles.itemInfo}>
                         <img src={csgo_logo} alt="" />
-                        <p>{'Counter-Strike: Global Offensive Classified Sniper Rifle'}</p>
+                        <p>{shortDescription}</p>
                     </div>
                     <div className={Styles.actionsContainer}>
                         <div className={Styles.price}>
                             <img src={coin} alt="" />
-                            8050.23
+                            {price}
                         </div>
-                        <div className={Styles.button}>Buy</div>
+                        <div className={Styles.button} onClick={this._openModal}>
+                            Buy
+                        </div>
                     </div>
                     {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
                 </div>

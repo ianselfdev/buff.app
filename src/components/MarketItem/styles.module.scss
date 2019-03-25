@@ -2,7 +2,7 @@
 
 .container {
     height: 100%;
-    width: 100%;
+    width: 15rem;
 
     display: flex;
     flex-direction: column;
@@ -21,13 +21,21 @@
     & .title {
         margin: 0.5rem 1rem;
 
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 13rem;
+
         font-size: 1.2rem;
     }
 
     & .itemInfo {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
+
+        height: 2rem;
 
         margin-left: 1rem;
 
@@ -42,6 +50,11 @@
             margin-right: 0.5rem;
 
             background: #000;
+        }
+
+        & p {
+            overflow-y: scroll;
+            height: 2rem;
         }
     }
 

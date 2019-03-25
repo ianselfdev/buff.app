@@ -11,6 +11,8 @@ import UserWeeklyStats from '../UserWeeklyStats';
 import Invites from '../Invites';
 import DailyBonus from '../DailyBonus';
 import MarketItem from '../MarketItem';
+import MarketRecomendations from '../MarketRecomendations';
+import UserFavorite from '../UserFavorite';
 
 //Actions
 import { advertisementActions } from '../../bus/app/advertisements/actions';
@@ -69,6 +71,7 @@ class Dashboard extends Component {
                 </div>
                 <div className={Styles.userFavorite}>
                     <span className={Styles.title}>Your favorite</span>
+                    <UserFavorite />
                 </div>
                 <div className={Styles.userGoal}>
                     <span className={Styles.title}>Goal</span>
@@ -80,6 +83,7 @@ class Dashboard extends Component {
                 </div>
                 <div className={Styles.userRecommended}>
                     <span className={Styles.title}>Recomended for you</span>
+                    <MarketRecomendations />
                 </div>
                 <div className={Styles.ad} id="ad-div" />
             </div>
