@@ -10,6 +10,7 @@ import UserProgress from '../UserProgress';
 import UserWeeklyStats from '../UserWeeklyStats';
 import Invites from '../Invites';
 import DailyBonus from '../DailyBonus';
+import MarketItem from '../MarketItem';
 
 //Actions
 import { advertisementActions } from '../../bus/app/advertisements/actions';
@@ -71,6 +72,11 @@ class Dashboard extends Component {
                 </div>
                 <div className={Styles.userGoal}>
                     <span className={Styles.title}>Goal</span>
+                    <MarketItem
+                        price={500}
+                        name="AWP|MortisAWP|Mortis"
+                        img="https://www.pcgamesn.com/wp-content/uploads/2018/07/dota-2-loot-boxes-netherlands-580x332.jpg"
+                    />
                 </div>
                 <div className={Styles.userRecommended}>
                     <span className={Styles.title}>Recomended for you</span>
