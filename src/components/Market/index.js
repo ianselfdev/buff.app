@@ -8,7 +8,6 @@ import MarketItem from '../MarketItem';
 import UserItem from '../UserItem';
 
 //Instruments
-import { Search } from '@material-ui/icons';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -37,14 +36,19 @@ const mapDispatchToProps = {
 class Market extends Component {
     state = {
         active: 'market',
-        marketSearch: '',
-        userSearch: '',
+        sortByPrice: '',
     };
 
     componentDidMount() {
         const { fetchMarketItemsAsync } = this.props;
         fetchMarketItemsAsync();
     }
+
+    _sortByPrice = (value) => {
+        this.setState({
+            sortByPrice: value,
+        });
+    };
 
     _selectActiveTab = (e) => {
         const { id } = e.target;
@@ -64,47 +68,37 @@ class Market extends Component {
         });
     };
 
-    //handling searchboxes changes
-    _handleChange = (e) => {
-        const { value, name } = e.target;
-        const { removeMarketFilterParameterAsync } = this.props;
-
-        //check when user clears search field
-        if (value.length === 0) {
-            removeMarketFilterParameterAsync('name');
-        }
-
-        this.setState({
-            [name]: value,
-        });
-    };
-
-    //performig filter request with search query on Enter hit
-    _handleSearch = async (e) => {
-        const { key } = e;
-        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
-        const { active, marketSearch, userSearch } = this.state;
-
-        if (key === 'Enter') {
-            if (active === 'market') {
-                filterMarketItemsAsync('name', marketSearch);
-            } else {
-                filterUserItemsAsync('name', userSearch);
-            }
-        } else {
-            return null;
-        }
-    };
-
     render() {
-        const { active, userSearch, marketSearch } = this.state;
+        const { active } = this.state;
         const { market } = this.props;
+
+        const sortedItems = market.sort((item) => item.price);
 
         return (
             <div className={Styles.container}>
+                <div className={Styles.switchButtonsContainer}>
+                    <div
+                        onClick={this._selectActiveTab}
+                        id="market"
+                        className={`${Styles.switchButton} ${
+                            active === 'market' ? Styles.active : null
+                        }`}
+                    >
+                        Marketplace
+                    </div>
+                    <div
+                        onClick={this._selectActiveTab}
+                        id="inventory"
+                        className={`${Styles.switchButton} ${
+                            active === 'inventory' ? Styles.active : null
+                        }`}
+                    >
+                        My Inventory
+                    </div>
+                </div>
                 <div className={Styles.itemsContainer}>
                     {active === 'market' && market.get('market').size > 0 ? (
-                        market
+                        sortedItems
                             .get('market')
                             .map((item, index) => (
                                 <MarketItem
@@ -119,6 +113,7 @@ class Market extends Component {
                                     description={item.get('description')}
                                     expire={item.get('expire')}
                                     img={item.get('img')}
+                                    marginTop={'1.25rem'}
                                     key={index}
                                 />
                             ))
@@ -141,7 +136,7 @@ class Market extends Component {
                         <p className={Styles.empty}>Nothing here yet :(</p>
                     )}
                 </div>
-                <MarketInstruments />
+                <MarketInstruments activeTab={active} />
             </div>
         );
     }

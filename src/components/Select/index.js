@@ -44,11 +44,14 @@ export default class Select extends Component {
     };
 
     render() {
-        const { styles, containerStyles, dropdownStyles, itemStyles, data } = this.props;
+        const { styles, containerStyles, dropdownStyles, itemStyles, data, className } = this.props;
         const { selectedValue, opened } = this.state;
 
         return (
-            <div className={Styles.container} style={containerStyles}>
+            <div
+                className={`${Styles.container} ${className ? className : null}`}
+                style={containerStyles}
+            >
                 <div className={Styles.selectField} style={styles} onClick={this._toggleOpened}>
                     <span>{selectedValue}</span>
                     <img

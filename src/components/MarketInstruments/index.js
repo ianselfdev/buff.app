@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
+//Instruments
+import Select from '../Select';
+
 //Actions
 import { marketActions } from '../../bus/market/actions';
 import { advertisementActions } from '../../bus/app/advertisements/actions';
@@ -23,11 +26,8 @@ const mapDispatchToProps = {
 
 class MarketInstruments extends Component {
     state = {
-        byGame: false,
-        byPrice: false,
-        byType: false,
-        value: 5000,
-        selectedOption: 'none',
+        marketSearch: '',
+        userSearch: '',
     };
 
     componentDidMount = () => {
@@ -50,126 +50,121 @@ class MarketInstruments extends Component {
         }
     };
 
-    _toggleByGame = () => {
-        this.setState((prevState) => ({
-            byGame: !prevState.byGame,
-        }));
-    };
-
-    _toggleByPrice = () => {
-        this.setState((prevState) => ({
-            byPrice: !prevState.byPrice,
-        }));
-    };
-
-    _toggleByType = () => {
-        this.setState((prevState) => ({
-            byType: !prevState.byType,
-        }));
-    };
-
-    _handlePriceChange = (e) => {
-        const { value } = e.target;
-        const { filterMarketItemsAsync } = this.props;
-
-        filterMarketItemsAsync('maxPrice', value || 5000);
-
-        this.setState({
-            value: value || 5000,
-        });
-    };
-
-    _handleRadioChange = (e) => {
-        let { id } = e.target;
+    _filterByGame = (value) => {
+        const id =
+            value === 'DOTA 2'
+                ? 'dota'
+                : value === 'League of Legends'
+                ? 'lol'
+                : value === 'Fortnite'
+                ? 'fortnite'
+                : value === 'CS:GO'
+                ? 'csgo'
+                : 'none';
         const {
             filterMarketItemsAsync,
             filterUserItemsAsync,
             removeMarketFilterParameterAsync,
         } = this.props;
+
         if (id === 'none') {
             removeMarketFilterParameterAsync('game');
         } else {
             filterMarketItemsAsync('game', id);
             filterUserItemsAsync('game', id);
         }
+    };
+
+    //handling searchboxes changes
+    _handleChange = (e) => {
+        const { value, name } = e.target;
+        const { removeMarketFilterParameterAsync } = this.props;
+
+        //check when user clears search field
+        if (value.length === 0) {
+            removeMarketFilterParameterAsync('name');
+        }
 
         this.setState({
-            selectedOption: id,
+            [name]: value,
         });
     };
 
+    //performig filter request with search query on Enter hit
+    _handleSearch = async (e) => {
+        const { key } = e;
+        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
+        const { active, marketSearch, userSearch } = this.state;
+
+        if (key === 'Enter') {
+            if (active === 'market') {
+                filterMarketItemsAsync('name', marketSearch);
+            } else {
+                filterUserItemsAsync('name', userSearch);
+            }
+        } else {
+            return null;
+        }
+    };
+
     render() {
-        const { byGame, byType, byPrice, value, selectedOption } = this.state;
-        const max = 5000;
+        const { userSearch, marketSearch } = this.state;
+        const { activeTab } = this.props;
 
         return (
             <div className={Styles.container}>
                 <div className={Styles.filtersContainer}>
-                    <div className={Styles.title}>Filters</div>
-                    <div className={byGame ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByGame}>By Game</p>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byGameFilter"
-                                id="dota"
-                                checked={selectedOption === 'dota'}
-                                onChange={this._handleRadioChange}
-                            />
-                            <label htmlFor="dota">Dota</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byGameFilter"
-                                id="lol"
-                                checked={selectedOption === 'lol'}
-                                onChange={this._handleRadioChange}
-                            />
-                            <label htmlFor="lol">League of Legends</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byGameFilter"
-                                id="fortnite"
-                                checked={selectedOption === 'fortnite'}
-                                onChange={this._handleRadioChange}
-                            />
-                            <label htmlFor="fortnite">Fortnite</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byGameFilter"
-                                id="none"
-                                checked={selectedOption === 'none'}
-                                onChange={this._handleRadioChange}
-                            />
-                            <label htmlFor="none">Show All</label>
-                        </div>
-                    </div>
-                    <div className={byPrice ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByPrice}>By Max Price</p>
-                        <div className={Styles.inputsContainer}>
-                            <input type="text" value={value} onChange={this._handlePriceChange} />
-                            <input
-                                type="range"
-                                step="1"
-                                min="1"
-                                max={max}
-                                value={value}
-                                onChange={this._handlePriceChange}
-                            />
-                        </div>
-                    </div>
-                    <div className={byType ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByType}>By Type</p>
-                        <div className={Styles.inputsContainer}>
-                            <input type="checkbox" id="giftCard" checked readOnly />
-                            <label htmlFor="giftCard">Gift Card</label>
-                        </div>
-                    </div>
+                    {activeTab === 'market' ? (
+                        <input
+                            type="text"
+                            name="marketSearch"
+                            placeholder="Search"
+                            onKeyDown={this._handleSearch}
+                            onChange={this._handleChange}
+                            value={marketSearch}
+                            className={Styles.searchBar}
+                        />
+                    ) : (
+                        <input
+                            type="text"
+                            name="userSearch"
+                            placeholder="Search"
+                            onKeyDown={this._handleSearch}
+                            onChange={this._handleChange}
+                            value={userSearch}
+                            className={Styles.searchBar}
+                        />
+                    )}
+                    <Select
+                        data={[
+                            { value: 'DOTA 2' },
+                            { value: 'League of Legends' },
+                            { value: 'Fortnite' },
+                            { value: 'CS:GO' },
+                            { value: 'Show all' },
+                        ]}
+                        onChange={this._filterByGame}
+                        className={Styles.gameSelect}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
+                    <Select
+                        data={[{ value: 'Gift card' }]}
+                        // onChange={this._filterByGame}
+                        className={Styles.typeSelect}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
+                    <Select
+                        data={[{ value: 'Low to high' }, { value: 'High to low' }]}
+                        // onChange={this._filterByGame}
+                        className={Styles.priceSort}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
                 </div>
                 <div className={Styles.adContainer} id="ad-div" />
             </div>

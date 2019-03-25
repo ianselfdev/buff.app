@@ -47,7 +47,7 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { price, name, img, expire, shortDescription } = this.props;
+        const { price, name, img, expire, shortDescription, marginTop } = this.props;
 
         const expiresIn = (
             Math.abs(new Date(expire).getTime() - new Date()) /
@@ -59,7 +59,11 @@ class MarketItem extends Component {
 
         return (
             <>
-                <div className={Styles.container} onClick={this._openModal}>
+                <div
+                    className={Styles.container}
+                    onClick={this._openModal}
+                    style={{ marginTop: marginTop || 0 }}
+                >
                     <div className={Styles.favoriteButton}>
                         <img src={star} alt="" />
                     </div>
