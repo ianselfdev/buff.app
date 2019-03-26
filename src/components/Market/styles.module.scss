@@ -1,13 +1,13 @@
 @import '../../theme/palette.scss';
 
 .container {
-    height: 700px;
+    height: 650px;
 
-    padding: 1rem 0.5rem;
+    padding: 0 0.5rem;
 
     display: grid;
     grid-template-columns: auto 400px;
-    grid-template-rows: 50px 650px;
+    grid-template-rows: 50px 600px;
     grid-column-gap: 1rem;
 
     & .switchButtonsContainer {
@@ -22,32 +22,27 @@
         padding: 0 1rem;
         margin: -0.5rem 0 0;
 
+        border-bottom: 2px solid $paletteGrey2;
+
         & .switchButton {
             cursor: pointer;
 
             height: 85%;
 
             padding: 0 5rem;
-            margin-right: -1rem;
+            margin: 0 -1rem -1px 0;
 
             font-size: 0.9rem;
             line-height: 40px;
-            color: $paletteGrey3;
-
-            border: 1px solid $paletteGrey3;
-            border-radius: 4px;
+            color: $paletteWhite;
 
             &:hover {
-                background: $paletteGreen2;
-                border: 1px solid $paletteGreen2;
-                color: $paletteWhite;
+                border-bottom: 1px solid $paletteGreen2;
             }
 
             &.active {
-                background: $paletteGreen2;
-                border: 1px solid $paletteGreen2;
-                color: $paletteWhite;
-                z-index: 2;
+                border-bottom: 1px solid $paletteGreen2;
+                color: $paletteGreen2;
             }
         }
     }
