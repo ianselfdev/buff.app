@@ -12,18 +12,6 @@ export default class UserWeeklyStats extends Component {
     render() {
         return (
             <div className={Styles.container}>
-                <Select
-                    data={[
-                        { value: 'DOTA 2' },
-                        { value: 'League of Legends' },
-                        { value: 'Fortnite' },
-                        { value: 'CS:GO' },
-                    ]}
-                    containerStyles={{
-                        width: '70%',
-                        margin: '0.2rem 2rem',
-                    }}
-                />
                 <UserWeeklyChart />
             </div>
         );

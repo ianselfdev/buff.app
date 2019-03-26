@@ -1,26 +1,23 @@
 @import '../../theme/palette.scss';
 
 .container {
-    display: grid;
-    grid-template-columns: 8rem auto 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     width: 100%;
-    height: 64%;
-    padding: 1rem;
+    height: 100%;
+    padding: 0.5rem 1rem;
 
     background: $paletteGrey2;
 
     border-radius: 4px;
 
-    & .text {
-        font-size: 0.8rem;
-    }
-
     & .earningsContainer {
-        padding: 0 1.5rem;
         & p {
             font-size: 0.7rem;
             color: $paletteGrey3;
+            margin-bottom: 0.2rem;
         }
 
         & .coins {
@@ -38,8 +35,7 @@
         cursor: pointer;
 
         height: 2.1rem;
-        width: 100%;
-        padding: 0.5rem;
+        padding: 0.5rem 2rem;
 
         background: transparent;
 

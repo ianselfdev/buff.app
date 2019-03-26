@@ -69,10 +69,6 @@ class Dashboard extends Component {
                     <span className={Styles.title}>Daily bonus</span>
                     <DailyBonus />
                 </div>
-                <div className={Styles.userFavorite}>
-                    <span className={Styles.title}>Your favorite</span>
-                    <UserFavorite />
-                </div>
                 <div className={Styles.userGoal}>
                     <span className={Styles.title}>Goal</span>
                     <MarketItem

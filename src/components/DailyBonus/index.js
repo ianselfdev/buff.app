@@ -15,17 +15,14 @@ export default class DailyBonus extends Component {
                 <div className={Styles.timer}>
                     <div className={Styles.timerItem}>
                         <p className={Styles.timerNumber}>12</p>
-                        <p className={Styles.timerText}>Hrs</p>
                     </div>
                     <span>:</span>
                     <div className={Styles.timerItem}>
                         <p className={Styles.timerNumber}>12</p>
-                        <p className={Styles.timerText}>Min</p>
                     </div>
                     <span>:</span>
                     <div className={Styles.timerItem}>
                         <p className={Styles.timerNumber}>12</p>
-                        <p className={Styles.timerText}>Sec</p>
                     </div>
                 </div>
                 <button className={Styles.button}>

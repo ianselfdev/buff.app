@@ -34,7 +34,7 @@ const data = [
 
 export const UserWeeklyChart = (props) => {
     return (
-        <AreaChart width={350} height={165} data={data}>
+        <AreaChart width={370} height={200} data={data}>
             <CartesianGrid strokeDasharray="4 4" stroke="#474B5E" />
             <XAxis dataKey="day" fontSize=".7rem" />
             <YAxis fontSize=".7rem" />
