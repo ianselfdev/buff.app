@@ -4,15 +4,13 @@
     height: 600px;
     width: 100%;
 
-    padding: 0 0.5rem;
+    padding: 0 0.5rem 0.2rem;
 
     display: grid;
     grid-column-gap: 1rem;
-    grid-row-gap: 0.5rem;
+    grid-row-gap: 0.2rem;
     grid-template-columns: 15rem auto auto 135px 250px;
     grid-template-rows: auto auto 330px;
-
-    border: 1px solid red;
 
     & .title {
         margin: 0.5rem 2rem;
@@ -81,7 +79,5 @@
         flex-direction: column;
         justify-content: space-between;
         border-radius: 8px;
-
-        border: 1px solid green;
     }
 }

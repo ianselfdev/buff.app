@@ -12,7 +12,6 @@ import Invites from '../Invites';
 import DailyBonus from '../DailyBonus';
 import MarketItem from '../MarketItem';
 import MarketRecomendations from '../MarketRecomendations';
-import UserFavorite from '../UserFavorite';
 
 //Actions
 import { advertisementActions } from '../../bus/app/advertisements/actions';
