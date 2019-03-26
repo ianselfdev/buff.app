@@ -109,7 +109,7 @@ class MarketInstruments extends Component {
 
     render() {
         const { userSearch, marketSearch } = this.state;
-        const { activeTab } = this.props;
+        const { activeTab, sortByPrice } = this.props;
 
         return (
             <div className={Styles.container}>
@@ -137,11 +137,11 @@ class MarketInstruments extends Component {
                     )}
                     <Select
                         data={[
+                            { value: 'Show all' },
                             { value: 'DOTA 2' },
                             { value: 'League of Legends' },
                             { value: 'Fortnite' },
                             { value: 'CS:GO' },
-                            { value: 'Show all' },
                         ]}
                         onChange={this._filterByGame}
                         className={Styles.gameSelect}
@@ -158,8 +158,12 @@ class MarketInstruments extends Component {
                         }}
                     />
                     <Select
-                        data={[{ value: 'Low to high' }, { value: 'High to low' }]}
-                        // onChange={this._filterByGame}
+                        data={[
+                            { value: 'None' },
+                            { value: 'Low to high' },
+                            { value: 'High to low' },
+                        ]}
+                        onChange={sortByPrice}
                         className={Styles.priceSort}
                         styles={{
                             height: 50,

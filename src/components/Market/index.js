@@ -69,10 +69,29 @@ class Market extends Component {
     };
 
     render() {
-        const { active } = this.state;
+        const { active, sortByPrice } = this.state;
         const { market } = this.props;
 
-        const sortedItems = market.sort((item) => item.price);
+        const sortedMarketItems =
+            market.get('market').size > 0
+                ? market.get('market').sort((a, b) => {
+                      switch (sortByPrice) {
+                          case 'Low to high':
+                              return +a.get('price') - +b.get('price');
+
+                          case 'High to low':
+                              return +b.get('price') - +a.get('price');
+
+                          default:
+                              return 0;
+                      }
+                  })
+                : [];
+
+        const sortedUserItems =
+            market.get('user').size > 0
+                ? market.get('user').sort((a, b) => +a.get('price') - +b.get('price'))
+                : [];
 
         return (
             <div className={Styles.container}>
@@ -97,46 +116,39 @@ class Market extends Component {
                     </div>
                 </div>
                 <div className={Styles.itemsContainer}>
-                    {active === 'market' && market.get('market').size > 0 ? (
-                        sortedItems
-                            .get('market')
-                            .map((item, index) => (
-                                <MarketItem
-                                    shortDescription={item.get('descriptionShort')}
-                                    discount={item.get('discount')}
-                                    games={item.get('games')}
-                                    price={item.get('price')}
-                                    name={item.get('name')}
-                                    amount={item.get('count')}
-                                    id={item.get('id')}
-                                    tradable={item.get('tradable')}
-                                    description={item.get('description')}
-                                    expire={item.get('expire')}
-                                    img={item.get('img')}
-                                    marginTop={'1.25rem'}
-                                    key={index}
-                                />
-                            ))
-                    ) : active === 'inventory' && market.get('user').size > 0 ? (
-                        market
-                            .get('user')
-                            .map((item, index) => (
-                                <UserItem
-                                    shortDescription={item.get('descriptionShort')}
-                                    description={item.get('description')}
-                                    games={item.get('games')}
-                                    name={item.get('name')}
-                                    id={item.get('id')}
-                                    img={item.get('img')}
-                                    tradable={item.get('tradable')}
-                                    key={index}
-                                />
-                            ))
-                    ) : (
-                        <p className={Styles.empty}>Nothing here yet :(</p>
-                    )}
+                    {active === 'market' &&
+                        sortedMarketItems.map((item, index) => (
+                            <MarketItem
+                                shortDescription={item.get('descriptionShort')}
+                                discount={item.get('discount')}
+                                games={item.get('games')}
+                                price={item.get('price')}
+                                name={item.get('name')}
+                                amount={item.get('count')}
+                                id={item.get('id')}
+                                tradable={item.get('tradable')}
+                                description={item.get('description')}
+                                expire={item.get('expire')}
+                                img={item.get('img')}
+                                marginTop={'1.25rem'}
+                                key={index}
+                            />
+                        ))}
+                    {active === 'inventory' &&
+                        sortedUserItems.map((item, index) => (
+                            <UserItem
+                                shortDescription={item.get('descriptionShort')}
+                                description={item.get('description')}
+                                games={item.get('games')}
+                                name={item.get('name')}
+                                id={item.get('id')}
+                                img={item.get('img')}
+                                tradable={item.get('tradable')}
+                                key={index}
+                            />
+                        ))}
                 </div>
-                <MarketInstruments activeTab={active} />
+                <MarketInstruments activeTab={active} sortByPrice={this._sortByPrice} />
             </div>
         );
     }

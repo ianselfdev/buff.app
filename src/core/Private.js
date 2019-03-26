@@ -29,7 +29,7 @@ export default class Private extends Component {
                 <Route path={book.history} component={Hist} />
                 <Route path={book.leaderboard} component={Lead} />
                 <Route path={book.market} component={Marketplace} />
-                <Redirect to={book.market} />
+                <Redirect to={book.history} />
             </Switch>
         );
     }

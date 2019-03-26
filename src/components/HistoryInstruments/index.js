@@ -5,36 +5,39 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
+//Instruments
+import Select from '../Select';
+
 //Actions
-import { historyActions } from '../../bus/app/history/actions';
+import { marketActions } from '../../bus/market/actions';
+import { advertisementActions } from '../../bus/app/advertisements/actions';
 
 //Redux connect
-
 const mapStateToProps = (state) => ({
     advertisements: state.advertisements,
 });
 
 const mapDispatchToProps = {
-    removeHistoryFilterParameterAsync: historyActions.removeHistoryFilterParameterAsync,
-    filterHistoryAsync: historyActions.filterHistoryAsync,
+    filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
+    filterUserItemsAsync: marketActions.filterUserItemsAsync,
+    removeMarketFilterParameterAsync: marketActions.removeMarketFilterParameterAsync,
+    createAdInstanceAsync: advertisementActions.createAdInstanceAsync,
 };
 
-class HistoryInstruments extends Component {
+class MarketInstruments extends Component {
     state = {
-        byPeriod: false,
-        byType: false,
-        value: 5000,
-        type: 'none',
-        period: 'none',
-        ad: {},
+        marketSearch: '',
+        userSearch: '',
     };
 
     componentDidMount = () => {
-        const { advertisements } = this.props;
+        const { createAdInstanceAsync, advertisements } = this.props;
 
         //fallback
         if (advertisements.refreshAd) {
             advertisements.refreshAd();
+        } else {
+            createAdInstanceAsync(document.getElementById('ad-div'));
         }
     };
 
@@ -47,139 +50,125 @@ class HistoryInstruments extends Component {
         }
     };
 
-    _toggleByPeriod = () => {
-        this.setState((prevState) => ({
-            byPeriod: !prevState.byPeriod,
-        }));
-    };
+    _filterByGame = (value) => {
+        const id =
+            value === 'DOTA 2'
+                ? 'dota'
+                : value === 'League of Legends'
+                ? 'lol'
+                : value === 'Fortnite'
+                ? 'fortnite'
+                : value === 'CS:GO'
+                ? 'csgo'
+                : 'none';
+        const {
+            filterMarketItemsAsync,
+            filterUserItemsAsync,
+            removeMarketFilterParameterAsync,
+        } = this.props;
 
-    _toggleByType = () => {
-        this.setState((prevState) => ({
-            byType: !prevState.byType,
-        }));
-    };
-
-    _handleTypeChange = (e) => {
-        const { id } = e.target;
-        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
         if (id === 'none') {
-            removeHistoryFilterParameterAsync('type');
+            removeMarketFilterParameterAsync('game');
         } else {
-            filterHistoryAsync('type', id);
+            filterMarketItemsAsync('game', id);
+            filterUserItemsAsync('game', id);
+        }
+    };
+
+    //handling searchboxes changes
+    _handleChange = (e) => {
+        const { value, name } = e.target;
+        const { removeMarketFilterParameterAsync } = this.props;
+
+        //check when user clears search field
+        if (value.length === 0) {
+            removeMarketFilterParameterAsync('name');
         }
 
         this.setState({
-            type: id,
+            [name]: value,
         });
     };
 
-    _handlePeriodChange = (e) => {
-        const { id } = e.target;
-        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
-        if (id === 'none') {
-            removeHistoryFilterParameterAsync('period');
-        } else {
-            filterHistoryAsync('period', id);
-        }
+    //performig filter request with search query on Enter hit
+    _handleSearch = async (e) => {
+        const { key } = e;
+        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
+        const { active, marketSearch, userSearch } = this.state;
 
-        this.setState({
-            period: id,
-        });
+        if (key === 'Enter') {
+            if (active === 'market') {
+                filterMarketItemsAsync('name', marketSearch);
+            } else {
+                filterUserItemsAsync('name', userSearch);
+            }
+        } else {
+            return null;
+        }
     };
 
     render() {
-        const { byPeriod, byType, type, period } = this.state;
+        const { userSearch, marketSearch } = this.state;
+        const { activeTab, sortByPrice } = this.props;
 
         return (
             <div className={Styles.container}>
                 <div className={Styles.filtersContainer}>
-                    <div className={Styles.title}>Filters</div>
-                    <div className={byType ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByType}>By Type</p>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="2"
-                                checked={type === '2'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="2">Game</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="3"
-                                checked={type === '3'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="3">Market</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="5"
-                                checked={type === '5'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="5">Bonus</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="none"
-                                checked={type === 'none'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="none">Show All</label>
-                        </div>
-                    </div>
-                    <div className={byPeriod ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByPeriod}>By Period</p>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="86400000"
-                                checked={period === '86400000'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="86400000">Past Day</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byPeriodFilter"
-                                id="604800000"
-                                checked={period === '604800000'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="604800000">Past Week</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byPeriodFilter"
-                                id="2592000000"
-                                checked={period === '2592000000'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="2592000000">Past Month</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byPeriodFilter"
-                                id="none"
-                                checked={period === 'none'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="none">Show All</label>
-                        </div>
-                    </div>
+                    {activeTab === 'market' ? (
+                        <input
+                            type="text"
+                            name="marketSearch"
+                            placeholder="Search"
+                            onKeyDown={this._handleSearch}
+                            onChange={this._handleChange}
+                            value={marketSearch}
+                            className={Styles.searchBar}
+                        />
+                    ) : (
+                        <input
+                            type="text"
+                            name="userSearch"
+                            placeholder="Search"
+                            onKeyDown={this._handleSearch}
+                            onChange={this._handleChange}
+                            value={userSearch}
+                            className={Styles.searchBar}
+                        />
+                    )}
+                    <Select
+                        data={[
+                            { value: 'Show all' },
+                            { value: 'DOTA 2' },
+                            { value: 'League of Legends' },
+                            { value: 'Fortnite' },
+                            { value: 'CS:GO' },
+                        ]}
+                        onChange={this._filterByGame}
+                        className={Styles.gameSelect}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
+                    <Select
+                        data={[{ value: 'Gift card' }]}
+                        // onChange={this._filterByGame}
+                        className={Styles.typeSelect}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
+                    <Select
+                        data={[
+                            { value: 'None' },
+                            { value: 'Low to high' },
+                            { value: 'High to low' },
+                        ]}
+                        onChange={sortByPrice}
+                        className={Styles.priceSort}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
                 </div>
                 <div className={Styles.adContainer} id="ad-div" />
             </div>
@@ -190,4 +179,4 @@ class HistoryInstruments extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(HistoryInstruments);
+)(MarketInstruments);

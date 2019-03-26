@@ -20,6 +20,7 @@
 
         height: 100%;
         padding: 0 1rem;
+        margin: -0.5rem 0 0;
 
         & .switchButton {
             cursor: pointer;
@@ -34,7 +35,7 @@
             color: $paletteGrey3;
 
             border: 1px solid $paletteGrey3;
-            border-radius: 4px 4px 0 0;
+            border-radius: 4px;
 
             &:hover {
                 background: $paletteGreen2;
@@ -47,7 +48,6 @@
                 border: 1px solid $paletteGreen2;
                 color: $paletteWhite;
                 z-index: 2;
-                height: 90%;
             }
         }
     }

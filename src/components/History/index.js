@@ -10,6 +10,14 @@ import ErrorCatcher from '../ErrorCatcher';
 import HistoryInstruments from '../HistoryInstruments';
 import TableRow from '../TableRow';
 
+//Instruments
+import { UserStatsByGame } from '../_charts/UserStatsByGame';
+import { TimeSpentChart } from '../_charts/TimeSpentChart';
+import { BuffEarnedChart } from '../_charts/BuffEarnedChart';
+
+//Analytics
+import { Analytics } from '../../analytics';
+
 //Actions
 import { historyActions } from '../../bus/app/history/actions';
 
@@ -37,27 +45,59 @@ const mapDispatchToProps = {
 };
 
 class History extends Component {
+    state = {
+        active: 'statistics',
+    };
+
     componentDidMount() {
         const { fetchHistoryAsync } = this.props;
 
         fetchHistoryAsync();
     }
 
+    _selectActiveTab = (e) => {
+        const { id } = e.target;
+        const { fetchHistoryAsync } = this.props;
+
+        fetchHistoryAsync();
+
+        Analytics.event('History tab click', { category: id });
+
+        this.setState({
+            active: id,
+        });
+    };
+
     render() {
+        const { active } = this.state;
         const { history } = this.props;
 
         return (
             <ErrorCatcher>
-                <div className={Styles.mainContainer}>
-                    <div className={Styles.historyContainer}>
-                        <div className={Styles.controlsContainer}>
-                            <div className={Styles.tabsContainer}>
-                                <div id="recent" className={`${Styles.tabs} ${Styles.active}`}>
-                                    Recent activity
-                                </div>
-                            </div>
+                <div className={Styles.container}>
+                    <div className={Styles.switchButtonsContainer}>
+                        <div
+                            onClick={this._selectActiveTab}
+                            id="transactions"
+                            className={`${Styles.switchButton} ${
+                                active === 'transactions' ? Styles.active : null
+                            }`}
+                        >
+                            Trannsactions
                         </div>
-                        <div className={Styles.historyTab}>
+                        <div
+                            onClick={this._selectActiveTab}
+                            id="statistics"
+                            className={`${Styles.switchButton} ${
+                                active === 'statistics' ? Styles.active : null
+                            }`}
+                        >
+                            Statistics
+                        </div>
+                    </div>
+
+                    {active === 'transactions' ? (
+                        <div className={Styles.transactionsContainer}>
                             <TableRow header fields={headerFields} />
                             <div className={Styles.historyData}>
                                 {history.get('history').map((item, index) => (
@@ -89,8 +129,23 @@ class History extends Component {
                                 ))}
                             </div>
                         </div>
-                    </div>
-                    <HistoryInstruments />
+                    ) : (
+                        <div className={Styles.statsContainer}>
+                            <p className={Styles.firstTitle}>Your game statistics</p>
+                            <div className={Styles.firstChart}>
+                                <UserStatsByGame />
+                            </div>
+                            <p className={Styles.secondTitle}>BUFF earned per game</p>
+                            <div className={Styles.secondChart}>
+                                <BuffEarnedChart />
+                            </div>
+                            <p className={Styles.thirdTitle}>Time spent per game</p>
+                            <div className={Styles.thirdChart}>
+                                <TimeSpentChart />
+                            </div>
+                        </div>
+                    )}
+                    <HistoryInstruments activeTab={active} sortByPrice={this._sortByPrice} />
                 </div>
             </ErrorCatcher>
         );

@@ -1,50 +1,37 @@
 @import '../../theme/palette.scss';
 
+.headerRow {
+    display: flex;
+    width: 100%;
+    min-height: 2.5rem;
+    justify-content: space-around;
+    background: #323232;
+    color: $paletteGrey3;
+    padding-left: 3rem;
+}
+
 .tableHeader {
     width: 18%;
     text-align: left;
-    font-weight: bold;
-    margin: 0 20px;
-    font-size: 0.9rem;
-    color: $secondaryGreen;
-    line-height: 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.8rem;
+    color: $paletteGrey3;
+    line-height: 1.5rem;
     overflow-y: hidden;
-    cursor: pointer;
-
-    &:hover {
-        &::after {
-            content: '▼';
-            margin-left: 0.5rem;
-        }
-    }
-
-    & .active {
-        &::after {
-            content: '▼';
-            margin-left: 0.5rem;
-        }
-    }
+    border-radius: 8px 8px 0 0;
+    cursor: default;
 
     &:first-of-type {
         width: 10%;
     }
 }
 
-.headerRow {
+.tableRow {
     display: flex;
     width: 100%;
     min-height: 2rem;
     justify-content: space-around;
-    background: #202020;
-    padding-left: 3rem;
-}
-
-.tableRow {
-    display: flex;
-    width: 100%;
-    min-height: 3rem;
-    justify-content: space-around;
-    background: #202020;
+    background: $paletteGrey2;
     padding-left: 3rem;
 }
 
@@ -54,9 +41,8 @@
     text-overflow: ellipsis;
     overflow-x: scroll;
     text-align: left;
-    margin: 0 20px;
     font-size: 0.9rem;
-    color: $lightGrey;
+    color: $paletteWhite;
     line-height: 3rem;
     overflow-y: hidden;
     display: flex;
