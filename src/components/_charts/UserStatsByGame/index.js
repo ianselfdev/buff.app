@@ -62,7 +62,7 @@ const data = [
 
 export const UserStatsByGame = (props) => {
     return (
-        <AreaChart width={720} height={280} data={data}>
+        <AreaChart width={720} height={260} data={data}>
             <CartesianGrid strokeDasharray="4 4" stroke="#474B5E" />
             <XAxis dataKey="day" fontSize=".7rem" />
             <YAxis fontSize=".7rem" />
