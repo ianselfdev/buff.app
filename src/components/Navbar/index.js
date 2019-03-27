@@ -176,15 +176,6 @@ class Navbar extends Component {
                             <img src={history} alt="" />
                             <span>History</span>
                         </NavLink>
-                        {/* <NavLink
-                            className={Styles.navlink}
-                            activeClassName={Styles.navlinkActive}
-                            to={book.leaderboard}
-                            onClick={this._handleNav}
-                            id="leaderboard"
-                        >
-                            <img src={history} alt="" />
-                        </NavLink> */}
                     </div>
                     <div className={Styles.functionalContainer}>
                         <div className={Styles.bonusBlock}>
@@ -198,14 +189,15 @@ class Navbar extends Component {
                             <img src={notification} alt="" />
                             <span>Notifications</span>
                         </div>
-                        <div className={Styles.settingsBlock}>
+                        <div className={Styles.settingsBlock} onClick={this._toggleSettings}>
                             <img src={settings} alt="" />
                             <span>Settings</span>
                         </div>
                     </div>
                 </div>
 
-                {settingsOpened && <Settings inProp={settingsOpened} />}
+                {/* {settingsOpened && <Settings inProp={settingsOpened} />} */}
+                {true && <Settings inProp={settingsOpened} />}
             </>
         );
     }
