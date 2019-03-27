@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Instruments
 import Switch from 'react-switch';
@@ -9,35 +10,99 @@ import close from '../../theme/svg/close.svg';
 //Styles
 import Styles from './styles.module.scss';
 
-export default class Settings extends Component {
+//Actions
+//* here will be actions to change nickname and email
+
+const mapStateToProps = (state) => ({
+    nickname: state.profile.get('nickname'),
+    email: state.profile.get('email'),
+});
+
+const mapDispatchToProps = {};
+
+class Settings extends Component {
     state = {
-        checkedNotifications: false,
-        checkedAutoLaunch: false,
+        checkedNotifications: true,
+        checkedAutoLaunch: true,
         nicknameEditMode: false,
         emailEditMode: false,
-        nickname: 'testNickname',
-        email: 'email',
+        nickname: '',
+        email: '',
+    };
+
+    componentDidMount = () => {
+        const { nickname, email } = this.props;
+        const checkedNotifications =
+            localStorage.getItem('buff-notifications') === 'false' ? false : true;
+
+        this.setState({
+            nickname,
+            email,
+            checkedNotifications,
+        });
     };
 
     _toggleCheckedNotifications = () => {
+        const { checkedNotifications } = this.state;
+
+        if (checkedNotifications) {
+            localStorage.setItem('buff-notifications', false);
+            notifications.info(`You won't recieve notifications anymore`);
+        } else {
+            localStorage.setItem('buff-notifications', true);
+            notifications.info(`Notifications enabled!`);
+        }
+
         this.setState((prevState) => ({
             checkedNotifications: !prevState.checkedNotifications,
         }));
     };
 
-    _toggleCheckedAutoLaunch = () => {
-        this.setState((prevState) => ({
-            checkedAutoLaunch: !prevState.checkedAutoLaunch,
-        }));
-    };
+    // _toggleCheckedAutoLaunch = () => {
+    //     this.setState((prevState) => ({
+    //         checkedAutoLaunch: !prevState.checkedAutoLaunch,
+    //     }));
+    // };
 
     _toggleNicknameEditMode = () => {
+        const { nicknameEditMode, nickname } = this.state;
+
+        if (nicknameEditMode) {
+            if (nickname.length >= 6 && nickname.length <= 18) {
+                //sending request for info update
+
+                this.setState((prevState) => ({
+                    nicknameEditMode: !prevState.nicknameEditMode,
+                }));
+                return;
+            } else {
+                notifications.error('Nickname length must be 6-18 characters long');
+                return null;
+            }
+        }
+
         this.setState((prevState) => ({
             nicknameEditMode: !prevState.nicknameEditMode,
         }));
     };
 
     _toggleEmailEditMode = () => {
+        const { emailEditMode, email } = this.state;
+
+        if (emailEditMode) {
+            if (email.includes('@')) {
+                //sending request for info update
+
+                this.setState((prevState) => ({
+                    emailEditMode: !prevState.emailEditMode,
+                }));
+                return;
+            } else {
+                notifications.error('Email must be a valid email');
+                return null;
+            }
+        }
+
         this.setState((prevState) => ({
             emailEditMode: !prevState.emailEditMode,
         }));
@@ -54,7 +119,7 @@ export default class Settings extends Component {
     render() {
         const {
             checkedNotifications,
-            checkedAutoLaunch,
+            // checkedAutoLaunch,
             nickname,
             email,
             nicknameEditMode,
@@ -68,6 +133,7 @@ export default class Settings extends Component {
                 <div className={Styles.nickname}>
                     <p>Nickname</p>
                     <input
+                        name="nickname"
                         value={nickname}
                         onChange={this._handleInput}
                         disabled={!nicknameEditMode}
@@ -78,13 +144,18 @@ export default class Settings extends Component {
                 </div>
                 <div className={Styles.email}>
                     <p>Email</p>
-                    <input value={email} onChange={this._handleInput} disabled={!emailEditMode} />
+                    <input
+                        name="email"
+                        value={email}
+                        onChange={this._handleInput}
+                        disabled={!emailEditMode}
+                    />
                 </div>
                 <div className={Styles.emailChange} onClick={this._toggleEmailEditMode}>
                     {emailEditMode ? 'Save' : 'Change'}
                 </div>
                 <div className={Styles.notifications}>
-                    Test notifications:<p>{checkedNotifications ? 'On' : 'Off'}</p>
+                    Notifications:<p>{checkedNotifications ? 'On' : 'Off'}</p>
                 </div>
                 <Switch
                     onChange={this._toggleCheckedNotifications}
@@ -97,7 +168,7 @@ export default class Settings extends Component {
                     handleDiameter={20}
                     className={Styles.notificationsSwitch}
                 />
-                <div className={Styles.autoLaunch}>
+                {/* <div className={Styles.autoLaunch}>
                     Auto launch:<p>{checkedAutoLaunch ? 'On' : 'Off'}</p>
                 </div>
                 <Switch
@@ -110,8 +181,13 @@ export default class Settings extends Component {
                     width={44}
                     handleDiameter={20}
                     className={Styles.autoLaunchSwitch}
-                />
+                /> */}
             </div>
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Settings);
