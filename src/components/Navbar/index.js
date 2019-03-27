@@ -196,8 +196,7 @@ class Navbar extends Component {
                     </div>
                 </div>
 
-                {/* {settingsOpened && <Settings inProp={settingsOpened} />} */}
-                {true && <Settings inProp={settingsOpened} />}
+                {settingsOpened && <Settings inProp={settingsOpened} />}
             </>
         );
     }

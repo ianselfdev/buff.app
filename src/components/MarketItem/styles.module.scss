@@ -70,9 +70,10 @@
         & .price {
             display: flex;
             align-items: center;
+            justify-content: center;
             color: $paletteGreen1;
 
-            max-width: 45%;
+            width: 45%;
             padding: 0.3rem 0.5rem;
 
             background: $paletteGrey1;
@@ -94,14 +95,16 @@
 
             text-align: center;
 
-            color: $paletteGreen1;
+            font-size: 0.9rem;
+            color: $paletteWhite;
+
+            background: $paletteGreen1;
 
             border: 1px solid $paletteGreen1;
             border-radius: 4px;
 
             &:hover {
-                background: $paletteGreen1;
-                color: $paletteWhite;
+                background: $paletteGreen2;
             }
         }
     }
@@ -134,6 +137,18 @@
         & img {
             filter: brightness(0) invert(1);
         }
+    }
+}
+
+.isFavoriteContainer {
+    border: 1px solid $paletteGreen2;
+}
+.isFavoriteButton {
+    background: $paletteGreen2;
+    border: 1px solid $paletteGreen2;
+
+    & img {
+        filter: brightness(0) invert(1);
     }
 }
 

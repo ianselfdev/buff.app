@@ -7,15 +7,19 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import { UserStatusChart } from '../_charts/UserStatusChart';
-import medal from '../../theme/svg/medal.svg';
+import bronze from '../../theme/svg/bronze.svg';
+import silver from '../../theme/svg/silver.svg';
+import gold from '../../theme/svg/gold.svg';
+import platinum from '../../theme/svg/platinum.svg';
 
 const mapStateToProps = (state) => {
-    const { points, level, start, end } = state.profile.get('tier');
+    const { points, level, start, end, color } = state.profile.get('tier');
     return {
         points,
         level,
         start,
         end,
+        color,
         balance: state.profile.get('balance'),
         bonusBalance: state.profile.get('bonusBalance'),
     };
@@ -33,7 +37,7 @@ class UserProgress extends Component {
     };
 
     render() {
-        const { points, level, end, start, balance, bonusBalance } = this.props;
+        const { points, level, end, start, balance, bonusBalance, color } = this.props;
 
         //kmelct is a lazy dick if you ever wanted to know
         const pointsToEarn = +end === Infinity ? 0 - points : end - points;
@@ -42,11 +46,20 @@ class UserProgress extends Component {
         //Tiers counting
         const currentTierPoints = Math.min(points, +end === Infinity ? start : end);
 
+        const medal =
+            level === 'Bronze'
+                ? bronze
+                : level === 'Silver'
+                ? silver
+                : level === 'Gold'
+                ? gold
+                : platinum;
+
         return (
             <>
                 <div className={Styles.container}>
                     <div className={Styles.chart}>
-                        <UserStatusChart data={data} />
+                        <UserStatusChart data={data} color={color} />
                         <img src={medal} alt="" className={Styles.medal} />
                     </div>
                     <div className={Styles.chartText}>

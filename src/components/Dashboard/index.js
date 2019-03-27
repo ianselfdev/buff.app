@@ -74,6 +74,7 @@ class Dashboard extends Component {
                         price={500}
                         name="AWP|MortisAWP|Mortis"
                         img="https://www.pcgamesn.com/wp-content/uploads/2018/07/dota-2-loot-boxes-netherlands-580x332.jpg"
+                        favorite={true}
                     />
                 </div>
                 <div className={Styles.userRecommended}>
