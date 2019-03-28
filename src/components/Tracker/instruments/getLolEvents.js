@@ -64,6 +64,7 @@ const onInfoUpdates2 = (data) => {
             switch (data.feature) {
                 case 'matchState':
                     console.log('matchState -> info -> ', info);
+
                     if (info.matchStarted) {
                         //* start game transaction
                         //* ---------------------->
@@ -74,7 +75,7 @@ const onInfoUpdates2 = (data) => {
 
                             matchData = {
                                 ...matchData,
-                                matchId: '1',
+                                matchId: data.res.game_info.matchId,
                                 accountId: data.res.summoner_info.accountId,
                                 someOtherId: data.res.summoner_info.id,
                                 region: data.res.summoner_info.region,
@@ -100,7 +101,7 @@ const onInfoUpdates2 = (data) => {
                             console.log('match ended -> getInfo: ', data);
                             matchData = {
                                 ...matchData,
-                                gameMode: data.res.game_info.gameMode,
+                                gameMode: 'ranked',
                                 neutralMinionKills: data.res.game_info.neutralMinionKills,
                                 gold: data.res.game_info.gold,
                             };
