@@ -45,10 +45,10 @@ class Buy extends Component {
                     )}
                     <div className={Styles.buttonContainer}>
                         <div className={Styles.closeButton} onClick={closeModal}>
-                            CLOSE
+                            Close
                         </div>
                         <div className={Styles.buyButton} onClick={this._confirm}>
-                            YES, I'M READY
+                            Yes, I understand
                         </div>
                     </div>
                 </div>

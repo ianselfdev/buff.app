@@ -1,9 +1,12 @@
 //Core
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+
+//Instruments
+import close from '../../../../theme/svg/close.svg';
 
 //Styles
 import Styles from './styles.module.scss';
+import { connect } from 'react-redux';
 
 //Components
 import Confirmation from '../Confirmation';
@@ -16,7 +19,6 @@ import { Analytics } from '../../../../analytics';
 
 const mapDispatchToProps = {
     activateItemAsync: marketActions.activateItemAsync,
-    fetchUserItemsAsync: marketActions.fetchUserItemsAsync,
 };
 
 const mapStateToProps = (state) => {
@@ -25,7 +27,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-class Activation extends Component {
+class Activate extends Component {
     state = {
         showConfirmation: false,
         activated: false,
@@ -55,56 +57,31 @@ class Activation extends Component {
     };
 
     render() {
-        const { closeModal, name, giftCode, img, description } = this.props;
+        const { closeModal, name, description, img, shortDescription, giftCode } = this.props;
         const { showConfirmation, activated } = this.state;
 
         return (
-            <Fragment>
-                <div className={Styles.bg} onClick={closeModal} id="closeModal">
-                    <div className={Styles.container}>
-                        <div className={Styles.priceContainer}>
-                            <img
-                                className={Styles.gameLogo}
-                                src="https://1000logos.net/wp-content/uploads/2017/12/CSGO-Logo.png"
-                                alt="logo"
-                            />
-                        </div>
-                        <div
-                            className={Styles.infoContainer}
-                            style={{
-                                backgroundImage: `url(${img ||
-                                    'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
-                            }}
-                        >
-                            <div className={Styles.info}>
-                                <p className={Styles.itemName}>{name}</p>
-                                {activated ? (
-                                    <Fragment>
-                                        <p className={Styles.itemName}>
-                                            Your gift card code is: <br />
-                                            {giftCode}
-                                        </p>
-                                        <button
-                                            className={Styles.actionButton}
-                                            onClick={closeModal}
-                                            id="closeModal"
-                                        >
-                                            CLOSE
-                                        </button>
-                                    </Fragment>
-                                ) : (
-                                    <Fragment>
-                                        <p className={Styles.itemName}>{description}</p>
-                                        <button
-                                            className={Styles.actionButton}
-                                            onClick={this._openModal}
-                                        >
-                                            ACTIVATE
-                                        </button>
-                                    </Fragment>
-                                )}
-                            </div>
-                        </div>
+            <div className={Styles.bg}>
+                <img src={close} alt="" className={Styles.close} onClick={closeModal} />
+                <div className={Styles.container}>
+                    <img src={img} alt="" className={Styles.itemImage} />
+                    <p className={Styles.description}>
+                        {activated
+                            ? `Your gift card code is:\n
+                                            ${giftCode}`
+                            : description}
+                    </p>
+                    <p className={Styles.name}>{name}</p>
+                    <div className={Styles.shortDescription}>
+                        <img alt="" />
+                        <p>{shortDescription}</p>
+                    </div>
+                    <div className={Styles.priceContainer}>
+                        {activated ? (
+                            <button onClick={closeModal}>Close and remove card</button>
+                        ) : (
+                            <button onClick={this._openModal}>Activate</button>
+                        )}
                     </div>
                 </div>
                 {showConfirmation && (
@@ -114,7 +91,7 @@ class Activation extends Component {
                         type="giftCard"
                     />
                 )}
-            </Fragment>
+            </div>
         );
     }
 }
@@ -122,4 +99,4 @@ class Activation extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Activation);
+)(Activate);
