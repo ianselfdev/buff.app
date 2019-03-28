@@ -6,135 +6,158 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000000d0;
+    background: #00000083;
     z-index: 14;
-    animation: appear 300ms;
+
+    & .star {
+        cursor: pointer;
+
+        position: absolute;
+        top: 26%;
+        left: 26.2%;
+
+        border: 1px solid $paletteGrey3;
+        border-radius: 4px;
+
+        padding: 0.1rem 0.4rem;
+
+        z-index: 3;
+
+        &:hover {
+            background: $paletteGreen1;
+
+            border: 1px solid $paletteGreen1;
+            & img {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+
+    & .isFavorite {
+        background: $paletteGreen1;
+
+        border: 1px solid $paletteGreen1;
+        & img {
+            filter: brightness(0) invert(1);
+        }
+    }
 
     & .container {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        height: 80%;
-        width: 35%;
-        background: $primaryGrey;
-        border: 1px solid $secondaryGreen;
-        border-radius: 5px;
-        box-shadow: 0px 0px 100px 0px $secondaryGreen;
 
-        //? box shadow
-        animation: animateShadow 3000ms infinite;
-        animation: appear 800ms;
+        display: grid;
+        grid-template-columns: 49% 48%;
+        grid-template-rows: 67% 12% 18%;
+        grid-column-gap: 3%;
+        grid-row-gap: 0.5rem;
 
-        & .priceContainer {
+        width: 50%;
+        height: 53%;
+        padding: 0.5rem;
+
+        background: $paletteGrey2;
+
+        border: 1px solid $paletteGreen2;
+        border-radius: 8px;
+
+        & .itemImage {
+            grid-row: 1;
+            grid-column: 1;
+
+            width: 100%;
+            height: 100%;
+
+            border-radius: 4px;
+        }
+
+        & .description {
+            grid-row: 1;
+            grid-column: 2;
+            align-self: center;
+
+            height: 75%;
+            width: 85%;
+            overflow-y: scroll;
+
+            font-size: 0.9rem;
+        }
+
+        & .name {
+            grid-row: 2;
+            grid-column: 1 / 3;
+            align-self: center;
+
+            padding: 0 1rem;
+
+            font-size: 1.3rem;
+        }
+
+        & .shortDescription {
+            align-self: start;
+
+            padding: 0 1rem 0;
+
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 10%;
 
-            height: 10%;
-            background: $secondaryGrey;
-            border-radius: 5px 5px 0 0;
-
-            & .gameLogo {
-                margin-top: -0.3rem;
-                width: 25%;
-                filter: invert(1);
+            & img {
+                width: 2rem;
+                min-width: 2rem;
+                height: 2rem;
+                margin-right: 0.5rem;
             }
 
             & p {
-                font-size: 1.5rem;
+                font-size: 0.9rem;
+                color: $paletteGrey3;
+                overflow-y: scroll;
+            }
+        }
+
+        & .priceContainer {
+            align-self: start;
+
+            display: flex;
+            justify-content: space-around;
+
+            height: 2.5rem;
+
+            & .price {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                min-width: 35%;
+
+                color: $paletteGreen1;
+
+                background: $paletteGrey1;
+
+                border-radius: 4px;
 
                 & img {
-                    height: 1rem;
-                    margin-right: 0.2rem;
+                    width: 1rem;
+                    margin: -0.1rem 0.5rem 0 0;
+                }
+            }
+
+            & button {
+                cursor: pointer;
+
+                width: 50%;
+
+                background: $paletteGreen1;
+                color: $paletteWhite;
+
+                border: none;
+                border-radius: 4px;
+
+                &:hover {
+                    background: $paletteGreen2;
                 }
             }
         }
-
-        & .infoContainer {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            background-size: cover;
-            background-position: center;
-            height: 90%;
-            min-height: 230px;
-            border-radius: 0 0 5px 5px;
-
-            & .label {
-                background: $secondaryGreen;
-                clip-path: polygon(100% 0, 70% 0, 100% 100%);
-                width: 100%;
-                height: 25%;
-                min-height: 85px;
-                text-align: right;
-                padding: 1rem 0.2rem;
-
-                & .labelTitle {
-                    font-size: 1rem;
-                }
-
-                & .timer {
-                    font-size: 1.2rem;
-                    padding: 0.3rem;
-                }
-            }
-
-            & .info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-evenly;
-
-                height: 50%;
-                padding: 4rem 0 0.5rem;
-                background-image: linear-gradient(transparent, black 80%);
-                border-radius: 0 0 5px 5px;
-
-                & .itemName {
-                    text-align: center;
-                    font-size: 1.5rem;
-
-                    &:last-of-type {
-                        width: 80%;
-                        max-height: 4rem;
-                        margin: 0.2rem 0 0.4rem;
-                        text-overflow: ellipsis;
-                        white-space: wrap;
-                        overflow: hidden;
-                        font-size: 0.8rem;
-                        overflow-y: scroll;
-                    }
-                }
-
-                & .actionButton {
-                    cursor: pointer;
-                    width: 45%;
-                    border: 1px solid #fff;
-                    background: transparent;
-                    color: #fff;
-                    height: 1.8rem;
-                    border-radius: 5px;
-                    font-weight: 600;
-                    font-size: 0.8rem;
-
-                    &:hover {
-                        border: 1px solid $secondaryGreen;
-                        background: $secondaryGreen;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@keyframes appear {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
     }
 }

@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
 
 class MarketItem extends Component {
     state = {
-        showModal: false,
+        showModal: true,
     };
 
     _openModal = () => {

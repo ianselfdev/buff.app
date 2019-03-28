@@ -12,6 +12,7 @@ import FirstTimeUX from '../FirstTimeUX';
 import Settings from '../Settings';
 
 //Instruments
+import { notifications } from '../_notifications';
 import { book } from '../../core/book';
 import logo from '../../theme/svg/logo-short.svg';
 import fullLogo from '../../theme/svg/fullLogo.svg';
@@ -106,14 +107,8 @@ class Navbar extends Component {
         }));
     };
 
-    _toggleTutorial = () => {
-        const { isNew, openTutorial, closeTutorial } = this.props;
-
-        if (isNew) {
-            closeTutorial();
-        } else {
-            openTutorial();
-        }
+    _handleNotificationsClick = () => {
+        notifications.info("Notifications will become available soon - we're working on it :)");
     };
 
     _toggleSettings = () => {
@@ -185,7 +180,10 @@ class Navbar extends Component {
                             <p>Welcome:</p>
                             <p className={Styles.nickname}>{nickname}</p>
                         </div>
-                        <div className={Styles.notificationBlock}>
+                        <div
+                            className={Styles.notificationBlock}
+                            onClick={this._handleNotificationsClick}
+                        >
                             <img src={notification} alt="" />
                             <span>Notifications</span>
                         </div>
