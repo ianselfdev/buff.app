@@ -119,6 +119,9 @@ export const Api = {
         fetchMarketItems() {
             return fetch(`${MAIN_URL}/marketplace/items?page=1&limit=100`, {
                 method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
             });
         },
 
@@ -152,6 +155,30 @@ export const Api = {
         filterItems(queries) {
             const params = queryString.stringify(queries);
             return fetch(`${MAIN_URL}/marketplace/items/?page=1&limit=100&${params}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+
+        //!___REDO!!!
+        async setGoalItem(id) {
+            const response = await fetch(`${MAIN_URL}/marketplace/items/goal/${id}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+
+            const data = await response.json();
+
+            console.log(data);
+            return data;
+        },
+
+        getGoalItem() {
+            return fetch(`${MAIN_URL}/marketplace/items/goal`, {
                 method: 'GET',
                 headers: {
                     Authorization: localStorage.getItem('buff-token'),

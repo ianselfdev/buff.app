@@ -18,6 +18,7 @@ import { advertisementActions } from '../../bus/app/advertisements/actions';
 
 const mapStateToProps = (state) => ({
     advertisements: state.advertisements,
+    goalItem: state.profile.get('goalItem'),
 });
 
 const mapDispatchToProps = {
@@ -50,6 +51,8 @@ class Dashboard extends Component {
     };
 
     render() {
+        const { goalItem } = this.props;
+
         return (
             <div className={Styles.mainContainer}>
                 <div className={Styles.userProgress}>
@@ -71,10 +74,9 @@ class Dashboard extends Component {
                 <div className={Styles.userGoal}>
                     <span className={Styles.title}>Goal</span>
                     <MarketItem
-                        price={500}
-                        name="AWP|MortisAWP|Mortis"
-                        img="https://www.pcgamesn.com/wp-content/uploads/2018/07/dota-2-loot-boxes-netherlands-580x332.jpg"
-                        favorite={true}
+                        {...goalItem}
+                        isGoal={true}
+                        shortDescription={goalItem.descriptionShort}
                     />
                 </div>
                 <div className={Styles.userRecommended}>

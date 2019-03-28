@@ -1,66 +1,9 @@
 import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-const data = [
-    {
-        day: 'Mon',
-        Earned: '300',
-    },
-    {
-        day: 'Tue',
-        Earned: '0',
-    },
-    {
-        day: 'Wed',
-        Earned: '747',
-    },
-    {
-        day: 'Thu',
-        Earned: '820.92',
-    },
-    {
-        day: 'Fri',
-        Earned: '2100',
-    },
-    {
-        day: 'Sat',
-        Earned: '878',
-    },
-    {
-        day: 'Sun',
-        Earned: '926.12',
-    },
-    {
-        day: 'Mon',
-        Earned: '300',
-    },
-    {
-        day: 'Tue',
-        Earned: '321',
-    },
-    {
-        day: 'Wed',
-        Earned: '747',
-    },
-    {
-        day: 'Thu',
-        Earned: '820.92',
-    },
-    {
-        day: 'Fri',
-        Earned: '210',
-    },
-    {
-        day: 'Sat',
-        Earned: '478',
-    },
-    {
-        day: 'Sun',
-        Earned: '926.12',
-    },
-];
-
 export const UserStatsByGame = (props) => {
+    const { data } = props;
+
     return (
         <AreaChart width={720} height={260} data={data}>
             <CartesianGrid strokeDasharray="4 4" stroke="#474B5E" />

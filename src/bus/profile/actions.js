@@ -24,6 +24,17 @@ export const profileActions = {
             type: types.CLOSE_TUTORIAL,
         };
     },
+    fillGoalItem: (item) => {
+        return {
+            type: types.FILL_GOAL_ITEM,
+            payload: item,
+        };
+    },
 
     //Async
+    getGoalItemAsync: () => {
+        return {
+            type: types.GET_GOAL_ITEM_ASYNC,
+        };
+    },
 };

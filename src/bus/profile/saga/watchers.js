@@ -1,14 +1,17 @@
 //Core
-// import { takeEvery, all, call } from 'redux-saga/effects';
-import { all } from 'redux-saga/effects';
+import { takeEvery, all, call } from 'redux-saga/effects';
 
 //Types
-// import { types } from '../types';
+import { types } from '../types';
 
 //*REMEMBER TO REEXPORT
 //Workers
-import {} from './workers';
+import { getGoalItem } from './workers';
+
+function* watchGetGoalItem() {
+    yield takeEvery(types.GET_GOAL_ITEM_ASYNC, getGoalItem);
+}
 
 export function* watchProfile() {
-    yield all([]);
+    yield all([call(watchGetGoalItem)]);
 }

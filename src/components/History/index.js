@@ -39,6 +39,8 @@ const headerFields = [
 
 const mapStateToProps = (state) => ({
     history: state.history,
+    rewardStatistics: state.statistics.get('rewardStatistics'),
+    countStatistics: state.statistics.get('countStatistics'),
 });
 
 const mapDispatchToProps = {
@@ -73,21 +75,20 @@ class History extends Component {
 
     render() {
         const { active } = this.state;
-        const { history } = this.props;
+        const { history, rewardStatistics } = this.props;
+
+        const userStatsByGame = rewardStatistics.toArray().map((item) => ({
+            day: new Date(item.get('dayStart')).toLocaleString('en-us', {
+                day: 'numeric',
+                month: 'short',
+            }),
+            Earned: item.get('amount'),
+        }));
 
         return (
             <ErrorCatcher>
                 <div className={Styles.container}>
                     <div className={Styles.switchButtonsContainer}>
-                        <div
-                            onClick={this._selectActiveTab}
-                            id="transactions"
-                            className={`${Styles.switchButton} ${
-                                active === 'transactions' ? Styles.active : null
-                            }`}
-                        >
-                            Trannsactions
-                        </div>
                         <div
                             onClick={this._selectActiveTab}
                             id="statistics"
@@ -96,6 +97,15 @@ class History extends Component {
                             }`}
                         >
                             Statistics
+                        </div>
+                        <div
+                            onClick={this._selectActiveTab}
+                            id="transactions"
+                            className={`${Styles.switchButton} ${
+                                active === 'transactions' ? Styles.active : null
+                            }`}
+                        >
+                            Transactions
                         </div>
                     </div>
 
@@ -136,7 +146,7 @@ class History extends Component {
                         <div className={Styles.statsContainer}>
                             <p className={Styles.firstTitle}>Your earnings</p>
                             <div className={Styles.firstChart}>
-                                <UserStatsByGame />
+                                <UserStatsByGame data={userStatsByGame} />
                             </div>
                             <p className={Styles.secondTitle}>BUFF earned per game</p>
                             <div className={Styles.secondChart}>

@@ -4,10 +4,14 @@ import React, { Component } from 'react';
 //Instruments
 import coin from '../../../../theme/svg/coin.svg';
 import star from '../../../../theme/svg/star.svg';
+import close from '../../../../theme/svg/close.svg';
 
 //Styles
 import Styles from './styles.module.scss';
 import { connect } from 'react-redux';
+
+//REST
+import { Api } from '../../../../REST/api';
 
 //Actions
 import { marketActions } from '../../../../bus/market/actions';
@@ -25,22 +29,39 @@ class Buy extends Component {
 
         Analytics.event('Item purchase', { category: id });
         buyItemAsync(id);
-        closeModal(e);
+        closeModal();
+    };
+
+    _handleSetGoalItem = () => {
+        const { id } = this.props;
+
+        Api.market.getGoalItem();
+        Api.market.setGoalItem(id);
     };
 
     render() {
-        const { closeModal, name, description, price, img, expire, shortDescription } = this.props;
-
-        //!___hardcoded data
-        const favorite = false;
+        const {
+            closeModal,
+            name,
+            description,
+            price,
+            img,
+            expire,
+            shortDescription,
+            isGoal,
+        } = this.props;
 
         const expiresIn = (Math.abs(new Date(expire).getTime() - new Date()) / 1000 / 60).toFixed();
 
         return (
-            <div className={Styles.bg} onClick={closeModal} id="closeModal">
-                <div className={`${Styles.star} ${favorite ? Styles.isFavorite : null}`}>
+            <div className={Styles.bg}>
+                <div
+                    className={`${Styles.star} ${isGoal ? Styles.isFavorite : null}`}
+                    onClick={this._handleSetGoalItem}
+                >
                     <img src={star} alt="" />
                 </div>
+                <img src={close} alt="" className={Styles.close} onClick={closeModal} />
                 <div className={Styles.container}>
                     <img src={img} alt="" className={Styles.itemImage} />
                     <p className={Styles.description}>{description}</p>
@@ -54,7 +75,7 @@ class Buy extends Component {
                             <img src={coin} alt="" />
                             {price}
                         </div>
-                        <button>Buy</button>
+                        <button onClick={this._handleBuyItem}>Buy</button>
                     </div>
                 </div>
             </div>

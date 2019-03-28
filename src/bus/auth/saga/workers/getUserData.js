@@ -27,6 +27,7 @@ export function* getUserData({ payload: token }) {
         }
 
         yield put(profileActions.fillProfile(data.account));
+        yield put(profileActions.getGoalItemAsync());
         yield put(authActions.authenticate());
     } catch (error) {
         yield put(uiActions.emitError(error, '-> getUserData worker'));

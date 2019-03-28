@@ -50,6 +50,7 @@ class MarketRecomendations extends Component {
                                     description={item.get('description')}
                                     expire={item.get('expire')}
                                     img={item.get('img')}
+                                    isGoal={item.get('isGoal')}
                                     key={index}
                                 />
                             ))

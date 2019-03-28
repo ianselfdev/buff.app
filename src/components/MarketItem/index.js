@@ -26,10 +26,10 @@ const mapStateToProps = (state) => {
 
 class MarketItem extends Component {
     state = {
-        showModal: true,
+        showModal: false,
     };
 
-    _openModal = () => {
+    _openModal = (e) => {
         const { id } = this.props;
         Analytics.event('Market item details opened', { category: id });
         this.setState({
@@ -37,17 +37,15 @@ class MarketItem extends Component {
         });
     };
 
-    _closeModal = (e) => {
-        if (e.target.id === 'closeModal') {
-            this.setState({
-                showModal: false,
-            });
-        }
+    _closeModal = () => {
+        this.setState({
+            showModal: false,
+        });
     };
 
     render() {
         const { showModal } = this.state;
-        const { price, name, img, expire, shortDescription, marginTop, favorite } = this.props;
+        const { price, name, img, expire, shortDescription, marginTop, isGoal } = this.props;
 
         const expiresIn = (
             Math.abs(new Date(expire).getTime() - new Date()) /
@@ -60,21 +58,20 @@ class MarketItem extends Component {
         return (
             <>
                 <div
-                    className={`${Styles.container} ${
-                        favorite ? Styles.isFavoriteContainer : null
-                    }`}
-                    onClick={this._openModal}
+                    className={`${Styles.container} ${isGoal ? Styles.isFavoriteContainer : null}`}
                     style={{ marginTop: marginTop || 0 }}
                 >
                     <div
                         className={`${Styles.favoriteButton} ${
-                            favorite ? Styles.isFavoriteButton : null
+                            isGoal ? Styles.isFavoriteButton : null
                         }`}
                     >
                         <img src={star} alt="" />
                     </div>
-                    <img className={Styles.itemImg} src={img} alt="" />
-                    <p className={Styles.title}>{name}</p>
+                    <img className={Styles.itemImg} src={img} alt="" onClick={this._openModal} />
+                    <p className={Styles.title} onClick={this._openModal}>
+                        {name}
+                    </p>
                     <div className={Styles.itemInfo}>
                         <img src={csgo_logo} alt="" />
                         <p>{shortDescription}</p>

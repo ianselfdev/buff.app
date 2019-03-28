@@ -130,6 +130,7 @@ class Market extends Component {
                                 description={item.get('description')}
                                 expire={item.get('expire')}
                                 img={item.get('img')}
+                                isGoal={item.get('isGoal')}
                                 marginTop={'1.25rem'}
                                 key={index}
                             />
