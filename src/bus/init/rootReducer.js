@@ -12,6 +12,7 @@ import { historyReducer as history } from '../app/history/reducer';
 import { leaderboardReducer as leaderboard } from '../app/leaderboard/reducer';
 import { tournamentsReducer as tournaments } from '../app/tournaments/reducer';
 import { advertisementsReducer as advertisements } from '../app/advertisements/reducer';
+import { statisticsReducer as statistics } from '../app/statistics/reducer';
 
 export const rootReducer = combineReducers({
     router,
@@ -24,4 +25,5 @@ export const rootReducer = combineReducers({
     tournaments,
     advertisements,
     market,
+    statistics,
 });

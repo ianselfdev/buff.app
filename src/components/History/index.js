@@ -20,6 +20,7 @@ import { Analytics } from '../../analytics';
 
 //Actions
 import { historyActions } from '../../bus/app/history/actions';
+import { statisticsActions } from '../../bus/app/statistics/actions';
 
 const headerFields = [
     {
@@ -42,6 +43,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchHistoryAsync: historyActions.fetchHistoryAsync,
+    fetchStatisticsAsync: statisticsActions.fetchStatisticsAsync,
 };
 
 class History extends Component {
@@ -50,9 +52,10 @@ class History extends Component {
     };
 
     componentDidMount() {
-        const { fetchHistoryAsync } = this.props;
+        const { fetchHistoryAsync, fetchStatisticsAsync } = this.props;
 
         fetchHistoryAsync();
+        fetchStatisticsAsync();
     }
 
     _selectActiveTab = (e) => {
@@ -131,7 +134,7 @@ class History extends Component {
                         </div>
                     ) : (
                         <div className={Styles.statsContainer}>
-                            <p className={Styles.firstTitle}>Your game statistics</p>
+                            <p className={Styles.firstTitle}>Your earnings</p>
                             <div className={Styles.firstChart}>
                                 <UserStatsByGame />
                             </div>
@@ -139,7 +142,7 @@ class History extends Component {
                             <div className={Styles.secondChart}>
                                 <BuffEarnedChart />
                             </div>
-                            <p className={Styles.thirdTitle}>Time spent per game</p>
+                            <p className={Styles.thirdTitle}>Games played</p>
                             <div className={Styles.thirdChart}>
                                 <TimeSpentChart />
                             </div>

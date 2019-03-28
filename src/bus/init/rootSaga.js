@@ -10,6 +10,7 @@ import { watchProfile } from '../profile/saga/watchers';
 import { watchMarket } from '../market/saga/watchers';
 import { watchTournaments } from '../app/tournaments/saga/watchers';
 import { watchAdvertisements } from '../app/advertisements/saga/watchers';
+import { watchStatistics } from '../app/statistics/saga/watchers';
 
 export function* rootSaga() {
     yield all([
@@ -21,5 +22,6 @@ export function* rootSaga() {
         call(watchTournaments),
         call(watchMarket),
         call(watchAdvertisements),
+        call(watchStatistics),
     ]);
 }

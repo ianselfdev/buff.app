@@ -13,13 +13,14 @@ import gold from '../../theme/svg/gold.svg';
 import platinum from '../../theme/svg/platinum.svg';
 
 const mapStateToProps = (state) => {
-    const { points, level, start, end, color } = state.profile.get('tier');
+    const { points, level, start, end, color, bonus } = state.profile.get('tier');
     return {
         points,
         level,
         start,
         end,
         color,
+        bonus,
         balance: state.profile.get('balance'),
         bonusBalance: state.profile.get('bonusBalance'),
     };
@@ -37,7 +38,7 @@ class UserProgress extends Component {
     };
 
     render() {
-        const { points, level, end, start, balance, bonusBalance, color } = this.props;
+        const { points, level, end, start, balance, bonusBalance, color, bonus } = this.props;
 
         //kmelct is a lazy dick if you ever wanted to know
         const pointsToEarn = +end === Infinity ? 0 - points : end - points;
@@ -65,7 +66,7 @@ class UserProgress extends Component {
                     <div className={Styles.chartText}>
                         <p className={Styles.playerTier}>{level}</p>
                         <p className={Styles.tierBonus}>
-                            Tier bonus: <span>5%</span>
+                            Tier bonus: <span>{bonus}%</span>
                         </p>
                     </div>
                     <div className={Styles.userBalance}>

@@ -103,6 +103,16 @@ export const Api = {
             const params = queryString.stringify(queries);
             return fetch(`${MAIN_URL}/buff/leaders?${params}`);
         },
+
+        fetchStatistics(queries) {
+            const params = queryString.stringify(queries);
+            return fetch(`${MAIN_URL}/games/statistics?${params}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: this.token,
+                },
+            });
+        },
     },
 
     market: {
@@ -145,6 +155,26 @@ export const Api = {
                 method: 'GET',
                 headers: {
                     Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+    },
+
+    bonuses: {
+        getAvailableBonuses() {
+            return fetch(`${MAIN_URL}/bonuses/available`, {
+                method: 'GET',
+                headers: {
+                    Authorization: this.token,
+                },
+            });
+        },
+
+        activateBonus() {
+            return fetch(`${MAIN_URL}/api/bonuses/activate/:id`, {
+                method: 'GET',
+                headers: {
+                    Authorization: this.token,
                 },
             });
         },
