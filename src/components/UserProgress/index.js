@@ -75,7 +75,7 @@ class UserProgress extends Component {
                     <div className={Styles.nextTier}>
                         Next tier
                         <p>
-                            {currentTierPoints}
+                            {+currentTierPoints.toFixed(2)}
                             <span>/{(+end === Infinity ? +start : +end).toFixed(0)}</span>
                         </p>
                     </div>
