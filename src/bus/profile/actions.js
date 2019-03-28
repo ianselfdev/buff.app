@@ -30,11 +30,23 @@ export const profileActions = {
             payload: item,
         };
     },
+    fillReferralCode: (code) => {
+        return {
+            type: types.FILL_REFERRAL_CODE,
+            payload: code,
+        };
+    },
 
     //Async
     getGoalItemAsync: () => {
         return {
             type: types.GET_GOAL_ITEM_ASYNC,
+        };
+    },
+
+    getReferralCodeAsync: () => {
+        return {
+            type: types.GET_REFERRAL_CODE_ASYNC,
         };
     },
 };

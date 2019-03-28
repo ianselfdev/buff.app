@@ -45,6 +45,15 @@ export const Api = {
             });
         },
 
+        getReferralCode() {
+            return fetch(`${MAIN_URL}/accounts/referral/code`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+
         refreshToken(refreshToken) {
             return fetch(`${MAIN_URL}/accounts/token`, {
                 method: 'POST',
@@ -94,7 +103,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/games/history?page=1&limit=100&${params}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -109,7 +118,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/games/statistics?${params}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -129,7 +138,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/marketplace/items/my?page=1&limit=100`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -138,7 +147,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/marketplace/items/buy/${itemId}`, {
                 method: 'POST',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -147,7 +156,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/marketplace/items/my/activate/${itemId}`, {
                 method: 'POST',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -192,7 +201,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/bonuses/available`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -201,7 +210,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/api/bonuses/activate/:id`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },

@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -7,7 +8,20 @@ import Styles from './styles.module.scss';
 //Instuments
 import coin from '../../theme/svg/coin.svg';
 
-export default class Invites extends Component {
+//Actions
+import { profileActions } from '../../bus/profile/actions';
+
+const mapDispatchToProps = {
+    getReferralCodeAsync: profileActions.getReferralCodeAsync,
+};
+
+class Invites extends Component {
+    componentDidMount = () => {
+        const { getReferralCodeAsync } = this.props;
+
+        getReferralCodeAsync();
+    };
+
     render() {
         return (
             <div className={Styles.container}>
@@ -23,3 +37,8 @@ export default class Invites extends Component {
         );
     }
 }
+
+export default connect(
+    null,
+    mapDispatchToProps,
+)(Invites);

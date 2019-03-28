@@ -15,6 +15,7 @@ const initialState = Map({
     tier: {},
     isNew: false,
     goalItem: {},
+    referralCode: '',
 });
 
 export const profileReducer = (state = initialState, action) => {
@@ -24,6 +25,9 @@ export const profileReducer = (state = initialState, action) => {
 
         case types.FILL_GOAL_ITEM:
             return state.set('goalItem', action.payload);
+
+        case types.FILL_REFERRAL_CODE:
+            return state.set('referralCode', action.payload);
 
         case types.CLEAR_PROFILE:
             return state.clear();
