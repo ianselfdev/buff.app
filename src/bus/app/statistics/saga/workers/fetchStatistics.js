@@ -13,8 +13,6 @@ import { uiActions } from '../../../../ui/actions';
 //* put -> запускає діспатч
 export function* fetchStatistics({ payload }) {
     try {
-        console.log('payload ->', payload);
-
         const response = yield apply(Api, Api.data.fetchStatistics);
         const data = yield apply(response, response.json);
 

@@ -63,10 +63,7 @@ const onInfoUpdates2 = (data) => {
             const info = data.info.game_info;
             switch (data.feature) {
                 case 'matchState':
-                    console.log('matchState -> ', info);
-                    if (info.queueId) {
-                        console.log('MATCH_TYPE ---->', info.queueId);
-                    }
+                    console.log('matchState -> info -> ', info);
                     if (info.matchStarted) {
                         //* start game transaction
                         //* ---------------------->
@@ -77,7 +74,7 @@ const onInfoUpdates2 = (data) => {
 
                             matchData = {
                                 ...matchData,
-                                matchId: data.res.game_info.matchId,
+                                matchId: '1',
                                 accountId: data.res.summoner_info.accountId,
                                 someOtherId: data.res.summoner_info.id,
                                 region: data.res.summoner_info.region,

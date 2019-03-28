@@ -10,12 +10,12 @@ export function* getReferralCode() {
     try {
         const response = yield apply(Api, Api.auth.getReferralCode);
         const data = yield apply(response, response.json);
-        console.log(data);
+
         if (response.status !== 200) {
             throw new Error(data.error);
         }
 
-        yield put(profileActions.fillReferralCode(data.data));
+        yield put(profileActions.fillReferralCode(data.code));
     } catch (error) {
         yield put(uiActions.emitError('-> getReferralCode worker', error));
     }

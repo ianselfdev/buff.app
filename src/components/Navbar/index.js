@@ -22,6 +22,7 @@ import market from '../../theme/svg/market.svg';
 import history from '../../theme/svg/history.svg';
 import notification from '../../theme/svg/notification.svg';
 import settings from '../../theme/svg/settings.svg';
+import { ExitToApp } from '@material-ui/icons';
 
 //Analytics
 import { Analytics } from '../../analytics';
@@ -40,6 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+    logout: authActions.logoutAsync,
     getUserDataAsync: authActions.getUserDataAsync,
     refreshTokensAsync: authActions.refreshTokensAsync,
     showBonusPopup: uiActions.showBonusPopup,
@@ -123,7 +125,7 @@ class Navbar extends Component {
     };
 
     render() {
-        const { nickname, balance, bonusBalance, isNew } = this.props;
+        const { nickname, balance, bonusBalance, isNew, logout } = this.props;
         const { opened, settingsOpened } = this.state;
 
         return (
@@ -190,6 +192,10 @@ class Navbar extends Component {
                         <div className={Styles.settingsBlock} onClick={this._toggleSettings}>
                             <img src={settings} alt="" />
                             <span>Settings</span>
+                        </div>
+                        <div className={Styles.settingsBlock} onClick={logout}>
+                            <ExitToApp />
+                            <span>Logout</span>
                         </div>
                     </div>
                 </div>
