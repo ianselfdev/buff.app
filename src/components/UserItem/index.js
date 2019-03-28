@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Instruments
-import coin from '../../theme/svg/coin.svg';
 import csgo_logo from '../../theme/svg/csgo_logo.svg';
 
 //Components
@@ -49,7 +48,7 @@ class UserItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { price, name, img, shortDescription, marginTop, isGoal } = this.props;
+        const { name, img, shortDescription, marginTop, isGoal } = this.props;
 
         return (
             <>
