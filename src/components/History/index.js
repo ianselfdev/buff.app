@@ -148,7 +148,7 @@ class History extends Component {
                             <div className={Styles.firstChart}>
                                 <UserStatsByGame data={userStatsByGame} />
                             </div>
-                            <p className={Styles.secondTitle}>BUFF earned per game</p>
+                            <p className={Styles.secondTitle}>BUFF coins earned per game</p>
                             <div className={Styles.secondChart}>
                                 <BuffEarnedChart />
                             </div>

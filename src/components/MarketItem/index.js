@@ -13,15 +13,23 @@ import csgo_logo from '../../theme/svg/csgo_logo.svg';
 //Components
 import Buy from '../_popups/market/Buy';
 
+//REST
+import { Api } from '../../REST/api';
+
 //Analytics
 import { Analytics } from '../../analytics';
 
+//Actions
+import { marketActions } from '../../bus/market/actions';
+
 const mapStateToProps = (state) => {
     return {
-        errorMarketLabel: state.ui.get('errorMarketLabel'),
         successPurchaseLabel: state.ui.get('successPurchaseLabel'),
-        errorMessage: state.ui.get('errorMessage'),
     };
+};
+
+const mapDispatchToProps = {
+    fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
 };
 
 class MarketItem extends Component {
@@ -41,6 +49,13 @@ class MarketItem extends Component {
         this.setState({
             showModal: false,
         });
+    };
+
+    _handleSetGoalItem = () => {
+        const { id, fetchMarketItemsAsync } = this.props;
+
+        Api.market.setGoalItem(id);
+        fetchMarketItemsAsync();
     };
 
     render() {
@@ -65,6 +80,7 @@ class MarketItem extends Component {
                         className={`${Styles.favoriteButton} ${
                             isGoal ? Styles.isFavoriteButton : null
                         }`}
+                        onClick={this._handleSetGoalItem}
                     >
                         <img src={star} alt="" />
                     </div>
@@ -94,5 +110,5 @@ class MarketItem extends Component {
 
 export default connect(
     mapStateToProps,
-    null,
+    mapDispatchToProps,
 )(MarketItem);

@@ -21,6 +21,7 @@ import { Analytics } from '../../../../analytics';
 
 const mapDispatchToProps = {
     buyItemAsync: marketActions.buyItemAsync,
+    fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
 };
 
 class Buy extends Component {
@@ -33,10 +34,10 @@ class Buy extends Component {
     };
 
     _handleSetGoalItem = () => {
-        const { id } = this.props;
+        const { id, fetchMarketItemsAsync } = this.props;
 
-        Api.market.getGoalItem();
         Api.market.setGoalItem(id);
+        fetchMarketItemsAsync();
     };
 
     render() {
@@ -67,7 +68,7 @@ class Buy extends Component {
                     <p className={Styles.description}>{description}</p>
                     <p className={Styles.name}>{name}</p>
                     <div className={Styles.shortDescription}>
-                        <img />
+                        <img alt="" />
                         <p>{shortDescription}</p>
                     </div>
                     <div className={Styles.priceContainer}>

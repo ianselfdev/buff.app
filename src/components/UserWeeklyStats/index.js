@@ -28,9 +28,7 @@ class UserWeeklyStats extends Component {
     };
 
     render() {
-        const { rewardStatistics, countStatistics } = this.props;
-
-        // console.log(countStatistics.toArray());
+        const { rewardStatistics } = this.props;
 
         const arr = rewardStatistics.toArray().slice(-7, rewardStatistics.length);
         const data = arr.map((item) => ({
