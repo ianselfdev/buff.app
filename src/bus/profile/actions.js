@@ -36,6 +36,12 @@ export const profileActions = {
             payload: code,
         };
     },
+    updateNickname: (nickname) => {
+        return {
+            type: types.UPDATE_NICKNAME,
+            payload: nickname,
+        };
+    },
 
     //Async
     getGoalItemAsync: () => {
@@ -43,10 +49,15 @@ export const profileActions = {
             type: types.GET_GOAL_ITEM_ASYNC,
         };
     },
-
     getReferralCodeAsync: () => {
         return {
             type: types.GET_REFERRAL_CODE_ASYNC,
+        };
+    },
+    updateNicknameAsync: (nickname) => {
+        return {
+            type: types.UPDATE_NICKNAME_ASYNC,
+            payload: nickname,
         };
     },
 };

@@ -11,14 +11,16 @@ import close from '../../theme/svg/close.svg';
 import Styles from './styles.module.scss';
 
 //Actions
-//* here will be actions to change nickname and email
+import { profileActions } from '../../bus/profile/actions';
 
 const mapStateToProps = (state) => ({
     nickname: state.profile.get('nickname'),
     email: state.profile.get('email'),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    updateNicknameAsync: profileActions.updateNicknameAsync,
+};
 
 class Settings extends Component {
     state = {
@@ -66,10 +68,16 @@ class Settings extends Component {
 
     _toggleNicknameEditMode = () => {
         const { nicknameEditMode, nickname } = this.state;
+        const { updateNicknameAsync } = this.props;
+
+        if (!/^[a-zA-Z0-9]*$/.test(nickname)) {
+            notifications.error('Nickname must contain only alphanumeric characters');
+            return null;
+        }
 
         if (nicknameEditMode) {
             if (nickname.length >= 6 && nickname.length <= 18) {
-                //sending request for info update
+                updateNicknameAsync(nickname);
 
                 this.setState((prevState) => ({
                     nicknameEditMode: !prevState.nicknameEditMode,
@@ -125,11 +133,12 @@ class Settings extends Component {
             nicknameEditMode,
             emailEditMode,
         } = this.state;
+        const { closeSettings } = this.props;
 
         return (
             <div className={Styles.container}>
                 <p className={Styles.title}>Buff settings</p>
-                <img src={close} alt="" className={Styles.closeButton} />
+                <img src={close} alt="" className={Styles.closeButton} onClick={closeSettings} />
                 <div className={Styles.nickname}>
                     <p>Nickname</p>
                     <input

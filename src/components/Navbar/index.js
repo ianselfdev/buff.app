@@ -200,7 +200,9 @@ class Navbar extends Component {
                     </div>
                 </div>
 
-                {settingsOpened && <Settings inProp={settingsOpened} />}
+                {settingsOpened && (
+                    <Settings inProp={settingsOpened} closeSettings={this._toggleSettings} />
+                )}
             </>
         );
     }

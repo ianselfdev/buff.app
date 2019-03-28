@@ -29,6 +29,9 @@ export const profileReducer = (state = initialState, action) => {
         case types.FILL_REFERRAL_CODE:
             return state.set('referralCode', action.payload);
 
+        case types.UPDATE_NICKNAME:
+            return state.set('nickname', action.payload);
+
         case types.CLEAR_PROFILE:
             return state.clear();
 

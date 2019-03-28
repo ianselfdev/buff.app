@@ -30,26 +30,11 @@ export const Api = {
             });
         },
 
-        getUserIp() {
-            return fetch(
-                'https://api.ipdata.co?api-key=41605a6671bc15a4a7aa512ef2e61f3fb05450f869e52ee35b543c1e',
-            );
-        },
-
         getUserData(token) {
             return fetch(`${MAIN_URL}/accounts/current`, {
                 method: 'GET',
                 headers: {
                     Authorization: token,
-                },
-            });
-        },
-
-        getReferralCode() {
-            return fetch(`${MAIN_URL}/accounts/referral/code`, {
-                method: 'GET',
-                headers: {
-                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -85,6 +70,30 @@ export const Api = {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
+            });
+        },
+    },
+
+    account: {
+        getReferralCode() {
+            return fetch(`${MAIN_URL}/accounts/referral/code`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+
+        updateNickname(nickname) {
+            return fetch(`${MAIN_URL}/accounts/change/nickname`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nickname: nickname,
+                }),
             });
         },
     },
