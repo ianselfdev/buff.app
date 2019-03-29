@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 //Components
+import { TopControlBar } from '../components';
 import Private from './Private';
 import Public from './Public';
 
@@ -24,6 +25,7 @@ class App extends Component {
 
         return (
             <>
+                <TopControlBar />
                 {isAuthenticated ? <Private /> : <Public />}
                 <ToastContainer
                     className="toast-container"

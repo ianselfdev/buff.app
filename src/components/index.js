@@ -2,6 +2,7 @@ import ErrorCatcher from './ErrorCatcher';
 import Dashboard from './Dashboard';
 import Leaderboard from './Leaderboard';
 import Navbar from './Navbar';
+import TopControlBar from './TopControlBar';
 import NewsTournaments from './NewsTournaments';
 import History from './History';
 import Spinner from './Spinner';
@@ -22,4 +23,5 @@ export {
     NewsTournaments,
     Startup,
     Market,
+    TopControlBar,
 };
