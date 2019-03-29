@@ -38,6 +38,7 @@ const mapStateToProps = (state) => ({
     nickname: state.profile.get('nickname'),
     bonusPopup: state.ui.get('bonusPopup'),
     isNew: state.profile.get('isNew'),
+    bonuses: state.bonuses,
 });
 
 const mapDispatchToProps = {
@@ -98,19 +99,18 @@ class Navbar extends Component {
         }
     };
 
+    _handleNav = (e) => {
+        const { id } = e.target;
+        Analytics.event('Navigation link click', { category: id });
+    };
+
     componentWillUnmount = () => {
         socket.removeAllListeners();
         console.log('socket listeners removed');
     };
 
-    _toggleOpened = () => {
-        this.setState((prevState) => ({
-            opened: !prevState.opened,
-        }));
-    };
-
     _handleNotificationsClick = () => {
-        notifications.info("Notifications will become available soon - we're working on it :)");
+        notifications.info('Notifications panel will become available soon :)');
     };
 
     _toggleSettings = () => {
@@ -119,13 +119,14 @@ class Navbar extends Component {
         }));
     };
 
-    _handleNav = (e) => {
-        const { id } = e.target;
-        Analytics.event('Navigation link click', { category: id });
-    };
+    // _toggleOpened = () => {
+    //     this.setState((prevState) => ({
+    //         opened: !prevState.opened,
+    //     }));
+    // };
 
     render() {
-        const { nickname, balance, bonusBalance, isNew, logout } = this.props;
+        const { nickname, balance, bonusBalance, isNew, logout, bonuses } = this.props;
         const { opened, settingsOpened } = this.state;
 
         return (
@@ -176,6 +177,9 @@ class Navbar extends Component {
                         </NavLink>
                     </div>
                     <div className={Styles.functionalContainer}>
+                        {bonuses.size > 0 && (
+                            <div className={Styles.bonusLabel}>{bonuses.size}</div>
+                        )}
                         <div className={Styles.bonusBlock}>
                             <button>Bonus</button>
                         </div>
