@@ -229,7 +229,7 @@ export const Api = {
         },
 
         activateBonus() {
-            return fetch(`${MAIN_URL}/api/bonuses/activate/:id`, {
+            return fetch(`${MAIN_URL}/bonuses/activate/:id`, {
                 method: 'GET',
                 headers: {
                     Authorization: localStorage.getItem('buff-token'),

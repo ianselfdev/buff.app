@@ -31,6 +31,7 @@ import { Analytics } from '../../analytics';
 import { authActions } from '../../bus/auth/actions';
 import { uiActions } from '../../bus/ui/actions';
 import { profileActions } from '../../bus/profile/actions';
+import { bonusesActions } from '../../bus/app/bonuses/actions';
 
 const mapStateToProps = (state) => ({
     balance: state.profile.get('balance'),
@@ -48,6 +49,7 @@ const mapDispatchToProps = {
     showBonusPopup: uiActions.showBonusPopup,
     openTutorial: profileActions.openTutorial,
     closeTutorial: profileActions.closeTutorial,
+    activateAllBonusesAsync: bonusesActions.activateAllBonusesAsync,
 };
 
 const socket = io();
@@ -126,7 +128,15 @@ class Navbar extends Component {
     // };
 
     render() {
-        const { nickname, balance, bonusBalance, isNew, logout, bonuses } = this.props;
+        const {
+            nickname,
+            balance,
+            bonusBalance,
+            isNew,
+            logout,
+            bonuses,
+            activateAllBonusesAsync,
+        } = this.props;
         const { opened, settingsOpened } = this.state;
 
         return (
@@ -181,7 +191,7 @@ class Navbar extends Component {
                             <div className={Styles.bonusLabel}>{bonuses.size}</div>
                         )}
                         <div className={Styles.bonusBlock}>
-                            <button>Bonus</button>
+                            <button onClick={activateAllBonusesAsync}>Bonus</button>
                         </div>
                         <div className={Styles.welcomeMessageBlock}>
                             <p>Welcome:</p>
