@@ -21,6 +21,10 @@ const mapDispatchToProps = {
 };
 
 class Invites extends Component {
+    state = {
+        showCode: false,
+    };
+
     componentDidMount = () => {
         const { getReferralCodeAsync } = this.props;
 
@@ -28,26 +32,49 @@ class Invites extends Component {
     };
 
     _showCode = () => {
+        this.setState({
+            showCode: true,
+        });
+    };
+
+    _copy = () => {
         const { referralCode } = this.props;
 
-        notifications.info(
-            `You will be able to invite friends with code ${referralCode}...Later :P`,
-        );
+        navigator.clipboard.writeText(referralCode);
+
+        notifications.success('Copied successfully!');
     };
 
     render() {
+        const { showCode } = this.state;
+        const { referralCode } = this.props;
+
         return (
             <div className={Styles.container}>
-                <div className={Styles.earningsContainer}>
-                    <p>Earn for each friend:</p>
-                    <p className={Styles.coins}>
-                        <img src={coin} alt="" />
-                        150 BUFF coins
-                    </p>
-                </div>
-                <button className={Styles.button} onClick={this._showCode}>
-                    Invite
-                </button>
+                {showCode ? (
+                    <>
+                        <div className={Styles.codeContainer}>
+                            <p>Your invitation code:</p>
+                            <p className={Styles.code}>{referralCode}</p>
+                        </div>
+                        <button className={Styles.button} onClick={this._copy}>
+                            Copy code
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <div className={Styles.earningsContainer}>
+                            <p>Earn for each friend:</p>
+                            <p className={Styles.coins}>
+                                <img src={coin} alt="" />
+                                20 BUFF coins
+                            </p>
+                        </div>
+                        <button className={Styles.button} onClick={this._showCode}>
+                            Get code
+                        </button>
+                    </>
+                )}
             </div>
         );
     }
