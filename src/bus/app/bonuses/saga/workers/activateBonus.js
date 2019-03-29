@@ -4,6 +4,7 @@ import { put, apply } from 'redux-saga/effects';
 //Instruments
 import { Api } from '../../../../../REST/api';
 import { uiActions } from '../../../../ui/actions';
+import { bonusesActions } from '../../actions';
 import { notifications } from '../../../../../components/_notifications';
 
 export function* activateBonus({ payload: { id, name, amount, activationAmount } }) {
@@ -15,6 +16,8 @@ export function* activateBonus({ payload: { id, name, amount, activationAmount }
             console.log(data);
             throw new Error(data.error);
         }
+
+        yield put(bonusesActions.fetchAvailableBonusesAsync());
 
         notifications.success(`${name} activated! You recieved ${amount} bonus coins!`);
         notifications.success(
