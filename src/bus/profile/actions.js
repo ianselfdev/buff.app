@@ -42,6 +42,12 @@ export const profileActions = {
             payload: nickname,
         };
     },
+    updateEmail: (email) => {
+        return {
+            type: types.UPDATE_EMAIL,
+            payload: email,
+        };
+    },
 
     //Async
     getGoalItemAsync: () => {
@@ -58,6 +64,12 @@ export const profileActions = {
         return {
             type: types.UPDATE_NICKNAME_ASYNC,
             payload: nickname,
+        };
+    },
+    updateEmailAsync: (email) => {
+        return {
+            type: types.UPDATE_EMAIL_ASYNC,
+            payload: email,
         };
     },
 };

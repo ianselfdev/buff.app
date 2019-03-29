@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -7,7 +8,24 @@ import Styles from './styles.module.scss';
 //Instuments
 import coin from '../../theme/svg/coin.svg';
 
-export default class DailyBonus extends Component {
+//Actions
+import { bonusesActions } from '../../bus/app/bonuses/actions';
+
+const mapStateToProps = (state) => ({
+    bonuses: state.bonuses,
+});
+
+const mapDispatchToProps = {
+    fetchAvailableBonusesAsync: bonusesActions.fetchAvailableBonusesAsync,
+};
+
+class DailyBonus extends Component {
+    componentDidMount = () => {
+        const { fetchAvailableBonusesAsync } = this.props;
+
+        fetchAvailableBonusesAsync();
+    };
+
     render() {
         return (
             <div className={Styles.container}>
@@ -33,3 +51,8 @@ export default class DailyBonus extends Component {
         );
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(DailyBonus);

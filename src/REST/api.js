@@ -96,6 +96,19 @@ export const Api = {
                 }),
             });
         },
+
+        updateEmail(email) {
+            return fetch(`${MAIN_URL}/accounts/change/email`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                }),
+            });
+        },
     },
 
     data: {
@@ -206,7 +219,7 @@ export const Api = {
     },
 
     bonuses: {
-        getAvailableBonuses() {
+        fetchAvailableBonuses() {
             return fetch(`${MAIN_URL}/bonuses/available`, {
                 method: 'GET',
                 headers: {

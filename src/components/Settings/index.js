@@ -20,6 +20,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     updateNicknameAsync: profileActions.updateNicknameAsync,
+    updateEmailAsync: profileActions.updateEmailAsync,
 };
 
 class Settings extends Component {
@@ -70,12 +71,12 @@ class Settings extends Component {
         const { nicknameEditMode, nickname } = this.state;
         const { updateNicknameAsync } = this.props;
 
-        if (!/^[a-zA-Z0-9]*$/.test(nickname)) {
-            notifications.error('Nickname must contain only alphanumeric characters');
-            return null;
-        }
-
         if (nicknameEditMode) {
+            if (!/^[a-zA-Z0-9]*$/.test(nickname)) {
+                notifications.error('Nickname must contain only alphanumeric characters');
+                return null;
+            }
+            
             if (nickname.length >= 6 && nickname.length <= 18) {
                 updateNicknameAsync(nickname);
 
@@ -96,10 +97,11 @@ class Settings extends Component {
 
     _toggleEmailEditMode = () => {
         const { emailEditMode, email } = this.state;
+        const {updateEmailAsync} = this.props;
 
         if (emailEditMode) {
-            if (email.includes('@')) {
-                //sending request for info update
+            if (email.includes('@') && email.length > 6) {
+                updateEmailAsync(email);
 
                 this.setState((prevState) => ({
                     emailEditMode: !prevState.emailEditMode,

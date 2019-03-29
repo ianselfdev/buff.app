@@ -32,6 +32,9 @@ export const profileReducer = (state = initialState, action) => {
         case types.UPDATE_NICKNAME:
             return state.set('nickname', action.payload);
 
+        case types.UPDATE_EMAIL:
+            return state.set('email', action.payload);
+
         case types.CLEAR_PROFILE:
             return state.clear();
 

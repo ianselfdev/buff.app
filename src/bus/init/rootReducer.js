@@ -9,6 +9,7 @@ import { profileReducer as profile } from '../profile/reducer';
 import { marketReducer as market } from '../market/reducer';
 import { newsReducer as news } from '../app/news/reducer';
 import { historyReducer as history } from '../app/history/reducer';
+import { bonusesReducer as bonuses } from '../app/bonuses/reducer';
 import { leaderboardReducer as leaderboard } from '../app/leaderboard/reducer';
 import { tournamentsReducer as tournaments } from '../app/tournaments/reducer';
 import { advertisementsReducer as advertisements } from '../app/advertisements/reducer';
@@ -21,6 +22,7 @@ export const rootReducer = combineReducers({
     ui,
     news,
     history,
+    bonuses,
     leaderboard,
     tournaments,
     advertisements,
