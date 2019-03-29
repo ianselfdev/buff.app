@@ -7,6 +7,7 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import { UserStatusChart } from '../_charts/UserStatusChart';
+import beginner from '../../theme/svg/beginner.svg';
 import bronze from '../../theme/svg/bronze.svg';
 import silver from '../../theme/svg/silver.svg';
 import gold from '../../theme/svg/gold.svg';
@@ -54,7 +55,9 @@ class UserProgress extends Component {
                 ? silver
                 : level === 'Gold'
                 ? gold
-                : platinum;
+                : level === 'Platinum'
+                ? platinum
+                : beginner;
 
         return (
             <>
