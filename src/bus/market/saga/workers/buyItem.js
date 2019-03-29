@@ -6,6 +6,7 @@ import { delay } from 'redux-saga';
 import { Api } from '../../../../REST';
 import { uiActions } from '../../../ui/actions';
 import { authActions } from '../../../auth/actions';
+import { profileActions } from '../../../profile/actions';
 import { marketActions } from '../../actions';
 
 export function* buyItem({ payload: itemId }) {
@@ -26,6 +27,7 @@ export function* buyItem({ payload: itemId }) {
         yield put(authActions.getUserDataAsync(localStorage.getItem('buff-token')));
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
+        yield put(profileActions.getGoalItemAsync());
     } catch (error) {
         yield put(uiActions.emitError('-> buyItem worker', error));
         yield put(uiActions.stopFetching());

@@ -15,6 +15,7 @@ import MarketRecomendations from '../MarketRecomendations';
 
 //Actions
 import { advertisementActions } from '../../bus/app/advertisements/actions';
+import { profileActions } from '../../bus/profile/actions';
 
 const mapStateToProps = (state) => ({
     advertisements: state.advertisements,
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     createAdInstanceAsync: advertisementActions.createAdInstanceAsync,
+    getGoalItemAsync: profileActions.getGoalItemAsync,
 };
 
 class Dashboard extends Component {
@@ -31,7 +33,9 @@ class Dashboard extends Component {
     };
 
     componentDidMount = () => {
-        const { createAdInstanceAsync, advertisements } = this.props;
+        const { createAdInstanceAsync, advertisements, getGoalItemAsync } = this.props;
+
+        getGoalItemAsync();
 
         //fallback
         if (advertisements.refreshAd) {

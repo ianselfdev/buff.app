@@ -23,9 +23,11 @@
             display: flex;
             justify-content: center;
 
+
             height: 3rem;
             width: 3rem;
 
+            padding: .2rem;
             margin: 0 auto;
 
             background: #000;
@@ -127,8 +129,11 @@
         padding: 1rem 0;
 
         & .bonusBlock {
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
+
+            display: flex;
+            justify-content: center;
 
             & button {
                 cursor: pointer;
@@ -166,13 +171,13 @@
             }
         }
 
-        & .notificationBlock {
+        & .notificationBlock, .exitBlock, .settingsBlock {
             cursor: pointer;
             display: flex;
             justify-content: center;
             margin-top: 1.5rem;
 
-            & img {
+            & img, svg {
                 filter: brightness(40%);
             }
 
@@ -181,28 +186,7 @@
             }
 
             &:hover {
-                img {
-                    filter: brightness(100%);
-                }
-            }
-        }
-
-        & .settingsBlock {
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-
-            & img {
-                filter: brightness(40%);
-            }
-
-            & span {
-                display: none;
-            }
-
-            &:hover {
-                img {
+                & img, svg {
                     filter: brightness(100%);
                 }
             }

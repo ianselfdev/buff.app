@@ -1,13 +1,13 @@
 @import '../../theme/palette.scss';
 
 .container {
-    height: 650px;
+    height: 700px;
 
-    padding: 0 0.5rem;
+    padding: 2rem 0.5rem 0;
 
     display: grid;
     grid-template-columns: auto 400px;
-    grid-template-rows: 50px 600px;
+    grid-template-rows: 50px 650px;
     grid-column-gap: 1rem;
 
     & .switchButtonsContainer {
@@ -54,7 +54,7 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
 
-        max-height: 650px;
+        max-height: 700px;
 
         overflow-y: scroll;
     }

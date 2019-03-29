@@ -193,7 +193,7 @@ class Navbar extends Component {
                             <img src={settings} alt="" />
                             <span>Settings</span>
                         </div>
-                        <div className={Styles.settingsBlock} onClick={logout}>
+                        <div className={Styles.exitBlock} onClick={logout}>
                             <ExitToApp />
                             <span>Logout</span>
                         </div>
