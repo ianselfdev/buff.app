@@ -7,7 +7,6 @@ import { bonusesActions } from '../../actions';
 import { uiActions } from '../../../../ui/actions';
 
 export function* fetchAvailableBonuses() {
-    console.log('worker');
     try {
         const response = yield apply(Api, Api.bonuses.fetchAvailableBonuses);
         const data = yield apply(response, response.json);

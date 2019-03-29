@@ -131,7 +131,8 @@ class Navbar extends Component {
         return (
             <>
                 {isNew && <FirstTimeUX closeTutorial={this._toggleTutorial} />}
-                <div className={opened ? Styles.containerOpened : Styles.containerClosed}>
+                {/* <div className={opened ? Styles.containerOpened : Styles.containerClosed}> */}
+                <div className={Styles.containerClosed}>
                     <div className={Styles.navigationContainer}>
                         <div className={Styles.logoContainer} onClick={this._toggleOpened}>
                             <img src={opened ? fullLogo : logo} alt="" />

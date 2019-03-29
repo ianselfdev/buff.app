@@ -23,11 +23,10 @@
             display: flex;
             justify-content: center;
 
-
             height: 3rem;
             width: 3rem;
 
-            padding: .2rem;
+            padding: 0.2rem;
             margin: 0 auto;
 
             background: #000;
@@ -75,14 +74,17 @@
             border-top: 1px solid rgba(255, 255, 255, 0.122);
 
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
 
             & img {
                 filter: brightness(40%);
             }
 
             & span {
-                display: none;
+                font-size: 0.8rem;
+                color: $paletteGrey3;
             }
 
             &:hover {
@@ -94,6 +96,10 @@
 
                 & img {
                     filter: brightness(100%);
+                }
+
+                & span {
+                    color: $paletteWhite;
                 }
             }
 
@@ -110,7 +116,9 @@
             border-right: 2px solid $paletteGreen2;
 
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
 
             background: linear-gradient(
                 270deg,
@@ -120,6 +128,11 @@
 
             & img {
                 filter: brightness(100%);
+            }
+
+            & span {
+                font-size: 0.8rem;
+                color: $paletteWhite;
             }
         }
     }
@@ -171,13 +184,16 @@
             }
         }
 
-        & .notificationBlock, .exitBlock, .settingsBlock {
+        & .notificationBlock,
+        .exitBlock,
+        .settingsBlock {
             cursor: pointer;
             display: flex;
             justify-content: center;
             margin-top: 1.5rem;
 
-            & img, svg {
+            & img,
+            svg {
                 filter: brightness(40%);
             }
 
@@ -186,7 +202,8 @@
             }
 
             &:hover {
-                & img, svg {
+                & img,
+                svg {
                     filter: brightness(100%);
                 }
             }
