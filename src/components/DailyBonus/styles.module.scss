@@ -75,8 +75,12 @@
         }
 
         &:disabled {
-            border: $paletteGrey3;
+            border: 1px solid $paletteGrey3;
             color: $paletteGrey3;
+
+            &:hover {
+                background: none;
+            }
         }
     }
 }

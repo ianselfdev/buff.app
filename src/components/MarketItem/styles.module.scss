@@ -45,6 +45,8 @@
         font-size: 0.7rem;
         color: $paletteGrey3;
 
+        border-radius: 4px;
+
         & img {
             width: 2rem;
             height: 2rem;
@@ -53,6 +55,8 @@
             margin-right: 0.5rem;
 
             background: #000;
+
+            border-radius: 4px;
         }
 
         & p {

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Instruments
+import logo from '../../theme/svg/logo-short.svg';
 import coin from '../../theme/svg/coin.svg';
 import star from '../../theme/svg/star.svg';
 import csgo_logo from '../../theme/svg/csgo_logo.svg';
@@ -89,7 +90,7 @@ class MarketItem extends Component {
                         {name}
                     </p>
                     <div className={Styles.itemInfo}>
-                        <img src={csgo_logo} alt="" />
+                        <img src={logo} alt="" />
                         <p>{shortDescription}</p>
                     </div>
                     <div className={Styles.actionsContainer}>
