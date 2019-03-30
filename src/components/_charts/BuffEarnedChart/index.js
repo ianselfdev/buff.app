@@ -5,16 +5,18 @@ import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 //Instruments
 import { legend } from './legend';
 
-const data = [
-    { name: 'DOTA 2', value: 152 },
-    { name: 'League of Legends', value: 3 },
-    { name: 'Fortnite', value: 80 },
-    { name: 'CS:GO', value: 57.2 },
-];
+// const data = [
+//     { name: 'DOTA 2', value: 152 },
+//     { name: 'League of Legends', value: 3 },
+//     { name: 'Fortnite', value: 80 },
+//     { name: 'CS:GO', value: 57.2 },
+// ];
 
 const COLORS = ['#3B8C41', '#E1C63B', '#DB7B35', '#447CBE'];
 
 export const BuffEarnedChart = (props) => {
+    const { data } = props;
+
     return (
         <PieChart width={370} height={270}>
             <Pie

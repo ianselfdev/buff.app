@@ -7,6 +7,7 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import selectArrow from '../../theme/svg/selectArrow.svg';
+import { notifications } from '../_notifications';
 
 export default class Select extends Component {
     static propTypes = {
@@ -24,6 +25,13 @@ export default class Select extends Component {
     };
 
     _toggleOpened = () => {
+        const { disabled } = this.props;
+
+        if (disabled) {
+            notifications.info('This field is disabled now');
+            return null;
+        }
+
         this.setState((prevState) => ({
             opened: !prevState.opened,
         }));

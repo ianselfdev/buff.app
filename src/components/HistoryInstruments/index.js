@@ -133,6 +133,7 @@ class MarketInstruments extends Component {
                         styles={{
                             height: 50,
                         }}
+                        disabled={activeTab === 'statistics'}
                     />
                     <Select
                         data={[

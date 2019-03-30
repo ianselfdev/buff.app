@@ -21,7 +21,7 @@ export const legend = (props) => {
                     <p className={Styles.gameName}>{entry.value}</p>
                     <p className={Styles.hours}>
                         {entry.payload.value}
-                        <span>hours</span>
+                        <span>coins</span>
                     </p>
                 </div>
             ))}

@@ -22,6 +22,10 @@ import { Analytics } from '../../analytics';
 import { historyActions } from '../../bus/app/history/actions';
 import { statisticsActions } from '../../bus/app/statistics/actions';
 
+//!__temporary stuff until back v2 comes live
+//REST
+import { Api } from '../../REST/api';
+
 const headerFields = [
     {
         name: 'Type',
@@ -51,14 +55,62 @@ const mapDispatchToProps = {
 class History extends Component {
     state = {
         active: 'statistics',
+        dotaStats: {
+            countStatistics: [1],
+            rewardStatistics: [1],
+        },
+        lolStats: {
+            countStatistics: [1],
+            rewardStatistics: [1],
+        },
+        fortniteStats: {
+            countStatistics: [1],
+            rewardStatistics: [1],
+        },
+        csgoStats: {
+            countStatistics: [1],
+            rewardStatistics: [1],
+        },
     };
 
-    componentDidMount() {
+    componentDidMount = async () => {
         const { fetchHistoryAsync, fetchStatisticsAsync } = this.props;
 
         fetchHistoryAsync();
         fetchStatisticsAsync();
-    }
+
+        //!__temporary stuff until back v2 comes live
+        const dotaResult = await Api.data.fetchStatistics({ gameId: 7314 });
+        const dotaStats = await dotaResult.json();
+
+        const lolResult = await Api.data.fetchStatistics({ gameId: 5426 });
+        const lolStats = await lolResult.json();
+
+        const fortniteResult = await Api.data.fetchStatistics({ gameId: 21216 });
+        const fortniteStats = await fortniteResult.json();
+
+        const csgoResult = await Api.data.fetchStatistics({ gameId: 7764 });
+        const csgoStats = await csgoResult.json();
+
+        this.setState({
+            dotaStats: {
+                rewardStatistics: dotaStats.rewardStatistics.map((item) => item.amount),
+                countStatistics: dotaStats.countStatistics.map((item) => item.count),
+            },
+            lolStats: {
+                rewardStatistics: lolStats.rewardStatistics.map((item) => item.amount),
+                countStatistics: lolStats.countStatistics.map((item) => item.count),
+            },
+            fortniteStats: {
+                rewardStatistics: fortniteStats.rewardStatistics.map((item) => item.amount),
+                countStatistics: fortniteStats.countStatistics.map((item) => item.count),
+            },
+            csgoStats: {
+                rewardStatistics: csgoStats.rewardStatistics.map((item) => item.amount),
+                countStatistics: csgoStats.countStatistics.map((item) => item.count),
+            },
+        });
+    };
 
     _selectActiveTab = (e) => {
         const { id } = e.target;
@@ -74,7 +126,7 @@ class History extends Component {
     };
 
     render() {
-        const { active } = this.state;
+        const { active, dotaStats, lolStats, csgoStats, fortniteStats } = this.state;
         const { history, rewardStatistics } = this.props;
 
         const userStatsByGame = rewardStatistics.toArray().map((item) => ({
@@ -84,6 +136,46 @@ class History extends Component {
             }),
             Earned: item.get('amount'),
         }));
+
+        //* formatting data about amount of games played to pass into chart
+        const gamesPlayed = [
+            {
+                name: 'DOTA 2',
+                value: dotaStats.countStatistics.reduce((a, b) => a + b),
+            },
+            {
+                name: 'League of Legends',
+                value: lolStats.countStatistics.reduce((a, b) => a + b),
+            },
+            {
+                name: 'Fortnite',
+                value: fortniteStats.countStatistics.reduce((a, b) => a + b),
+            },
+            {
+                name: 'CS:GO',
+                value: csgoStats.countStatistics.reduce((a, b) => a + b),
+            },
+        ];
+
+        //* formatting data about amount of buff coins earned to pass into chart
+        const coinsEarned = [
+            {
+                name: 'DOTA 2',
+                value: Number(dotaStats.rewardStatistics.reduce((a, b) => a + b).toFixed(2)),
+            },
+            {
+                name: 'League of Legends',
+                value: Number(lolStats.rewardStatistics.reduce((a, b) => a + b).toFixed(2)),
+            },
+            {
+                name: 'Fortnite',
+                value: Number(fortniteStats.rewardStatistics.reduce((a, b) => a + b).toFixed(2)),
+            },
+            {
+                name: 'CS:GO',
+                value: Number(csgoStats.rewardStatistics.reduce((a, b) => a + b).toFixed(2)),
+            },
+        ];
 
         return (
             <ErrorCatcher>
@@ -150,11 +242,11 @@ class History extends Component {
                             </div>
                             <p className={Styles.secondTitle}>BUFF coins earned per game</p>
                             <div className={Styles.secondChart}>
-                                <BuffEarnedChart />
+                                <BuffEarnedChart data={coinsEarned} />
                             </div>
                             <p className={Styles.thirdTitle}>Games played</p>
                             <div className={Styles.thirdChart}>
-                                <TimeSpentChart />
+                                <TimeSpentChart data={gamesPlayed} />
                             </div>
                         </div>
                     )}
