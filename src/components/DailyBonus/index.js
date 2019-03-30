@@ -83,7 +83,7 @@ class DailyBonus extends Component {
                     <span>:</span>
                     <div className={Styles.timerItem}>
                         <p className={Styles.timerNumber}>
-                            {Math.floor(timeToTheNextBonus / 3600 / 60)
+                            {Math.floor((timeToTheNextBonus / 60) % 60)
                                 .toString()
                                 .padStart(2, 0)}
                         </p>
@@ -91,7 +91,7 @@ class DailyBonus extends Component {
                     <span>:</span>
                     <div className={Styles.timerItem}>
                         <p className={Styles.timerNumber}>
-                            {(timeToTheNextBonus % 3600).toString().padStart(2, 0)}
+                            {(timeToTheNextBonus % 60).toString().padStart(2, 0)}
                         </p>
                     </div>
                 </div>
