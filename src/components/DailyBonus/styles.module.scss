@@ -73,5 +73,10 @@
                 filter: brightness(0) invert(1);
             }
         }
+
+        &:disabled {
+            border: $paletteGrey3;
+            color: $paletteGrey3;
+        }
     }
 }
