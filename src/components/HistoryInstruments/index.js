@@ -9,7 +9,7 @@ import Styles from './styles.module.scss';
 import Select from '../Select';
 
 //Actions
-import { marketActions } from '../../bus/market/actions';
+import { historyActions } from '../../bus/app/history/actions';
 import { advertisementActions } from '../../bus/app/advertisements/actions';
 
 //Redux connect
@@ -18,9 +18,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    filterMarketItemsAsync: marketActions.filterMarketItemsAsync,
-    filterUserItemsAsync: marketActions.filterUserItemsAsync,
-    removeMarketFilterParameterAsync: marketActions.removeMarketFilterParameterAsync,
+    removeHistoryFilterParameterAsync: historyActions.removeHistoryFilterParameterAsync,
+    filterHistoryAsync: historyActions.filterHistoryAsync,
     createAdInstanceAsync: advertisementActions.createAdInstanceAsync,
 };
 
@@ -108,33 +107,9 @@ class MarketInstruments extends Component {
     };
 
     render() {
-        const { userSearch, marketSearch } = this.state;
-        const { activeTab, sortByPrice } = this.props;
-
         return (
             <div className={Styles.container}>
                 <div className={Styles.filtersContainer}>
-                    {activeTab === 'market' ? (
-                        <input
-                            type="text"
-                            name="marketSearch"
-                            placeholder="Search"
-                            onKeyDown={this._handleSearch}
-                            onChange={this._handleChange}
-                            value={marketSearch}
-                            className={Styles.searchBar}
-                        />
-                    ) : (
-                        <input
-                            type="text"
-                            name="userSearch"
-                            placeholder="Search"
-                            onKeyDown={this._handleSearch}
-                            onChange={this._handleChange}
-                            value={userSearch}
-                            className={Styles.searchBar}
-                        />
-                    )}
                     <Select
                         data={[
                             { value: 'Show all' },
@@ -145,12 +120,18 @@ class MarketInstruments extends Component {
                         ]}
                         onChange={this._filterByGame}
                         className={Styles.gameSelect}
+                        title="Filter by game"
                         styles={{
                             height: 50,
                         }}
                     />
                     <Select
-                        data={[{ value: 'Gift card' }]}
+                        data={[
+                            { value: 'Show all' },
+                            { value: 'Game' },
+                            { value: 'Market' },
+                            { value: 'Bonus' },
+                        ]}
                         // onChange={this._filterByGame}
                         className={Styles.typeSelect}
                         styles={{
@@ -159,11 +140,12 @@ class MarketInstruments extends Component {
                     />
                     <Select
                         data={[
-                            { value: 'None' },
-                            { value: 'Low to high' },
-                            { value: 'High to low' },
+                            { value: 'Show all' },
+                            { value: 'Last day' },
+                            { value: 'Last week' },
+                            { value: 'Last month' },
                         ]}
-                        onChange={sortByPrice}
+                        // onChange={sortByPrice}
                         className={Styles.priceSort}
                         styles={{
                             height: 50,

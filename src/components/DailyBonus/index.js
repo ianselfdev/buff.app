@@ -69,30 +69,28 @@ class DailyBonus extends Component {
     render() {
         const timeToTheNextBonus = this._calculateTimeToTheNextDailyBonus();
 
+        const hours = Math.floor(timeToTheNextBonus / 3600)
+            .toString()
+            .padStart(2, 0);
+        const minutes = Math.floor((timeToTheNextBonus / 60) % 60)
+            .toString()
+            .padStart(2, 0);
+        const seconds = (timeToTheNextBonus % 60).toString().padStart(2, 0);
+
         return (
             <div className={Styles.container}>
                 <p className={Styles.text}>You may get your next bonus after:</p>
                 <div className={Styles.timer}>
                     <div className={Styles.timerItem}>
-                        <p className={Styles.timerNumber}>
-                            {Math.floor(timeToTheNextBonus / 3600)
-                                .toString()
-                                .padStart(2, 0)}
-                        </p>
+                        <p className={Styles.timerNumber}>{hours}</p>
                     </div>
                     <span>:</span>
                     <div className={Styles.timerItem}>
-                        <p className={Styles.timerNumber}>
-                            {Math.floor((timeToTheNextBonus / 60) % 60)
-                                .toString()
-                                .padStart(2, 0)}
-                        </p>
+                        <p className={Styles.timerNumber}>{minutes}</p>
                     </div>
                     <span>:</span>
                     <div className={Styles.timerItem}>
-                        <p className={Styles.timerNumber}>
-                            {(timeToTheNextBonus % 60).toString().padStart(2, 0)}
-                        </p>
+                        <p className={Styles.timerNumber}>{seconds}</p>
                     </div>
                 </div>
                 <button

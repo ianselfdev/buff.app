@@ -5,6 +5,14 @@
     max-height: 2rem;
     overflow: visible;
 
+    & .title {
+        font-size: 0.9rem;
+
+        color: $paletteWhite;
+
+        margin: 0.5rem 1rem;
+    }
+
     & .selectField {
         cursor: pointer;
         padding: 0.5rem 1rem;
