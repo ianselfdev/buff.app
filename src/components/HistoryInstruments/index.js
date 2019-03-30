@@ -24,11 +24,6 @@ const mapDispatchToProps = {
 };
 
 class MarketInstruments extends Component {
-    state = {
-        marketSearch: '',
-        userSearch: '',
-    };
-
     componentDidMount = () => {
         const { createAdInstanceAsync, advertisements } = this.props;
 
@@ -49,66 +44,66 @@ class MarketInstruments extends Component {
         }
     };
 
-    _filterByGame = (value) => {
+    _filterByGame = (game) => {
+        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
+
         const id =
-            value === 'DOTA 2'
-                ? 'dota'
-                : value === 'League of Legends'
-                ? 'lol'
-                : value === 'Fortnite'
-                ? 'fortnite'
-                : value === 'CS:GO'
-                ? 'csgo'
+            game === 'DOTA 2'
+                ? 7314
+                : game === 'League of Legends'
+                ? 5426
+                : game === 'Fortnite'
+                ? 21216
+                : game === 'CS:GO'
+                ? 7764
                 : 'none';
-        const {
-            filterMarketItemsAsync,
-            filterUserItemsAsync,
-            removeMarketFilterParameterAsync,
-        } = this.props;
 
         if (id === 'none') {
-            removeMarketFilterParameterAsync('game');
+            removeHistoryFilterParameterAsync('gameId');
         } else {
-            filterMarketItemsAsync('game', id);
-            filterUserItemsAsync('game', id);
+            filterHistoryAsync('gameId', id);
         }
     };
 
-    //handling searchboxes changes
-    _handleChange = (e) => {
-        const { value, name } = e.target;
-        const { removeMarketFilterParameterAsync } = this.props;
+    _filterByType = (type) => {
+        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
 
-        //check when user clears search field
-        if (value.length === 0) {
-            removeMarketFilterParameterAsync('name');
+        const id = type === 'Game' ? 2 : type === 'Market' ? 3 : type === 'Bonus' ? 5 : 'none';
+
+        if (id === 'none') {
+            removeHistoryFilterParameterAsync('type');
+        } else {
+            filterHistoryAsync('type', id);
         }
-
-        this.setState({
-            [name]: value,
-        });
     };
 
-    //performig filter request with search query on Enter hit
-    _handleSearch = async (e) => {
-        const { key } = e;
-        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
-        const { active, marketSearch, userSearch } = this.state;
+    _filterByPeriod = (period) => {
+        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
 
-        if (key === 'Enter') {
-            if (active === 'market') {
-                filterMarketItemsAsync('name', marketSearch);
-            } else {
-                filterUserItemsAsync('name', userSearch);
-            }
+        const id =
+            period === 'Last day'
+                ? 86400000
+                : period === 'Last week'
+                ? 604800000
+                : period === 'Last month'
+                ? 2592000000
+                : 'none';
+
+        if (id === 'none') {
+            removeHistoryFilterParameterAsync('period');
         } else {
-            return null;
+            filterHistoryAsync('period', id);
         }
     };
 
     render() {
+        const { activeTab } = this.props;
+
         return (
-            <div className={Styles.container}>
+            <div
+                className={Styles.container}
+                style={{ marginTop: activeTab === 'statistics' ? 30 : 0 }}
+            >
                 <div className={Styles.filtersContainer}>
                     <Select
                         data={[
@@ -132,8 +127,9 @@ class MarketInstruments extends Component {
                             { value: 'Market' },
                             { value: 'Bonus' },
                         ]}
-                        // onChange={this._filterByGame}
+                        onChange={this._filterByType}
                         className={Styles.typeSelect}
+                        title="Filter by type"
                         styles={{
                             height: 50,
                         }}
@@ -145,7 +141,8 @@ class MarketInstruments extends Component {
                             { value: 'Last week' },
                             { value: 'Last month' },
                         ]}
-                        // onChange={sortByPrice}
+                        onChange={this._filterByPeriod}
+                        title="Filter by period"
                         className={Styles.priceSort}
                         styles={{
                             height: 50,

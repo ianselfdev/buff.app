@@ -158,7 +158,7 @@ class History extends Component {
                             </div>
                         </div>
                     )}
-                    <HistoryInstruments activeTab={active} sortByPrice={this._sortByPrice} />
+                    <HistoryInstruments activeTab={active} />
                 </div>
             </ErrorCatcher>
         );

@@ -19,11 +19,9 @@ import { marketActions } from '../../bus/market/actions';
 import { Analytics } from '../../analytics';
 
 //Redux connect
-const mapStateToProps = (state) => {
-    return {
-        market: state.market,
-    };
-};
+const mapStateToProps = (state) => ({
+    market: state.market,
+});
 
 const mapDispatchToProps = {
     fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,

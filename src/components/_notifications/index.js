@@ -11,6 +11,9 @@ export const notifications = {
         });
     },
     success: (message) => {
+        if (localStorage.getItem('buff-notifications') === 'false') {
+            return false;
+        }
         toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-success',
@@ -19,6 +22,9 @@ export const notifications = {
         });
     },
     bonus: (message) => {
+        if (localStorage.getItem('buff-notifications') === 'false') {
+            return false;
+        }
         toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-bonus',
@@ -27,6 +33,9 @@ export const notifications = {
         });
     },
     info: (message) => {
+        if (localStorage.getItem('buff-notifications') === 'false') {
+            return false;
+        }
         toast(message, {
             position: toast.POSITION.BOTTOM_RIGHT,
             className: 'toast-info',

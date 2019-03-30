@@ -41,18 +41,7 @@ class Buy extends Component {
     };
 
     render() {
-        const {
-            closeModal,
-            name,
-            description,
-            price,
-            img,
-            expire,
-            shortDescription,
-            isGoal,
-        } = this.props;
-
-        const expiresIn = (Math.abs(new Date(expire).getTime() - new Date()) / 1000 / 60).toFixed();
+        const { closeModal, name, description, price, img, shortDescription, isGoal } = this.props;
 
         return (
             <div className={Styles.bg}>

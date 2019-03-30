@@ -9,7 +9,7 @@ import Styles from './styles.module.scss';
 import logo from '../../theme/svg/logo-short.svg';
 import coin from '../../theme/svg/coin.svg';
 import star from '../../theme/svg/star.svg';
-import csgo_logo from '../../theme/svg/csgo_logo.svg';
+// import csgo_logo from '../../theme/svg/csgo_logo.svg';
 
 //Components
 import Buy from '../_popups/market/Buy';
@@ -61,15 +61,7 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { price, name, img, expire, shortDescription, marginTop, isGoal } = this.props;
-
-        const expiresIn = (
-            Math.abs(new Date(expire).getTime() - new Date()) /
-            1000 /
-            60 /
-            60 /
-            24
-        ).toFixed();
+        const { price, name, img, shortDescription, marginTop, isGoal } = this.props;
 
         return (
             <>

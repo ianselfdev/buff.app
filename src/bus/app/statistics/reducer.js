@@ -7,6 +7,7 @@ import { types } from './types';
 const initialState = Map({
     rewardStatistics: List(),
     countStatistics: List(),
+    filters: Map({}),
 });
 
 export const statisticsReducer = (state = initialState, action) => {
