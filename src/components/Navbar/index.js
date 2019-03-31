@@ -102,7 +102,7 @@ class Navbar extends Component {
         }
 
         this.setState({
-            isNew,
+            isNew: isNew && localStorage.getItem('isNew') !== 'false',
         });
     };
 
@@ -127,6 +127,8 @@ class Navbar extends Component {
     };
 
     _toggleTutorial = () => {
+        localStorage.setItem('isNew', false);
+
         this.setState((prevState) => ({
             isNew: !prevState.isNew,
         }));

@@ -94,20 +94,36 @@ class History extends Component {
 
         this.setState({
             dotaStats: {
-                rewardStatistics: dotaStats.rewardStatistics.map((item) => item.amount),
-                countStatistics: dotaStats.countStatistics.map((item) => item.count),
+                rewardStatistics: dotaStats.rewardStatistics
+                    ? dotaStats.rewardStatistics.map((item) => item.amount)
+                    : [1],
+                countStatistics: dotaStats.countStatistics
+                    ? dotaStats.countStatistics.map((item) => item.count)
+                    : [1],
             },
             lolStats: {
-                rewardStatistics: lolStats.rewardStatistics.map((item) => item.amount),
-                countStatistics: lolStats.countStatistics.map((item) => item.count),
+                rewardStatistics: lolStats.rewardStatistics
+                    ? lolStats.rewardStatistics.map((item) => item.amount)
+                    : [1],
+                countStatistics: lolStats.countStatistics
+                    ? lolStats.countStatistics.map((item) => item.count)
+                    : [1],
             },
             fortniteStats: {
-                rewardStatistics: fortniteStats.rewardStatistics.map((item) => item.amount),
-                countStatistics: fortniteStats.countStatistics.map((item) => item.count),
+                rewardStatistics: fortniteStats.rewardStatistics
+                    ? fortniteStats.rewardStatistics.map((item) => item.amount)
+                    : [1],
+                countStatistics: fortniteStats.countStatistics
+                    ? fortniteStats.countStatistics.map((item) => item.count)
+                    : [1],
             },
             csgoStats: {
-                rewardStatistics: csgoStats.rewardStatistics.map((item) => item.amount),
-                countStatistics: csgoStats.countStatistics.map((item) => item.count),
+                rewardStatistics: csgoStats.rewardStatistics
+                    ? csgoStats.rewardStatistics.map((item) => item.amount)
+                    : [1],
+                countStatistics: csgoStats.countStatistics
+                    ? csgoStats.countStatistics.map((item) => item.count)
+                    : [1],
             },
         });
     };

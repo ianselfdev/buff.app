@@ -2,7 +2,19 @@ import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 export const UserWeeklyChart = (props) => {
-    const { data } = props;
+    let { data } = props;
+
+    if (data.length === 0) {
+        data = [
+            { day: 'Mon', Earned: 152 },
+            { day: 'Tue', Earned: 3 },
+            { day: 'Thu', Earned: 80 },
+            { day: 'Wed', Earned: 57.2 },
+            { day: 'Fri', Earned: 60 },
+            { day: 'Sat', Earned: 121 },
+            { day: 'Sun', Earned: 87 },
+        ];
+    }
 
     return (
         <AreaChart width={370} height={200} data={data}>
