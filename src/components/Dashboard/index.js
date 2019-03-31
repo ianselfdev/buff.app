@@ -37,20 +37,47 @@ class Dashboard extends Component {
 
         getGoalItemAsync();
 
-        //fallback
+        //checking if ad instance already exists
         if (advertisements.refreshAd) {
             advertisements.refreshAd();
         } else {
             createAdInstanceAsync(document.getElementById('ad-div'));
+        }
+
+        if (process.env.NODE_ENV === 'production') {
+            //eslint-disable-next-line
+            overwolf.windows.onStateChanged.addListener(this._handleShowAd);
         }
     };
 
     componentWillUnmount = () => {
         const { advertisements } = this.props;
 
-        //fallback
+        //checking if ad instance already exists
         if (advertisements.refreshAd) {
             advertisements.removeAd();
+        }
+
+        if (process.env.NODE_ENV === 'production') {
+            //eslint-disable-next-line
+            overwolf.windows.onStateChanged.removeListener(this._handleShowAd);
+        }
+    };
+
+    _handleShowAd = (state) => {
+        const { advertisements } = this.props;
+        if (state) {
+            // when state changes to minimized, call removeAd()
+            if (state.window_state === 'minimized') {
+                advertisements.removeAd();
+            }
+            // when state changes from minimized to normal, call refreshAd()
+            else if (
+                state.window_previous_state === 'minimized' &&
+                state.window_state === 'normal'
+            ) {
+                advertisements.refreshAd();
+            }
         }
     };
 

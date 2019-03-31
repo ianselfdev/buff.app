@@ -165,7 +165,7 @@ class Navbar extends Component {
                             <p>Balance:</p>
                             <p className={Styles.balance}>
                                 <img src={coin} alt="" />
-                                {+balance + +bonusBalance}
+                                {(+balance + +bonusBalance).toFixed(2)}
                             </p>
                         </div>
                         <NavLink

@@ -174,11 +174,11 @@ class Settings extends Component {
                     className={Styles.notificationsSwitch}
                 />
                 {/* <div className={Styles.autoLaunch}>
-                    Auto launch:<p>{checkedAutoLaunch ? 'On' : 'Off'}</p>
+                    Auto launch:<p>{true ? 'On' : 'Off'}</p>
                 </div>
                 <Switch
                     onChange={this._toggleCheckedAutoLaunch}
-                    checked={checkedAutoLaunch}
+                    checked={true}
                     onColor="#00753d"
                     uncheckedIcon={false}
                     checkedIcon={false}
