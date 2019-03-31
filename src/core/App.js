@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 //Instruments
 import { ToastContainer } from 'react-toastify';
+import { notifications } from '../components/_notifications';
 import 'react-toastify/dist/ReactToastify.css';
 
 //Components
@@ -20,6 +21,12 @@ const mapStateToProps = (state) => {
 };
 
 class App extends Component {
+    componentDidMount = () => {
+        if (!navigator.onLine) {
+            notifications.error('You seem to be offline. Please, check you network connection.');
+        }
+    };
+
     render() {
         const { isAuthenticated } = this.props;
 
