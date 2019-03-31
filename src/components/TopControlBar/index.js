@@ -45,7 +45,9 @@ export default class TopControlBar extends Component {
         return (
             <div className={Styles.container} onMouseDown={this._onMouseDown}>
                 <img className={Styles.info} src={info} alt="" />
-                <img className={Styles.discord} src={discord} alt="" />
+                <a href="https://discord.gg/fAhV4SY" target="_blank" rel="noopener noreferrer">
+                    <img className={Styles.discord} src={discord} alt="" />
+                </a>
                 <img className={Styles.minimize} src={minimize} alt="" onClick={this._minimize} />
                 <img className={Styles.close} src={close} alt="" onClick={this._close} />
             </div>
