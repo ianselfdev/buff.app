@@ -209,12 +209,14 @@ class Login extends Component {
                         <a
                             href="http://18.188.224.32:6002/api/accounts/login/discord"
                             target="_blank"
+                            rel="noopener noreferrer"
                         >
                             <img src={discordLogoWhite} alt="discord login" />
                         </a>
                         <a
                             href="http://18.188.224.32:6002/api/accounts/login/google"
                             target="_blank"
+                            rel="noopener noreferrer"
                         >
                             <img src={googleLogoWhite} alt="google login" />
                         </a>

@@ -56,12 +56,13 @@ const socket = io();
 
 class Navbar extends Component {
     state = {
-        opened: false,
+        // opened: false,
         settingsOpened: false,
+        isNew: false,
     };
 
     componentDidMount = () => {
-        const { getUserDataAsync, refreshTokensAsync, showBonusPopup } = this.props;
+        const { getUserDataAsync, refreshTokensAsync, showBonusPopup, isNew } = this.props;
 
         if (!socket.connected) {
             socket.open();
@@ -99,6 +100,10 @@ class Navbar extends Component {
                 localStorage.setItem('intervals-set', true);
             }
         }
+
+        this.setState({
+            isNew,
+        });
     };
 
     _handleNav = (e) => {
@@ -121,6 +126,12 @@ class Navbar extends Component {
         }));
     };
 
+    _toggleTutorial = () => {
+        this.setState((prevState) => ({
+            isNew: !prevState.isNew,
+        }));
+    };
+
     // _toggleOpened = () => {
     //     this.setState((prevState) => ({
     //         opened: !prevState.opened,
@@ -132,12 +143,12 @@ class Navbar extends Component {
             nickname,
             balance,
             bonusBalance,
-            isNew,
             logout,
             bonuses,
             activateAllBonusesAsync,
         } = this.props;
-        const { opened, settingsOpened } = this.state;
+
+        const { opened, settingsOpened, isNew } = this.state;
 
         return (
             <>
