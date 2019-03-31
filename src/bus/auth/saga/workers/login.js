@@ -1,12 +1,12 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/';
 import { authActions } from '../../actions';
 import { uiActions } from '../../../ui/actions';
 import { newsActions } from '../../../app/news/actions';
+import { notifications } from '../../../../components/_notifications';
 
 //* apply(context, method, arrayOfArguments)
 //* calls method in context and with arguments
@@ -60,8 +60,7 @@ export function* login({ payload: userData }) {
     } catch (error) {
         yield put(uiActions.stopFetching());
         yield put(uiActions.emitError(error, '-> login worker'));
-        yield delay(5000);
-        yield put(uiActions.clearErrorMessage());
+        yield apply(notifications, notifications.error, [error.message]);
     } finally {
         yield put(uiActions.stopFetching());
     }

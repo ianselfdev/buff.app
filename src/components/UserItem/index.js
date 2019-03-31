@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Instruments
-import csgo_logo from '../../theme/svg/csgo_logo.svg';
+// import csgo_logo from '../../theme/svg/csgo_logo.svg';
+import logo from '../../theme/svg/logo-short.svg';
 
 //Components
 import Activation from '../_popups/market/Activation';
@@ -61,7 +62,7 @@ class UserItem extends Component {
                         {name}
                     </p>
                     <div className={Styles.itemInfo}>
-                        <img src={csgo_logo} alt="" />
+                        <img src={logo} alt="" />
                         <p>{shortDescription}</p>
                     </div>
                     <div className={Styles.actionsContainer}>

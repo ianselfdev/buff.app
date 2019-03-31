@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import coin from '../../../../theme/svg/coin.svg';
 import star from '../../../../theme/svg/star.svg';
 import close from '../../../../theme/svg/close.svg';
+import logo from '../../../../theme/svg/logo-short.svg';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -57,7 +58,7 @@ class Buy extends Component {
                     <p className={Styles.description}>{description}</p>
                     <p className={Styles.name}>{name}</p>
                     <div className={Styles.shortDescription}>
-                        <img alt="" />
+                        <img alt="" src={logo} />
                         <p>{shortDescription}</p>
                     </div>
                     <div className={Styles.priceContainer}>

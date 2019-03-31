@@ -14,7 +14,6 @@ import discordLogoWhite from '../../theme/assets/Discord-Logo-White.png';
 import googleLogoWhite from '../../theme/assets/Google-Logo-White.png';
 import queryString from 'query-string';
 import gsap from 'gsap';
-import { notifications } from '../_notifications';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -31,7 +30,6 @@ const mapDispatchToProps = {
 
 class Login extends Component {
     state = {
-        status: {},
         login: '',
         password: '',
         registration: false,
@@ -136,12 +134,7 @@ class Login extends Component {
 
     render() {
         const { login, password, rememberMe } = this.state;
-        const {
-            _toggleRegistration,
-            _togglePasswordRecovery,
-            errorMessage,
-            loginDemo,
-        } = this.props;
+        const { _toggleRegistration, _togglePasswordRecovery, loginDemo } = this.props;
 
         const inputFields = [
             {
@@ -159,10 +152,6 @@ class Login extends Component {
                 label: 'Password',
             },
         ];
-
-        if (errorMessage.length > 0) {
-            notifications.error(errorMessage);
-        }
 
         return (
             <Transition
