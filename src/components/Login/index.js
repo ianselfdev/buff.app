@@ -206,8 +206,18 @@ class Login extends Component {
                         <span onClick={_toggleRegistration}>Create an account</span>
                     </p>
                     <div className={Styles.socialContainer}>
-                        <img src={discordLogoWhite} alt="discord login" />
-                        <img src={googleLogoWhite} alt="google login" />
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/discord"
+                            target="_blank"
+                        >
+                            <img src={discordLogoWhite} alt="discord login" />
+                        </a>
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/google"
+                            target="_blank"
+                        >
+                            <img src={googleLogoWhite} alt="google login" />
+                        </a>
                     </div>
                 </div>
             </Transition>
