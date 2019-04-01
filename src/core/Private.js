@@ -20,6 +20,11 @@ export default class Private extends Component {
         } catch (error) {
             return null;
         }
+
+        //eslint-disable-next-line
+        overwolf.windows.getCurrentWindow((item) => {
+            console.log(item);
+        });
     };
 
     render() {
