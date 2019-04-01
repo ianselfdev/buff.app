@@ -6,6 +6,7 @@ import { Api } from '../../../../../REST/api';
 import { uiActions } from '../../../../ui/actions';
 import { bonusesActions } from '../../actions';
 import { notifications } from '../../../../../components/_notifications';
+import { Analytics } from '../../../../../analytics';
 
 export function* activateBonus({ payload: { id, name, amount, activationAmount } }) {
     try {
@@ -25,6 +26,7 @@ export function* activateBonus({ payload: { id, name, amount, activationAmount }
                 `Play and earn ${activationAmount} coins to be able to spend bonuses!`,
             );
         }
+        yield apply(Analytics, Analytics.userGetsBonus, [{ id, name, amount }]);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> activateBonus worker'));
         notifications.error('Error activating bonus :(');

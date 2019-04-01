@@ -8,6 +8,7 @@ import MarketItem from '../MarketItem';
 import UserItem from '../UserItem';
 
 //Instruments
+import { Analytics } from '../../analytics';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -21,6 +22,9 @@ import { Analytics } from '../../analytics';
 //Redux connect
 const mapStateToProps = (state) => ({
     market: state.market,
+    email: state.profile.get('email'),
+    login: state.profile.get('login'),
+    buffId: state.profile.get('buffId'),
 });
 
 const mapDispatchToProps = {
@@ -38,8 +42,9 @@ class Market extends Component {
     };
 
     componentDidMount() {
-        const { fetchMarketItemsAsync } = this.props;
+        const { fetchMarketItemsAsync, email, login, buffId } = this.props;
         fetchMarketItemsAsync();
+        Analytics.userVisitsMarketplace({ email, login, buffId });
     }
 
     _sortByPrice = (value) => {

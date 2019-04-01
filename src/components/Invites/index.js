@@ -8,12 +8,16 @@ import Styles from './styles.module.scss';
 //Instuments
 import coin from '../../theme/svg/coin.svg';
 import { notifications } from '../_notifications';
+import { Analytics } from '../../analytics';
 
 //Actions
 import { profileActions } from '../../bus/profile/actions';
 
 const mapStateToProps = (state) => ({
     referralCode: state.profile.get('referralCode'),
+    email: state.profile.get('email'),
+    login: state.profile.get('login'),
+    buffId: state.profile.get('buffId'),
 });
 
 const mapDispatchToProps = {
@@ -38,9 +42,10 @@ class Invites extends Component {
     };
 
     _copy = () => {
-        const { referralCode } = this.props;
+        const { referralCode, email, login, buffId } = this.props;
 
         navigator.clipboard.writeText(referralCode);
+        Analytics.userClicksInviteButton({ email, login, buffId });
 
         notifications.success('Copied successfully!');
     };

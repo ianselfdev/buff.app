@@ -57,7 +57,7 @@ export const Analytics = {
         }
     },
 
-    //! need to add login method
+    //! need to add 'login method'
     userLogin: (userData) => {
         if (prod) {
             ReactGA.event({
@@ -162,19 +162,17 @@ export const Analytics = {
         }
     },
 
-    userGetsBonus: (userData, bonusData) => {
+    userGetsBonus: (bonusData) => {
         if (prod) {
             ReactGA.event({
                 action: 'User visits marketplace',
                 category: 'In-app actions',
                 label: JSON.stringify({
-                    userData,
                     bonusData,
                     timeStamp: new Date().toISOString(),
                 }),
             });
             mixpanel.track('User visits marketplace', {
-                userData,
                 bonusData,
                 timeStamp: new Date().toISOString(),
             });
