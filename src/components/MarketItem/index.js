@@ -61,7 +61,7 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { price, name, img, shortDescription, marginTop, isGoal } = this.props;
+        const { price, name, img, shortDescription, marginTop, isGoal, discount } = this.props;
 
         return (
             <>
@@ -88,7 +88,7 @@ class MarketItem extends Component {
                     <div className={Styles.actionsContainer}>
                         <div className={Styles.price}>
                             <img src={coin} alt="" />
-                            {price}
+                            {price * (100 - +discount)}
                         </div>
                         <div className={Styles.button} onClick={this._openModal}>
                             Buy
