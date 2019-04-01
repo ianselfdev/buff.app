@@ -88,7 +88,7 @@ class MarketItem extends Component {
                     <div className={Styles.actionsContainer}>
                         <div className={Styles.price}>
                             <img src={coin} alt="" />
-                            {(price * (100 - +discount)) / 100}
+                            {((price * (100 - +discount)) / 100).toFixed(2)}
                         </div>
                         <div className={Styles.button} onClick={this._openModal}>
                             Buy
