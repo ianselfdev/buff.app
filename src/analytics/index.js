@@ -35,14 +35,25 @@ export const Analytics = {
         }
     },
 
-    tutorialViewed: (bool) => {
+    tutorialViewed: () => {
         if (prod) {
             ReactGA.event({
                 action: 'Tutorial viewed',
                 category: 'In-app actions',
-                label: `Tutorial viewed: ${bool}`,
+                label: `Tutorial viewed`,
             });
-            mixpanel.track('Tutorial viewed', { tutorialViewed: bool });
+            mixpanel.track('Tutorial viewed');
+        }
+    },
+
+    tutorialClosed: () => {
+        if (prod) {
+            ReactGA.event({
+                action: 'Tutorial Closed',
+                category: 'In-app actions',
+                label: `Tutorial Closed`,
+            });
+            mixpanel.track('Tutorial Closed');
         }
     },
 

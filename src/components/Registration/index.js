@@ -13,6 +13,7 @@ import Styles from './styles.module.scss';
 import arrow from '../../theme/svg/arrow-left.svg';
 import gsap from 'gsap';
 import { notifications } from '../_notifications';
+import { Analytics } from '../../analytics';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -34,6 +35,10 @@ class Registration extends Component {
         email: '',
         password: '',
         referral: '',
+    };
+
+    componentDidMount = () => {
+        Analytics.userStartsSignUp();
     };
 
     _handleInput = (e) => {
@@ -59,8 +64,10 @@ class Registration extends Component {
         //not sending referral if the field is empty
         if (referral.length > 0) {
             signupAsync({ login, email, password, referral });
+            Analytics.userFinishesSignUp({ email, login });
         } else {
             signupAsync({ login, email, password });
+            Analytics.userFinishesSignUp({ email, login, referral });
         }
     };
 

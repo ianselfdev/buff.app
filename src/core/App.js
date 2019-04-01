@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 //Instruments
 import { ToastContainer } from 'react-toastify';
 import { notifications } from '../components/_notifications';
+import { Analytics } from '../analytics';
 import 'react-toastify/dist/ReactToastify.css';
 
 //Components
@@ -23,8 +24,11 @@ const mapStateToProps = (state) => {
 class App extends Component {
     componentDidMount = () => {
         if (!navigator.onLine) {
-            notifications.error('You seem to be offline. Please, check you network connection.');
+            return notifications.error(
+                'You seem to be offline. Please, check you network connection.',
+            );
         }
+        Analytics.appOpened();
     };
 
     render() {

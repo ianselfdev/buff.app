@@ -15,6 +15,7 @@ import line4 from '../../theme/svg/ftue/line4.svg';
 import play from '../../theme/svg/ftue/play.svg';
 import earn from '../../theme/svg/ftue/earn.svg';
 import spend from '../../theme/svg/ftue/spend.svg';
+import { Analytics } from '../../analytics';
 
 export default class FistTimeUX extends Component {
     state = {
@@ -25,6 +26,8 @@ export default class FistTimeUX extends Component {
         this.setState((prevState) => {
             return prevState.page === 1 ? { page: 2 } : { page: 1 };
         });
+
+        Analytics.tutorialViewed();
     };
 
     render() {
@@ -33,7 +36,13 @@ export default class FistTimeUX extends Component {
 
         return (
             <div className={Styles.bg}>
-                <img src={close} alt="" className={Styles.closeButton} onClick={closeTutorial} />
+                <img
+                    src={close}
+                    alt=""
+                    className={Styles.closeButton}
+                    onClick={closeTutorial}
+                    onMouseDown={Analytics.tutorialClosed}
+                />
                 <div className={Styles.item}>
                     {page === 1 ? (
                         <>

@@ -20,9 +20,11 @@ export function* activateBonus({ payload: { id, name, amount, activationAmount }
         yield put(bonusesActions.fetchAvailableBonusesAsync());
 
         notifications.success(`${name} activated! You recieved ${amount} bonus coins!`);
-        notifications.success(
-            `Play and earn ${activationAmount} coins to be able to spend bonuses!`,
-        );
+        if (activationAmount > 0) {
+            notifications.success(
+                `Play and earn ${activationAmount} coins to be able to spend bonuses!`,
+            );
+        }
     } catch (error) {
         yield put(uiActions.emitError(error, '-> activateBonus worker'));
         notifications.error('Error activating bonus :(');

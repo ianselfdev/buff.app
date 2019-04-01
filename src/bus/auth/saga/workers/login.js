@@ -7,6 +7,7 @@ import { authActions } from '../../actions';
 import { uiActions } from '../../../ui/actions';
 import { newsActions } from '../../../app/news/actions';
 import { notifications } from '../../../../components/_notifications';
+import { Analytics } from '../../../../analytics';
 
 //* apply(context, method, arrayOfArguments)
 //* calls method in context and with arguments
@@ -57,6 +58,7 @@ export function* login({ payload: userData }) {
             'buff-refresh-token',
             data.tokens.refreshToken,
         ]);
+        yield apply(Analytics, Analytics.userLogin, [userData.login]);
     } catch (error) {
         yield put(uiActions.stopFetching());
         yield put(uiActions.emitError(error, '-> login worker'));

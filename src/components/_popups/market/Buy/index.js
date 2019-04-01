@@ -20,6 +20,12 @@ import { marketActions } from '../../../../bus/market/actions';
 //Analytics
 import { Analytics } from '../../../../analytics';
 
+const mapStateToProps = (state) => ({
+    email: state.profile.get('email'),
+    login: state.profile.get('login'),
+    buffId: state.profile.get('buffId'),
+});
+
 const mapDispatchToProps = {
     buyItemAsync: marketActions.buyItemAsync,
     fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
@@ -27,9 +33,9 @@ const mapDispatchToProps = {
 
 class Buy extends Component {
     _handleBuyItem = (e) => {
-        const { id, buyItemAsync, closeModal } = this.props;
+        const { id, name, price, buyItemAsync, closeModal, email, login, buffId } = this.props;
 
-        Analytics.event('Item purchase', { category: id });
+        Analytics.userPurchasesItem({ email, login, buffId }, { id, name, price });
         buyItemAsync(id);
         closeModal();
     };
@@ -75,6 +81,6 @@ class Buy extends Component {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(Buy);

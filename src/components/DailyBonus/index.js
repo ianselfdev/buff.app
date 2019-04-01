@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     fetchAvailableBonusesAsync: bonusesActions.fetchAvailableBonusesAsync,
-    activateBonus: bonusesActions.activateBonus,
+    activateBonusAsync: bonusesActions.activateBonusAsync,
     fetchHistoryAsync: historyActions.fetchHistoryAsync,
 };
 
@@ -52,15 +52,15 @@ class DailyBonus extends Component {
         return Math.max(Math.round(timeToNextDailyBonus / 1000), 0);
     };
 
-    _activateBonus = () => {
-        const { activateBonus, bonuses } = this.props;
+    _activateBonusAsync = () => {
+        const { activateBonusAsync, bonuses } = this.props;
 
         const dailyBonus = bonuses.find(
-            (item) => item.get('data').get('id') === '40b5c672-9c78-4c01-9baf-1d9aa71919b7',
+            (item) => item.get('id') === '40b5c672-9c78-4c01-9baf-1d9aa71919b7',
         );
 
         if (dailyBonus) {
-            activateBonus(dailyBonus);
+            activateBonusAsync(dailyBonus.toJS());
         } else {
             return null;
         }
@@ -96,7 +96,7 @@ class DailyBonus extends Component {
                 <button
                     className={Styles.button}
                     disabled={timeToTheNextBonus !== 0}
-                    onClick={this._activateBonus}
+                    onClick={this._activateBonusAsync}
                 >
                     {/* <img src={coin} alt="" />
                     10 */}
