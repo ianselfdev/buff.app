@@ -197,7 +197,11 @@ class Registration extends Component {
                     </button>
                     <p className={Styles.termsAndConditions}>
                         By clicking "Sign Up" button, you agree to our&nbsp;
-                        <a href="https://buff.game/website-terms-of-use/" rel="noreferrer noopener">
+                        <a
+                            href="https://buff.game/website-terms-of-use/"
+                            rel="noreferrer noopener"
+                            target="_blank"
+                        >
                             Terms and Conditions
                         </a>
                     </p>
