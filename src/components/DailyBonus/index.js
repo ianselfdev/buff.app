@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Instuments
-// import coin from '../../theme/svg/coin.svg';
+import coin from '../../theme/svg/coin.svg';
 
 //Actions
 import { bonusesActions } from '../../bus/app/bonuses/actions';
@@ -101,9 +101,9 @@ class DailyBonus extends Component {
                     disabled={timeToTheNextBonus !== 0}
                     onClick={this._activateBonusAsync}
                 >
-                    {/* <img src={coin} alt="" />
-                    10 */}
-                    Get bonus
+                    <img src={coin} alt="" />
+                    10
+                    {/* Get bonus */}
                 </button>
             </div>
         );
