@@ -37,6 +37,7 @@ class Dashboard extends Component {
 
         getGoalItemAsync();
 
+        /*eslint-disable no-undef*/
         //checking if ad instance already exists
         if (advertisements.refreshAd) {
             advertisements.refreshAd();
@@ -45,7 +46,6 @@ class Dashboard extends Component {
         }
 
         if (process.env.NODE_ENV === 'production') {
-            //eslint-disable-next-line
             overwolf.windows.onStateChanged.addListener(this._handleShowAd);
         }
     };
@@ -59,9 +59,9 @@ class Dashboard extends Component {
         }
 
         if (process.env.NODE_ENV === 'production') {
-            //eslint-disable-next-line
             overwolf.windows.onStateChanged.removeListener(this._handleShowAd);
         }
+        /*eslint-enable no-undef*/
     };
 
     _handleShowAd = (state) => {

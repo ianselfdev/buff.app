@@ -126,8 +126,15 @@ class Navbar extends Component {
     };
 
     _toggleTutorial = () => {
+        const { isNew } = this.state;
         localStorage.setItem('isNew', false);
 
+        if (isNew) {
+            notifications.info(
+                'In order to have you games tracked by BUFF, please, go to Overwolf -> Settings and enable game overlay',
+                10000,
+            );
+        }
         this.setState((prevState) => ({
             isNew: !prevState.isNew,
         }));

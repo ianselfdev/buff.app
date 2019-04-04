@@ -35,11 +35,15 @@ export const BuffEarnedChart = (props) => {
                 cy={125}
                 outerRadius={90}
                 innerRadius={40}
-                paddingAngle={5}
+                // paddingAngle={5}
                 fill="#3b8c41"
             >
                 {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                        key={`cell-${index}`}
+                        stroke="none"
+                        fill={COLORS[index % COLORS.length]}
+                    />
                 ))}
             </Pie>
             <Legend
