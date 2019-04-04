@@ -74,7 +74,11 @@ export default class FistTimeUX extends Component {
                                 </div>
                                 <div className={Styles.bonusItem}>
                                     <img src={discount5} alt="" />
-                                    <p>5% Discount</p>
+                                    <p>
+                                        5% Discount
+                                        <br />
+                                        for the goal item
+                                    </p>
                                 </div>
                             </div>
                             <p className={Styles.title}>And here's your first reward</p>

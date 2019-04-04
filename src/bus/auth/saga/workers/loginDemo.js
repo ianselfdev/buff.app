@@ -17,6 +17,7 @@ export function* loginDemo() {
             level: 'gold',
             start: 2000,
             end: 5000,
+            color: 'goldenrod',
         },
         login: 'Demo_Dummy',
         isNew: true,

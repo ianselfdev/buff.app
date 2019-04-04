@@ -56,7 +56,6 @@ const socket = io();
 
 class Navbar extends Component {
     state = {
-        // opened: false,
         settingsOpened: false,
         isNew: false,
     };

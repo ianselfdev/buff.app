@@ -58,7 +58,7 @@
 
             text-align: center;
             font-size: 0.9rem;
-            color: $paletteGrey3;
+            color: $paletteWhite;
         }
 
         & .imageBox {
@@ -89,6 +89,8 @@
                 align-items: center;
                 justify-content: space-evenly;
 
+                text-align: center;
+
                 height: 11rem;
 
                 padding: 0.5rem;
@@ -96,7 +98,7 @@
                 margin: 0.5rem;
                 width: 10rem;
 
-                border: 1px solid $paletteGrey3;
+                border: 1px solid $paletteWhite;
                 border-radius: 4px;
 
                 & img {
