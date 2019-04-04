@@ -125,10 +125,14 @@
         border-radius: 4px;
 
         background: transparent;
-        color: $paletteWhite;
+
+        text-align: center;
+        line-height: 2.3rem;
+        color: $paletteGrey3;
 
         &:hover {
             background: $paletteGrey3;
+            color: $paletteWhite;
         }
     }
 }
