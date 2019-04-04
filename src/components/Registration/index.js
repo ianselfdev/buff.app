@@ -153,7 +153,7 @@ class Registration extends Component {
             login.length >= 6 &&
             login.length <= 18 &&
             email === confEmail &&
-            (referral.length === 36 || referral.length === 0) &&
+            ((referral.length >= 7 && referral.length <= 14) || referral.length === 0) &&
             password === confPassword &&
             email.length > 0 &&
             password.length > 6 &&

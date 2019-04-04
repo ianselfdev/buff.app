@@ -17,8 +17,6 @@ export function* login({ payload: userData }) {
     try {
         yield put(uiActions.startFetching());
 
-        // const ipResponse = yield apply(Api, Api.auth.getUserIp);
-        // const { ip } = yield apply(ipResponse, ipResponse.json);
         //need to define response in this scope
         let response;
 
@@ -28,7 +26,6 @@ export function* login({ payload: userData }) {
                 {
                     email: userData.login,
                     password: userData.password,
-                    // ip,
                 },
             ]);
         } else {
@@ -36,14 +33,17 @@ export function* login({ payload: userData }) {
                 {
                     login: userData.login,
                     password: userData.password,
-                    // ip,
                 },
             ]);
         }
 
         const data = yield apply(response, response.json);
+        // console.log(response);
+        // console.log(data);
 
         if (response.status !== 200) {
+            console.log(response);
+            console.log(data);
             throw new Error(data.error);
         }
 
@@ -62,7 +62,7 @@ export function* login({ payload: userData }) {
     } catch (error) {
         yield put(uiActions.stopFetching());
         yield put(uiActions.emitError(error, '-> login worker'));
-        yield apply(notifications, notifications.error, [error.message]);
+        yield apply(notifications, notifications.error, [`LOGIN ${error.message}`]);
     } finally {
         yield put(uiActions.stopFetching());
     }

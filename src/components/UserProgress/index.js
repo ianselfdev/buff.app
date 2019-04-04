@@ -78,7 +78,7 @@ class UserProgress extends Component {
                         </p>
                     </div>
                     <div className={Styles.userBalance}>
-                        Your Balance <p>{+balance + +bonusBalance}</p>
+                        Your Balance <p>{(+balance + +bonusBalance).toFixed(2)}</p>
                     </div>
                     <div className={Styles.nextTier}>
                         Next tier
