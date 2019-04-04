@@ -1,11 +1,11 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/';
 import { authActions } from '../../../auth/actions';
 import { uiActions } from '../../../ui/actions';
+import { notifications } from '../../../../components/_notifications';
 
 //* apply(context, method, arrayOfArguments)
 //* calls method in context and with arguments
@@ -22,11 +22,13 @@ export function* signup({ payload: userData }) {
             throw new Error(data.error);
         }
 
-        yield put(authActions.registrationSyccesfull());
+        yield put(authActions.registrationSuccesfull());
+        yield apply(notifications, notifications.success, [
+            `Registration successful! Check your email to activate your account.`,
+        ]);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> signup worker'));
-        yield delay(5000);
-        yield put(uiActions.clearErrorMessage());
+        yield apply(notifications, notifications.error, [`${error.message}`]);
     } finally {
         yield put(uiActions.stopFetching());
     }

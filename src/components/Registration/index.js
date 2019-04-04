@@ -12,16 +12,12 @@ import Styles from './styles.module.scss';
 //Instruments
 import arrow from '../../theme/svg/arrow-left.svg';
 import gsap from 'gsap';
-import { notifications } from '../_notifications';
 import { Analytics } from '../../analytics';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
 
-const mapStateToProps = (state) => ({
-    registrationSuccess: state.auth.get('registrationSuccessful'),
-    errorMessage: state.ui.get('errorMessage'),
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
     signupAsync: authActions.signupAsync,
@@ -71,52 +67,7 @@ class Registration extends Component {
         }
     };
 
-    _gotIt = () => {
-        const { _closeRegistration } = this.props;
-
-        this.setState({
-            login: '',
-            confPassword: '',
-            confEmail: '',
-            email: '',
-            password: '',
-            errorMessage: '',
-            referral: '',
-        });
-
-        _closeRegistration();
-    };
-
     //* Animation group
-    _animateEnterWarning = (node) => {
-        gsap.fromTo(
-            node,
-            0.5,
-            {
-                y: -10,
-                opacity: 0,
-            },
-            {
-                y: 0,
-                opacity: 1,
-            },
-        );
-    };
-
-    _animateExitWarning = (node) => {
-        gsap.fromTo(
-            node,
-            0.5,
-            {
-                y: 0,
-                opacity: 1,
-            },
-            {
-                y: -10,
-                opacity: 0,
-            },
-        );
-    };
 
     _animateEnteringComponent = (node) => {
         gsap.fromTo(
@@ -145,7 +96,7 @@ class Registration extends Component {
     };
 
     render() {
-        const { _closeRegistration, registrationSuccess, errorMessage } = this.props;
+        const { _closeRegistration } = this.props;
 
         const { login, email, password, confEmail, confPassword, referral } = this.state;
 
@@ -166,35 +117,35 @@ class Registration extends Component {
                 onChange: this._handleInput,
                 name: 'login',
                 type: 'text',
-                label: 'Login',
+                label: 'Login *',
             },
             {
                 value: email,
                 onChange: this._handleInput,
                 name: 'email',
                 type: 'email',
-                label: 'Email',
+                label: 'Email *',
             },
             {
                 value: confEmail,
                 onChange: this._handleInput,
                 name: 'confEmail',
                 type: 'email',
-                label: 'Confirm email',
+                label: 'Confirm email *',
             },
             {
                 value: password,
                 onChange: this._handleInput,
                 name: 'password',
                 type: 'password',
-                label: 'Password',
+                label: 'Password *',
             },
             {
                 value: confPassword,
                 onChange: this._handleInput,
                 name: 'confPassword',
                 type: 'password',
-                label: 'Confirm password',
+                label: 'Confirm password *',
             },
             {
                 value: referral,
@@ -204,14 +155,6 @@ class Registration extends Component {
                 label: 'Invitation code',
             },
         ];
-
-        if (registrationSuccess) {
-            notifications.success(
-                'Registration successful! Check your email to activate your account.',
-            );
-        } else if (errorMessage.length > 0) {
-            notifications.error(errorMessage);
-        }
 
         return (
             <Transition

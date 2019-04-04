@@ -38,12 +38,8 @@ export function* login({ payload: userData }) {
         }
 
         const data = yield apply(response, response.json);
-        // console.log(response);
-        // console.log(data);
 
         if (response.status !== 200) {
-            console.log(response);
-            console.log(data);
             throw new Error(data.error);
         }
 
@@ -60,9 +56,8 @@ export function* login({ payload: userData }) {
         ]);
         yield apply(Analytics, Analytics.userLogin, [userData.login]);
     } catch (error) {
-        yield put(uiActions.stopFetching());
         yield put(uiActions.emitError(error, '-> login worker'));
-        yield apply(notifications, notifications.error, [`LOGIN ${error.message}`]);
+        yield apply(notifications, notifications.error, [`${error.message}`]);
     } finally {
         yield put(uiActions.stopFetching());
     }
