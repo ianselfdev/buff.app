@@ -23,11 +23,10 @@ import { Analytics } from '../../analytics';
 //Actions
 import { marketActions } from '../../bus/market/actions';
 
-const mapStateToProps = (state) => {
-    return {
-        successPurchaseLabel: state.ui.get('successPurchaseLabel'),
-    };
-};
+const mapStateToProps = (state) => ({
+    successPurchaseLabel: state.ui.get('successPurchaseLabel'),
+    balance: state.profile.get('balance'),
+});
 
 const mapDispatchToProps = {
     fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
@@ -38,7 +37,7 @@ class MarketItem extends Component {
         showModal: false,
     };
 
-    _openModal = (e) => {
+    _openModal = () => {
         const { id } = this.props;
         Analytics.event('Market item details opened', { category: id });
         this.setState({
@@ -61,7 +60,18 @@ class MarketItem extends Component {
 
     render() {
         const { showModal } = this.state;
-        const { price, name, img, shortDescription, marginTop, isGoal, discount } = this.props;
+        const {
+            price,
+            name,
+            img,
+            shortDescription,
+            marginTop,
+            isGoal,
+            discount,
+            balance,
+        } = this.props;
+
+        const amountOfCoinsUserAlreadyHas = +balance / ((price * (100 - +discount)) / 100);
 
         return (
             <>
@@ -90,9 +100,25 @@ class MarketItem extends Component {
                             <img src={coin} alt="" />
                             {((price * (100 - +discount)) / 100).toFixed(2)}
                         </div>
-                        <div className={Styles.button} onClick={this._openModal}>
-                            Buy
-                        </div>
+                        {+amountOfCoinsUserAlreadyHas.toFixed(0) < 100 ? (
+                            <div className={Styles.insufficientFunds}>
+                                <div
+                                    className={Styles.progress}
+                                    style={{
+                                        width: `${Math.max(
+                                            +amountOfCoinsUserAlreadyHas.toFixed(0),
+                                            1,
+                                        )}%`,
+                                    }}
+                                >
+                                    {Math.max(amountOfCoinsUserAlreadyHas.toFixed(0), 1)}%
+                                </div>
+                            </div>
+                        ) : (
+                            <div className={Styles.button} onClick={this._openModal}>
+                                Buy
+                            </div>
+                        )}
                     </div>
                     {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
                 </div>
