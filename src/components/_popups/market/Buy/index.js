@@ -72,7 +72,7 @@ class Buy extends Component {
                             <img src={coin} alt="" />
                             {price}
                         </div>
-                        <button onClick={this._handleBuyItem}>Buy</button>
+                        <button onClick={this._handleBuyItem}>Confirm</button>
                     </div>
                 </div>
             </div>
