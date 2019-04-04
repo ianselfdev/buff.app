@@ -44,7 +44,7 @@ body {
 }
 
 .toast-error {
-    background: darkred;
+    background: $paletteErrorRed;
 
     & .error-body {
         display: flex;

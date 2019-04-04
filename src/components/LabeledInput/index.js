@@ -41,7 +41,7 @@ export default class LabeledInput extends Component {
     };
 
     render() {
-        const { value, onChange, placeholder, name, type, label } = this.props;
+        const { value, onChange, placeholder, name, type, label, isValid = true } = this.props;
 
         return (
             <div className={Styles.div}>
@@ -66,7 +66,7 @@ export default class LabeledInput extends Component {
                     placeholder={placeholder || label}
                     onChange={onChange}
                     value={value}
-                    className={Styles.input}
+                    className={isValid ? Styles.input : Styles.invalidInput}
                 />
             </div>
         );

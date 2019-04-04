@@ -19,4 +19,15 @@
         border: none;
         border-radius: 4px;
     }
+
+    & .invalidInput {
+        margin: auto;
+        width: 100%;
+        padding: 1rem 2rem;
+        background: $paletteGrey1;
+        color: $paletteErrorRed;
+        font-size: 0.8rem;
+        border: 0.5px solid $paletteErrorRed;
+        border-radius: 4px;
+    }
 }

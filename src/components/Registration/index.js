@@ -118,6 +118,7 @@ class Registration extends Component {
                 name: 'login',
                 type: 'text',
                 label: 'Username *',
+                isValid: (login.length >= 6 && login.length <= 18) || login.length === 0,
             },
             {
                 value: email,
@@ -125,6 +126,7 @@ class Registration extends Component {
                 name: 'email',
                 type: 'email',
                 label: 'Email *',
+                isValid: email.includes('@') || email.length === 0,
             },
             {
                 value: confEmail,
@@ -132,6 +134,7 @@ class Registration extends Component {
                 name: 'confEmail',
                 type: 'email',
                 label: 'Confirm email *',
+                isValid: email === confEmail || confEmail.length === 0,
             },
             {
                 value: password,
@@ -139,6 +142,7 @@ class Registration extends Component {
                 name: 'password',
                 type: 'password',
                 label: 'Password *',
+                isValid: password.length > 6 || password.length === 0,
             },
             {
                 value: confPassword,
@@ -146,6 +150,7 @@ class Registration extends Component {
                 name: 'confPassword',
                 type: 'password',
                 label: 'Confirm password *',
+                isValid: confPassword === password || confPassword.length === 0,
             },
             {
                 value: referral,
@@ -153,6 +158,7 @@ class Registration extends Component {
                 name: 'referral',
                 type: 'text',
                 label: 'Invitation code (optional)',
+                isValid: (referral.length >= 7 && referral.length <= 14) || referral.length === 0,
             },
         ];
 
@@ -178,6 +184,7 @@ class Registration extends Component {
                             name={item.name}
                             type={item.type}
                             label={item.label}
+                            isValid={item.isValid}
                             key={index}
                         />
                     ))}
