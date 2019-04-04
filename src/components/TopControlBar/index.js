@@ -18,7 +18,6 @@ export default class TopControlBar extends Component {
 
             overwolf.windows.close(id, (data) => {
                 console.log(data);
-                console.log('close');
             });
         });
     };
@@ -29,7 +28,6 @@ export default class TopControlBar extends Component {
 
             overwolf.windows.minimize(id, (data) => {
                 console.log(data);
-                console.log('close');
             });
         });
     };
@@ -40,11 +38,14 @@ export default class TopControlBar extends Component {
             overwolf.windows.dragMove(id);
         });
     };
+    /* eslint-enable no-undef */
 
     render() {
         return (
             <div className={Styles.container} onMouseDown={this._onMouseDown}>
-                <img className={Styles.info} src={info} alt="" />
+                <a href="https://buff.game" target="_blank" rel="noopener noreferrer">
+                    <img className={Styles.info} src={info} alt="" />
+                </a>
                 <a href="https://discord.gg/fAhV4SY" target="_blank" rel="noopener noreferrer">
                     <img className={Styles.discord} src={discord} alt="" />
                 </a>
