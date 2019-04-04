@@ -7,6 +7,7 @@ import Styles from './styles.module.scss';
 
 //Instruments
 import Select from '../Select';
+import { debounce } from 'lodash';
 
 //Actions
 import { marketActions } from '../../bus/market/actions';
@@ -118,21 +119,16 @@ class MarketInstruments extends Component {
     };
 
     //performig filter request with search query on Enter hit
-    _handleSearch = async (e) => {
-        const { key } = e;
-        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
-        const { active, marketSearch, userSearch } = this.state;
+    _handleSearch = debounce(() => {
+        const { activeTab, filterMarketItemsAsync, filterUserItemsAsync } = this.props;
+        const { marketSearch, userSearch } = this.state;
 
-        if (key === 'Enter') {
-            if (active === 'market') {
-                filterMarketItemsAsync('name', marketSearch);
-            } else {
-                filterUserItemsAsync('name', userSearch);
-            }
+        if (activeTab === 'market') {
+            filterMarketItemsAsync('name', marketSearch);
         } else {
-            return null;
+            filterUserItemsAsync('name', userSearch);
         }
-    };
+    }, 300);
 
     render() {
         const { userSearch, marketSearch } = this.state;
