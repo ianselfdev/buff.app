@@ -5,19 +5,13 @@ import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 //Instruments
 import { legend } from './legend';
 
-// const data = [
-//     { name: 'DOTA 2', value: 26 },
-//     { name: 'League of Legends', value: 3 },
-//     { name: 'Fortnite', value: 18 },
-//     { name: 'CS:GO', value: 12 },
-// ];
-
 const COLORS = ['#3B8C41', '#E1C63B', '#DB7B35', '#447CBE'];
 
 export const TimeSpentChart = (props) => {
     let { data } = props;
+    const demoMode = localStorage.getItem('demoMode');
 
-    if (data.length === 0) {
+    if (data.length === 0 || !!demoMode) {
         data = [
             { name: 'DOTA 2', value: 26 },
             { name: 'League of Legends', value: 3 },

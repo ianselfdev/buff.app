@@ -1,5 +1,5 @@
 //Core
-import { put } from 'redux-saga/effects';
+import { put, apply } from 'redux-saga/effects';
 
 //Instruments
 import { authActions } from '../../actions';
@@ -105,5 +105,6 @@ export function* loginDemo() {
 
     yield put(historyActions.fillHistory(demoHistoryData));
     yield put(profileActions.fillProfile(demoAccountData));
+    yield apply(localStorage, localStorage.setItem, ['demoMode', true]);
     yield put(authActions.authenticate());
 }

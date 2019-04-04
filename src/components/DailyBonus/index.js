@@ -31,9 +31,15 @@ class DailyBonus extends Component {
         fetchHistoryAsync();
         fetchAvailableBonusesAsync();
 
-        setInterval(() => {
-            this.forceUpdate();
-        }, 1000);
+        setInterval(this._setInterval, 1000);
+    };
+
+    componentWillUnmount = () => {
+        clearInterval(this._setInterval);
+    };
+
+    _setInterval = () => {
+        this.forceUpdate();
     };
 
     _calculateTimeToTheNextDailyBonus = () => {
