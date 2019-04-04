@@ -65,7 +65,7 @@ export const Analytics = {
                 category: 'Auth actions',
                 label: JSON.stringify(userData),
             });
-            mixpanel.track('User logged in', userData);
+            mixpanel.track('User logged in', { userData });
         }
     },
 
