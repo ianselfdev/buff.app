@@ -77,7 +77,7 @@ export default class FistTimeUX extends Component {
                                     <p>
                                         5% Discount
                                         <br />
-                                        for the goal item
+                                        on your first purchase
                                     </p>
                                 </div>
                             </div>

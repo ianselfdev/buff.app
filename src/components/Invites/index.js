@@ -48,6 +48,10 @@ class Invites extends Component {
         Analytics.userClicksInviteButton({ email, login, buffId });
 
         notifications.success('Copied successfully!');
+        notifications.info(
+            'Send this code to your friend and let him paste it during sign up',
+            false,
+        );
     };
 
     render() {

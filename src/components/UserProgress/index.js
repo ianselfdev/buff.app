@@ -12,7 +12,6 @@ import bronze from '../../theme/svg/bronze.svg';
 import silver from '../../theme/svg/silver.svg';
 import gold from '../../theme/svg/gold.svg';
 import platinum from '../../theme/svg/platinum.svg';
-import { notifications } from '../_notifications';
 
 const mapStateToProps = (state) => {
     const { points, level, start, end, color, bonus } = state.profile.get('tier');
@@ -37,10 +36,6 @@ class UserProgress extends Component {
         this.setState((prevState) => ({
             help: !prevState.help,
         }));
-    };
-
-    _learnMore = () => {
-        notifications.info('Premium purchase will become available later. Stay tuned :)');
     };
 
     render() {
@@ -91,9 +86,13 @@ class UserProgress extends Component {
                         <p>Feeling hungry for reward?</p>
                         <p>Buy premium to get more bonuses</p>
                     </div>
-                    <button className={Styles.button} onClick={this._learnMore}>
+                    <a
+                        className={Styles.button}
+                        href="https://buff.game/status"
+                        rel="noopener noreferrer"
+                    >
                         Learn more
-                    </button>
+                    </a>
                 </div>
             </>
         );
