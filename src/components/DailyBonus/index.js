@@ -64,6 +64,9 @@ class DailyBonus extends Component {
         } else {
             return null;
         }
+
+        // workaround at the last second xD
+        this.forceUpdate();
     };
 
     render() {

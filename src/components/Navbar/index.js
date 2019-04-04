@@ -133,12 +133,6 @@ class Navbar extends Component {
         }));
     };
 
-    // _toggleOpened = () => {
-    //     this.setState((prevState) => ({
-    //         opened: !prevState.opened,
-    //     }));
-    // };
-
     render() {
         const {
             nickname,
@@ -154,7 +148,6 @@ class Navbar extends Component {
         return (
             <>
                 {isNew && <FirstTimeUX closeTutorial={this._toggleTutorial} />}
-                {/* <div className={opened ? Styles.containerOpened : Styles.containerClosed}> */}
                 <div className={Styles.containerClosed}>
                     <div className={Styles.navigationContainer}>
                         <div className={Styles.logoContainer} onClick={this._toggleOpened}>
