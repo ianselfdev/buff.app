@@ -56,20 +56,20 @@ class History extends Component {
     state = {
         active: 'statistics',
         dotaStats: {
-            countStatistics: [1],
-            rewardStatistics: [1],
+            countStatistics: [0],
+            rewardStatistics: [0],
         },
         lolStats: {
-            countStatistics: [1],
-            rewardStatistics: [1],
+            countStatistics: [0],
+            rewardStatistics: [0],
         },
         fortniteStats: {
-            countStatistics: [1],
-            rewardStatistics: [1],
+            countStatistics: [0],
+            rewardStatistics: [0],
         },
         csgoStats: {
-            countStatistics: [1],
-            rewardStatistics: [1],
+            countStatistics: [0],
+            rewardStatistics: [0],
         },
     };
 
@@ -96,34 +96,34 @@ class History extends Component {
             dotaStats: {
                 rewardStatistics: dotaStats.rewardStatistics
                     ? dotaStats.rewardStatistics.map((item) => item.amount)
-                    : [1],
+                    : [0],
                 countStatistics: dotaStats.countStatistics
                     ? dotaStats.countStatistics.map((item) => item.count)
-                    : [1],
+                    : [0],
             },
             lolStats: {
                 rewardStatistics: lolStats.rewardStatistics
                     ? lolStats.rewardStatistics.map((item) => item.amount)
-                    : [1],
+                    : [0],
                 countStatistics: lolStats.countStatistics
                     ? lolStats.countStatistics.map((item) => item.count)
-                    : [1],
+                    : [0],
             },
             fortniteStats: {
                 rewardStatistics: fortniteStats.rewardStatistics
                     ? fortniteStats.rewardStatistics.map((item) => item.amount)
-                    : [1],
+                    : [0],
                 countStatistics: fortniteStats.countStatistics
                     ? fortniteStats.countStatistics.map((item) => item.count)
-                    : [1],
+                    : [0],
             },
             csgoStats: {
                 rewardStatistics: csgoStats.rewardStatistics
                     ? csgoStats.rewardStatistics.map((item) => item.amount)
-                    : [1],
+                    : [0],
                 countStatistics: csgoStats.countStatistics
                     ? csgoStats.countStatistics.map((item) => item.count)
-                    : [1],
+                    : [0],
             },
         });
     };
