@@ -48,4 +48,21 @@
             color: $paletteGrey3;
         }
     }
+
+    & .termsAndConditions {
+        margin-top: 0.7rem;
+        text-align: center;
+        font-size: 0.8rem;
+
+        color: $paletteGrey3;
+
+        & a {
+            color: $paletteGreen1;
+            text-decoration: underline;
+
+            &:hover {
+                color: $paletteGreen2;
+            }
+        }
+    }
 }

@@ -117,7 +117,7 @@ class Registration extends Component {
                 onChange: this._handleInput,
                 name: 'login',
                 type: 'text',
-                label: 'Login *',
+                label: 'Username *',
             },
             {
                 value: email,
@@ -152,7 +152,7 @@ class Registration extends Component {
                 onChange: this._handleInput,
                 name: 'referral',
                 type: 'text',
-                label: 'Invitation code',
+                label: 'Invitation code (optional)',
             },
         ];
 
@@ -188,6 +188,12 @@ class Registration extends Component {
                     >
                         Sign up
                     </button>
+                    <p className={Styles.termsAndConditions}>
+                        By clicking "Sign Up" button, you agree to our&nbsp;
+                        <a href="https://buff.game/website-terms-of-use/" rel="noreferrer noopener">
+                            Terms and Conditions
+                        </a>
+                    </p>
                 </div>
             </Transition>
         );

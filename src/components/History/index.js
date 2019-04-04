@@ -34,7 +34,7 @@ const headerFields = [
         name: 'Date',
     },
     {
-        name: 'Game Name',
+        name: 'Name',
     },
     {
         name: 'Buff coins',
@@ -239,7 +239,7 @@ class History extends Component {
                                                 value: item.get('createdAt').slice(0, 10),
                                             },
                                             {
-                                                value: item.get('name') || 'Unknown game',
+                                                value: item.get('name') || 'Unknown',
                                             },
                                             { value: Number(item.get('amount')) },
                                         ]}
