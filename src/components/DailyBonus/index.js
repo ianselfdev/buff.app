@@ -53,7 +53,12 @@ class DailyBonus extends Component {
     };
 
     _activateBonusAsync = () => {
-        const { activateBonusAsync, bonuses } = this.props;
+        const {
+            activateBonusAsync,
+            bonuses,
+            fetchAvailableBonusesAsync,
+            fetchHistoryAsync,
+        } = this.props;
 
         const dailyBonus = bonuses.find(
             (item) => item.get('id') === '40b5c672-9c78-4c01-9baf-1d9aa71919b7',
@@ -66,7 +71,8 @@ class DailyBonus extends Component {
         }
 
         // workaround at the last second xD
-        this.forceUpdate();
+        fetchHistoryAsync();
+        fetchAvailableBonusesAsync();
     };
 
     render() {
