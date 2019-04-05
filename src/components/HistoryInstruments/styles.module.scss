@@ -1,12 +1,12 @@
 @import '../../theme/palette.scss';
 
 .container {
-    height: 670px;
+    height: 600px;
     width: 400px;
-    // margin-top: 30px;
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     & .filtersContainer {
         display: grid;
@@ -15,7 +15,7 @@
         grid-row-gap: 1rem;
         grid-column-gap: 0.5rem;
 
-        height: 295px;
+        height: 265px;
         padding: 1rem;
 
         background: $paletteGrey2;

@@ -67,8 +67,9 @@
     & .statsContainer {
         display: grid;
         grid-template-columns: 50% 50%;
-        grid-template-rows: 2% 45% 4% 44%;
+        grid-template-rows: 3% 40% 6% 44%;
         grid-column-gap: 0.5rem;
+        margin-top: -0.5rem;
         align-content: center;
 
         & .firstChart {
@@ -121,7 +122,7 @@
             grid-row: 3;
             grid-column: 1;
 
-            line-height: 1.8rem;
+            line-height: 2.5rem;
             font-size: 0.9rem;
 
             padding: 0 1rem;
@@ -131,7 +132,7 @@
             grid-row: 3;
             grid-column: 2;
 
-            line-height: 1.8rem;
+            line-height: 2.5rem;
             font-size: 0.9rem;
 
             padding: 0 1rem;
