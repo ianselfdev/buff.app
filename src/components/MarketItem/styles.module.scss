@@ -7,6 +7,8 @@
     max-height: 295px;
     width: 15rem;
 
+    margin: 0 5px;
+
     display: flex;
     flex-direction: column;
 
@@ -22,7 +24,7 @@
     }
 
     & .title {
-        margin: 0.5rem 1rem;
+        margin: 0.6rem 1rem;
 
         display: block;
         white-space: nowrap;
@@ -30,7 +32,7 @@
         overflow: hidden;
         width: 13rem;
 
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     & .itemInfo {
@@ -69,7 +71,7 @@
         display: flex;
         justify-content: space-between;
 
-        margin: 0.5rem 1rem;
+        margin: 0.6rem 1rem;
 
         & .price {
             display: flex;
@@ -95,11 +97,11 @@
         & .button {
             cursor: pointer;
             width: 50%;
-            padding: 0.3rem 0.5rem;
+            padding: 0.4rem 0.5rem;
 
             text-align: center;
 
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: $paletteWhite;
 
             background: $paletteGreen1;

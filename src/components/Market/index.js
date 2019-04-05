@@ -135,7 +135,7 @@ class Market extends Component {
                                 expire={item.get('expire')}
                                 img={item.get('img')}
                                 isGoal={item.get('isGoal')}
-                                marginTop={'1.25rem'}
+                                marginTop={'10px'}
                                 key={index}
                             />
                         ))}
@@ -149,6 +149,7 @@ class Market extends Component {
                                 id={item.get('id')}
                                 img={item.get('img')}
                                 tradable={item.get('tradable')}
+                                marginTop={'10px'}
                                 key={index}
                             />
                         ))}

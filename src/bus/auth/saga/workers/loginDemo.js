@@ -14,10 +14,11 @@ export function* loginDemo() {
     const demoAccountData = {
         tier: {
             points: 3500,
-            level: 'gold',
+            level: 'Gold',
             start: 2000,
             end: 5000,
             color: 'goldenrod',
+            bonus: 5,
         },
         login: 'Demo_Dummy',
         isNew: true,

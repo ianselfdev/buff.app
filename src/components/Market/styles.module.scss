@@ -6,9 +6,9 @@
     padding: 2rem 0.5rem 0;
 
     display: grid;
-    grid-template-columns: auto 400px;
+    grid-template-columns: auto 410px;
     grid-template-rows: 50px 650px;
-    grid-column-gap: 1rem;
+    grid-column-gap: 0.5rem;
 
     & .switchButtonsContainer {
         grid-row: 1;
@@ -52,9 +52,10 @@
 
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-evenly;
+        justify-content: flex-start;
 
         max-height: 700px;
+        margin-bottom: 10px;
 
         overflow-y: scroll;
     }

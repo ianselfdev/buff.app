@@ -168,6 +168,7 @@ class MarketInstruments extends Component {
                         ]}
                         onChange={this._filterByGame}
                         className={Styles.gameSelect}
+                        title="Filter by game"
                         styles={{
                             height: 50,
                         }}
@@ -176,6 +177,7 @@ class MarketInstruments extends Component {
                         data={[{ value: 'Gift card' }]}
                         // onChange={this._filterByGame}
                         className={Styles.typeSelect}
+                        title="Filter by type"
                         styles={{
                             height: 50,
                         }}
@@ -188,6 +190,7 @@ class MarketInstruments extends Component {
                         ]}
                         onChange={sortByPrice}
                         className={Styles.priceSort}
+                        title="Sort by price"
                         styles={{
                             height: 50,
                         }}
