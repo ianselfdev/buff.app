@@ -126,7 +126,13 @@ class MarketItem extends Component {
                             </div>
                         )}
                     </div>
-                    {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
+                    {showModal && (
+                        <Buy
+                            closeModal={this._closeModal}
+                            amountOfCoinsUserAlreadyHas={amountOfCoinsUserAlreadyHas}
+                            {...this.props}
+                        />
+                    )}
                 </div>
             </>
         );

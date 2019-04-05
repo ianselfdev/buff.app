@@ -32,7 +32,7 @@ let matchData = {
     level: 1,
     champion: '',
 
-    rankedGame: false,
+    rankedGame: true,
 
     gameId: '5426',
     matchId: '',
@@ -117,7 +117,6 @@ const onInfoUpdates2 = (data) => {
                             console.log('endGameData -> ', endGameTrs);
                             let token = localStorage.getItem('buff-token');
                             sendLolReward(endGameTrs, token);
-                            // _sendEndGameTrs(endGameTrs, token);
 
                             matchData = {
                                 kills: 0,

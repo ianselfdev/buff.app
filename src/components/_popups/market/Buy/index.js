@@ -55,7 +55,16 @@ class Buy extends Component {
     };
 
     render() {
-        const { closeModal, name, description, price, img, shortDescription, isGoal } = this.props;
+        const {
+            closeModal,
+            name,
+            description,
+            price,
+            img,
+            shortDescription,
+            isGoal,
+            amountOfCoinsUserAlreadyHas,
+        } = this.props;
 
         return (
             <div className={Styles.bg}>
@@ -79,7 +88,23 @@ class Buy extends Component {
                             <img src={coin} alt="" />
                             {price}
                         </div>
-                        <button onClick={this._handleBuyItem}>Confirm</button>
+                        {+amountOfCoinsUserAlreadyHas.toFixed(0) < 100 ? (
+                            <div className={Styles.insufficientFunds}>
+                                <div
+                                    className={Styles.progress}
+                                    style={{
+                                        width: `${Math.max(
+                                            +amountOfCoinsUserAlreadyHas.toFixed(0),
+                                            1,
+                                        )}%`,
+                                    }}
+                                >
+                                    {Math.max(amountOfCoinsUserAlreadyHas.toFixed(0), 1)}%
+                                </div>
+                            </div>
+                        ) : (
+                            <button onClick={this._handleBuyItem}>Confirm</button>
+                        )}
                     </div>
                 </div>
             </div>

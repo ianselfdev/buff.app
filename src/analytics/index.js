@@ -95,7 +95,7 @@ export const Analytics = {
                 action: 'User starts a game',
                 category: 'In-app actions',
             });
-            mixpanel.track('User starts a game', gameName);
+            mixpanel.track('User starts a game', { gameName });
         }
     },
 

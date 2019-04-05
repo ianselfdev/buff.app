@@ -173,6 +173,38 @@
                     background: $paletteGreen2;
                 }
             }
+
+            & .insufficientFunds {
+                cursor: pointer;
+                width: 50%;
+
+                border: 1px solid $paletteGrey3;
+                border-radius: 4px;
+
+                overflow-x: hidden;
+
+                & .progress {
+                    overflow-x: visible;
+
+                    height: 100%;
+                    padding: 0.7rem;
+
+                    text-align: center;
+
+                    font-size: 0.9rem;
+                    color: $paletteWhite;
+
+                    border-radius: 0 8px 8px 0;
+
+                    background: repeating-linear-gradient(
+                        125deg,
+                        $paletteGrey2,
+                        $paletteGrey2 10px,
+                        $paletteGrey3 10px,
+                        $paletteGrey3 20px
+                    );
+                }
+            }
         }
     }
 }
