@@ -90,6 +90,7 @@ class UserProgress extends Component {
                         className={Styles.button}
                         href="https://buff.game/status"
                         rel="noopener noreferrer"
+                        target="_blank"
                     >
                         Learn more
                     </a>

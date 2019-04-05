@@ -14,6 +14,7 @@ import Settings from '../Settings';
 //Instruments
 import { notifications } from '../_notifications';
 import { book } from '../../core/book';
+import { ExitToApp } from '@material-ui/icons';
 import logo from '../../theme/svg/logo-short.svg';
 import fullLogo from '../../theme/svg/fullLogo.svg';
 import coin from '../../theme/svg/coin.svg';
@@ -22,7 +23,6 @@ import market from '../../theme/svg/market.svg';
 import history from '../../theme/svg/history.svg';
 import notification from '../../theme/svg/notification.svg';
 import settings from '../../theme/svg/settings.svg';
-import { ExitToApp } from '@material-ui/icons';
 
 //Analytics
 import { Analytics } from '../../analytics';

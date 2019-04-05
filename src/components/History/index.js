@@ -14,6 +14,7 @@ import TableRow from '../TableRow';
 import { UserStatsByGame } from '../_charts/UserStatsByGame';
 import { TimeSpentChart } from '../_charts/TimeSpentChart';
 import { BuffEarnedChart } from '../_charts/BuffEarnedChart';
+import { notifications } from '../_notifications';
 
 //Analytics
 import { Analytics } from '../../analytics';
@@ -135,6 +136,12 @@ class History extends Component {
         fetchHistoryAsync();
 
         Analytics.event('History tab click', { category: id });
+
+        if (localStorage.getItem('demoMode')) {
+            notifications.info(
+                'All the data is mocked up. TO see your real data, log in to your real account.',
+            );
+        }
 
         this.setState({
             active: id,

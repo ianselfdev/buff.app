@@ -9,7 +9,7 @@ import Styles from './styles.module.scss';
 import logo from '../../theme/svg/logo-short.svg';
 import coin from '../../theme/svg/coin.svg';
 import star from '../../theme/svg/star.svg';
-// import csgo_logo from '../../theme/svg/csgo_logo.svg';
+import { notifications } from '../_notifications';
 
 //Components
 import Buy from '../_popups/market/Buy';
@@ -53,6 +53,12 @@ class MarketItem extends Component {
 
     _handleSetGoalItem = () => {
         const { id, fetchMarketItemsAsync } = this.props;
+
+        if (localStorage.getItem('demoMode')) {
+            return notifications.info(
+                'You should quit demo mode and sign up or log in to perform this action.',
+            );
+        }
 
         Api.market.setGoalItem(id);
         fetchMarketItemsAsync();

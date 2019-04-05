@@ -150,9 +150,6 @@ export const Api = {
         fetchMarketItems() {
             return fetch(`${MAIN_URL}/marketplace/items?page=1&limit=100`, {
                 method: 'GET',
-                headers: {
-                    Authorization: localStorage.getItem('buff-token'),
-                },
             });
         },
 

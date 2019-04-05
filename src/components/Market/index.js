@@ -9,6 +9,7 @@ import UserItem from '../UserItem';
 
 //Instruments
 import { Analytics } from '../../analytics';
+import { notifications } from '../_notifications';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -58,6 +59,11 @@ class Market extends Component {
         if (id === 'market') {
             fetchMarketItemsAsync();
         } else {
+            if (localStorage.getItem('demoMode')) {
+                return notifications.info(
+                    'You should quit demo mode and sign up or log in to perform this action.',
+                );
+            }
             fetchUserItemsAsync();
         }
 

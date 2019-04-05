@@ -7,6 +7,7 @@ import Styles from './styles.module.scss';
 
 //Instuments
 import coin from '../../theme/svg/coin.svg';
+import { notifications } from '../_notifications';
 
 //Actions
 import { bonusesActions } from '../../bus/app/bonuses/actions';
@@ -25,21 +26,27 @@ const mapDispatchToProps = {
 };
 
 class DailyBonus extends Component {
+    state = {
+        intervalId: '',
+    };
+
     componentDidMount = () => {
         const { fetchAvailableBonusesAsync, fetchHistoryAsync } = this.props;
 
         fetchHistoryAsync();
         fetchAvailableBonusesAsync();
 
-        setInterval(this._setInterval, 1000);
+        this.setState({
+            intervalId: setInterval(() => {
+                this.forceUpdate();
+            }, 1000),
+        });
     };
 
     componentWillUnmount = () => {
-        clearInterval(this._setInterval);
-    };
+        const { intervalId } = this.state;
 
-    _setInterval = () => {
-        this.forceUpdate();
+        clearInterval(intervalId);
     };
 
     _calculateTimeToTheNextDailyBonus = () => {
@@ -65,6 +72,12 @@ class DailyBonus extends Component {
             fetchAvailableBonusesAsync,
             fetchHistoryAsync,
         } = this.props;
+
+        if (localStorage.getItem('demoMode')) {
+            return notifications.info(
+                'You should quit demo mode and sign up or log in to perform this action.',
+            );
+        }
 
         const dailyBonus = bonuses.find(
             (item) => item.get('id') === '40b5c672-9c78-4c01-9baf-1d9aa71919b7',

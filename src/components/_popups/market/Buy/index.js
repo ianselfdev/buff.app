@@ -6,6 +6,7 @@ import coin from '../../../../theme/svg/coin.svg';
 import star from '../../../../theme/svg/star.svg';
 import close from '../../../../theme/svg/close.svg';
 import logo from '../../../../theme/svg/logo-short.svg';
+import { notifications } from '../../../_notifications';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -34,6 +35,12 @@ const mapDispatchToProps = {
 class Buy extends Component {
     _handleBuyItem = (e) => {
         const { id, name, price, buyItemAsync, closeModal, email, login, buffId } = this.props;
+
+        if (localStorage.getItem('demoMode')) {
+            return notifications.info(
+                'You should quit demo mode and sign up or log in to perform this action.',
+            );
+        }
 
         Analytics.userPurchasesItem({ email, login, buffId }, { id, name, price });
         buyItemAsync(id);

@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
+//Instruments
+import _ from 'lodash';
+
 //Components
 import UserProgress from '../UserProgress';
 import UserWeeklyStats from '../UserWeeklyStats';
@@ -104,13 +107,7 @@ class Dashboard extends Component {
                 </div>
                 <div className={Styles.userGoal}>
                     <span className={Styles.title}>Goal</span>
-                    {goalItem ? (
-                        <MarketItem
-                            {...goalItem}
-                            isGoal={true}
-                            shortDescription={goalItem.descriptionShort}
-                        />
-                    ) : (
+                    {_.isEmpty(goalItem) ? (
                         <MarketItem
                             shortDescription="This is a mock description untill you choose you goal item"
                             price="0.00"
@@ -119,6 +116,12 @@ class Dashboard extends Component {
                             description="Go to the marketplace, find the item that suits best for you and click a star at the top left corner - it will add this item to the Goal items and you will see it here. In the future, this will give you an ability to get special discounts for chosen items!"
                             img="https://d1yn1kh78jj1rr.cloudfront.net/image/thumbnail/Bwb4bH4iOliyzsy5m7/graphicstock-freehand-drawn-cartoon-click-me-symbol_Hq0d3THNW_thumb.jpg"
                             isGoal={true}
+                        />
+                    ) : (
+                        <MarketItem
+                            {...goalItem}
+                            isGoal={true}
+                            shortDescription={goalItem.descriptionShort}
                         />
                     )}
                 </div>
