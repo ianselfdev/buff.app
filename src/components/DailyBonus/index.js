@@ -86,7 +86,9 @@ class DailyBonus extends Component {
         if (dailyBonus) {
             activateBonusAsync(dailyBonus.toJS());
         } else {
-            return null;
+            return notifications.error(
+                'Bonus is not available yet. Earn more coins to get a new one!',
+            );
         }
 
         // workaround at the last second xD
