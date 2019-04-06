@@ -77,7 +77,8 @@ class MarketItem extends Component {
             balance,
         } = this.props;
 
-        const amountOfCoinsUserAlreadyHas = +balance / ((price * (100 - +discount)) / 100);
+        const priceWithDiscount = ((price * (100 - +discount)) / 100).toFixed(2);
+        const amountOfCoinsUserAlreadyHas = (+balance / +priceWithDiscount) * 100;
 
         return (
             <>
@@ -104,7 +105,7 @@ class MarketItem extends Component {
                     <div className={Styles.actionsContainer}>
                         <div className={Styles.price}>
                             <img src={coin} alt="" />
-                            {((price * (100 - +discount)) / 100).toFixed(2)}
+                            {priceWithDiscount}
                         </div>
                         {+amountOfCoinsUserAlreadyHas.toFixed(0) < 100 ? (
                             <div className={Styles.insufficientFunds}>

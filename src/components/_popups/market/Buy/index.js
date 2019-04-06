@@ -59,12 +59,15 @@ class Buy extends Component {
             closeModal,
             name,
             description,
+            discount,
             price,
             img,
             shortDescription,
             isGoal,
             amountOfCoinsUserAlreadyHas,
         } = this.props;
+
+        const priceWithDiscount = ((price * (100 - +discount)) / 100).toFixed(2);
 
         return (
             <div className={Styles.bg}>
@@ -86,7 +89,7 @@ class Buy extends Component {
                     <div className={Styles.priceContainer}>
                         <div className={Styles.price}>
                             <img src={coin} alt="" />
-                            {price}
+                            {priceWithDiscount}
                         </div>
                         {+amountOfCoinsUserAlreadyHas.toFixed(0) < 100 ? (
                             <div className={Styles.insufficientFunds}>
