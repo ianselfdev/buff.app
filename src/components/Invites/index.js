@@ -44,13 +44,14 @@ class Invites extends Component {
     _copy = () => {
         const { referralCode, email, login, buffId } = this.props;
 
-        navigator.clipboard.writeText(referralCode);
+        //eslint-disable-next-line
+        overwolf.utils.placeOnClipboard(referralCode);
         Analytics.userClicksInviteButton({ email, login, buffId });
 
         notifications.success('Copied successfully!');
         notifications.info(
             'Send this code to your friend and let him paste it during sign up',
-            false,
+            10000,
         );
     };
 
