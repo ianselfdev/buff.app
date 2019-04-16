@@ -131,7 +131,7 @@ class Navbar extends Component {
 
         if (isNew) {
             notifications.info(
-                'In order to have you games tracked by BUFF, please, go to Overwolf -> Settings and enable game overlay',
+                'In order to have your games tracked by BUFF, please, go to Overwolf -> Settings and enable game overlay',
                 10000,
             );
         }

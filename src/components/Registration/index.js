@@ -54,8 +54,8 @@ class Registration extends Component {
     _handleRegistration = async (e) => {
         e.preventDefault();
 
-        const { login, email, password, referral, closeRegistration } = this.state;
-        const { signupAsync } = this.props;
+        const { login, email, password, referral } = this.state;
+        const { signupAsync, closeRegistration } = this.props;
 
         //not sending referral if the field is empty
         if (referral.length > 0) {
