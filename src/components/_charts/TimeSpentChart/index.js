@@ -25,12 +25,11 @@ export const TimeSpentChart = (props) => {
             <Pie
                 dataKey="value"
                 data={data}
-                isAnimationActive={true}
+                isAnimationActive={false}
                 cx={110}
                 cy={125}
                 outerRadius={90}
                 innerRadius={40}
-                // paddingAngle={5}
                 fill="#3b8c41"
             >
                 {data.map((entry, index) => (
