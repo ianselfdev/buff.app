@@ -54,7 +54,7 @@ class Registration extends Component {
     _handleRegistration = async (e) => {
         e.preventDefault();
 
-        const { login, email, password, referral } = this.state;
+        const { login, email, password, referral, closeRegistration } = this.state;
         const { signupAsync } = this.props;
 
         //not sending referral if the field is empty
@@ -65,6 +65,8 @@ class Registration extends Component {
             signupAsync({ login, email, password });
             Analytics.userFinishesSignUp({ email, login, referral });
         }
+
+        closeRegistration();
     };
 
     //* Animation group
@@ -96,7 +98,7 @@ class Registration extends Component {
     };
 
     render() {
-        const { _closeRegistration } = this.props;
+        const { closeRegistration } = this.props;
 
         const { login, email, password, confEmail, confPassword, referral } = this.state;
 
@@ -173,7 +175,7 @@ class Registration extends Component {
             >
                 <div className={Styles.container}>
                     <p className={Styles.title}>
-                        <img src={arrow} alt="back to login" onClick={_closeRegistration} />
+                        <img src={arrow} alt="back to login" onClick={closeRegistration} />
                         Sign up
                     </p>
                     {inputFields.map((item, index) => (
