@@ -39,7 +39,7 @@ export default class Startup extends Component {
                 </div>
                 <div className={Styles.lastChild}>
                     {registration ? (
-                        <Registration _closeRegistration={this._toggleRegistration} />
+                        <Registration closeRegistration={this._toggleRegistration} />
                     ) : passwordRecovery ? (
                         <PasswordRecovery _closePasswordRecovery={this._togglePasswordRecovery} />
                     ) : (
