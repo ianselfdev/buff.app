@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Styles from './styles.module.scss';
 
 //Instruments
-import coin from '../../theme/assets/coin.png';
+import coin from '../../theme/svg/coin.svg';
 
 export default class TableRow extends Component {
     render() {
