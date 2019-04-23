@@ -182,6 +182,18 @@
                     background: $paletteGreen2;
                     color: $paletteWhite;
                 }
+
+                &:disabled {
+                    border: 1px solid $paletteGrey3;
+                    color: $paletteGrey3;
+
+                    &:hover {
+                        cursor: default;
+                        border: 1px solid $paletteGrey3;
+                        color: $paletteGrey3;
+                        background: none;
+                    }
+                }
             }
         }
 

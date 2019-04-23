@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 
 //Instruments
 import { ToastContainer } from 'react-toastify';
-import { notifications } from '../components/_notifications';
-import { Analytics } from '../analytics';
 import 'react-toastify/dist/ReactToastify.css';
+import { Analytics } from '../analytics';
+import { Offline, Online } from 'react-detect-offline';
 
 //Components
 import { TopControlBar } from '../components';
@@ -23,11 +23,6 @@ const mapStateToProps = (state) => {
 
 class App extends Component {
     componentDidMount = () => {
-        if (!navigator.onLine) {
-            return notifications.error(
-                'You seem to be offline. Please, check you network connection.',
-            );
-        }
         Analytics.appOpened();
     };
 
@@ -37,7 +32,10 @@ class App extends Component {
         return (
             <>
                 <TopControlBar />
-                {isAuthenticated ? <Private /> : <Public />}
+                <Offline>
+                    <Public />
+                </Offline>
+                <Online>{isAuthenticated ? <Private /> : <Public />}</Online>
                 <ToastContainer
                     className="toast-container"
                     progressClassName="toast-progress-line"

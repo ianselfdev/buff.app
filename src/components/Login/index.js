@@ -142,7 +142,7 @@ class Login extends Component {
                 onChange: this._handleInput,
                 name: 'login',
                 type: 'text',
-                label: 'Login',
+                label: 'Username or email',
             },
             {
                 value: password,
@@ -163,7 +163,7 @@ class Login extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div className={Styles.container} onKeyPress={this._handleEnterPress}>
-                    <p className={Styles.title}>Sign in</p>
+                    <p className={Styles.title}>Log in</p>
                     {inputFields.map((item, index) => (
                         <LabeledInput
                             value={item.value}
@@ -194,6 +194,7 @@ class Login extends Component {
                         Don't have an account?{' '}
                         <span onClick={_toggleRegistration}>Create an account</span>
                     </p>
+                    <p className={Styles.signInOptions}>Other sign in options:</p>
                     <div className={Styles.socialContainer}>
                         <a
                             href="http://18.188.224.32:6002/api/accounts/login/discord"

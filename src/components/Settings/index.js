@@ -63,7 +63,7 @@ class Settings extends Component {
 
     _toggleNicknameEditMode = () => {
         const { nicknameEditMode, nickname } = this.state;
-        const { updateNicknameAsync } = this.props;
+        const { updateNicknameAsync, closeSettings } = this.props;
 
         if (nicknameEditMode) {
             if (!/^[a-zA-Z0-9]*$/.test(nickname)) {
@@ -77,6 +77,7 @@ class Settings extends Component {
                 this.setState((prevState) => ({
                     nicknameEditMode: !prevState.nicknameEditMode,
                 }));
+                closeSettings();
                 return;
             } else {
                 notifications.error('Nickname length must be 6-18 characters long');
@@ -91,7 +92,7 @@ class Settings extends Component {
 
     _toggleEmailEditMode = () => {
         const { emailEditMode, email } = this.state;
-        const { updateEmailAsync } = this.props;
+        const { updateEmailAsync, closeSettings } = this.props;
 
         if (emailEditMode) {
             if (email.includes('@') && email.length > 6) {
@@ -100,6 +101,7 @@ class Settings extends Component {
                 this.setState((prevState) => ({
                     emailEditMode: !prevState.emailEditMode,
                 }));
+                closeSettings();
                 return;
             } else {
                 notifications.error('Email must be a valid email');

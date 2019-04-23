@@ -105,14 +105,14 @@ class Navbar extends Component {
         });
     };
 
-    _handleNav = (e) => {
-        const { id } = e.target;
-        Analytics.event('Navigation link click', { category: id });
-    };
-
     componentWillUnmount = () => {
         socket.removeAllListeners();
         console.log('socket listeners removed');
+    };
+
+    _handleNav = (e) => {
+        const { id } = e.target;
+        Analytics.event('Navigation link click', { category: id });
     };
 
     _handleNotificationsClick = () => {
@@ -126,15 +126,8 @@ class Navbar extends Component {
     };
 
     _toggleTutorial = () => {
-        const { isNew } = this.state;
         localStorage.setItem('isNew', false);
 
-        if (isNew) {
-            notifications.info(
-                'In order to have your games tracked by BUFF, please, go to Overwolf -> Settings and enable game overlay',
-                10000,
-            );
-        }
         this.setState((prevState) => ({
             isNew: !prevState.isNew,
         }));
@@ -203,7 +196,9 @@ class Navbar extends Component {
                             <div className={Styles.bonusLabel}>{bonuses.size}</div>
                         )}
                         <div className={Styles.bonusBlock}>
-                            <button onClick={activateAllBonusesAsync}>Bonus</button>
+                            <button onClick={activateAllBonusesAsync} disabled={bonuses.size === 0}>
+                                Bonus
+                            </button>
                         </div>
                         <div className={Styles.welcomeMessageBlock}>
                             <p>Welcome:</p>
