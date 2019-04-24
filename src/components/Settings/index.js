@@ -158,9 +158,9 @@ class Settings extends Component {
                         disabled={!emailEditMode}
                     />
                 </div>
-                <div className={Styles.emailChange} onClick={this._toggleEmailEditMode}>
+                <button className={Styles.emailChange} onClick={this._toggleEmailEditMode} disabled>
                     {emailEditMode ? 'Save' : 'Change'}
-                </div>
+                </button>
                 <div className={Styles.notifications}>
                     Notifications:<p>{checkedNotifications ? 'On' : 'Off'}</p>
                 </div>

@@ -4,6 +4,9 @@ import { MAIN_URL } from './config';
 //Instruments
 import queryString from 'query-string';
 
+//!REDO
+import { notifications } from '../components/_notifications';
+
 export const Api = {
     get token() {
         return localStorage.getItem('buff-token');
@@ -199,9 +202,16 @@ export const Api = {
                 },
             });
 
+            if (response.status !== 200) {
+                return notifications.info(
+                    "You cannot set a new goal item before you've bought the previous one",
+                );
+            }
+
             const data = await response.json();
 
             console.log(data);
+            notifications.success('Goal item was set successfully!');
             return data;
         },
 

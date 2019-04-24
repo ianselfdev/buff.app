@@ -55,9 +55,22 @@
         border: 1px solid $paletteGreen1;
         border-radius: 4px;
 
+        background: transparent;
+
         &:hover {
             color: $paletteWhite;
             background: $paletteGreen1;
+        }
+
+        &:disabled {
+            color: $paletteGrey3;
+            border: 1px solid $paletteGrey3;
+
+            &:hover {
+                cursor: default;
+                color: $paletteGrey3;
+                background: transparent;
+            }
         }
     }
 

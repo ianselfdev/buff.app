@@ -13,13 +13,15 @@ import info from '../../theme/svg/info.svg';
 export default class TopControlBar extends Component {
     /* eslint-disable no-undef */
     _close = () => {
-        overwolf.windows.getCurrentWindow((data) => {
-            const { id } = data.window;
+        // overwolf.windows.getCurrentWindow((data) => {
+        //     const { id } = data.window;
 
-            overwolf.windows.close(id, (data) => {
-                console.log(data);
-            });
-        });
+        //     overwolf.windows.close(id, (data) => {
+        //         console.log(data);
+        //     });
+        // });
+
+        overwolf.windows.getMainWindow().close();
     };
 
     _minimize = () => {
