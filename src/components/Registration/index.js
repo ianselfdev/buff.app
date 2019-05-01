@@ -5,23 +5,19 @@ import { Transition } from 'react-transition-group';
 
 //Components
 import LabeledInput from '../LabeledInput';
-import ErrorLabel from '../ErrorLabel';
-import SuccessMessage from '../SuccessMessage';
 
 //Styles
 import Styles from './styles.module.scss';
 
 //Instruments
-import logo from '../../theme/assets/logo.png';
+import arrow from '../../theme/svg/arrow-left.svg';
 import gsap from 'gsap';
+import { Analytics } from '../../analytics';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
 
-const mapStateToProps = (state) => ({
-    registrationSuccess: state.auth.get('registrationSuccessful'),
-    errorMessage: state.ui.get('errorMessage'),
-});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
     signupAsync: authActions.signupAsync,
@@ -35,6 +31,10 @@ class Registration extends Component {
         email: '',
         password: '',
         referral: '',
+    };
+
+    componentDidMount = () => {
+        Analytics.userStartsSignUp();
     };
 
     _handleInput = (e) => {
@@ -55,57 +55,21 @@ class Registration extends Component {
         e.preventDefault();
 
         const { login, email, password, referral } = this.state;
-        const { signupAsync } = this.props;
+        const { signupAsync, closeRegistration } = this.props;
 
-        signupAsync({ login, email, password, referral });
-    };
+        //not sending referral if the field is empty
+        if (referral.length > 0) {
+            signupAsync({ login, email, password, referral });
+            Analytics.userFinishesSignUp({ email, login });
+        } else {
+            signupAsync({ login, email, password });
+            Analytics.userFinishesSignUp({ email, login, referral });
+        }
 
-    _gotIt = () => {
-        const { _closeRegistration } = this.props;
-
-        this.setState({
-            login: '',
-            confPassword: '',
-            confEmail: '',
-            email: '',
-            password: '',
-            errorMessage: '',
-            referral: '',
-        });
-
-        _closeRegistration();
+        closeRegistration();
     };
 
     //* Animation group
-    _animateEnterWarning = (node) => {
-        gsap.fromTo(
-            node,
-            0.5,
-            {
-                y: -10,
-                opacity: 0,
-            },
-            {
-                y: 0,
-                opacity: 1,
-            },
-        );
-    };
-
-    _animateExitWarning = (node) => {
-        gsap.fromTo(
-            node,
-            0.5,
-            {
-                y: 0,
-                opacity: 1,
-            },
-            {
-                y: -10,
-                opacity: 0,
-            },
-        );
-    };
 
     _animateEnteringComponent = (node) => {
         gsap.fromTo(
@@ -134,33 +98,20 @@ class Registration extends Component {
     };
 
     render() {
-        const { _closeRegistration, registrationSuccess, errorMessage } = this.props;
+        const { closeRegistration } = this.props;
 
         const { login, email, password, confEmail, confPassword, referral } = this.state;
 
-        const validation =
+        const inputsValid =
             login.length >= 6 &&
             login.length <= 18 &&
             email === confEmail &&
-            (referral.length === 36 || referral.length === 0) &&
+            ((referral.length >= 7 && referral.length <= 14) || referral.length === 0) &&
             password === confPassword &&
             email.length > 0 &&
             password.length > 6 &&
             confEmail.length > 0 &&
             confPassword.length > 0;
-
-        const warningSign =
-            login.length > 0 && email.length > 0 && confEmail.length > 0 && confPassword.length > 0
-                ? login.length < 6 || login.length > 18
-                    ? 'Login must be 6-18 characters long'
-                    : email !== confEmail
-                    ? 'Emails do not match'
-                    : password !== confPassword
-                    ? 'Passwords do not match'
-                    : password.length < 6
-                    ? 'Password must be more than 6 characters long'
-                    : null
-                : null;
 
         const inputFields = [
             {
@@ -168,42 +119,48 @@ class Registration extends Component {
                 onChange: this._handleInput,
                 name: 'login',
                 type: 'text',
-                label: 'Login',
+                label: 'Username *',
+                isValid: (login.length >= 6 && login.length <= 18) || login.length === 0,
             },
             {
                 value: email,
                 onChange: this._handleInput,
                 name: 'email',
                 type: 'email',
-                label: 'Email',
+                label: 'Email *',
+                isValid: email.includes('@') || email.length === 0,
             },
             {
                 value: confEmail,
                 onChange: this._handleInput,
                 name: 'confEmail',
                 type: 'email',
-                label: 'Confirm email',
+                label: 'Confirm email *',
+                isValid: email === confEmail || confEmail.length === 0,
             },
             {
                 value: password,
                 onChange: this._handleInput,
                 name: 'password',
                 type: 'password',
-                label: 'Password',
+                label: 'Password *',
+                isValid: password.length > 6 || password.length === 0,
             },
             {
                 value: confPassword,
                 onChange: this._handleInput,
                 name: 'confPassword',
                 type: 'password',
-                label: 'Confirm password',
+                label: 'Confirm password *',
+                isValid: confPassword === password || confPassword.length === 0,
             },
             {
                 value: referral,
                 onChange: this._handleInput,
                 name: 'referral',
                 type: 'text',
-                label: 'Invitation code',
+                label: 'Invitation code (optional)',
+                isValid: (referral.length >= 7 && referral.length <= 14) || referral.length === 0,
             },
         ];
 
@@ -217,40 +174,39 @@ class Registration extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div className={Styles.container}>
-                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
-                    {registrationSuccess && <SuccessMessage onClick={this._gotIt} />}
-                    <img className={Styles.img} src={logo} alt="buff-logo" />
-                    <form onSubmit={this._handleRegistration} className={Styles.form}>
-                        {inputFields.map((item, index) => (
-                            <LabeledInput
-                                value={item.value}
-                                onChange={item.onChange}
-                                placeholder={item.placeholder}
-                                name={item.name}
-                                type={item.type}
-                                label={item.label}
-                                key={index}
-                            />
-                        ))}
-                    </form>
-                    <Transition
-                        in={warningSign}
-                        timeout={500}
-                        onEnter={this._animateEnterWarning}
-                        onExit={this._animateExitWarning}
-                    >
-                        <p className={Styles.warning}>{warningSign}</p>
-                    </Transition>
+                    <p className={Styles.title}>
+                        <img src={arrow} alt="back to login" onClick={closeRegistration} />
+                        Sign up
+                    </p>
+                    {inputFields.map((item, index) => (
+                        <LabeledInput
+                            value={item.value}
+                            onChange={item.onChange}
+                            placeholder={item.placeholder}
+                            name={item.name}
+                            type={item.type}
+                            label={item.label}
+                            isValid={item.isValid}
+                            key={index}
+                        />
+                    ))}
                     <button
-                        disabled={!validation}
-                        className={Styles.signUpButton}
+                        className={Styles.button}
                         onClick={this._handleRegistration}
+                        disabled={!inputsValid}
                     >
-                        Sign Up
+                        Sign up
                     </button>
-                    <button className={Styles.backToLoginButton} onClick={_closeRegistration}>
-                        Back To Login
-                    </button>
+                    <p className={Styles.termsAndConditions}>
+                        By clicking "Sign Up" button, you agree to our&nbsp;
+                        <a
+                            href="https://buff.game/website-terms-of-use/"
+                            rel="noreferrer noopener"
+                            target="_blank"
+                        >
+                            Terms and Conditions
+                        </a>
+                    </p>
                 </div>
             </Transition>
         );

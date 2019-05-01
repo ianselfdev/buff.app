@@ -1,0 +1,6 @@
+<h3>Buff Achievement Tracker</h3>
+<p>A blockchain based loyalty program that rewards gamers simply for playing
+Our MVP release which supports League of Legends and Dota2.</p>
+<p>Gamers earn tradable BUFF coins from doing what they like most – playing games. The process is performed in the background, it doesn’t interfere with the gameplay nor requires any expenses (other than installing the free and secure BUFF app).</p>
+<p>BUFF coins can be redeemed for in-game items.</p>
+<h4><b>The more and better you play, the more you will earn.</b></h4>

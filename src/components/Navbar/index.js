@@ -8,27 +8,21 @@ import { socket as io } from '../../socket';
 import Styles from './styles.module.scss';
 
 //Components
-import Bonus from '../_popups/ui/Bonus';
 import FirstTimeUX from '../FirstTimeUX';
 import Settings from '../Settings';
 
-//Animations
-import gsap from 'gsap';
-import { Transition } from 'react-transition-group';
-
 //Instruments
+import { notifications } from '../_notifications';
 import { book } from '../../core/book';
-import {
-    ExitToApp,
-    Dashboard,
-    History,
-    Equalizer,
-    Shop,
-    Settings as SettingsIcon,
-    HelpOutline,
-} from '@material-ui/icons';
-import coin from '../../theme/assets/coin.png';
-import discordLogo from '../../theme/assets/Discord-Logo-White.png';
+import { ExitToApp } from '@material-ui/icons';
+import logo from '../../theme/svg/logo-short.svg';
+import fullLogo from '../../theme/svg/fullLogo.svg';
+import coin from '../../theme/svg/coin.svg';
+import dashboard from '../../theme/svg/dashboard.svg';
+import market from '../../theme/svg/market.svg';
+import history from '../../theme/svg/history.svg';
+import notification from '../../theme/svg/notification.svg';
+import settings from '../../theme/svg/settings.svg';
 
 //Analytics
 import { Analytics } from '../../analytics';
@@ -37,15 +31,15 @@ import { Analytics } from '../../analytics';
 import { authActions } from '../../bus/auth/actions';
 import { uiActions } from '../../bus/ui/actions';
 import { profileActions } from '../../bus/profile/actions';
+import { bonusesActions } from '../../bus/app/bonuses/actions';
 
 const mapStateToProps = (state) => ({
-    login: state.profile.get('login'),
     balance: state.profile.get('balance'),
     bonusBalance: state.profile.get('bonusBalance'),
-    level: state.profile.get('tier').level,
-    // nickname: state.profile.get('nickname'),
+    nickname: state.profile.get('nickname'),
     bonusPopup: state.ui.get('bonusPopup'),
     isNew: state.profile.get('isNew'),
+    bonuses: state.bonuses,
 });
 
 const mapDispatchToProps = {
@@ -55,18 +49,19 @@ const mapDispatchToProps = {
     showBonusPopup: uiActions.showBonusPopup,
     openTutorial: profileActions.openTutorial,
     closeTutorial: profileActions.closeTutorial,
-    settingsOpened: true,
+    activateAllBonusesAsync: bonusesActions.activateAllBonusesAsync,
 };
 
 const socket = io();
 
 class Navbar extends Component {
     state = {
-        opened: false,
+        settingsOpened: false,
+        isNew: false,
     };
 
     componentDidMount = () => {
-        const { getUserDataAsync, refreshTokensAsync, showBonusPopup } = this.props;
+        const { getUserDataAsync, refreshTokensAsync, showBonusPopup, isNew } = this.props;
 
         if (!socket.connected) {
             socket.open();
@@ -104,6 +99,10 @@ class Navbar extends Component {
                 localStorage.setItem('intervals-set', true);
             }
         }
+
+        this.setState({
+            isNew: isNew && localStorage.getItem('isNew') !== 'false',
+        });
     };
 
     componentWillUnmount = () => {
@@ -111,25 +110,13 @@ class Navbar extends Component {
         console.log('socket listeners removed');
     };
 
-    _handleClick = () => {
-        this.setState((prevState) => ({
-            opened: !prevState.opened,
-        }));
-    };
-
     _handleNav = (e) => {
         const { id } = e.target;
         Analytics.event('Navigation link click', { category: id });
     };
 
-    _toggleTutorial = () => {
-        const { isNew, openTutorial, closeTutorial } = this.props;
-
-        if (isNew) {
-            closeTutorial();
-        } else {
-            openTutorial();
-        }
+    _handleNotificationsClick = () => {
+        notifications.info('Notifications panel will become available soon :)');
     };
 
     _toggleSettings = () => {
@@ -138,64 +125,40 @@ class Navbar extends Component {
         }));
     };
 
-    _animateBonusEnter = (bonus) => {
-        //element, animation in SECONDS, { from point, to point }
-        gsap.fromTo(
-            bonus,
-            1.5,
-            {
-                x: 500,
-            },
-            {
-                x: 0,
-            },
-        );
+    _toggleTutorial = () => {
+        localStorage.setItem('isNew', false);
+
+        this.setState((prevState) => ({
+            isNew: !prevState.isNew,
+        }));
     };
 
     render() {
-        const { logout, login, balance, level, bonusPopup, bonusBalance, isNew } = this.props;
-        const { opened, settingsOpened } = this.state;
+        const {
+            nickname,
+            balance,
+            bonusBalance,
+            logout,
+            bonuses,
+            activateAllBonusesAsync,
+        } = this.props;
 
-        //!__temporary data__
-        const avatar = 'https://small-games.info/avko/7/175121_78533.gif';
+        const { opened, settingsOpened, isNew } = this.state;
 
         return (
             <>
                 {isNew && <FirstTimeUX closeTutorial={this._toggleTutorial} />}
-                <div className={Styles.background} />
-                <div className={opened ? Styles.containerOpened : Styles.containerClosed}>
-                    <div>
-                        <div className={Styles.logo} onClick={this._handleClick} />
-                        <div className={Styles.profileInfo}>
-                            <img
-                                src={avatar}
-                                alt="profile-pic"
-                                style={{
-                                    border: `1.5px solid ${
-                                        level === 'bronze'
-                                            ? 'green'
-                                            : level === 'silver'
-                                            ? 'silver'
-                                            : level === 'gold'
-                                            ? 'goldenrod'
-                                            : 'floralwhite'
-                                    }`,
-                                }}
-                                className={level === 'platinum' ? Styles.platinum : null}
-                            />
-                            <div className={Styles.username}>
-                                <p>{login}</p>
-                                <p className={Styles.userStatus}>
-                                    Status: <span>{level}</span>
-                                </p>
-                            </div>
-                            <div className={Styles.balance}>
-                                <p>Balance</p>
-                                <p className={Styles.coins}>
-                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                                    {+balance + +bonusBalance}
-                                </p>
-                            </div>
+                <div className={Styles.containerClosed}>
+                    <div className={Styles.navigationContainer}>
+                        <div className={Styles.logoContainer} onClick={this._toggleOpened}>
+                            <img src={opened ? fullLogo : logo} alt="" />
+                        </div>
+                        <div className={Styles.balanceContainer}>
+                            <p>Balance:</p>
+                            <p className={Styles.balance}>
+                                <img src={coin} alt="" />
+                                {(+balance + +bonusBalance).toFixed(2)}
+                            </p>
                         </div>
                         <NavLink
                             className={Styles.navlink}
@@ -204,34 +167,8 @@ class Navbar extends Component {
                             onClick={this._handleNav}
                             id="dashboard"
                         >
-                            <Dashboard className={Styles.navitemIcon} id="dashboard" />
-                            <span className={Styles.navText} id="dashboard">
-                                Dashboard
-                            </span>
-                        </NavLink>
-                        <NavLink
-                            className={Styles.navlink}
-                            activeClassName={Styles.navlinkActive}
-                            to={book.history}
-                            onClick={this._handleNav}
-                            id="history"
-                        >
-                            <History className={Styles.navitemIcon} id="history" />
-                            <span className={Styles.navText} id="history">
-                                History
-                            </span>
-                        </NavLink>
-                        <NavLink
-                            className={Styles.navlink}
-                            activeClassName={Styles.navlinkActive}
-                            to={book.leaderboard}
-                            onClick={this._handleNav}
-                            id="leaderboard"
-                        >
-                            <Equalizer className={Styles.navitemIcon} id="leaderboard" />
-                            <span className={Styles.navText} id="leaderboard">
-                                Leaderboard
-                            </span>
+                            <img src={dashboard} alt="" />
+                            <span>Lounge</span>
                         </NavLink>
                         <NavLink
                             className={Styles.navlink}
@@ -240,65 +177,54 @@ class Navbar extends Component {
                             onClick={this._handleNav}
                             id="marketplace"
                         >
-                            <Shop className={Styles.navitemIcon} id="marketplace" />
-                            <span className={Styles.navText} id="marketplace">
-                                Marketplace
-                            </span>
+                            <img src={market} alt="" />
+                            <span>Marketplace</span>
                         </NavLink>
-                        {/* <NavLink
+                        <NavLink
                             className={Styles.navlink}
                             activeClassName={Styles.navlinkActive}
-                            to={book.tournaments}
+                            to={book.history}
                             onClick={this._handleNav}
-                            id="tournaments"
+                            id="history"
                         >
-                            <FitnessCenter className={Styles.navitemIcon} id="tournaments" />
-                            <span className={Styles.navText} id="tournaments">
-                                Tournaments
-                            </span>
-                        </NavLink> */}
+                            <img src={history} alt="" />
+                            <span>History</span>
+                        </NavLink>
                     </div>
-
-                    <div>
-                        <div className={Styles.controlButton}>
-                            <a
-                                href="https://discord.gg/fAhV4SY"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <img
-                                    src={discordLogo}
-                                    className={Styles.discordLogo}
-                                    alt="discord logo"
-                                />
-                            </a>
-                            <span className={Styles.controlText}>Join us</span>
+                    <div className={Styles.functionalContainer}>
+                        {bonuses.size > 0 && (
+                            <div className={Styles.bonusLabel}>{bonuses.size}</div>
+                        )}
+                        <div className={Styles.bonusBlock}>
+                            <button onClick={activateAllBonusesAsync} disabled={bonuses.size === 0}>
+                                Bonus
+                            </button>
                         </div>
-                        <div className={Styles.controlButton} onClick={this._toggleSettings}>
-                            <SettingsIcon className={Styles.controlButtonIcon} />
-                            <span className={Styles.controlText}>Settings</span>
+                        <div className={Styles.welcomeMessageBlock}>
+                            <p>Welcome:</p>
+                            <p className={Styles.nickname}>{nickname}</p>
                         </div>
-                        <div className={Styles.controlButton} onClick={this._toggleTutorial}>
-                            <HelpOutline className={Styles.controlButtonIcon} />
-                            <span className={Styles.controlText}>Information</span>
+                        <div
+                            className={Styles.notificationBlock}
+                            onClick={this._handleNotificationsClick}
+                        >
+                            <img src={notification} alt="" />
+                            <span>Notifications</span>
                         </div>
-                        <div className={Styles.controlButton} onClick={logout}>
-                            <ExitToApp className={Styles.controlButtonIcon} />
-                            <span className={Styles.controlText}>Sign out</span>
+                        <div className={Styles.settingsBlock} onClick={this._toggleSettings}>
+                            <img src={settings} alt="" />
+                            <span>Settings</span>
+                        </div>
+                        <div className={Styles.exitBlock} onClick={logout}>
+                            <ExitToApp />
+                            <span>Logout</span>
                         </div>
                     </div>
                 </div>
-                {bonusPopup && (
-                    <Transition
-                        appear
-                        in={bonusPopup}
-                        timeout={{ enter: 1500 }}
-                        onEnter={this._animateBonusEnter}
-                    >
-                        <Bonus />
-                    </Transition>
+
+                {settingsOpened && (
+                    <Settings inProp={settingsOpened} closeSettings={this._toggleSettings} />
                 )}
-                {settingsOpened && <Settings inProp={settingsOpened} />}
             </>
         );
     }

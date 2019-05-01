@@ -1,25 +1,33 @@
 @import '../../theme/palette.scss';
 
 .div {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 80%;
-    // height: 3rem;
-    margin: 0.7rem auto;
+    margin: 0 auto;
 
     & .span {
-        color: #fff;
-        margin: 0 0 5px 1rem;
+        color: $paletteGrey3;
+        margin: 0 1rem;
+        font-size: 0.7rem;
     }
 
     & .input {
-        padding: 0.4rem 2rem;
+        margin: auto;
         width: 100%;
-        background: transparent;
-        color: #fff;
-        font-size: 1.5rem;
-        border: 1px solid #fff;
-        border-radius: 5px;
+        padding: 1rem 2rem;
+        background: $paletteGrey1;
+        color: $paletteGrey3;
+        font-size: 0.8rem;
+        border: none;
+        border-radius: 4px;
+    }
+
+    & .invalidInput {
+        margin: auto;
+        width: 100%;
+        padding: 1rem 2rem;
+        background: $paletteGrey1;
+        color: $paletteErrorRed;
+        font-size: 0.8rem;
+        border: 0.5px solid $paletteErrorRed;
+        border-radius: 4px;
     }
 }

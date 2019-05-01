@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000000d0;
+    background: #000000e1;
     z-index: 14;
     animation: appear 300ms;
 
@@ -15,71 +15,69 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
         height: 20%;
         width: 25%;
-        background: $primaryGrey;
-        border: 1px solid $secondaryGreen;
-        border-radius: 5px;
 
-        //? box shadow
-        animation: animateShadow 3000ms infinite;
+        background: $paletteGrey2;
+
+        border: 1px solid $paletteGreen1;
+        border-radius: 8px;
+
         animation: appear 800ms;
 
         & p {
             text-align: center;
-            margin: 0.5rem 1rem 0;
+            margin: 0 auto;
             font-size: 0.9rem;
+            width: 90%;
         }
 
         & .buttonContainer {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             width: 85%;
             height: 3rem;
-            margin: 0.5rem auto;
+            margin: 0 auto;
 
             & div {
                 height: 2rem;
                 line-height: 2rem;
                 font-size: 0.8rem;
-                border-radius: 5px;
+                border-radius: 4px;
                 text-align: center;
                 cursor: pointer;
             }
 
             & .closeButton {
-                border: 1px solid $lightGrey;
-                color: $lightGrey;
+                border: 1px solid $paletteGrey3;
+                color: $paletteGrey3;
                 width: 30%;
 
                 &:hover {
-                    filter: brightness(120%);
+                    background: $paletteGrey3;
+                    color: $paletteGrey1;
                 }
             }
 
             & .buyButton {
                 width: 60%;
                 background: transparent;
-                border: 1px solid #fff;
+                border: 1px solid $paletteGreen1;
+                color: $paletteGreen1;
 
                 &:hover {
-                    background: $secondaryGreen;
-                    border: 1px solid $secondaryGreen;
+                    background: $paletteGreen1;
+                    border: 1px solid $paletteGreen1;
+                    color: $paletteWhite;
                 }
             }
         }
-    }
-}
-
-@keyframes animateShadow {
-    0% {
-        box-shadow: 0px 0px 80px 0px $secondaryGreen;
-    }
-    50% {
-        box-shadow: 0px 0px 100px 0px $secondaryGreen;
-    }
-    100% {
-        box-shadow: 0px 0px 80px 0px $secondaryGreen;
     }
 }
 

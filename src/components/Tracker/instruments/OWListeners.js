@@ -3,6 +3,7 @@ import { getLolEvents } from './getLolEvents';
 import { getFortniteEvents } from './getFortniteEvents';
 import { getCsgoEvents } from './getCsgoEvents';
 import { dota } from './drawer';
+import { Analytics } from '../../../analytics';
 
 /*eslint-disable no-undef*/
 
@@ -33,7 +34,6 @@ export const setOverwolfListeners = () => {
                 break;
 
             case 'Counter-Strike: Global Offensive':
-                console.log('CS:GO launched');
                 getCsgoEvents();
                 break;
 
@@ -46,6 +46,7 @@ export const setOverwolfListeners = () => {
     overwolf.games.onGameLaunched.addListener((res) => {
         let gameTitle = res.title;
         console.log('onGameLaunched: ', res);
+        Analytics.userStartsGame(gameTitle);
 
         switch (gameTitle) {
             case 'Dota 2':

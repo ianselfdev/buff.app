@@ -1,12 +1,13 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST';
 import { uiActions } from '../../../ui/actions';
 import { authActions } from '../../../auth/actions';
+import { profileActions } from '../../../profile/actions';
 import { marketActions } from '../../actions';
+import { notifications } from '../../../../components/_notifications';
 
 export function* buyItem({ payload: itemId }) {
     try {
@@ -20,20 +21,16 @@ export function* buyItem({ payload: itemId }) {
         }
 
         yield put(uiActions.stopFetching());
-        yield put(uiActions.showSuccessMarketLabel());
-        yield delay(2000);
-        yield put(uiActions.hideSuccessMarketLabel());
+        yield apply(notifications, notifications.success, ['Purchase successful!']);
         yield put(authActions.getUserDataAsync(localStorage.getItem('buff-token')));
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
+        yield put(profileActions.getGoalItemAsync());
     } catch (error) {
         yield put(uiActions.emitError('-> buyItem worker', error));
         yield put(uiActions.stopFetching());
-        yield put(uiActions.showErrorMarketLabel(error));
-        yield delay(5000);
-        yield put(uiActions.hideErrorMarketLabel());
+        yield apply(notifications, notifications.error, [error.message]);
         yield put(marketActions.fetchMarketItemsAsync());
         yield put(marketActions.fetchUserItemsAsync());
-        yield put(uiActions.clearErrorMessage());
     }
 }

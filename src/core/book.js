@@ -4,5 +4,4 @@ export const book = Object.freeze({
     history: '/history',
     leaderboard: '/leaderboard',
     market: '/market',
-    tournaments: '/tournaments',
 });

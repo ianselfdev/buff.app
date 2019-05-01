@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 //Styles
 import Styles from './styles.module.scss';
 
+//Instruments
+import Select from '../Select';
+
 //Actions
 import { historyActions } from '../../bus/app/history/actions';
+import { advertisementActions } from '../../bus/app/advertisements/actions';
 
 //Redux connect
-
 const mapStateToProps = (state) => ({
     advertisements: state.advertisements,
 });
@@ -17,169 +20,162 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     removeHistoryFilterParameterAsync: historyActions.removeHistoryFilterParameterAsync,
     filterHistoryAsync: historyActions.filterHistoryAsync,
+    createAdInstanceAsync: advertisementActions.createAdInstanceAsync,
 };
 
-class HistoryInstruments extends Component {
-    state = {
-        byPeriod: false,
-        byType: false,
-        value: 5000,
-        type: 'none',
-        period: 'none',
-        ad: {},
-    };
-
+class MarketInstruments extends Component {
     componentDidMount = () => {
-        const { advertisements } = this.props;
+        const { createAdInstanceAsync, advertisements } = this.props;
 
-        //fallback
+        //checking if ad instance already exists
         if (advertisements.refreshAd) {
             advertisements.refreshAd();
+        } else {
+            createAdInstanceAsync(document.getElementById('ad-div'));
+        }
+
+        if (process.env.NODE_ENV === 'production') {
+            //eslint-disable-next-line
+            overwolf.windows.onStateChanged.addListener(this._handleShowAd);
         }
     };
 
     componentWillUnmount = () => {
         const { advertisements } = this.props;
 
-        //fallback
+        //checking if ad instance already exists
         if (advertisements.refreshAd) {
             advertisements.removeAd();
         }
+
+        if (process.env.NODE_ENV === 'production') {
+            //eslint-disable-next-line
+            overwolf.windows.onStateChanged.removeListener(this._handleShowAd);
+        }
     };
 
-    _toggleByPeriod = () => {
-        this.setState((prevState) => ({
-            byPeriod: !prevState.byPeriod,
-        }));
+    _handleShowAd = (state) => {
+        const { advertisements } = this.props;
+        if (state) {
+            // when state changes to minimized, call removeAd()
+            if (state.window_state === 'minimized') {
+                advertisements.removeAd();
+            }
+            // when state changes from minimized to normal, call refreshAd()
+            else if (
+                state.window_previous_state === 'minimized' &&
+                state.window_state === 'normal'
+            ) {
+                advertisements.refreshAd();
+            }
+        }
     };
 
-    _toggleByType = () => {
-        this.setState((prevState) => ({
-            byType: !prevState.byType,
-        }));
-    };
-
-    _handleTypeChange = (e) => {
-        const { id } = e.target;
+    _filterByGame = (game) => {
         const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
+
+        const id =
+            game === 'DOTA 2'
+                ? 7314
+                : game === 'League of Legends'
+                ? 5426
+                : game === 'Fortnite'
+                ? 21216
+                : game === 'CS:GO'
+                ? 7764
+                : 'none';
+
+        if (id === 'none') {
+            removeHistoryFilterParameterAsync('gameId');
+        } else {
+            filterHistoryAsync('gameId', id);
+        }
+    };
+
+    _filterByType = (type) => {
+        const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
+
+        const id = type === 'Game' ? 2 : type === 'Market' ? 3 : type === 'Bonus' ? 5 : 'none';
+
         if (id === 'none') {
             removeHistoryFilterParameterAsync('type');
         } else {
             filterHistoryAsync('type', id);
         }
-
-        this.setState({
-            type: id,
-        });
     };
 
-    _handlePeriodChange = (e) => {
-        const { id } = e.target;
+    _filterByPeriod = (period) => {
         const { removeHistoryFilterParameterAsync, filterHistoryAsync } = this.props;
+
+        const id =
+            period === 'Last day'
+                ? 86400000
+                : period === 'Last week'
+                ? 604800000
+                : period === 'Last month'
+                ? 2592000000
+                : 'none';
+
         if (id === 'none') {
             removeHistoryFilterParameterAsync('period');
         } else {
             filterHistoryAsync('period', id);
         }
-
-        this.setState({
-            period: id,
-        });
     };
 
     render() {
-        const { byPeriod, byType, type, period } = this.state;
+        const { activeTab } = this.props;
 
         return (
-            <div className={Styles.container}>
+            <div
+                className={Styles.container}
+                style={{ marginTop: activeTab === 'statistics' ? 30 : 0 }}
+            >
                 <div className={Styles.filtersContainer}>
-                    <div className={Styles.title}>Filters</div>
-                    <div className={byType ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByType}>By Type</p>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="2"
-                                checked={type === '2'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="2">Game</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="3"
-                                checked={type === '3'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="3">Market</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="5"
-                                checked={type === '5'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="5">Bonus</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="none"
-                                checked={type === 'none'}
-                                onChange={this._handleTypeChange}
-                            />
-                            <label htmlFor="none">Show All</label>
-                        </div>
-                    </div>
-                    <div className={byPeriod ? `${Styles.filter} ${Styles.active}` : Styles.filter}>
-                        <p onClick={this._toggleByPeriod}>By Period</p>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byTypeFilter"
-                                id="86400000"
-                                checked={period === '86400000'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="86400000">Past Day</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byPeriodFilter"
-                                id="604800000"
-                                checked={period === '604800000'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="604800000">Past Week</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byPeriodFilter"
-                                id="2592000000"
-                                checked={period === '2592000000'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="2592000000">Past Month</label>
-                        </div>
-                        <div className={Styles.inputsContainer}>
-                            <input
-                                type="radio"
-                                name="byPeriodFilter"
-                                id="none"
-                                checked={period === 'none'}
-                                onChange={this._handlePeriodChange}
-                            />
-                            <label htmlFor="none">Show All</label>
-                        </div>
-                    </div>
+                    <Select
+                        data={[
+                            { value: 'Show all' },
+                            { value: 'DOTA 2' },
+                            { value: 'League of Legends' },
+                            { value: 'Fortnite' },
+                            { value: 'CS:GO' },
+                        ]}
+                        onChange={this._filterByGame}
+                        className={Styles.gameSelect}
+                        title="Filter by game"
+                        styles={{
+                            height: 50,
+                        }}
+                    />
+                    <Select
+                        data={[
+                            { value: 'Show all' },
+                            { value: 'Game' },
+                            { value: 'Market' },
+                            { value: 'Bonus' },
+                        ]}
+                        onChange={this._filterByType}
+                        className={Styles.typeSelect}
+                        title="Filter by type"
+                        styles={{
+                            height: 50,
+                        }}
+                        disabled={activeTab === 'statistics'}
+                    />
+                    <Select
+                        data={[
+                            { value: 'Show all' },
+                            { value: 'Last day' },
+                            { value: 'Last week' },
+                            { value: 'Last month' },
+                        ]}
+                        onChange={this._filterByPeriod}
+                        title="Filter by period"
+                        className={Styles.priceSort}
+                        styles={{
+                            height: 50,
+                        }}
+                    />
                 </div>
                 <div className={Styles.adContainer} id="ad-div" />
             </div>
@@ -190,4 +186,4 @@ class HistoryInstruments extends Component {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(HistoryInstruments);
+)(MarketInstruments);

@@ -24,6 +24,52 @@ export const profileActions = {
             type: types.CLOSE_TUTORIAL,
         };
     },
+    fillGoalItem: (item) => {
+        return {
+            type: types.FILL_GOAL_ITEM,
+            payload: item,
+        };
+    },
+    fillReferralCode: (code) => {
+        return {
+            type: types.FILL_REFERRAL_CODE,
+            payload: code,
+        };
+    },
+    updateNickname: (nickname) => {
+        return {
+            type: types.UPDATE_NICKNAME,
+            payload: nickname,
+        };
+    },
+    updateEmail: (email) => {
+        return {
+            type: types.UPDATE_EMAIL,
+            payload: email,
+        };
+    },
 
     //Async
+    getGoalItemAsync: () => {
+        return {
+            type: types.GET_GOAL_ITEM_ASYNC,
+        };
+    },
+    getReferralCodeAsync: () => {
+        return {
+            type: types.GET_REFERRAL_CODE_ASYNC,
+        };
+    },
+    updateNicknameAsync: (nickname) => {
+        return {
+            type: types.UPDATE_NICKNAME_ASYNC,
+            payload: nickname,
+        };
+    },
+    updateEmailAsync: (email) => {
+        return {
+            type: types.UPDATE_EMAIL_ASYNC,
+            payload: email,
+        };
+    },
 };

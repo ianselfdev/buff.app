@@ -12,7 +12,7 @@ export const authActions = {
             type: types.LOGOUT,
         };
     },
-    registrationSyccesfull: () => {
+    registrationSuccesfull: () => {
         return {
             type: types.REGISTRATION_SUCCESS,
         };

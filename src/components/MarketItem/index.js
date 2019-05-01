@@ -1,28 +1,35 @@
 //Core
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //Styles
 import Styles from './styles.module.scss';
 
 //Instruments
-import coin from '../../theme/assets/coin.png';
-import logo from '../../theme/assets/Logo_nav.png';
+import logo from '../../theme/svg/logo-short.svg';
+import coin from '../../theme/svg/coin.svg';
+import star from '../../theme/svg/star.svg';
+import { notifications } from '../_notifications';
 
 //Components
 import Buy from '../_popups/market/Buy';
-import Success from '../_popups/market/Success';
-import Error from '../_popups/market/Error';
+
+//REST
+import { Api } from '../../REST/api';
 
 //Analytics
 import { Analytics } from '../../analytics';
 
-const mapStateToProps = (state) => {
-    return {
-        errorMarketLabel: state.ui.get('errorMarketLabel'),
-        successPurchaseLabel: state.ui.get('successPurchaseLabel'),
-        errorMessage: state.ui.get('errorMessage'),
-    };
+//Actions
+import { marketActions } from '../../bus/market/actions';
+
+const mapStateToProps = (state) => ({
+    successPurchaseLabel: state.ui.get('successPurchaseLabel'),
+    balance: state.profile.get('balance'),
+});
+
+const mapDispatchToProps = {
+    fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
 };
 
 class MarketItem extends Component {
@@ -33,18 +40,28 @@ class MarketItem extends Component {
     _openModal = () => {
         const { id } = this.props;
         Analytics.event('Market item details opened', { category: id });
-
         this.setState({
             showModal: true,
         });
     };
 
-    _closeModal = (e) => {
-        if (e.target.id === 'closeModal') {
-            this.setState({
-                showModal: false,
-            });
+    _closeModal = () => {
+        this.setState({
+            showModal: false,
+        });
+    };
+
+    _handleSetGoalItem = () => {
+        const { id, fetchMarketItemsAsync } = this.props;
+
+        if (localStorage.getItem('demoMode')) {
+            return notifications.info(
+                'You should quit demo mode and sign up or log in to perform this action.',
+            );
         }
+
+        Api.market.setGoalItem(id);
+        fetchMarketItemsAsync();
     };
 
     render() {
@@ -52,63 +69,78 @@ class MarketItem extends Component {
         const {
             price,
             name,
-            errorMarketLabel,
-            successPurchaseLabel,
-            errorMessage,
             img,
-            expire,
+            shortDescription,
+            marginTop,
+            isGoal,
+            discount,
+            balance,
         } = this.props;
 
-        const expiresIn = (
-            Math.abs(new Date(expire).getTime() - new Date()) /
-            1000 /
-            60 /
-            60 /
-            24
-        ).toFixed();
+        const priceWithDiscount = ((price * (100 - +discount)) / 100).toFixed(2);
+        const amountOfCoinsUserAlreadyHas = (+balance / +priceWithDiscount) * 100;
 
         return (
-            <Fragment>
-                <div className={Styles.container} onClick={this._openModal}>
-                    <div className={Styles.priceContainer}>
-                        <img className={Styles.gameLogo} src={logo} alt="logo" />
-                        <p>
-                            <img src={coin} alt="coin" />
-                            {price}
-                        </p>
-                    </div>
+            <>
+                <div
+                    className={`${Styles.container} ${isGoal ? Styles.isFavoriteContainer : null}`}
+                    style={{ marginTop: marginTop || 0 }}
+                >
                     <div
-                        className={Styles.infoContainer}
-                        style={{
-                            backgroundImage: `url(${img ||
-                                'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
-                        }}
+                        className={`${Styles.favoriteButton} ${
+                            isGoal ? Styles.isFavoriteButton : null
+                        }`}
+                        onClick={this._handleSetGoalItem}
                     >
-                        <div className={Styles.label}>
-                            <p className={Styles.labelTitle}>Expires in:</p>
-                            {/* getting amount of days */}
-                            <p className={Styles.timer}>{`${expiresIn} day${
-                                expiresIn === 1 ? '' : 's'
-                            }`}</p>
-                        </div>
-                        <div className={Styles.info}>
-                            <p className={Styles.itemName}>{name}</p>
-                            <p className={Styles.itemName}>{'Line 2 Category'}</p>
-                            <button className={Styles.actionButton} onClick={this._openModal}>
-                                REDEEM
-                            </button>
-                        </div>
+                        <img src={star} alt="" />
                     </div>
+                    <img className={Styles.itemImg} src={img} alt="" onClick={this._openModal} />
+                    <p className={Styles.title} onClick={this._openModal}>
+                        {name}
+                    </p>
+                    <div className={Styles.itemInfo}>
+                        <img src={logo} alt="" />
+                        <p>{shortDescription}</p>
+                    </div>
+                    <div className={Styles.actionsContainer}>
+                        <div className={Styles.price}>
+                            <img src={coin} alt="" />
+                            {priceWithDiscount}
+                        </div>
+                        {+amountOfCoinsUserAlreadyHas.toFixed(0) < 100 ? (
+                            <div className={Styles.insufficientFunds}>
+                                <div
+                                    className={Styles.progress}
+                                    style={{
+                                        width: `${Math.max(
+                                            +amountOfCoinsUserAlreadyHas.toFixed(0),
+                                            1,
+                                        )}%`,
+                                    }}
+                                >
+                                    {Math.max(amountOfCoinsUserAlreadyHas.toFixed(0), 1)}%
+                                </div>
+                            </div>
+                        ) : (
+                            <div className={Styles.button} onClick={this._openModal}>
+                                Buy
+                            </div>
+                        )}
+                    </div>
+                    {showModal && (
+                        <Buy
+                            closeModal={this._closeModal}
+                            amountOfCoinsUserAlreadyHas={amountOfCoinsUserAlreadyHas}
+                            {...this.props}
+                        />
+                    )}
                 </div>
-                {showModal && <Buy closeModal={this._closeModal} {...this.props} />}
-                {errorMarketLabel && <Error message={errorMessage} />}
-                {successPurchaseLabel && <Success />}
-            </Fragment>
+            </>
         );
     }
 }
 
 export default connect(
     mapStateToProps,
-    null,
+    mapDispatchToProps,
 )(MarketItem);

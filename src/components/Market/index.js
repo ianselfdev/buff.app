@@ -8,7 +8,8 @@ import MarketItem from '../MarketItem';
 import UserItem from '../UserItem';
 
 //Instruments
-import { Search } from '@material-ui/icons';
+import { Analytics } from '../../analytics';
+import { notifications } from '../_notifications';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -16,15 +17,13 @@ import Styles from './styles.module.scss';
 //Actions
 import { marketActions } from '../../bus/market/actions';
 
-//Analytics
-import { Analytics } from '../../analytics';
-
 //Redux connect
-const mapStateToProps = (state) => {
-    return {
-        market: state.market,
-    };
-};
+const mapStateToProps = (state) => ({
+    market: state.market,
+    email: state.profile.get('email'),
+    login: state.profile.get('login'),
+    buffId: state.profile.get('buffId'),
+});
 
 const mapDispatchToProps = {
     fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
@@ -37,14 +36,20 @@ const mapDispatchToProps = {
 class Market extends Component {
     state = {
         active: 'market',
-        marketSearch: '',
-        userSearch: '',
+        sortByPrice: '',
     };
 
     componentDidMount() {
-        const { fetchMarketItemsAsync } = this.props;
+        const { fetchMarketItemsAsync, email, login, buffId } = this.props;
         fetchMarketItemsAsync();
+        Analytics.userVisitsMarketplace({ email, login, buffId });
     }
+
+    _sortByPrice = (value) => {
+        this.setState({
+            sortByPrice: value,
+        });
+    };
 
     _selectActiveTab = (e) => {
         const { id } = e.target;
@@ -54,152 +59,102 @@ class Market extends Component {
         if (id === 'market') {
             fetchMarketItemsAsync();
         } else {
+            if (localStorage.getItem('demoMode')) {
+                return notifications.info(
+                    'You should quit demo mode and sign up or log in to perform this action.',
+                );
+            }
             fetchUserItemsAsync();
         }
-
-        Analytics.event('Market tab click', { category: id });
 
         this.setState({
             active: id,
         });
     };
 
-    //handling searchboxes changes
-    _handleChange = (e) => {
-        const { value, name } = e.target;
-        const { removeMarketFilterParameterAsync } = this.props;
-
-        //check when user clears search field
-        if (value.length === 0) {
-            removeMarketFilterParameterAsync('name');
-        }
-
-        this.setState({
-            [name]: value,
-        });
-    };
-
-    //performig filter request with search query on Enter hit
-    _handleSearch = async (e) => {
-        const { key } = e;
-        const { filterMarketItemsAsync, filterUserItemsAsync } = this.props;
-        const { active, marketSearch, userSearch } = this.state;
-
-        if (key === 'Enter') {
-            if (active === 'market') {
-                filterMarketItemsAsync('name', marketSearch);
-            } else {
-                filterUserItemsAsync('name', userSearch);
-            }
-        } else {
-            return null;
-        }
-    };
-
     render() {
-        const { active, userSearch, marketSearch } = this.state;
+        const { active, sortByPrice } = this.state;
         const { market } = this.props;
 
+        const sortedMarketItems =
+            market.get('market').size > 0
+                ? market.get('market').sort((a, b) => {
+                      switch (sortByPrice) {
+                          case 'Low to high':
+                              return +a.get('price') - +b.get('price');
+
+                          case 'High to low':
+                              return +b.get('price') - +a.get('price');
+
+                          default:
+                              return 0;
+                      }
+                  })
+                : [];
+
+        const sortedUserItems =
+            market.get('user').size > 0
+                ? market.get('user').sort((a, b) => +a.get('price') - +b.get('price'))
+                : [];
+
         return (
-            <div className={Styles.mainContainer}>
-                <div className={Styles.marketContainer}>
-                    <div className={Styles.controlsContainer}>
-                        <div className={Styles.tabsContainer}>
-                            <div
-                                onClick={this._selectActiveTab}
-                                id="market"
-                                className={
-                                    active === 'market'
-                                        ? `${Styles.tabs} ${Styles.active}`
-                                        : Styles.tabs
-                                }
-                            >
-                                Market
-                            </div>
-                            <div
-                                onClick={this._selectActiveTab}
-                                id="inventory"
-                                className={
-                                    active === 'inventory'
-                                        ? `${Styles.tabs} ${Styles.active}`
-                                        : Styles.tabs
-                                }
-                            >
-                                My Inventory
-                            </div>
-                        </div>
-                        <div className={Styles.searchContainer}>
-                            {/* searchboxes are rendered according to active tab
-                                    and their values are remembered in state, so that user
-                                    could see what he was last searching, as the filtration
-                                    results are also being saved in redux */}
-                            {active === 'market' ? (
-                                <input
-                                    type="text"
-                                    name="marketSearch"
-                                    placeholder="Search..."
-                                    onKeyDown={this._handleSearch}
-                                    onChange={this._handleChange}
-                                    value={marketSearch}
-                                />
-                            ) : (
-                                <input
-                                    type="text"
-                                    name="userSearch"
-                                    placeholder="Search..."
-                                    onKeyDown={this._handleSearch}
-                                    onChange={this._handleChange}
-                                    value={userSearch}
-                                />
-                            )}
-                            <Search className={Styles.searchIcon} />
-                        </div>
+            <div className={Styles.container}>
+                <div className={Styles.switchButtonsContainer}>
+                    <div
+                        onClick={this._selectActiveTab}
+                        id="market"
+                        className={`${Styles.switchButton} ${
+                            active === 'market' ? Styles.active : null
+                        }`}
+                    >
+                        Marketplace
                     </div>
-                    <div className={Styles.marketTab}>
-                        {/* items are rendered according to active tab,
-                                object are gotten from redux for each tab separately.
-                                Also, if no items in inventory or (OMG) on the marketplace - 
-                                fallback markdown is rendered */}
-                        {active === 'market' && market.get('market').size > 0 ? (
-                            market
-                                .get('market')
-                                .map((item, index) => (
-                                    <MarketItem
-                                        shortDescription={item.get('descriptionShort')}
-                                        discount={item.get('discount')}
-                                        games={item.get('games')}
-                                        price={item.get('price')}
-                                        name={item.get('name')}
-                                        amount={item.get('count')}
-                                        id={item.get('id')}
-                                        tradable={item.get('tradable')}
-                                        description={item.get('description')}
-                                        expire={item.get('expire')}
-                                        img={item.get('img')}
-                                        key={index}
-                                    />
-                                ))
-                        ) : active === 'inventory' && market.get('user').size > 0 ? (
-                            market
-                                .get('user')
-                                .map((item, index) => (
-                                    <UserItem
-                                        shortDescription={item.get('descriptionShort')}
-                                        description={item.get('description')}
-                                        games={item.get('games')}
-                                        name={item.get('name')}
-                                        id={item.get('id')}
-                                        img={item.get('img')}
-                                        tradable={item.get('tradable')}
-                                        key={index}
-                                    />
-                                ))
-                        ) : (
-                            <p className={Styles.empty}>Nothing here yet :(</p>
-                        )}
+                    <div
+                        onClick={this._selectActiveTab}
+                        id="inventory"
+                        className={`${Styles.switchButton} ${
+                            active === 'inventory' ? Styles.active : null
+                        }`}
+                    >
+                        My Inventory
                     </div>
                 </div>
-                <MarketInstruments />
+                <div className={Styles.itemsContainer}>
+                    {active === 'market' &&
+                        sortedMarketItems.map((item, index) => (
+                            <MarketItem
+                                shortDescription={item.get('descriptionShort')}
+                                discount={item.get('discount')}
+                                games={item.get('games')}
+                                price={item.get('price')}
+                                name={item.get('name')}
+                                amount={item.get('count')}
+                                id={item.get('id')}
+                                tradable={item.get('tradable')}
+                                description={item.get('description')}
+                                expire={item.get('expire')}
+                                img={item.get('img')}
+                                isGoal={item.get('isGoal')}
+                                marginTop={'10px'}
+                                key={index}
+                            />
+                        ))}
+                    {active === 'inventory' &&
+                        sortedUserItems.map((item, index) => (
+                            <UserItem
+                                shortDescription={item.get('descriptionShort')}
+                                description={item.get('description')}
+                                games={item.get('games')}
+                                name={item.get('name')}
+                                id={item.get('id')}
+                                img={item.get('img')}
+                                tradable={item.get('tradable')}
+                                marginTop={'10px'}
+                                key={index}
+                            />
+                        ))}
+                </div>
+                <MarketInstruments activeTab={active} sortByPrice={this._sortByPrice} />
             </div>
         );
     }

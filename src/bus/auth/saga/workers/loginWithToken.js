@@ -6,6 +6,7 @@ import { Api } from '../../../../REST/';
 import { authActions } from '../../actions';
 import { uiActions } from '../../../ui/actions';
 import { newsActions } from '../../../app/news/actions';
+import { Analytics } from '../../../../analytics';
 
 //* apply(context, method, arrayOfArguments)
 //* calls method in context and with arguments
@@ -29,6 +30,7 @@ export function* loginWithToken({ payload: userToken }) {
         yield apply(localStorage, localStorage.setItem, ['buff-remember-me', true]);
         yield apply(localStorage, localStorage.setItem, ['buff-token', token]);
         yield apply(localStorage, localStorage.setItem, ['buff-refresh-token', refreshToken]);
+        yield apply(Analytics, Analytics.userLogin, ['User logged in with "remember me" option']);
     } catch (error) {
         yield put(uiActions.emitError(error, '-> loginWithToken worker'));
         yield put(uiActions.clearErrorMessage());

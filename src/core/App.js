@@ -7,8 +7,11 @@ import { connect } from 'react-redux';
 //Instruments
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Analytics } from '../analytics';
+import { Offline, Online } from 'react-detect-offline';
 
 //Components
+import { TopControlBar } from '../components';
 import Private from './Private';
 import Public from './Public';
 
@@ -19,13 +22,24 @@ const mapStateToProps = (state) => {
 };
 
 class App extends Component {
+    componentDidMount = () => {
+        Analytics.appOpened();
+    };
+
     render() {
         const { isAuthenticated } = this.props;
 
         return (
             <>
-                {isAuthenticated ? <Private /> : <Public />}
-                <ToastContainer className="toast-container" progressClassName="toast-progress-line"/>
+                <TopControlBar />
+                <Offline>
+                    <Public />
+                </Offline>
+                <Online>{isAuthenticated ? <Private /> : <Public />}</Online>
+                <ToastContainer
+                    className="toast-container"
+                    progressClassName="toast-progress-line"
+                />
             </>
         );
     }

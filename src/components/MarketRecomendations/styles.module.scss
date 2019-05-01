@@ -1,23 +1,13 @@
 @import '../../theme/palette.scss';
 
-.titleBox {
-    height: 2.5rem;
-    color: $primaryGreen;
-    padding-left: 1rem;
-    line-height: 2.5rem;
-    background: $secondaryGrey;
-    font-size: 0.9rem;
-}
-
 .recomendations {
+    height: 100%;
+
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
-    max-height: 280px;
     margin: 0;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-bottom: 1rem;
 
     & .noRecomendations {
         font-size: 1.5rem;
@@ -28,22 +18,5 @@
         text-align: center;
         position: relative;
         top: 45%;
-    }
-}
-
-.button {
-    width: 7rem;
-    margin: 0.5rem auto 0;
-    font-size: 1rem;
-    line-height: 2rem;
-    text-align: center;
-    background: $secondaryGrey;
-    color: $lightGrey;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-        background: $secondaryGreen;
-        color: $primaryGrey;
     }
 }

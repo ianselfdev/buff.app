@@ -1,73 +1,67 @@
 @import '../../theme/palette.scss';
 
 .container {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 70%;
+
     opacity: 0;
 
-    & .img {
-        position: absolute;
-        left: 50%;
-        top: -27%;
-        transform: translate(-50%) scale(0.15);
+    & .title {
+        margin-left: -2rem;
+
+        & img {
+            cursor: pointer;
+            margin-right: 1rem;
+
+            /* fucking svg has fucking few px bottom fucking padding */
+            position: relative;
+            top: 0.2rem;
+        }
     }
 
-    & .form {
-        width: 80%;
-        margin: 7rem auto 3rem;
-    }
-
-    & .warning {
-        color: red;
-        text-align: center;
-        font-size: 0.8rem;
-        margin: -2rem auto 1rem;
-    }
-
-    & .signUpButton {
-        display: block;
-        padding: 0.5rem 1rem;
-        background: $secondaryGreen;
-        border: 1px solid $secondaryGreen;
-        border-radius: 5px;
-        color: #000;
+    & .button {
         cursor: pointer;
-        transition: all 0.3s;
-        font-size: 1rem;
-        margin: 0 auto;
+        width: 100%;
+
+        margin-top: 1rem;
+        padding: 0.8rem;
+
+        background: transparent;
+        border: 1px solid $paletteGreen2;
+        border-radius: 4px;
+
+        color: $paletteGreen2;
 
         &:hover {
-            background: $primaryGreen;
+            background: $paletteGreen2;
+            color: $paletteGrey1;
         }
 
         &:disabled {
-            background: transparent;
-            border: 1px solid $secondaryGreen;
-            color: $secondaryGreen;
-            cursor: no-drop;
+            cursor: not-allowed;
+            background: $paletteGrey1;
+            border: 1px solid $paletteGrey1;
+            color: $paletteGrey3;
         }
     }
 
-    & .backToLoginButton {
-        display: block;
-        background: transparent;
-        color: #fff;
-        box-shadow: none;
-        cursor: pointer;
+    & .termsAndConditions {
+        margin-top: 0.7rem;
+        text-align: center;
         font-size: 0.8rem;
-        border: none;
-        padding: 0.5rem;
-        margin: 0.2rem auto;
 
-        &::before {
-            content: '←';
-            margin: 0 0.5rem 0 -0.5rem;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
+        color: $paletteGrey3;
 
-        &:hover {
-            background: transparent;
-            &::before {
-                margin: 0 1rem 0 -1.5rem;
+        & a {
+            color: $paletteGreen1;
+            text-decoration: underline;
+
+            &:hover {
+                color: $paletteGreen2;
             }
         }
     }

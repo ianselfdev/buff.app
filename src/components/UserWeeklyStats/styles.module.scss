@@ -1,0 +1,15 @@
+@import '../../theme/palette.scss';
+
+.container {
+    width: 100%;
+    height: 90%;
+
+    background: $paletteGrey2;
+
+    border-radius: 8px;
+    padding-right: 1rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}

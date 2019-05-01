@@ -1,10 +1,10 @@
 //Core
 import React, { Component } from 'react';
-import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux';
+import { Transition } from 'react-transition-group';
 
 //Components
-import ErrorLabel from '../ErrorLabel';
+import LabeledInput from '../LabeledInput';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -12,9 +12,8 @@ import Styles from './styles.module.scss';
 //Instruments
 import discordLogoWhite from '../../theme/assets/Discord-Logo-White.png';
 import googleLogoWhite from '../../theme/assets/Google-Logo-White.png';
-import logo from '../../theme/assets/logo.png';
-import gsap from 'gsap';
 import queryString from 'query-string';
+import gsap from 'gsap';
 
 //Actions
 import { authActions } from '../../bus/auth/actions';
@@ -31,7 +30,6 @@ const mapDispatchToProps = {
 
 class Login extends Component {
     state = {
-        status: {},
         login: '',
         password: '',
         registration: false,
@@ -99,7 +97,15 @@ class Login extends Component {
         loginAsync({ login, password, rememberMe });
     };
 
-    //*animation group
+    _handleEnterPress = (e) => {
+        const enterKey = e.key === 'Enter';
+
+        if (enterKey) {
+            this._handleLogin(e);
+        }
+    };
+
+    //* animation group
     _animateEnteringComponent = (node) => {
         gsap.fromTo(
             node,
@@ -128,12 +134,24 @@ class Login extends Component {
 
     render() {
         const { login, password, rememberMe } = this.state;
-        const {
-            _toggleRegistration,
-            _togglePasswordRecovery,
-            errorMessage,
-            loginDemo,
-        } = this.props;
+        const { _toggleRegistration, _togglePasswordRecovery, loginDemo } = this.props;
+
+        const inputFields = [
+            {
+                value: login,
+                onChange: this._handleInput,
+                name: 'login',
+                type: 'text',
+                label: 'Username or email',
+            },
+            {
+                value: password,
+                onChange: this._handleInput,
+                name: 'password',
+                type: 'password',
+                label: 'Password',
+            },
+        ];
 
         return (
             <Transition
@@ -144,47 +162,55 @@ class Login extends Component {
                 onEnter={this._animateEnteringComponent}
                 onExit={this._animateExitingComponent}
             >
-                <div>
-                    {errorMessage.length > 0 && <ErrorLabel message={errorMessage} />}
-                    <img className={Styles.img} src={logo} alt="buff-logo" />
-                    <form className={Styles.loginForm} onSubmit={this._handleLogin}>
-                        <input
-                            type="text"
-                            name="login"
-                            placeholder="Login or Email"
-                            value={login}
-                            onChange={this._handleInput}
+                <div className={Styles.container} onKeyPress={this._handleEnterPress}>
+                    <p className={Styles.title}>Log in</p>
+                    {inputFields.map((item, index) => (
+                        <LabeledInput
+                            value={item.value}
+                            onChange={item.onChange}
+                            placeholder={item.placeholder}
+                            name={item.name}
+                            type={item.type}
+                            label={item.label}
+                            key={index}
                         />
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={this._handleInput}
-                        />
+                    ))}
+                    <div className={Styles.functionalContainer}>
                         <input
                             type="checkbox"
                             checked={rememberMe}
+                            className={Styles.checkbox}
                             onChange={this._toggleRememberMe}
                         />
-                        <input type="submit" value="Log In" />
-
-                        <a href="http://18.188.224.32:6002/api/accounts/login/discord">
-                            <img src={discordLogoWhite} alt="asd" className={Styles.authLinks} />
+                        <span className={Styles.forgotPassword} onClick={_togglePasswordRecovery}>
+                            Forgot password?
+                        </span>
+                    </div>
+                    <div className={Styles.buttonsContainer}>
+                        <button onClick={this._handleLogin}>Log in</button>
+                        <button onClick={loginDemo}>Try demo</button>
+                    </div>
+                    <p className={Styles.accountCreation}>
+                        Don't have an account?{' '}
+                        <span onClick={_toggleRegistration}>Create an account</span>
+                    </p>
+                    <p className={Styles.signInOptions}>Other sign in options:</p>
+                    <div className={Styles.socialContainer}>
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/discord"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img src={discordLogoWhite} alt="discord login" />
                         </a>
-                        <a href="http://18.188.224.32:6002/api/accounts/login/google">
-                            <img src={googleLogoWhite} alt="asd" className={Styles.authLinks} />
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/google"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img src={googleLogoWhite} alt="google login" />
                         </a>
-                    </form>
-                    <button onClick={_togglePasswordRecovery} className={Styles.forgotPassButton}>
-                        Forgot password?
-                    </button>
-                    <button onClick={_toggleRegistration} className={Styles.registrationButton}>
-                        Not registered yet? Click here!
-                    </button>
-                    <button onClick={loginDemo} className={Styles.tryDemoButton}>
-                        Try demo
-                    </button>
+                    </div>
                 </div>
             </Transition>
         );

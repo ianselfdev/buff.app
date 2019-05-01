@@ -4,6 +4,9 @@ import { MAIN_URL } from './config';
 //Instruments
 import queryString from 'query-string';
 
+//!REDO
+import { notifications } from '../components/_notifications';
+
 export const Api = {
     get token() {
         return localStorage.getItem('buff-token');
@@ -28,12 +31,6 @@ export const Api = {
                 },
                 body: JSON.stringify(userData),
             });
-        },
-
-        getUserIp() {
-            return fetch(
-                'https://api.ipdata.co?api-key=41605a6671bc15a4a7aa512ef2e61f3fb05450f869e52ee35b543c1e',
-            );
         },
 
         getUserData(token) {
@@ -80,6 +77,43 @@ export const Api = {
         },
     },
 
+    account: {
+        getReferralCode() {
+            return fetch(`${MAIN_URL}/accounts/referral/code`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+
+        updateNickname(nickname) {
+            return fetch(`${MAIN_URL}/accounts/change/nickname`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nickname: nickname,
+                }),
+            });
+        },
+
+        updateEmail(email) {
+            return fetch(`${MAIN_URL}/accounts/change/email`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                }),
+            });
+        },
+    },
+
     data: {
         fetchNews() {
             return fetch(`${MAIN_URL}/buff/news?page=1&limit=100`);
@@ -94,7 +128,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/games/history?page=1&limit=100&${params}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -102,6 +136,16 @@ export const Api = {
         fetchLeadersDota(queries) {
             const params = queryString.stringify(queries);
             return fetch(`${MAIN_URL}/buff/leaders?${params}`);
+        },
+
+        fetchStatistics(queries) {
+            const params = queryString.stringify(queries);
+            return fetch(`${MAIN_URL}/games/statistics?${params}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
         },
     },
 
@@ -116,7 +160,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/marketplace/items/my?page=1&limit=100`, {
                 method: 'GET',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -125,7 +169,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/marketplace/items/buy/${itemId}`, {
                 method: 'POST',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -134,7 +178,7 @@ export const Api = {
             return fetch(`${MAIN_URL}/marketplace/items/my/activate/${itemId}`, {
                 method: 'POST',
                 headers: {
-                    Authorization: this.token,
+                    Authorization: localStorage.getItem('buff-token'),
                 },
             });
         },
@@ -142,6 +186,57 @@ export const Api = {
         filterItems(queries) {
             const params = queryString.stringify(queries);
             return fetch(`${MAIN_URL}/marketplace/items/?page=1&limit=100&${params}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+
+        //!___REDO!!!
+        async setGoalItem(id) {
+            const response = await fetch(`${MAIN_URL}/marketplace/items/goal/${id}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+
+            if (response.status !== 200) {
+                return notifications.info(
+                    "You cannot set a new goal item before you've bought the previous one",
+                );
+            }
+
+            const data = await response.json();
+
+            console.log(data);
+            notifications.success('Goal item was set successfully!');
+            return data;
+        },
+
+        getGoalItem() {
+            return fetch(`${MAIN_URL}/marketplace/items/goal`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+    },
+
+    bonuses: {
+        fetchAvailableBonuses() {
+            return fetch(`${MAIN_URL}/bonuses/available`, {
+                method: 'GET',
+                headers: {
+                    Authorization: localStorage.getItem('buff-token'),
+                },
+            });
+        },
+
+        activateBonus(id) {
+            return fetch(`${MAIN_URL}/bonuses/activate/${id}`, {
                 method: 'GET',
                 headers: {
                     Authorization: localStorage.getItem('buff-token'),

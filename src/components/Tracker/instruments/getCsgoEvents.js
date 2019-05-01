@@ -59,12 +59,17 @@ const onNewEvents = (data) => {
 
                     overwolf.games.events.getInfo((info) => {
                         console.log('match started -> getInfo: ', info);
+                        const botMatch = JSON.parse(info.res.roster.match).players.length === 0;
+
+                        if (botMatch) {
+                            console.log('Bots match detected');
+                        }
+                        const startGameData = {
+                            gameId: '7764',
+                            matchId: botMatch ? '0' : matchData.matchId,
+                        };
+                        _sendStartGameTrs(startGameData);
                     });
-                    const startGameData = {
-                        gameId: '7764',
-                        matchId: matchData.matchId,
-                    };
-                    _sendStartGameTrs(startGameData);
                     break;
                 case 'kill':
                     matchData.kills++;

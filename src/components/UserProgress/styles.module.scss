@@ -1,104 +1,138 @@
 @import '../../theme/palette.scss';
 
-.titleBox {
-    height: 2.5rem;
-    color: $primaryGreen;
-    padding-left: 1rem;
-    line-height: 2.5rem;
-    background: $secondaryGrey;
-    font-size: 0.9rem;
-}
+.container {
+    width: 100%;
+    height: 90%;
 
-.chart {
-    max-height: 10rem;
-    animation: appear 300ms;
-}
+    padding: 0.7rem;
 
-.legend {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 2rem;
-    margin: 1rem 0 0;
-    animation: appear 300ms;
+    display: grid;
+    grid-template-columns: 9rem 9rem 9rem;
+    grid-template-rows: 4.2rem 4.2rem 4.2rem;
+    grid-column-gap: 1rem;
 
-    & .legendDatabox {
-        margin: 0.5rem;
+    background: $paletteGrey2;
+
+    border-radius: 8px;
+
+    & .chart {
+        grid-column: 1;
+        grid-row: 1 / 3;
+
+        & .medal {
+            position: relative;
+            transform: scale(0.8);
+            top: -88%;
+            left: 33.5%;
+        }
+    }
+
+    & .chartText {
+        grid-column: 1;
+        grid-row: 3;
+
+        padding: 0.5rem;
+
+        text-align: center;
+
+        & .playerTier {
+        }
+
+        & .tierBonus {
+            font-size: 0.8rem;
+            color: $paletteGrey3;
+
+            & span {
+                color: $paletteWhite;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    & .userBalance {
+        grid-column: 2;
+        grid-row: 1;
+
+        margin-top: 1rem;
+        padding: 0 1rem;
+
+        font-size: 0.8rem;
+        color: $paletteGrey3;
 
         & p {
-            &:first-of-type {
-                font-size: 0.9rem;
-
-                &::before {
-                    content: '●';
-                    margin-right: 0.5rem;
-                }
-            }
-            &:last-of-type {
-                margin-left: 0.8rem;
-                font-size: 0.8rem;
-                color: $lightGrey;
-            }
-        }
-
-        & .coinImg {
-            height: 0.9rem;
-            width: 0.9rem;
-            border: none;
-            margin-right: 0.3rem;
+            color: $paletteWhite;
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
         }
     }
-}
 
-.infoContainer {
-    width: 100%;
-    height: 100%;
-    background: #000000d0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    animation: appear 300ms;
+    & .nextTier {
+        grid-column: 3;
+        grid-row: 1;
 
-    & ul {
-        width: 85%;
-        margin: 1rem 1rem 1rem 1.5rem;
+        margin-top: 1rem;
+        padding: 0 1rem;
+
         font-size: 0.8rem;
-        color: $lightGrey;
+        color: $paletteGrey3;
 
-        & li {
-            margin: 0.5rem;
+        & p {
+            color: $paletteWhite;
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+
+            & span {
+                color: $paletteGrey3;
+            }
         }
     }
 
-    & .legendButton {
-        margin: 1rem auto;
+    & .moreCoins {
+        grid-column: 2 / 4;
+        grid-row: 2;
+
+        padding: 1rem 0.5rem 0;
+        margin: 0 0.5rem 0 0;
+
+        border-top: 1px solid $paletteGrey3;
+
+        & p {
+            margin: 0.2rem 0;
+
+            &:first-of-type {
+                font-size: 0.75rem;
+                color: $paletteGrey3;
+            }
+
+            &:last-of-type {
+                font-size: 0.85rem;
+            }
+        }
     }
-}
 
-.legendButton {
-    display: inline-block;
-    cursor: pointer;
-    margin: 0 auto;
-    background: $secondaryGreen;
-    padding: 0.6rem 1rem;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    border: 1px solid $secondaryGreen;
-    color: #fff;
-    animation: appear 300ms;
+    & .button {
+        grid-column: 2 / 4;
+        grid-row: 3;
 
-    &:hover {
-        background: $primaryGreen;
-        color: $primaryGrey;
-        border: 1px solid $primaryGreen;
-    }
+        cursor: pointer;
 
-    &:disabled {
-        border: 1px solid $lightGrey;
-        background: none;
-        color: $lightGrey;
+        height: 60%;
+        width: 85%;
+
+        margin: 0.2rem 0.5rem;
+
+        border: 1px solid $paletteGrey3;
+        border-radius: 4px;
+
+        background: transparent;
+
+        text-align: center;
+        line-height: 2.3rem;
+        color: $paletteGrey3;
 
         &:hover {
-            /* disabling hover effects */
+            background: $paletteGrey3;
+            color: $paletteWhite;
         }
     }
 }

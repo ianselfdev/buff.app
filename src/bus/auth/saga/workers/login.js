@@ -1,12 +1,13 @@
 //Core
 import { put, apply } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 //Instruments
 import { Api } from '../../../../REST/';
 import { authActions } from '../../actions';
 import { uiActions } from '../../../ui/actions';
 import { newsActions } from '../../../app/news/actions';
+import { notifications } from '../../../../components/_notifications';
+import { Analytics } from '../../../../analytics';
 
 //* apply(context, method, arrayOfArguments)
 //* calls method in context and with arguments
@@ -16,8 +17,6 @@ export function* login({ payload: userData }) {
     try {
         yield put(uiActions.startFetching());
 
-        // const ipResponse = yield apply(Api, Api.auth.getUserIp);
-        // const { ip } = yield apply(ipResponse, ipResponse.json);
         //need to define response in this scope
         let response;
 
@@ -27,7 +26,6 @@ export function* login({ payload: userData }) {
                 {
                     email: userData.login,
                     password: userData.password,
-                    // ip,
                 },
             ]);
         } else {
@@ -35,7 +33,6 @@ export function* login({ payload: userData }) {
                 {
                     login: userData.login,
                     password: userData.password,
-                    // ip,
                 },
             ]);
         }
@@ -57,11 +54,10 @@ export function* login({ payload: userData }) {
             'buff-refresh-token',
             data.tokens.refreshToken,
         ]);
+        yield apply(Analytics, Analytics.userLogin, [userData.login]);
     } catch (error) {
-        yield put(uiActions.stopFetching());
         yield put(uiActions.emitError(error, '-> login worker'));
-        yield delay(5000);
-        yield put(uiActions.clearErrorMessage());
+        yield apply(notifications, notifications.error, [`${error.message}`]);
     } finally {
         yield put(uiActions.stopFetching());
     }

@@ -32,7 +32,7 @@ let matchData = {
     level: 1,
     champion: '',
 
-    rankedGame: false,
+    rankedGame: true,
 
     gameId: '5426',
     matchId: '',
@@ -63,10 +63,8 @@ const onInfoUpdates2 = (data) => {
             const info = data.info.game_info;
             switch (data.feature) {
                 case 'matchState':
-                    console.log('matchState -> ', info);
-                    if (info.queueId) {
-                        console.log('MATCH_TYPE ---->', info.queueId);
-                    }
+                    console.log('matchState -> info -> ', info);
+
                     if (info.matchStarted) {
                         //* start game transaction
                         //* ---------------------->
@@ -103,7 +101,7 @@ const onInfoUpdates2 = (data) => {
                             console.log('match ended -> getInfo: ', data);
                             matchData = {
                                 ...matchData,
-                                gameMode: data.res.game_info.gameMode,
+                                gameMode: 'ranked',
                                 neutralMinionKills: data.res.game_info.neutralMinionKills,
                                 gold: data.res.game_info.gold,
                             };
@@ -119,7 +117,6 @@ const onInfoUpdates2 = (data) => {
                             console.log('endGameData -> ', endGameTrs);
                             let token = localStorage.getItem('buff-token');
                             sendLolReward(endGameTrs, token);
-                            // _sendEndGameTrs(endGameTrs, token);
 
                             matchData = {
                                 kills: 0,

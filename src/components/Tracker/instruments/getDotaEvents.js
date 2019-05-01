@@ -33,7 +33,7 @@ const features = [
 let matchData = {
     kills: 0,
     deaths: 0,
-    asssists: 0,
+    assists: 0,
     kda: 0,
     xpm: 0,
     gpm: 0,
@@ -134,7 +134,7 @@ const onNewEvents = (data) => {
                 case 'match_ended':
                     matchData = {
                         ...matchData,
-                        kda: (matchData.kills + matchData.asssists) / (matchData.deaths || 1),
+                        kda: (matchData.kills + matchData.assists) / (matchData.deaths || 1),
                         victory: matchData.playerTeam === info.winner,
                     };
 
@@ -156,7 +156,7 @@ const onNewEvents = (data) => {
                     matchData = {
                         kills: 0,
                         deaths: 0,
-                        asssists: 0,
+                        assists: 0,
                         kda: 0,
                         xpm: 0,
                         gpm: 0,

@@ -1,7 +1,6 @@
 //Core
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 //Styles
 import Styles from './styles.module.scss';
@@ -32,12 +31,12 @@ class MarketRecomendations extends Component {
         const { market } = this.props;
 
         return (
-            <Fragment>
-                <div className={Styles.titleBox}>Recomended for you</div>
+            <>
                 <div className={Styles.recomendations}>
                     {market.get('market').size > 0 ? (
                         market
                             .get('market')
+                            .slice(0, 2)
                             .map((item, index) => (
                                 <MarketItem
                                     shortDescription={item.get('descriptionShort')}
@@ -51,6 +50,7 @@ class MarketRecomendations extends Component {
                                     description={item.get('description')}
                                     expire={item.get('expire')}
                                     img={item.get('img')}
+                                    isGoal={item.get('isGoal')}
                                     key={index}
                                 />
                             ))
@@ -58,10 +58,7 @@ class MarketRecomendations extends Component {
                         <p className={Styles.noRecomendations}>No recomendations for you now :(</p>
                     )}
                 </div>
-                <Link to="/market">
-                    <div className={Styles.button}>View more</div>
-                </Link>
-            </Fragment>
+            </>
         );
     }
 }

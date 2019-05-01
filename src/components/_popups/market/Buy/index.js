@@ -2,11 +2,18 @@
 import React, { Component } from 'react';
 
 //Instruments
-import coin from '../../../../theme/assets/coin.png';
+import coin from '../../../../theme/svg/coin.svg';
+import star from '../../../../theme/svg/star.svg';
+import close from '../../../../theme/svg/close.svg';
+import logo from '../../../../theme/svg/logo-short.svg';
+import { notifications } from '../../../_notifications';
 
 //Styles
 import Styles from './styles.module.scss';
 import { connect } from 'react-redux';
+
+//REST
+import { Api } from '../../../../REST/api';
 
 //Actions
 import { marketActions } from '../../../../bus/market/actions';
@@ -14,62 +21,93 @@ import { marketActions } from '../../../../bus/market/actions';
 //Analytics
 import { Analytics } from '../../../../analytics';
 
+const mapStateToProps = (state) => ({
+    email: state.profile.get('email'),
+    login: state.profile.get('login'),
+    buffId: state.profile.get('buffId'),
+});
+
 const mapDispatchToProps = {
     buyItemAsync: marketActions.buyItemAsync,
+    fetchMarketItemsAsync: marketActions.fetchMarketItemsAsync,
 };
 
 class Buy extends Component {
     _handleBuyItem = (e) => {
-        const { id, buyItemAsync, closeModal } = this.props;
+        const { id, name, price, buyItemAsync, closeModal, email, login, buffId } = this.props;
 
-        Analytics.event('Item purchase', { category: id });
+        if (localStorage.getItem('demoMode')) {
+            return notifications.info(
+                'You should quit demo mode and sign up or log in to perform this action.',
+            );
+        }
+
+        Analytics.userPurchasesItem({ email, login, buffId }, { id, name, price });
         buyItemAsync(id);
-        closeModal(e);
+        closeModal();
+    };
+
+    _handleSetGoalItem = () => {
+        const { id, fetchMarketItemsAsync } = this.props;
+
+        Api.market.setGoalItem(id);
+        fetchMarketItemsAsync();
     };
 
     render() {
-        const { closeModal, name, description, price, img, expire } = this.props;
+        const {
+            closeModal,
+            name,
+            description,
+            discount,
+            price,
+            img,
+            shortDescription,
+            isGoal,
+            amountOfCoinsUserAlreadyHas,
+        } = this.props;
 
-        const expiresIn = (Math.abs(new Date(expire).getTime() - new Date()) / 1000 / 60).toFixed();
+        const priceWithDiscount = ((price * (100 - +discount)) / 100).toFixed(2);
 
         return (
-            <div className={Styles.bg} onClick={closeModal} id="closeModal">
+            <div className={Styles.bg}>
+                <div
+                    className={`${Styles.star} ${isGoal ? Styles.isFavorite : null}`}
+                    onClick={this._handleSetGoalItem}
+                >
+                    <img src={star} alt="" />
+                </div>
+                <img src={close} alt="" className={Styles.close} onClick={closeModal} />
                 <div className={Styles.container}>
-                    <div className={Styles.priceContainer}>
-                        <img
-                            className={Styles.gameLogo}
-                            src="https://1000logos.net/wp-content/uploads/2017/12/CSGO-Logo.png"
-                            alt="logo"
-                        />
-                        <p className={Styles.price}>
-                            <img className={Styles.coin} src={coin} alt="coin" />
-                            {price}
-                        </p>
+                    <img src={img} alt="" className={Styles.itemImage} />
+                    <p className={Styles.description}>{description}</p>
+                    <p className={Styles.name}>{name}</p>
+                    <div className={Styles.shortDescription}>
+                        <img alt="" src={logo} />
+                        <p>{shortDescription}</p>
                     </div>
-                    <div
-                        className={Styles.infoContainer}
-                        style={{
-                            backgroundImage: `url(${img ||
-                                'https://i1.wp.com/static-cdn.jtvnw.net/ttv-boxart/Dota%202.jpg?resize=720%2C960&ssl=1'})`,
-                        }}
-                    >
-                        <div className={Styles.label}>
-                            <p className={Styles.labelTitle}>Expires in:</p>
-                            {/* getting hours and minutes calculated and rendered in the XX:XX format */}
-                            <p className={Styles.timer}>{`${(expiresIn / 60)
-                                .toFixed()
-                                .toString()
-                                .padStart(2, '0')}:${(expiresIn % 60)
-                                .toString()
-                                .padStart(2, '0')}`}</p>
+                    <div className={Styles.priceContainer}>
+                        <div className={Styles.price}>
+                            <img src={coin} alt="" />
+                            {priceWithDiscount}
                         </div>
-                        <div className={Styles.info}>
-                            <p className={Styles.itemName}>{name}</p>
-                            <p className={Styles.itemName}>{description}</p>
-                            <button className={Styles.actionButton} onClick={this._handleBuyItem}>
-                                REDEEM
-                            </button>
-                        </div>
+                        {+amountOfCoinsUserAlreadyHas.toFixed(0) < 100 ? (
+                            <div className={Styles.insufficientFunds}>
+                                <div
+                                    className={Styles.progress}
+                                    style={{
+                                        width: `${Math.max(
+                                            +amountOfCoinsUserAlreadyHas.toFixed(0),
+                                            1,
+                                        )}%`,
+                                    }}
+                                >
+                                    {Math.max(amountOfCoinsUserAlreadyHas.toFixed(0), 1)}%
+                                </div>
+                            </div>
+                        ) : (
+                            <button onClick={this._handleBuyItem}>Confirm</button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -78,6 +116,6 @@ class Buy extends Component {
 }
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
 )(Buy);

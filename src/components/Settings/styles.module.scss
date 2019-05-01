@@ -1,95 +1,117 @@
 @import '../../theme/palette.scss';
 
-.settingsContainer {
+.container {
     position: absolute;
-    bottom: 0;
-    width: 60vw;
-    height: calc(100vh - 21.5rem);
-    background: #000000;
-    border-top: 1px solid $secondaryGreen;
-    border-right: 1px solid $secondaryGreen;
+    bottom: 1rem;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 2rem;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: auto auto auto auto auto;
 
-    z-index: 13;
+    width: 18.5rem;
+    height: 19rem;
+
+    background: $paletteGrey2;
+
+    padding: 1rem 1rem 0;
+    margin: 0 0.3rem;
+
+    border-radius: 4px;
 
     animation: appear 500ms;
 
+    z-index: 14;
+
     & .title {
-        margin-left: 2rem;
-        font-size: 1.2rem;
-        color: $secondaryGreen;
+        padding: 0.5rem;
+        font-size: 1rem;
     }
 
-    & .switchLabel {
-        padding-bottom: 1rem;
-        margin: 1rem;
+    & .closeButton {
+        cursor: pointer;
+
+        align-self: start;
+        justify-self: end;
+
+        width: 1.2rem;
+        height: 1.2rem;
     }
 
-    & .toggleBlock {
-        display: flex;
-        align-items: center;
+    & .nicknameChange,
+    .emailChange {
+        cursor: pointer;
 
-        & span {
-            padding: 0;
+        align-self: center;
+        justify-self: end;
+
+        width: 4.2rem;
+
+        padding: 0.3rem 0.5rem;
+
+        font-size: 0.9rem;
+        color: $paletteGreen1;
+        text-align: center;
+
+        border: 1px solid $paletteGreen1;
+        border-radius: 4px;
+
+        background: transparent;
+
+        &:hover {
+            color: $paletteWhite;
+            background: $paletteGreen1;
         }
-    }
 
-    & .inputsBlock {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.5rem 5rem 0.5rem 0;
-
-        & span {
-            width: 25%;
-        }
-
-        & input {
-            background: transparent;
-            color: $secondaryGreen;
-            border: none;
-            font-size: 1rem;
-        }
-
-        & button {
-            width: 104px;
-            height: 2rem;
-            background: transparent;
-            cursor: pointer;
-
-            border: 1px solid #f4ba26;
-            color: #f4ba26;
-            box-sizing: border-box;
-            border-radius: 4px;
+        &:disabled {
+            color: $paletteGrey3;
+            border: 1px solid $paletteGrey3;
 
             &:hover {
-                border: 1px solid #f4ba26;
-                background: #f4ba26;
-                color: black;
+                cursor: default;
+                color: $paletteGrey3;
+                background: transparent;
             }
         }
     }
 
-    & .testButton {
-        width: 104px;
-        height: 33px;
-        background: transparent;
-        cursor: pointer;
+    & .email,
+    .nickname {
+        color: $paletteGrey3;
+        font-size: 0.8rem;
 
-        border: 1px solid #f4ba26;
-        color: #f4ba26;
-        box-sizing: border-box;
-        border-radius: 4px;
+        & input {
+            border: none;
+            border-radius: 4px;
+            background: $paletteGrey1;
+            padding: 0.4rem;
+            margin: 0.4rem 0 0 -0.4rem;
 
-        &:hover {
-            border: 1px solid #f4ba26;
-            background: #f4ba26;
-            color: black;
+            color: $paletteWhite;
+            font-style: 1rem;
+
+            &:disabled {
+                background: transparent;
+            }
         }
+    }
+
+    & .notifications,
+    .autoLaunch {
+        color: $paletteGrey3;
+        font-size: 0.8rem;
+
+        align-self: center;
+
+        & p {
+            color: $paletteWhite;
+            font-size: 1rem;
+        }
+    }
+
+    & .notificationsSwitch,
+    .autoLaunchSwitch {
+        align-self: center;
+        justify-self: end;
     }
 }
 

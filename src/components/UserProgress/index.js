@@ -6,17 +6,24 @@ import { connect } from 'react-redux';
 import Styles from './styles.module.scss';
 
 //Instruments
-import coin from '../../theme/assets/coin.png';
 import { UserStatusChart } from '../_charts/UserStatusChart';
+import beginner from '../../theme/svg/beginner.svg';
+import bronze from '../../theme/svg/bronze.svg';
+import silver from '../../theme/svg/silver.svg';
+import gold from '../../theme/svg/gold.svg';
+import platinum from '../../theme/svg/platinum.svg';
 
 const mapStateToProps = (state) => {
-    const { points, level, start, end } = state.profile.get('tier');
-
+    const { points, level, start, end, color, bonus } = state.profile.get('tier');
     return {
         points,
         level,
         start,
         end,
+        color,
+        bonus,
+        balance: state.profile.get('balance'),
+        bonusBalance: state.profile.get('bonusBalance'),
     };
 };
 
@@ -32,69 +39,62 @@ class UserProgress extends Component {
     };
 
     render() {
-        const { help } = this.state;
-        const { points, level, end } = this.props;
-        const data = [
-            { x: 'Current progress', y: points },
-            { x: 'Goal', y: Math.max(end - points, 0) },
-        ];
+        const { points, level, end, start, balance, bonusBalance, color, bonus } = this.props;
+
+        //kmelct is a lazy dick if you ever wanted to know
+        const pointsToEarn = +end === Infinity ? 0 - points : end - points;
+        const data = [{ x: 'Current progress', y: points }, { x: 'Goal', y: pointsToEarn }];
+
+        //Tiers counting
+        const currentTierPoints = Math.min(points, +end === Infinity ? start : end);
+
+        const medal =
+            level === 'Bronze'
+                ? bronze
+                : level === 'Silver'
+                ? silver
+                : level === 'Gold'
+                ? gold
+                : level === 'Platinum'
+                ? platinum
+                : beginner;
 
         return (
             <>
-                <div className={Styles.titleBox}>Your progress</div>
-                {help ? (
-                    <div className={Styles.infoContainer}>
-                        <ul>
-                            <li>
-                                Level up by earning more coins and spending them on the marketplace
-                            </li>
-                            <li>Each earned coin gives 1 tier point</li>
-                            <li>Each spent coin gives x3 tier points</li>
-                            <li>Each tier gives bonuses to the amount of coins you earn</li>
-                            <li>Follow your progress on the chart!</li>
-                        </ul>
-                        <button className={Styles.legendButton} onClick={this._toggleHelp}>
-                            Got it!
-                        </button>
+                <div className={Styles.container}>
+                    <div className={Styles.chart}>
+                        <UserStatusChart data={data} color={color} />
+                        <img src={medal} alt="" className={Styles.medal} />
                     </div>
-                ) : (
-                    <>
-                        <div className={Styles.chart}>
-                            <UserStatusChart data={data} status={level} />
-                        </div>
-                        <div className={Styles.legend}>
-                            <div className={Styles.legendDatabox}>
-                                <p>Next Tier</p>
-                                <p>
-                                    {end - points > 0 ? (
-                                        <>
-                                            <img
-                                                src={coin}
-                                                alt="coins-pic"
-                                                className={Styles.coinImg}
-                                            />{' '}
-                                            {`${(end - points).toFixed(
-                                                2,
-                                            )} points for the next tier`}
-                                        </>
-                                    ) : (
-                                        `You're already at the top tier!`
-                                    )}
-                                </p>
-                            </div>
-                            <div className={Styles.legendDatabox}>
-                                <p>Your points</p>
-                                <p>
-                                    <img src={coin} alt="coins-pic" className={Styles.coinImg} />
-                                    {points.toFixed(2)}
-                                </p>
-                            </div>
-                        </div>
-                        <button className={Styles.legendButton} onClick={this._toggleHelp}>
-                            How do I level up?
-                        </button>
-                    </>
-                )}
+                    <div className={Styles.chartText}>
+                        <p className={Styles.playerTier}>{level}</p>
+                        <p className={Styles.tierBonus}>
+                            Tier bonus: <span>{bonus}%</span>
+                        </p>
+                    </div>
+                    <div className={Styles.userBalance}>
+                        Your Balance <p>{(+balance + +bonusBalance).toFixed(2)}</p>
+                    </div>
+                    <div className={Styles.nextTier}>
+                        Next tier
+                        <p>
+                            {+currentTierPoints.toFixed(2)}
+                            <span>/{(+end === Infinity ? +start : +end).toFixed(0)}</span>
+                        </p>
+                    </div>
+                    <div className={Styles.moreCoins}>
+                        <p>Feeling hungry for reward?</p>
+                        <p>Buy premium to get more bonuses</p>
+                    </div>
+                    <a
+                        className={Styles.button}
+                        href="https://buff.game/status"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        Learn more
+                    </a>
+                </div>
             </>
         );
     }

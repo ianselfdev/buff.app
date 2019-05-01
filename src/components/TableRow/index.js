@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import Styles from './styles.module.scss';
 
 //Instruments
-import coin from '../../theme/assets/coin.png';
+import coin from '../../theme/svg/coin.svg';
 
 export default class TableRow extends Component {
     render() {
@@ -14,7 +14,7 @@ export default class TableRow extends Component {
             <div
                 className={header ? Styles.headerRow : Styles.tableRow}
                 style={{
-                    borderBottom: `1px solid ${header ? 'green' : 'black'}`,
+                    borderBottom: `${header ? 'none' : '.5px solid #1E1F25'}`,
                 }}
             >
                 {header ? (
@@ -32,7 +32,11 @@ export default class TableRow extends Component {
                                 <div
                                     className={Styles.tableCell}
                                     key={index}
-                                    style={{ color: `${type === 4 || !isConfirmed ? 'red' : ''}` }}
+                                    style={{
+                                        color: `${
+                                            type === 4 || !isConfirmed ? '#DB7B35' : '#49AE51'
+                                        }`,
+                                    }}
                                 >
                                     <img alt="coin" src={coin} />
                                     {item.value}
@@ -41,7 +45,9 @@ export default class TableRow extends Component {
                                 <div
                                     className={Styles.tableCell}
                                     key={index}
-                                    style={{ color: `${type === 4 || !isConfirmed ? 'red' : ''}` }}
+                                    style={{
+                                        color: `${type === 4 || !isConfirmed ? '#DB7B35' : ''}`,
+                                    }}
                                 >
                                     {item.value}
                                 </div>
