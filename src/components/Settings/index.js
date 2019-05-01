@@ -31,6 +31,7 @@ class Settings extends Component {
         emailEditMode: false,
         nickname: '',
         email: '',
+        version: 'DEV_VERSION',
     };
 
     componentDidMount = () => {
@@ -43,6 +44,11 @@ class Settings extends Component {
             email,
             checkedNotifications,
         });
+        try {
+            this._getCurrentAppVersion();
+        } catch (err) {
+            return null;
+        }
     };
 
     _toggleCheckedNotifications = () => {
@@ -122,6 +128,16 @@ class Settings extends Component {
         });
     };
 
+    /*eslint-disable no-undef*/
+    _getCurrentAppVersion = () => {
+        overwolf.extensions.getManifest('caboggillkkpgkiokbjmgldfkedbfnpkgadakcdl', (info) => {
+            this.setState({
+                version: info.meta.version,
+            });
+        });
+    };
+    /*eslint-enable no-undef*/
+
     render() {
         const {
             checkedNotifications,
@@ -130,12 +146,13 @@ class Settings extends Component {
             email,
             nicknameEditMode,
             emailEditMode,
+            version,
         } = this.state;
         const { closeSettings } = this.props;
 
         return (
             <div className={Styles.container}>
-                <p className={Styles.title}>Buff settings</p>
+                <p className={Styles.title}>Buff v.{version}</p>
                 <img src={close} alt="" className={Styles.closeButton} onClick={closeSettings} />
                 <div className={Styles.nickname}>
                     <p>Nickname</p>
