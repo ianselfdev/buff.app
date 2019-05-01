@@ -3,7 +3,7 @@
     "type": "WebApp",
     "meta": {
         "name": "Buff Achievement Tracker",
-        "version": "0.3.4",
+        "version": "0.3.6",
         "minimum-overwolf-version": "0.119.1",
         "author": "buff.game",
         "icon": "IconMouseOver.png",
@@ -34,7 +34,8 @@
         "windows": {
             "index": {
                 "file": "controller.html",
-                "is_background_page": true
+                "is_background_page": true,
+                "is_alt_f4_blocked": true
             },
             "main": {
                 "file": "index.html",
@@ -46,6 +47,7 @@
                 "show_in_taskbar": true,
                 "show_minimize": true,
                 "override_on_update": true,
+                "is_alt_f4_blocked": true,
                 "size": {
                     "width": 1300,
                     "height": 720

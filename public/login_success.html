@@ -126,6 +126,9 @@
         <script>
             (function() {
                 localStorage.setItem('buff-external-auth', window.location.search);
+                setTimeout(() => {
+                    window.close();
+                }, 3000);
             })();
         </script>
     </body>
