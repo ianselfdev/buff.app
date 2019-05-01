@@ -10,6 +10,7 @@ import Styles from './styles.module.scss';
 //Components
 import FirstTimeUX from '../FirstTimeUX';
 import Settings from '../Settings';
+import ReactTooltip from 'react-tooltip';
 
 //Instruments
 import { notifications } from '../_notifications';
@@ -208,19 +209,30 @@ class Navbar extends Component {
                             className={Styles.notificationBlock}
                             onClick={this._handleNotificationsClick}
                         >
-                            <img src={notification} alt="" />
+                            <img
+                                src={notification}
+                                alt=""
+                                data-for="right_tooltip"
+                                data-tip="Notifications"
+                            />
                             <span>Notifications</span>
                         </div>
                         <div className={Styles.settingsBlock} onClick={this._toggleSettings}>
-                            <img src={settings} alt="" />
+                            <img
+                                src={settings}
+                                alt=""
+                                data-for="right_tooltip"
+                                data-tip="Settings"
+                            />
                             <span>Settings</span>
                         </div>
                         <div className={Styles.exitBlock} onClick={logout}>
-                            <ExitToApp />
+                            <ExitToApp data-for="right_tooltip" data-tip="Logout" />
                             <span>Logout</span>
                         </div>
                     </div>
                 </div>
+                <ReactTooltip id="right_tooltip" place="right" type="dark" effect="solid" border />
 
                 {settingsOpened && (
                     <Settings inProp={settingsOpened} closeSettings={this._toggleSettings} />

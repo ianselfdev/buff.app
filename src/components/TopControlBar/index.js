@@ -6,6 +6,7 @@ import Styles from './styles.module.scss';
 
 //Components
 import TopBarLinks from '../TopBarLinks';
+import ReactTooltip from 'react-tooltip';
 
 //Instruments
 import close from '../../theme/svg/close.svg';
@@ -71,10 +72,23 @@ export default class TopControlBar extends Component {
             <div className={Styles.container} onMouseDown={this._onMouseDown}>
                 <img className={Styles.info} src={question} alt="" onClick={this._toggleLinks} />
                 <a href="https://discord.gg/fAhV4SY" target="_blank" rel="noopener noreferrer">
-                    <img className={Styles.discord} src={discord} alt="" />
+                    <img
+                        className={Styles.discord}
+                        src={discord}
+                        alt=""
+                        data-for="bottom_tooltip"
+                        data-tip="Our Discord"
+                    />
                 </a>
                 <img className={Styles.minimize} src={minimize} alt="" onClick={this._minimize} />
                 <img className={Styles.close} src={close} alt="" onClick={this._close} />
+                <ReactTooltip
+                    id="bottom_tooltip"
+                    place="bottom"
+                    type="dark"
+                    effect="solid"
+                    border
+                />
                 {linksOpened && <TopBarLinks />}
             </div>
         );

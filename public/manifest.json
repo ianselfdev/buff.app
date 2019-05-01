@@ -3,7 +3,7 @@
     "type": "WebApp",
     "meta": {
         "name": "Buff Achievement Tracker",
-        "version": "0.3.6",
+        "version": "0.3.7",
         "minimum-overwolf-version": "0.119.1",
         "author": "buff.game",
         "icon": "IconMouseOver.png",
