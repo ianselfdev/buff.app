@@ -53,7 +53,7 @@ const mapDispatchToProps = {
     activateAllBonusesAsync: bonusesActions.activateAllBonusesAsync,
 };
 
-const socket = io();
+// const socket = io();
 
 class Navbar extends Component {
     state = {
@@ -64,24 +64,24 @@ class Navbar extends Component {
     componentDidMount = () => {
         const { getUserDataAsync, refreshTokensAsync, showBonusPopup, isNew } = this.props;
 
-        if (!socket.connected) {
-            socket.open();
-        }
+        // if (!socket.connected) {
+        //     socket.open();
+        // }
 
-        socket.on('success', (data) => {
-            console.log('socket -> success');
-            console.log(data);
-        });
-        socket.on('ERROR', (data) => {
-            console.log('socket -> ERROR');
-            console.log(data);
-        });
-        socket.on('bonus', (data) => {
-            showBonusPopup();
-            console.log('socket -> bonus');
-            console.log(data);
-        });
-        console.log('socket connected ->', socket.connected);
+        // socket.on('success', (data) => {
+        //     console.log('socket -> success');
+        //     console.log(data);
+        // });
+        // socket.on('ERROR', (data) => {
+        //     console.log('socket -> ERROR');
+        //     console.log(data);
+        // });
+        // socket.on('bonus', (data) => {
+        //     showBonusPopup();
+        //     console.log('socket -> bonus');
+        //     console.log(data);
+        // });
+        // console.log('socket connected ->', socket.connected);
 
         if (process.env.NODE_ENV === 'production') {
             //refresh tokens every minute
@@ -107,7 +107,7 @@ class Navbar extends Component {
     };
 
     componentWillUnmount = () => {
-        socket.removeAllListeners();
+        // socket.removeAllListeners();
         console.log('socket listeners removed');
     };
 

@@ -101,6 +101,7 @@ const onInfoUpdates2 = (data) => {
                             console.log('match ended -> getInfo: ', data);
                             matchData = {
                                 ...matchData,
+                                matchId: data.res.game_info.matchId,
                                 gameMode: 'ranked',
                                 neutralMinionKills: data.res.game_info.neutralMinionKills,
                                 gold: data.res.game_info.gold,
