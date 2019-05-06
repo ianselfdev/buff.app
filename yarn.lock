@@ -10755,11 +10755,6 @@ react-app-polyfill@^0.1.3:
     raf "3.4.0"
     whatwg-fetch "3.0.0"
 
-react-detect-offline@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-detect-offline/-/react-detect-offline-2.3.0.tgz#7ff517a85d549ca27a70b3631ca5b18d95d78a06"
-  integrity sha512-PouVMhwCu2PxFe0yzlLa4ChObmjP6bpV0Mm18x98zMR5VRNwBUYQ6KuBgLiKHc7aDD7JpI2QoN0etF7kGXPYCg==
-
 react-dev-utils@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"

@@ -32,10 +32,11 @@ class App extends Component {
         return (
             <>
                 <TopControlBar />
-                <Offline>
+                {/* <Offline>
                     <Public />
                 </Offline>
-                <Online>{isAuthenticated ? <Private /> : <Public />}</Online>
+                <Online>{isAuthenticated ? <Private /> : <Public />}</Online> */}
+                {isAuthenticated ? <Private /> : <Public />}
                 <ToastContainer
                     className="toast-container"
                     progressClassName="toast-progress-line"
