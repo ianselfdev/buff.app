@@ -10,8 +10,8 @@ import LabeledInput from '../LabeledInput';
 import Styles from './styles.module.scss';
 
 //Instruments
-import discordLogoWhite from '../../theme/assets/Discord-Logo-White.png';
-import googleLogoWhite from '../../theme/assets/Google-Logo-White.png';
+import google from '../../theme/svg/google.svg';
+import discord from '../../theme/svg/discord.svg';
 import queryString from 'query-string';
 import gsap from 'gsap';
 
@@ -163,52 +163,65 @@ class Login extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div className={Styles.container} onKeyPress={this._handleEnterPress}>
-                    <p className={Styles.title}>Log in</p>
-                    {inputFields.map((item, index) => (
-                        <LabeledInput
-                            value={item.value}
-                            onChange={item.onChange}
-                            placeholder={item.placeholder}
-                            name={item.name}
-                            type={item.type}
-                            label={item.label}
-                            key={index}
-                        />
-                    ))}
-                    <div className={Styles.functionalContainer}>
-                        <input
-                            type="checkbox"
-                            checked={rememberMe}
-                            className={Styles.checkbox}
-                            onChange={this._toggleRememberMe}
-                        />
-                        <span className={Styles.forgotPassword} onClick={_togglePasswordRecovery}>
-                            Forgot password?
-                        </span>
+                    <div className={Styles.defaultSignIn}>
+                        <p className={Styles.title}>Sign in</p>
+                        {inputFields.map((item, index) => (
+                            <LabeledInput
+                                value={item.value}
+                                onChange={item.onChange}
+                                placeholder={item.placeholder}
+                                name={item.name}
+                                type={item.type}
+                                label={item.label}
+                                key={index}
+                            />
+                        ))}
+                        <div className={Styles.functionalContainer}>
+                            <input
+                                type="checkbox"
+                                checked={rememberMe}
+                                className={Styles.checkbox}
+                                onChange={this._toggleRememberMe}
+                            />
+                            <span
+                                className={Styles.forgotPassword}
+                                onClick={_togglePasswordRecovery}
+                            >
+                                Forgot password?
+                            </span>
+                        </div>
+                        <div className={Styles.buttonsContainer}>
+                            <button onClick={this._handleLogin}>Sign in</button>
+                            <button onClick={loginDemo}>Try demo</button>
+                        </div>
+                        <p className={Styles.accountCreation}>
+                            Don't have an account?{' '}
+                            <span onClick={_toggleRegistration}>Create an account</span>
+                        </p>
                     </div>
-                    <div className={Styles.buttonsContainer}>
-                        <button onClick={this._handleLogin}>Log in</button>
-                        <button onClick={loginDemo}>Try demo</button>
-                    </div>
-                    <p className={Styles.accountCreation}>
-                        Don't have an account?{' '}
-                        <span onClick={_toggleRegistration}>Create an account</span>
-                    </p>
-                    <p className={Styles.signInOptions}>Other sign in options:</p>
-                    <div className={Styles.socialContainer}>
-                        <a
-                            href="http://18.188.224.32:6002/api/accounts/login/discord"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img src={discordLogoWhite} alt="discord login" />
-                        </a>
+                    <div className={Styles.socialSignIn}>
+                        <div className={Styles.title}>
+                            <p>Or sign in with socials</p>
+                        </div>
                         <a
                             href="http://18.188.224.32:6002/api/accounts/login/google"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            <img src={googleLogoWhite} alt="google login" />
+                            <div className={`${Styles.button} ${Styles.google}`}>
+                                <img src={google} />
+                                Sign in with Google
+                            </div>
+                        </a>
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/discord"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div className={`${Styles.button} ${Styles.discord}`}>
+                                <img src={discord} />
+                                Sign in with Discord
+                            </div>
                         </a>
                     </div>
                 </div>

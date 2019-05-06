@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Analytics } from '../analytics';
-import { Offline, Online } from 'react-detect-offline';
 
 //Components
 import { TopControlBar } from '../components';
@@ -32,10 +31,6 @@ class App extends Component {
         return (
             <>
                 <TopControlBar />
-                {/* <Offline>
-                    <Public />
-                </Offline>
-                <Online>{isAuthenticated ? <Private /> : <Public />}</Online> */}
                 {isAuthenticated ? <Private /> : <Public />}
                 <ToastContainer
                     className="toast-container"

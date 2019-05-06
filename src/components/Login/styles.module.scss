@@ -6,129 +6,177 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
-    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 90%;
+
+    padding: 1rem 0 0;
 
     opacity: 0;
 
-    & .title {
-        margin-bottom: 1rem;
-    }
+    & .defaultSignIn {
+        width: 70%;
 
-    & .functionalContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 1rem auto;
-
-        & .checkbox {
-            width: 5%;
-            height: 1.3rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-
-            &:after {
-                content: 'Remember me';
-                margin: 0 1.2rem 0;
-                font-size: 0.8rem;
-                line-height: 1.3rem;
-                color: $paletteGrey3;
-                white-space: nowrap;
-            }
+        & .title {
+            margin-bottom: 1rem;
         }
 
-        & .forgotPassword {
-            cursor: pointer;
-            font-size: 0.8rem;
-            color: $paletteGrey3;
-            text-decoration: underline;
+        & .functionalContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem auto;
 
-            &:hover {
-                color: $paletteGreen1;
-            }
-        }
-    }
+            & .checkbox {
+                width: 5%;
+                height: 1.3rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                display: block;
 
-    & .buttonsContainer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 1rem auto;
-
-        & button {
-            cursor: pointer;
-
-            width: 49%;
-
-            background: transparent;
-
-            padding: 0.8rem 0;
-
-            border-radius: 4px;
-
-            &:first-of-type {
-                border: 1px solid $paletteGreen2;
-                color: $paletteGreen2;
-
-                &:hover {
-                    background: $paletteGreen2;
-                    color: $paletteGrey1;
+                &:after {
+                    content: 'Remember me';
+                    margin: 0 1.2rem 0;
+                    font-size: 0.8rem;
+                    line-height: 1.3rem;
+                    color: $paletteGrey3;
+                    white-space: nowrap;
                 }
             }
 
-            &:last-of-type {
-                border: 1px solid $paletteGrey3;
+            & .forgotPassword {
+                cursor: pointer;
+                font-size: 0.8rem;
                 color: $paletteGrey3;
+                text-decoration: underline;
 
                 &:hover {
+                    color: $paletteGreen1;
+                }
+            }
+        }
+
+        & .buttonsContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem auto;
+
+            & button {
+                cursor: pointer;
+
+                width: 49%;
+
+                background: transparent;
+
+                padding: 0.8rem 0;
+
+                border-radius: 4px;
+
+                &:first-of-type {
                     border: 1px solid $paletteGreen2;
                     color: $paletteGreen2;
+
+                    &:hover {
+                        background: $paletteGreen2;
+                        color: $paletteGrey1;
+                    }
                 }
+
+                &:last-of-type {
+                    border: 1px solid $paletteGrey3;
+                    color: $paletteGrey3;
+
+                    &:hover {
+                        border: 1px solid $paletteGreen2;
+                        color: $paletteGreen2;
+                    }
+                }
+            }
+        }
+
+        & .accountCreation {
+            font-size: 0.8rem;
+            color: $paletteGrey3;
+
+            & span {
+                cursor: pointer;
+
+                color: $paletteGreen1;
+                text-decoration: underline;
             }
         }
     }
 
-    & .accountCreation {
-        font-size: 0.8rem;
-        color: $paletteGrey3;
+    & .socialSignIn {
+        width: 100%;
 
-        & span {
-            cursor: pointer;
-
-            color: $paletteGreen1;
-            text-decoration: underline;
-        }
-    }
-
-    & .signInOptions {
-        margin: 1.5rem 0 0.5rem;
-        font-size: 0.8rem;
-        color: $paletteGrey3;
-    }
-
-    & .socialContainer {
         display: flex;
-        justify-content: flex-start;
-        margin: 0.5rem 0;
+        flex-direction: column;
+        align-items: center;
 
-        & img {
-            cursor: pointer;
+        & .title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-            border: 1px solid white;
+            width: 100%;
+
+            border-bottom: 1px solid $paletteGrey3;
+
+            height: 1rem;
+
+            margin: 0 0 2rem;
+
+            & p {
+                color: $paletteGrey3;
+                font-size: 0.9rem;
+
+                background: $paletteGrey2;
+                padding: 0 0.5rem;
+
+                margin-bottom: -1rem;
+            }
+        }
+
+        & .button {
+            margin: 0 0 0.5rem;
+            padding: 0.5rem 5rem 0.5rem 1rem;
+
             border-radius: 4px;
 
-            padding: 0.4rem;
-            width: 2.2rem;
-            height: 2.2rem;
-            margin-right: 0.5rem;
+            color: white;
+            font-size: 0.8rem;
 
-            filter: brightness(35%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            & img {
+                width: 1.5rem;
+                height: 1.5rem;
+
+                margin: 0 3rem 0 0;
+            }
+        }
+
+        & .google {
+            background: #f34a38;
 
             &:hover {
-                -webkit-filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg)
-                    saturate(1000%) contrast(0.5);
-                filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg)
-                    saturate(1000%) contrast(0.5);
+                background: #ec6051;
+            }
+        }
+
+        & .discord {
+            background: #7289da;
+
+            &:hover {
+                background: #7587ca;
             }
         }
     }
