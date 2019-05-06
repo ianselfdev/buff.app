@@ -10,6 +10,8 @@ import LabeledInput from '../LabeledInput';
 import Styles from './styles.module.scss';
 
 //Instruments
+import google from '../../theme/svg/google.svg';
+import discord from '../../theme/svg/discord.svg';
 import arrow from '../../theme/svg/arrow-left.svg';
 import gsap from 'gsap';
 import { Analytics } from '../../analytics';
@@ -27,7 +29,6 @@ class Registration extends Component {
     state = {
         login: '',
         confPassword: '',
-        confEmail: '',
         email: '',
         password: '',
         referral: '',
@@ -100,17 +101,15 @@ class Registration extends Component {
     render() {
         const { closeRegistration } = this.props;
 
-        const { login, email, password, confEmail, confPassword, referral } = this.state;
+        const { login, email, password, confPassword, referral } = this.state;
 
         const inputsValid =
             login.length >= 6 &&
             login.length <= 18 &&
-            email === confEmail &&
             ((referral.length >= 7 && referral.length <= 14) || referral.length === 0) &&
             password === confPassword &&
             email.length > 0 &&
             password.length > 6 &&
-            confEmail.length > 0 &&
             confPassword.length > 0;
 
         const inputFields = [
@@ -129,14 +128,6 @@ class Registration extends Component {
                 type: 'email',
                 label: 'Email *',
                 isValid: email.includes('@') || email.length === 0,
-            },
-            {
-                value: confEmail,
-                onChange: this._handleInput,
-                name: 'confEmail',
-                type: 'email',
-                label: 'Confirm email *',
-                isValid: email === confEmail || confEmail.length === 0,
             },
             {
                 value: password,
@@ -174,39 +165,73 @@ class Registration extends Component {
                 onExit={this._animateExitingComponent}
             >
                 <div className={Styles.container}>
-                    <p className={Styles.title}>
-                        <img src={arrow} alt="back to login" onClick={closeRegistration} />
-                        Sign up
-                    </p>
-                    {inputFields.map((item, index) => (
-                        <LabeledInput
-                            value={item.value}
-                            onChange={item.onChange}
-                            placeholder={item.placeholder}
-                            name={item.name}
-                            type={item.type}
-                            label={item.label}
-                            isValid={item.isValid}
-                            key={index}
-                        />
-                    ))}
-                    <button
-                        className={Styles.button}
-                        onClick={this._handleRegistration}
-                        disabled={!inputsValid}
-                    >
-                        Sign up
-                    </button>
-                    <p className={Styles.termsAndConditions}>
-                        By clicking "Sign Up" button, you agree to our&nbsp;
-                        <a
-                            href="https://buff.game/website-terms-of-use/"
-                            rel="noreferrer noopener"
-                            target="_blank"
+                    <div className={Styles.defaultSignUp}>
+                        <p className={Styles.title}>
+                            <img src={arrow} alt="back to login" onClick={closeRegistration} />
+                            Sign up
+                        </p>
+                        {inputFields.map((item, index) => (
+                            <LabeledInput
+                                value={item.value}
+                                onChange={item.onChange}
+                                placeholder={item.placeholder}
+                                name={item.name}
+                                type={item.type}
+                                label={item.label}
+                                isValid={item.isValid}
+                                style={
+                                    item.name === 'password'
+                                        ? { width: '49%', marginRight: '1%' }
+                                        : item.name === 'confPassword'
+                                        ? { width: '49%', marginLeft: '1%' }
+                                        : {}
+                                }
+                                key={index}
+                            />
+                        ))}
+                        <button
+                            className={Styles.button}
+                            onClick={this._handleRegistration}
+                            disabled={!inputsValid}
                         >
-                            Terms and Conditions
+                            Sign up
+                        </button>
+                        <p className={Styles.termsAndConditions}>
+                            By clicking "Sign Up" button, you agree to our&nbsp;
+                            <a
+                                href="https://buff.game/website-terms-of-use/"
+                                rel="noreferrer noopener"
+                                target="_blank"
+                            >
+                                Terms and Conditions
+                            </a>
+                        </p>
+                    </div>
+                    <div className={Styles.socialSignUp}>
+                        <div className={Styles.title}>
+                            <p>Or sign up with socials</p>
+                        </div>
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/google"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div className={`${Styles.button} ${Styles.google}`}>
+                                <img src={google} alt="" />
+                                Sign up with Google
+                            </div>
                         </a>
-                    </p>
+                        <a
+                            href="http://18.188.224.32:6002/api/accounts/login/discord"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div className={`${Styles.button} ${Styles.discord}`}>
+                                <img src={discord} alt="" />
+                                Sign up with Discord
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </Transition>
         );

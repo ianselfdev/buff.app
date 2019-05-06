@@ -209,7 +209,7 @@ class Login extends Component {
                             rel="noopener noreferrer"
                         >
                             <div className={`${Styles.button} ${Styles.google}`}>
-                                <img src={google} />
+                                <img src={google} alt="" />
                                 Sign in with Google
                             </div>
                         </a>
@@ -219,7 +219,7 @@ class Login extends Component {
                             rel="noopener noreferrer"
                         >
                             <div className={`${Styles.button} ${Styles.discord}`}>
-                                <img src={discord} />
+                                <img src={discord} alt="" />
                                 Sign in with Discord
                             </div>
                         </a>

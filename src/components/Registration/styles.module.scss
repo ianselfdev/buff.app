@@ -6,62 +6,150 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
-    width: 70%;
+    width: 100%;
 
     opacity: 0;
 
-    & .title {
-        margin-left: -2rem;
+    & .defaultSignUp {
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 0%);
 
-        & img {
+        width: 70%;
+
+        display: flex;
+        flex-wrap: wrap;
+
+        & .title {
+            margin-left: -2rem;
+            grid-row: 1;
+            grid-column: 1 / 3;
+
+            & img {
+                cursor: pointer;
+                margin-right: 1rem;
+
+                /* fucking svg has fucking few px bottom fucking padding */
+                position: relative;
+                top: 0.2rem;
+            }
+        }
+
+        & .button {
             cursor: pointer;
-            margin-right: 1rem;
 
-            /* fucking svg has fucking few px bottom fucking padding */
-            position: relative;
-            top: 0.2rem;
-        }
-    }
+            width: 100%;
 
-    & .button {
-        cursor: pointer;
-        width: 100%;
+            margin: 1rem 0;
+            padding: 0.8rem;
 
-        margin-top: 1rem;
-        padding: 0.8rem;
+            background: transparent;
+            border: 1px solid $paletteGreen2;
+            border-radius: 4px;
 
-        background: transparent;
-        border: 1px solid $paletteGreen2;
-        border-radius: 4px;
-
-        color: $paletteGreen2;
-
-        &:hover {
-            background: $paletteGreen2;
-            color: $paletteGrey1;
-        }
-
-        &:disabled {
-            cursor: not-allowed;
-            background: $paletteGrey1;
-            border: 1px solid $paletteGrey1;
-            color: $paletteGrey3;
-        }
-    }
-
-    & .termsAndConditions {
-        margin-top: 0.7rem;
-        text-align: center;
-        font-size: 0.8rem;
-
-        color: $paletteGrey3;
-
-        & a {
-            color: $paletteGreen1;
-            text-decoration: underline;
+            color: $paletteGreen2;
 
             &:hover {
-                color: $paletteGreen2;
+                background: $paletteGreen2;
+                color: $paletteGrey1;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                background: $paletteGrey1;
+                border: 1px solid $paletteGrey1;
+                color: $paletteGrey3;
+            }
+        }
+
+        & .termsAndConditions {
+            width: 90%;
+
+            text-align: center;
+            font-size: 0.7rem;
+
+            margin: 0 auto 0.5rem;
+
+            color: $paletteGrey3;
+
+            & a {
+                color: $paletteGreen1;
+                text-decoration: underline;
+
+                &:hover {
+                    color: $paletteGreen2;
+                }
+            }
+        }
+    }
+
+    & .socialSignUp {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & .title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+
+            border-bottom: 1px solid $paletteGrey3;
+
+            height: 1rem;
+
+            margin: 0 0 1.5rem;
+
+            & p {
+                color: $paletteGrey3;
+                font-size: 0.9rem;
+
+                background: $paletteGrey2;
+                padding: 0 0.5rem;
+
+                margin-bottom: -1rem;
+            }
+        }
+
+        & .button {
+            margin: 0 0 0.5rem;
+            padding: 0.5rem 5rem 0.5rem 1rem;
+
+            border-radius: 4px;
+
+            color: white;
+            font-size: 0.8rem;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            & img {
+                width: 1.5rem;
+                height: 1.5rem;
+
+                margin: 0 3rem 0 0;
+            }
+        }
+
+        & .google {
+            background: #f34a38;
+
+            &:hover {
+                background: #ec6051;
+            }
+        }
+
+        & .discord {
+            background: #7289da;
+
+            &:hover {
+                background: #7587ca;
             }
         }
     }
