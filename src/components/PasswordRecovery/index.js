@@ -238,7 +238,7 @@ class PasswordRecovery extends Component {
                             className={Styles.button}
                             disabled={!inputValid}
                         >
-                            Send code
+                            {page === 1 ? 'Send code' : 'Change password'}
                         </button>
                     </div>
                 </Transition>
