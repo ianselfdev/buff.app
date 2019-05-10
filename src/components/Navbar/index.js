@@ -10,6 +10,7 @@ import Styles from './styles.module.scss';
 //Components
 import FirstTimeUX from '../FirstTimeUX';
 import Settings from '../Settings';
+import ReactTooltip from 'react-tooltip';
 
 //Instruments
 import { notifications } from '../_notifications';
@@ -52,7 +53,7 @@ const mapDispatchToProps = {
     activateAllBonusesAsync: bonusesActions.activateAllBonusesAsync,
 };
 
-const socket = io();
+// const socket = io();
 
 class Navbar extends Component {
     state = {
@@ -63,24 +64,24 @@ class Navbar extends Component {
     componentDidMount = () => {
         const { getUserDataAsync, refreshTokensAsync, showBonusPopup, isNew } = this.props;
 
-        if (!socket.connected) {
-            socket.open();
-        }
+        // if (!socket.connected) {
+        //     socket.open();
+        // }
 
-        socket.on('success', (data) => {
-            console.log('socket -> success');
-            console.log(data);
-        });
-        socket.on('ERROR', (data) => {
-            console.log('socket -> ERROR');
-            console.log(data);
-        });
-        socket.on('bonus', (data) => {
-            showBonusPopup();
-            console.log('socket -> bonus');
-            console.log(data);
-        });
-        console.log('socket connected ->', socket.connected);
+        // socket.on('success', (data) => {
+        //     console.log('socket -> success');
+        //     console.log(data);
+        // });
+        // socket.on('ERROR', (data) => {
+        //     console.log('socket -> ERROR');
+        //     console.log(data);
+        // });
+        // socket.on('bonus', (data) => {
+        //     showBonusPopup();
+        //     console.log('socket -> bonus');
+        //     console.log(data);
+        // });
+        // console.log('socket connected ->', socket.connected);
 
         if (process.env.NODE_ENV === 'production') {
             //refresh tokens every minute
@@ -106,7 +107,7 @@ class Navbar extends Component {
     };
 
     componentWillUnmount = () => {
-        socket.removeAllListeners();
+        // socket.removeAllListeners();
         console.log('socket listeners removed');
     };
 
@@ -208,19 +209,30 @@ class Navbar extends Component {
                             className={Styles.notificationBlock}
                             onClick={this._handleNotificationsClick}
                         >
-                            <img src={notification} alt="" />
+                            <img
+                                src={notification}
+                                alt=""
+                                data-for="right_tooltip"
+                                data-tip="Notifications"
+                            />
                             <span>Notifications</span>
                         </div>
                         <div className={Styles.settingsBlock} onClick={this._toggleSettings}>
-                            <img src={settings} alt="" />
+                            <img
+                                src={settings}
+                                alt=""
+                                data-for="right_tooltip"
+                                data-tip="Settings"
+                            />
                             <span>Settings</span>
                         </div>
                         <div className={Styles.exitBlock} onClick={logout}>
-                            <ExitToApp />
+                            <ExitToApp data-for="right_tooltip" data-tip="Logout" />
                             <span>Logout</span>
                         </div>
                     </div>
                 </div>
+                <ReactTooltip id="right_tooltip" place="right" type="dark" effect="solid" border />
 
                 {settingsOpened && (
                     <Settings inProp={settingsOpened} closeSettings={this._toggleSettings} />

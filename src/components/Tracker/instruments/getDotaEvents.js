@@ -134,6 +134,7 @@ const onNewEvents = (data) => {
                 case 'match_ended':
                     matchData = {
                         ...matchData,
+                        matchId: info.match_id,
                         kda: (matchData.kills + matchData.assists) / (matchData.deaths || 1),
                         victory: matchData.playerTeam === info.winner,
                     };

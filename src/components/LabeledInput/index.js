@@ -41,10 +41,19 @@ export default class LabeledInput extends Component {
     };
 
     render() {
-        const { value, onChange, placeholder, name, type, label, isValid = true } = this.props;
+        const {
+            value,
+            onChange,
+            placeholder,
+            name,
+            type,
+            label,
+            style,
+            isValid = true,
+        } = this.props;
 
         return (
-            <div className={Styles.div}>
+            <div className={Styles.div} style={style}>
                 <Transition
                     in={value.length > 0}
                     timeout={200}

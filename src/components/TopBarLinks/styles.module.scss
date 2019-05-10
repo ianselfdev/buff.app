@@ -1,0 +1,36 @@
+@import '../../theme/palette.scss';
+
+.container {
+    position: absolute;
+    right: 4rem;
+    top: 2.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.3rem;
+    border: 1px solid $paletteGrey3;
+    border-radius: 8px;
+
+    background: $paletteGrey1;
+
+    & .link {
+        cursor: pointer;
+
+        padding: 0.3rem 0.2rem;
+
+        font-size: 0.8rem;
+        color: $paletteGrey3;
+        text-decoration: none;
+
+        border-bottom: 1px solid $paletteGrey3;
+
+        &:hover {
+            color: $paletteWhite;
+        }
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+    }
+}

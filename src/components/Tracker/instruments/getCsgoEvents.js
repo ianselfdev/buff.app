@@ -17,17 +17,11 @@ const features = [
     'round_start',
     'match_start',
     'match_end',
-    'team_round_win',
-    'bomb_planted',
-    'bomb_change',
-    'reloading',
     'fired',
-    'weapon_change',
-    'weapon_acquired',
     'info',
     'roster',
-    'player_activity_change',
     'team_set',
+    'player_activity_change',
 ];
 
 const matchData = {
@@ -57,19 +51,22 @@ const onNewEvents = (data) => {
                 case 'match_start':
                     console.log(`event -> match_start ->`, JSON.parse(event.data));
 
-                    overwolf.games.events.getInfo((info) => {
-                        console.log('match started -> getInfo: ', info);
-                        const botMatch = JSON.parse(info.res.roster.match).players.length === 0;
+                    // setTimeout(() => {
+                    //     overwolf.games.events.getInfo((info) => {
+                    //         console.log('match started -> getInfo: ', info);
+                    //         // const botMatch = JSON.parse(info.res.roster.match).players.length === 0;
 
-                        if (botMatch) {
-                            console.log('Bots match detected');
-                        }
-                        const startGameData = {
-                            gameId: '7764',
-                            matchId: botMatch ? '0' : matchData.matchId,
-                        };
-                        _sendStartGameTrs(startGameData);
-                    });
+                    //         // if (botMatch) {
+                    //         //     console.log('Bots match detected');
+                    //         // }
+                    //         const startGameData = {
+                    //             gameId: '7764',
+                    //             matchId: matchData.matchId,
+                    //             // matchId: botMatch ? '0' : matchData.matchId,
+                    //         };
+                    //         _sendStartGameTrs(startGameData);
+                    // //     });
+                    // }, 30000);
                     break;
                 case 'kill':
                     matchData.kills++;
@@ -83,64 +80,27 @@ const onNewEvents = (data) => {
                 case 'headshot':
                     matchData.headshots++;
                     break;
-                case 'bomb_planted':
-                    console.log('event -> bomb_planted');
-                    break;
-                case 'bomb_change':
-                    break;
                 case 'fired':
-                    console.log('c%EVENT -> FIRED', 'color:red');
-                    _sendCsgoEvent({
-                        event: event.name,
-                        data: event.name,
-                    });
-                    break;
-                case 'reloading':
-                    // _sendCsgoEvent({
-                    //     event: event.name,
-                    //     data: event.name,
-                    // });
-                    break;
-                case 'weapon_change':
-                    // _sendCsgoEvent({
-                    //     event: event.name,
-                    //     data: event.name,
-                    // });
-                    break;
-                case 'weapon_acquired':
-                    // console.log(`event -> weapon_acquired ->`, JSON.parse(event.data));
                     // _sendCsgoEvent({
                     //     event: event.name,
                     //     data: event.name,
                     // });
                     break;
                 case 'round_start':
-                    console.log('c%EVENT -> ROUND_START', 'color:red');
-
-                    // console.log(`event -> round start ->`, JSON.parse(event.data));
-                    _sendCsgoEvent({
-                        event: event.name,
-                        data: event.name,
-                    });
+                    // console.log('EVENT -> ROUND_START');
+                    // _sendCsgoEvent({
+                    //     event: event.name,
+                    //     data: event.name,
+                    // });
                     break;
                 case 'team_set':
-                    console.log('c%EVENT -> TEAM_SET', 'color:red');
-
-                    // console.log(`event -> team_set ->`, JSON.parse(event.data));
-                    _sendCsgoEvent({
-                        event: event.name,
-                        data: event.name,
-                    });
+                    // _sendCsgoEvent({
+                    //     event: event.name,
+                    //     data: event.name,
+                    // });
                     break;
-                case 'player_activity_change':
-                    // console.log(`event -> player_activity_change ->`, JSON.parse(event.data));
-                    break;
-                case 'team_round_win':
-                    // console.log(`event -> team round win ->`, JSON.parse(event.data));
-                    break;
-
                 case 'match_end':
-                    console.log(`event -> match_end ->`, JSON.parse(event.data));
+                    // console.log(`event -> match_end ->`, JSON.parse(event.data));
                     const endGameData = {
                         matchData,
                         gameId: '7764',
@@ -151,7 +111,7 @@ const onNewEvents = (data) => {
                     break;
 
                 default:
-                    console.log('c%UNHANDLED EVENT ----> ', 'color:red');
+                    console.log('UNHANDLED EVENT ----> ');
                     console.log(event.name);
                     console.log(event);
                     return;
@@ -161,6 +121,8 @@ const onNewEvents = (data) => {
 };
 
 const onInfoUpdates2 = (data) => {
+    console.log('onInfoUpdates2 ->', data);
+
     if (data.info.player === undefined) return null;
 
     if (data.info.player.totalMvps !== undefined) {
@@ -175,9 +137,6 @@ const onInfoUpdates2 = (data) => {
         console.log('score ->', data.info.player.score);
         matchData.score = Math.max(matchData.score, data.info.player.score);
     }
-    // if (data.info.roster) {
-    //     console.log('roster ->', data.info.roster);
-    // }
 };
 
 //setting listeners for OW events
